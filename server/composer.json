@@ -1,0 +1,10 @@
+{
+    "require-dev": {
+        "phpspec/phpspec": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lenken\\": "app/"
+        }
+    }
+}
