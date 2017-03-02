@@ -1,0 +1,28 @@
+version: '2.1'
+
+services:
+  nginx:
+    image: nginx:latest
+    command: nginx -g "daemon off;"
+    ports:
+      - "8050:80"
+    volumes:
+      - ./server/public:/usr/src/public
+      - ./server/nginx.conf:/etc/nginx/conf.d/default.conf
+  api:
+    build: ./server
+    working_dir: /usr/src/
+    command: php-fpm
+    ports:
+      - "9000:9000"
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: lumen
+      MYSQL_USER: lumen
+      MYSQL_PASSWORD: secret
+  cache:
+    image: redis:3.0
