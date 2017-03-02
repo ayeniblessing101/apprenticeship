@@ -20,7 +20,7 @@
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdisk
 
 # env vars 
 client/.env
+.apdisk

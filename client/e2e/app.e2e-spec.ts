@@ -1,10 +1,10 @@
-import { LenkenPage } from './app.po';
+import { ClientPage } from './app.po';
 
-describe('lenken App', function() {
-  let page: LenkenPage;
+describe('client App', () => {
+  let page: ClientPage;
 
   beforeEach(() => {
-    page = new LenkenPage();
+    page = new ClientPage();
   });
 
   it('should display message saying app works', () => {
