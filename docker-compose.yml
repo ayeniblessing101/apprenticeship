@@ -1,6 +1,11 @@
 version: '2.1'
 
 services:
+  client:
+    image: ./client
+    ports:
+      - "4200:4200"
+    command: npm start:prod
   nginx:
     image: nginx:latest
     command: nginx -g "daemon off;"

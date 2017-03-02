@@ -13,6 +13,9 @@ COPY . /usr/src/app
 # Install dependecies
 RUN npm install
 
+# Build the application
+RUN ng build
+
 # Expose the port the app runs in
 EXPOSE 4200
 
