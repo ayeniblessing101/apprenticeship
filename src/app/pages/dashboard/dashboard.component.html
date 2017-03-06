@@ -1,0 +1,165 @@
+<div id="app-container">
+  <nav class="app-header">
+    <div class="top-level-nav">
+
+        <div class="logo">
+          <a href="#">
+            <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
+          </a>
+        </div>
+        <div class="app-name">
+          <h1>Lenken</h1>
+        </div>
+
+        <div class="user-options-group">
+          <div style="background-image: url('https://lh5.googleusercontent.com/-AEClvo9rM6Y/AAAAAAAAAAI/AAAAAAAAAAo/b8T3wMTvlKs/photo.jpg?sz=50')" alt="avatar" class="avatar"></div>
+          <a class="activate-dropdown" href="#!" data-activates="menu-dropdown">
+              <p>Kesiena</p>
+              <i class="material-icons right">arrow_drop_down</i>
+          </a>
+          <ul id="menu-dropdown" class="dropdown-content">
+              <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+    </div>
+    <div class="sub-level-nav">
+        <div class="sub-menu-items">
+          <a class="active" href="#">Home</a>
+          <a href="#">Mentor</a>
+          <a href="#">Mentee</a>
+        </div>
+
+        <div id="btn-request-container">
+          <button md-raised-button class="md-btn-andela-pink">REQUEST MENTOR</button>
+        </div>
+    </div>
+  </nav>
+  <div class="app-partial-outlet">
+    <div class="and-list-filter-container">
+      <div class="and-filter">
+        <div class="filter-group">
+          <div class="header">
+            <i class="material-icons right">expand_less</i>
+            <h4>Primary</h4>
+          </div>
+          <ul>
+            <li>
+              <md-checkbox color="primary">Angular</md-checkbox>
+            </li>
+            <li>
+              <md-checkbox>Php</md-checkbox>
+            </li>
+            <li>
+              <md-checkbox>Python</md-checkbox>
+            </li>
+          </ul>
+        </div>
+        <div class="filter-group">
+          <div class="header">
+            <i class="material-icons right">expand_more</i>
+            <h4>Interested</h4>
+          </div>
+        </div>
+        <div class="filter-group">
+          <div class="header">
+            <i class="material-icons right">expand_more</i>
+            <h4>Open</h4>
+          </div>
+        </div>
+        <div class="filter-group">
+          <div class="header">
+            <i class="material-icons right">expand_more</i>
+            <h4>Matched</h4>
+          </div>
+        </div>
+        <div class="filter-group">
+          <div class="header">
+            <i class="material-icons right">expand_more</i>
+            <h4>Cancelled</h4>
+          </div>
+        </div>
+      </div>
+      <div class="and-list">
+        <div class="and-table-container">
+          <!--Table Header-->
+          <div class="and-table-head-row">
+            <div class="and-table-heading and-table-col-50">
+              REQUESTS
+            </div>
+            <div class="and-table-heading and-table-col-30">
+              PRIMARY SKILLS
+            </div>
+            <div class="and-table-heading and-table-col-20">
+              INTERESTED
+            </div>
+          </div>
+
+          <!--Table Row-->
+          <div class="and-table-row">
+            <div class="and-table-content and-table-col-50">
+              <p>I have a major blocker configuring nginx</p>
+            </div>
+            <div class="and-table-content and-table-col-30">
+              <p>PostGres, Mysql, Redis</p>
+            </div>
+            <div class="and-table-content and-table-col-20">
+              <a href="#">3 Interested</a>
+            </div>
+          </div>
+
+          <!--Table Row-->
+          <div class="and-table-row">
+            <div class="and-table-content and-table-col-50">
+              <p>How do I configure an Angular 2 app with Webpack?</p>
+            </div>
+            <div class="and-table-content and-table-col-30">
+              <p>Angular, Webpack</p>
+            </div>
+            <div class="and-table-content and-table-col-20">
+              <a href="#">10 Interested</a>
+            </div>
+          </div>
+
+          <!--Table Row-->
+          <div class="and-table-row">
+            <div class="and-table-content and-table-col-50">
+              <p>I have a lient working with ReactJS, I need help configuring my stores with Redux</p>
+            </div>
+            <div class="and-table-content and-table-col-30">
+              <p>Redux, React Webpack</p>
+            </div>
+            <div class="and-table-content and-table-col-20">
+              <a href="#">5 Interested</a>
+            </div>
+          </div>
+
+          <!--Table Row-->
+          <div class="and-table-row">
+            <div class="and-table-content and-table-col-50">
+              <p>Need long term mentor for microservices</p>
+            </div>
+            <div class="and-table-content and-table-col-30">
+              <p>Microservices, gRPC</p>
+            </div>
+            <div class="and-table-content and-table-col-20">
+              <a href="#">15 Interested</a>
+            </div>
+          </div>
+
+          <!--Table Row-->
+          <div class="and-table-row">
+            <div class="and-table-content and-table-col-50">
+              <p>How does one configure multi container environment with docker-compose</p>
+            </div>
+            <div class="and-table-content and-table-col-30">
+              <p>Redux, React Webpack</p>
+            </div>
+            <div class="and-table-content and-table-col-20">
+              <a href="#">13 Interested</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

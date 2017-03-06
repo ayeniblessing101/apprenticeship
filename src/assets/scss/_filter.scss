@@ -1,0 +1,33 @@
+@import 'mixins';
+
+.and-filter {
+  padding: 1rem;
+  box-sizing: border-box;
+  border: 3px solid $grey-light-500;
+
+  .filter-group {
+    margin-bottom: 20px;
+    .header {
+      display: flex;
+
+      i {color: $filter-top-level;}
+      h4 {
+        margin: 0;
+        padding-top: 2px;
+        color: $filter-top-level;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      padding-left: 2rem;
+
+      li {
+        list-style: none;
+        font-size: 0.85rem;
+        color: $filter-sub-level;
+      }
+    }
+  }
+}

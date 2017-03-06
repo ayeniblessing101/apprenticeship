@@ -1,0 +1,28 @@
+@mixin default_card_shadow {
+  -webkit-box-shadow: 4px 3px 3px -1px rgba(0,0,0,0.08);
+  -moz-box-shadow: 4px 3px 3px -1px rgba(0,0,0,0.08);
+  box-shadow: 4px 3px 3px -1px rgba(0,0,0,0.08);
+}
+
+@mixin flex {
+  display: flex;
+  flex: 1;
+}
+
+@mixin flex_column{
+  @include flex;
+
+  flex-direction: column;
+}
+
+@mixin flex_column_center{
+  @include flex_column;
+
+  justify-content: center;
+}
+
+@mixin flex_row_center{
+  @include flex;
+
+  justify-content: center;
+}
