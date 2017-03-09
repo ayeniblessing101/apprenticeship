@@ -3,11 +3,11 @@
 body {
   background: $andela-blue;
   font-family: Roboto;
-  padding: 1rem; 
+  padding: 1rem;
 }
 
 #wrapper {
-  position: relative; 
+  position: relative;
   background: $andela-blue;
   width: 100vw;
   height: 100vh;
@@ -44,7 +44,7 @@ h5 {
   width: 240px;
   height: 130px;
   margin-left: -120px;
-  margin-top: -106px;  
+  margin-top: -106px;
 }
 
 #main-content a {
@@ -56,7 +56,7 @@ h5 {
 }
 
 h1 {
-  font-size: 32px; 
+  font-size: 32px;
   color: #fff;
   font-weight: normal;
   text-align: center;
@@ -87,12 +87,12 @@ div.login-icon {
   height: 40px;
   border-right: 1px solid #9a9a9a;
   padding-left: 8px;
-  padding-right: 8px; 
+  padding-right: 8px;
 }
 
 .login-icon img {
   width: 24px;
-  margin: 8px; 
+  margin: 8px;
 }
 
 span.login-text {
@@ -112,5 +112,24 @@ span.login-text {
 span {
   font-size: 11px;
   color: #666;
+}
+
+#flash-message {
+  top: 60%;
+  position: absolute;
+  width: 100%;
+}
+
+#flash-message p {
+  text-align: center;
+}
+
+#flash-message p span {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2em;
+  font-size: 0.8em;
+  text-align: center;
+  color: #fefefe;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.6)
 }
 
