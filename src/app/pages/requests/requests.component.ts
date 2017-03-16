@@ -26,7 +26,6 @@ export class RequestsComponent implements OnInit {
     logMultipleString: string = '';
 
     constructor() {
-
         let numOptions = 100;
         let opts = new Array(numOptions);
 
@@ -56,12 +55,12 @@ export class RequestsComponent implements OnInit {
     }
 
     onSingleSelected(item) {
-        this.logSingle('- selected (value: ' + item.value  + ', label:' + 
+        this.logSingle('- selected (value: ' + item.value  + ', label:' +
                        item.label + ')');
     }
 
     onSingleDeselected(item) {
-        this.logSingle('- deselected (value: ' + item.value  + ', label:' + 
+        this.logSingle('- deselected (value: ' + item.value  + ', label:' +
                        item.label + ')');
     }
     onMultipleOpened() {
@@ -73,12 +72,12 @@ export class RequestsComponent implements OnInit {
     }
 
     onMultipleSelected(item) {
-        this.logMultiple('- selected (value: ' + item.value  + ', label:' + 
+        this.logMultiple('- selected (value: ' + item.value  + ', label:' +
                        item.label + ')');
     }
 
     onMultipleDeselected(item) {
-        this.logMultiple('- deselected (value: ' + item.value  + ', label:' + 
+        this.logMultiple('- deselected (value: ' + item.value  + ', label:' +
                        item.label + ')');
     }
 
@@ -88,9 +87,5 @@ export class RequestsComponent implements OnInit {
 
     private logSingle(msg: string) {
         this.logSingleString += msg + '\n';
-        
-        
     }
 }
-
-

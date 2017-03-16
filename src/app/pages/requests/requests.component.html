@@ -1,4 +1,5 @@
 <app-header>
+    <h2>Request For A Mentor</h2>
     <form [formGroup]="form">
             <div>Required Skills</div>
                 <ng-select class="inputHeader"
@@ -32,7 +33,7 @@
                     (deselected)="onSingleDeselected($event)">
 	            </ng-select>
             <div layout="row" class="pairingTime">Pairing Time</div>
-                <label>Start</label>
+                <label class="start-time">Start</label>
                 <input class="timePicker" type="time">
                 <label>End</label>
                 <input class="timePicker" type="time">
@@ -41,7 +42,6 @@
                     <option>WAT</option>
                     <option>EAT</option>
                 </select>
-            <div layout="row">
                 <label>Monday</label>
                 <input type="checkbox">
                 <label>Tuesday</label>
@@ -52,13 +52,12 @@
                 <input type="checkbox">
                 <label>Friday</label>
                 <input type="checkbox">
-            </div>
             <div></div>
                 <md-input-container class="example-full-width">
                     <textarea mdInput placeholder="Description" class ="requestText"></textarea>
                 </md-input-container>
             <div id="btn-request-container">
-                <button md-raised-button type="submit" class="submit">Request Mentor</button>
+                <button md-raised-button type="submit" class="submit">Send Request</button>
             </div>
     </form>
 </app-header>
