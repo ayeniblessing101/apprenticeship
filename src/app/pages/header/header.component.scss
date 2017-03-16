@@ -1,0 +1,141 @@
+@import '../../../assets/scss/buttons';
+@import '../../../assets/scss/table';
+@import '../../../assets/scss/filter';
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Roboto;
+
+  .app-partial-outlet {
+    display: flex;
+    flex: 1;
+    background: $grey-light-200;
+    padding: 2rem 3.8rem;
+  }
+}
+
+.and-list-filter-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .and-filter {
+    flex-basis: 25%;
+    margin-right: 20px;
+  }
+
+  .and-list {
+    flex: 1;
+  }
+}
+
+.top-level-nav {
+  display: flex;
+  background-color: $andela-blue;
+  width: 100vw;
+  height: 60px;
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-right: 2px solid $andela-blue-dark-100;
+
+    a {
+      display: inline-block;
+      margin: 0 auto;
+    }
+  }
+
+  .app-name {
+    flex: 1;
+    padding-left: 12px;
+
+    h1 {
+      color: white;
+      font-weight: 300;
+      margin: 16px 0;
+    }
+  }
+
+  .user-options-group {
+    display: flex;
+    width: 15rem;
+    padding: 5px;
+  }
+
+  #menu-dropdown {
+    display: none;
+  }
+
+  .avatar {
+    background-size: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid $andela-blue-dark-100;
+  }
+
+  .activate-dropdown {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      background-color: darken($andela-blue, 10%);
+      transition: background-color 300ms ease-in;
+    }
+
+    p {flex: 1;}
+  }
+}
+
+.sub-level-nav {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100vw;
+  height: 55px;
+  padding: 0 3.8rem;
+  flex: 1;
+  border-bottom: 1px solid $grey-light-500;
+  box-sizing: border-box;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12),
+    0 3px 1px -2px rgba(0,0,0,0.2);
+
+  .sub-menu-items {
+    flex: 1;
+  }
+
+  #btn-request-container {
+    width: 9.5rem;
+  }
+
+  a {
+    font-family: Roboto;
+    padding: 16px 20px;
+    color: #666;
+    text-decoration: none;
+
+    &:hover , &.active {
+        color: $andela-blue;
+        border-bottom: 3px solid $andela-blue;
+    }
+  }
+}
+
+#container {
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 2rem 3.8rem;
+}

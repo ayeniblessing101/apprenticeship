@@ -1,0 +1,45 @@
+@import '../../../assets/scss/ng-select';
+
+// input {
+// margin-bottom: 30px;
+// }
+.submit {
+    background-color: #e91e63;
+    color: #fff;
+    float: right;
+}
+
+ng-reflect{
+  background-color: red;
+}
+
+div {
+    padding-top: 15px;
+    color: #a9a9a9;
+}
+
+.requestText {
+    width:90vw;
+}
+
+.timePicker {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+#timezone {
+    width: 50px;
+    height: 25px;
+    font-family: Roboto;
+    background-color: white;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+label {
+    font-size: 14px;
+    color: black;
+}
+
+.pairingTime {
+    padding-bottom: 20px;
+}

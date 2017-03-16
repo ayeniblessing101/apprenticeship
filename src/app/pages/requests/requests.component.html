@@ -1,0 +1,64 @@
+<app-header>
+    <form [formGroup]="form">
+            <div>Required Skills</div>
+                <ng-select class="inputHeader"
+                        [options]="options1"
+                        [multiple]="multiple1"
+                        formControlName="selectMultiple"
+                        (opened)="onMultipleOpened()"
+                        (closed)="onMultipleClosed()"
+                        (selected)="onMultipleSelected($event)"
+                        (deselected)="onMultipleDeselected($event)">
+                </ng-select>
+            <div>Other Skills</div>
+                <ng-select
+                        [options]="options1"
+                        [multiple]="multiple1"
+                        formControlName="selectMultiple"
+                        (opened)="onMultipleOpened()"
+                        (closed)="onMultipleClosed()"
+                        (selected)="onMultipleSelected($event)"
+                        (deselected)="onMultipleDeselected($event)">
+                </ng-select>
+            <div>Length of Mentorship Month(s)</div>
+                <ng-select
+                    [options]="options0"
+                    [multiple]="multiple0"
+                    formControlName="selectSingle"
+                    [allowClear]="true"
+                    (opened)="onSingleOpened()"
+                    (closed)="onSingleClosed()"
+                    (selected)="onSingleSelected($event)"
+                    (deselected)="onSingleDeselected($event)">
+	            </ng-select>
+            <div layout="row" class="pairingTime">Pairing Time</div>
+                <label>Start</label>
+                <input class="timePicker" type="time">
+                <label>End</label>
+                <input class="timePicker" type="time">
+                <label>TimeZone</label>
+                <select id="timezone">
+                    <option>WAT</option>
+                    <option>EAT</option>
+                </select>
+            <div layout="row">
+                <label>Monday</label>
+                <input type="checkbox">
+                <label>Tuesday</label>
+                <input type="checkbox">
+                <label>Wednesday</label>
+                <input type="checkbox">
+                <label>Thursday</label>
+                <input type="checkbox">
+                <label>Friday</label>
+                <input type="checkbox">
+            </div>
+            <div></div>
+                <md-input-container class="example-full-width">
+                    <textarea mdInput placeholder="Description" class ="requestText"></textarea>
+                </md-input-container>
+            <div id="btn-request-container">
+                <button md-raised-button type="submit" class="submit">Request Mentor</button>
+            </div>
+    </form>
+</app-header>
