@@ -1,11 +1,11 @@
 <app-header>
     <h2>Request For A Mentor</h2>
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="requestMentor(form)" novalidate>
             <div>Required Skills</div>
                 <ng-select class="inputHeader"
                         [options]="options1"
                         [multiple]="multiple1"
-                        formControlName="selectMultiple"
+                        formControlName="requiredSkills"
                         (opened)="onMultipleOpened()"
                         (closed)="onMultipleClosed()"
                         (selected)="onMultipleSelected($event)"
@@ -15,7 +15,7 @@
                 <ng-select
                         [options]="options1"
                         [multiple]="multiple1"
-                        formControlName="selectMultiple"
+                        formControlName="otherSkills"
                         (opened)="onMultipleOpened()"
                         (closed)="onMultipleClosed()"
                         (selected)="onMultipleSelected($event)"
@@ -25,7 +25,7 @@
                 <ng-select
                     [options]="options0"
                     [multiple]="multiple0"
-                    formControlName="selectSingle"
+                    formControlName="lengthOfMentorship"
                     [allowClear]="true"
                     (opened)="onSingleOpened()"
                     (closed)="onSingleClosed()"
@@ -33,28 +33,29 @@
                     (deselected)="onSingleDeselected($event)">
 	            </ng-select>
             <div layout="row" class="pairingTime">Pairing Time</div>
+
                 <label class="start-time">Start</label>
-                <input class="timePicker" type="time">
+                <input formControlName="timeControlStart" class="timePicker" type="time">
                 <label>End</label>
-                <input class="timePicker" type="time">
+                <input formControlName="timeControlEnd" class="timePicker" type="time">
                 <label>TimeZone</label>
-                <select id="timezone">
+                <select formControlName="timeZone" id="timezone">
                     <option>WAT</option>
                     <option>EAT</option>
                 </select>
                 <label>Monday</label>
-                <input type="checkbox">
+                <input formControlName="day" type="checkbox">
                 <label>Tuesday</label>
-                <input type="checkbox">
+                <input formControlName="day" type="checkbox">
                 <label>Wednesday</label>
-                <input type="checkbox">
+                <input formControlName="day" type="checkbox">
                 <label>Thursday</label>
-                <input type="checkbox">
+                <input formControlName="day" type="checkbox">
                 <label>Friday</label>
-                <input type="checkbox">
+                <input formControlName="day" type="checkbox">
             <div></div>
                 <md-input-container class="example-full-width">
-                    <textarea mdInput placeholder="Description" class ="requestText"></textarea>
+                    <textarea formControlName="description" mdInput placeholder="Description" class ="requestText"></textarea>
                 </md-input-container>
             <div id="btn-request-container">
                 <button md-raised-button type="submit" class="submit">Send Request</button>

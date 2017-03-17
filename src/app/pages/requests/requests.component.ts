@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import 'rxjs/add/operator/startWith';
+import { RequestService } from './requests.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss']
+  styleUrls: ['./requests.component.scss'],
+  providers: [RequestService]
 })
 
 export class RequestsComponent implements OnInit {
@@ -25,7 +32,8 @@ export class RequestsComponent implements OnInit {
     logSingleString: string = '';
     logMultipleString: string = '';
 
-    constructor() {
+    constructor(private _requestService: RequestService, private _router: Router, private _snackbar: MdSnackBar) {
+
         let numOptions = 100;
         let opts = new Array(numOptions);
 
@@ -41,9 +49,16 @@ export class RequestsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.form = new FormGroup({});
-        this.form.addControl('selectSingle', new FormControl(''));
-        this.form.addControl('selectMultiple', new FormControl(''));
+        this.form = new FormGroup({
+            requiredSkills: new FormControl('', [Validators.required]),
+            otherSkills: new FormControl('', [Validators.required]),
+            lengthOfMentorship: new FormControl('', [Validators.required]),
+            timeControlStart: new FormControl('', [Validators.required]),
+            timeControlEnd: new FormControl('', [Validators.required]),
+            timeZone: new FormControl('', [Validators.required]),
+            day: new FormControl('', [Validators.required]),
+            description: new FormControl('', [Validators.required])
+        });
     }
 
     onSingleOpened() {
@@ -80,6 +95,24 @@ export class RequestsComponent implements OnInit {
         this.logMultiple('- deselected (value: ' + item.value  + ', label:' +
                        item.label + ')');
     }
+
+  requestMentor(form) {
+      const data = form.value;
+      let config = new MdSnackBarConfig();
+      config.duration = 1500;
+      this._requestService.requestMentor(JSON.stringify(data))
+      .toPromise().then((data) => {
+          this._snackbar.open('Request successfull', 'close', config).afterDismissed().subscribe(() => {
+            this._router.navigate(['./dashboard']);
+          })
+       }
+       ).catch((error) => {
+           this._snackbar.open('Invalid Request', 'close', config);
+       })
+    // console.log(form.value);
+    // if (1){ return ;}
+
+  }
 
     private logMultiple(msg: string) {
         this.logMultipleString += msg + '\n';

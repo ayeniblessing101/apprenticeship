@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-
-
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { AppComponent } from './app.component';
@@ -17,6 +15,7 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { SelectModule } from 'ng-select';
 
+
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -24,7 +23,7 @@ if (authToken) {
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent},
   { path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full'
