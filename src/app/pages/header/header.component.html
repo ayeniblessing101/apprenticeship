@@ -1,6 +1,5 @@
   <nav class="app-header">
     <div class="top-level-nav">
-
         <div class="logo">
           <a href="#">
             <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
@@ -11,14 +10,11 @@
         </div>
 
         <div class="user-options-group">
-          <div style="background-image: url('https://lh5.googleusercontent.com/-AEClvo9rM6Y/AAAAAAAAAAI/AAAAAAAAAAo/b8T3wMTvlKs/photo.jpg?sz=50')" alt="avatar" class="avatar"></div>
-          <a class="activate-dropdown" href="#!" data-activates="menu-dropdown">
-              <p>Kesiena</p>
-              <i class="material-icons right">arrow_drop_down</i>
-          </a>
-          <ul id="menu-dropdown" class="dropdown-content">
-              <li><a href="/logout">Logout</a></li>
-          </ul>
+          <img src="{{ picture }}" alt="avatar" class="avatar">
+          <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu">{{ firstName }}<i class="material-icons right">arrow_drop_down</i></button>
+            <md-menu #menu="mdMenu">
+              <button class="logOut" routerLink="/login" md-menu-item>Logout</button>
+            </md-menu>
         </div>
     </div>
     <div class="sub-level-nav">

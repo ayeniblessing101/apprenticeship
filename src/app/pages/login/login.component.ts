@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,10 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
     public snackBar: MdSnackBar
-  ) { }
+  ) {
+    Cookie.deleteAll();
+    localStorage.removeItem('id_token');
+  }
 
   notice = this.auth.notice;
 

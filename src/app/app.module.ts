@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     LoginComponent,
     PagenotfoundComponent,
     RequestsComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
