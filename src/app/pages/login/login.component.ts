@@ -10,12 +10,12 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  message: string = '';
-  actionButtonLabel: string = 'Retry';
-  action: boolean = false;
-  setAutoHide: boolean = true;
-  autoHide: number = 10000;
-  addExtraClass: boolean = false;
+  message = '';
+  actionButtonLabel = 'Retry';
+  action = false;
+  setAutoHide = true;
+  autoHide = 10000;
+  addExtraClass = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,9 +40,8 @@ export class LoginComponent implements OnInit {
       this.message = "Hello! It seems you do not have permission to access this application. Login using an Andelan email address";
     } else if (this.notice === 'unauthorized') {
       this.message = "Unauthorized ¯¯\\_(ツ)_/¯¯";
-    } else if (this.notice === 'unauthenticated') {
-      this.message = "Login to view dashboard";
     }
+
     const config = new MdSnackBarConfig();
     config.duration = this.autoHide;
     config.extraClasses = this.addExtraClass ? ['party'] : null;
