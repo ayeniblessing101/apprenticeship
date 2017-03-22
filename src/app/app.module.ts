@@ -14,6 +14,7 @@ import { MaterialModule } from '@angular/material';
 import { RequestsComponent } from './pages/requests/requests.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { SelectModule } from 'ng-select';
+import { AccordionModule } from 'ngx-accordion';
 
 
 const authToken = Cookie.get('jwt-token');
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MaterialModule,
     SelectModule,
+    AccordionModule,
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
