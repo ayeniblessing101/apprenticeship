@@ -6,12 +6,12 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LenkenService {
-  private lenkenBaseUrl = 'https://jsonplaceholder.typicode.com/';  // URL to web API
+  private lenkenBaseUrl = 'http://private-729ea-lenken.apiary-mock.com/';  // URL to web API
 
   constructor (private http: Http) {}
 
   getRequests(): Observable<[]> {
-    return this.http.get(this.lenkenBaseUrl)
+    return this.http.get(this.lenkenBaseUrl + 'requests')
                     .map(this.extractData)
                     .catch(this.handleError);
   }
