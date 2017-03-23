@@ -10,7 +10,8 @@ import { AccordionModule } from 'ngx-accordion';
 })
 export class FiltersComponent implements OnInit {
   errorMessage: string;
-  requests: any;
+  skills: any;
+  status: any;
   closed = true;
   iconNames = ['add_box', 'remove_circle'];
   icon1Name = 'add_box';
@@ -27,14 +28,17 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRequests();
-    console.log(this.requests);
+    this.getSkillsNStatus();
   }
 
-  getRequests() {
-    this.api.getRequests()
+  getSkillsNStatus() {
+    this.api.getSkills()
       .subscribe(
-      requests => this.requests = requests,
+      skills => this.skills = skills,
+      error => this.errorMessage = <any>error);
+    this.api.getStatus()
+      .subscribe(
+      status => this.status = status,
       error => this.errorMessage = <any>error);
   }
 

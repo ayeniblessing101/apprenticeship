@@ -6,13 +6,20 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LenkenService {
-  private lenkenBaseUrl = 'http://private-729ea-lenken.apiary-mock.com/requests';  // URL to web API
+  private lenkenBaseUrl = 'http://private-729ea-lenken.apiary-mock.com';  // URL to web API
 
   constructor(private http: Http) { }
 
-  getRequests(): Observable<any> {
+  getSkills(): Observable<any> {
     return this.http
-      .get(this.lenkenBaseUrl)
+      .get(this.lenkenBaseUrl + '/skills')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getStatus(): Observable<any> {
+    return this.http
+      .get(this.lenkenBaseUrl + '/status')
       .map(this.extractData)
       .catch(this.handleError);
   }
