@@ -6,7 +6,7 @@
       <div class="and-filter">
       <accordion [closeOthers]="false">
         <h4>Filter Results</h4>
-          <accordion-group (onOpen)="dothis(1)" (onClose)="dothis(1)">
+          <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
             <accordion-heading class="accordion-heading" >
               <i class="material-icons" >{{ icon1_name }}</i>Primary
             </accordion-heading >
@@ -14,7 +14,7 @@
               <md-checkbox color="primary">Python</md-checkbox><br>
               <md-checkbox color="primary">PHP</md-checkbox><br>
           </accordion-group>
-          <accordion-group (onOpen)="dothis(2)" (onClose)="dothis(2)">
+          <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
               <accordion-heading class="accordion-heading">
                 <i class="material-icons" >{{ icon2_name }}</i>Status
               </accordion-heading>

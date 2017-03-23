@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
 
-  dothis(itemClickedIndex: Number) {
+  toggleIcon(itemClickedIndex: Number) {
     this.closed = !this.closed;
     const index = this.closed === true ? 0 : 1;
     itemClickedIndex === 1 ? this.icon1_name = this.icon_names[index] : this.icon2_name = this.icon_names[index];
