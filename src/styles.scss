@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import  '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 @import '/assets/scss/ng-select';
-@import '/assets/scss/colors'; 
+@import '/assets/scss/colors';
 
 html,body {
   background: $grey-light-200;
@@ -10,4 +10,16 @@ html,body {
   margin: 0;
   padding: 0;
   font-family: Roboto;
+}
+
+h4.panel-title {
+    margin-bottom: 8px;
+}
+
+.panel-collapse.collapse.in {
+    margin-left: 36px !important;
+}
+
+md-checkbox.mat-primary.mat-checkbox {
+    display: block;
 }

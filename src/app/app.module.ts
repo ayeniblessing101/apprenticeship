@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { LenkenService } from './lenken.service';
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -14,6 +17,8 @@ import { MaterialModule } from '@angular/material';
 import { RequestsComponent } from './pages/requests/requests.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { SelectModule } from 'ng-select';
+import { AccordionModule } from 'ngx-accordion';
+import { FiltersComponent } from './components/filters/filters.component';
 
 
 const authToken = Cookie.get('jwt-token');
@@ -41,6 +46,7 @@ const appRoutes: Routes = [
     PagenotfoundComponent,
     RequestsComponent,
     HeaderComponent,
+    FiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +56,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MaterialModule,
     SelectModule,
+    AccordionModule,
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, LenkenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
