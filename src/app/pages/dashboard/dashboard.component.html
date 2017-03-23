@@ -4,25 +4,7 @@
   <div class="app-partial-outlet">
     <div class="and-list-filter-container">
       <div class="and-filter">
-      <accordion [closeOthers]="false">
-        <h4>Filter Results</h4>
-          <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
-            <accordion-heading class="accordion-heading" >
-              <i class="material-icons" >{{ icon1Name }}</i>Primary
-            </accordion-heading >
-              <md-checkbox color="primary">Javascript</md-checkbox><br>
-              <md-checkbox color="primary">Python</md-checkbox><br>
-              <md-checkbox color="primary">PHP</md-checkbox><br>
-          </accordion-group>
-          <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
-              <accordion-heading class="accordion-heading">
-                <i class="material-icons" >{{ icon2Name }}</i>Status
-              </accordion-heading>
-              <md-checkbox color="primary">Open</md-checkbox><br>
-              <md-checkbox color="primary">Matched</md-checkbox><br>
-              <md-checkbox color="primary">Closed</md-checkbox><br>
-          </accordion-group>
-      </accordion>
+      <app-filters></app-filters>
       </div>
       <div class="and-list">
         <div class="and-table-container">

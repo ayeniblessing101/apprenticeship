@@ -6,22 +6,23 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LenkenService {
-  private lenkenBaseUrl = 'http://private-729ea-lenken.apiary-mock.com/';  // URL to web API
+  private lenkenBaseUrl = 'http://private-729ea-lenken.apiary-mock.com/requests';  // URL to web API
 
-  constructor (private http: Http) {}
+  constructor(private http: Http) { }
 
-  getRequests(): Observable<[]> {
-    return this.http.get(this.lenkenBaseUrl + 'requests')
-                    .map(this.extractData)
-                    .catch(this.handleError);
+  getRequests(): Observable<any> {
+    return this.http
+      .get(this.lenkenBaseUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.data || { };
+    return body.data || {};
   }
 
-  private handleError (error: Response | any) {
+  private handleError(error: Response | any) {
     // We should use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
