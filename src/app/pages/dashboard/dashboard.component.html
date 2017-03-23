@@ -22,69 +22,18 @@
           </div>
 
           <!--Table Row-->
-          <div class="and-table-row">
+          <div class="and-table-row" *ngFor="let request of requests">
             <div class="and-table-content and-table-col-50">
-              <p>I have a major blocker configuring nginx</p>
+              <p>{{request.title}}</p>
             </div>
             <div class="and-table-content and-table-col-30">
-              <p>PostGres, Mysql, Redis</p>
+              <p>{{request.skills}}</p>
             </div>
             <div class="and-table-content and-table-col-20">
-              <a href="#">3 Interested</a>
+              <a href="#">{{request.interested.length}} Interested</a>
             </div>
           </div>
 
-          <!--Table Row-->
-          <div class="and-table-row">
-            <div class="and-table-content and-table-col-50">
-              <p>How do I configure an Angular 2 app with Webpack?</p>
-            </div>
-            <div class="and-table-content and-table-col-30">
-              <p>Angular, Webpack</p>
-            </div>
-            <div class="and-table-content and-table-col-20">
-              <a href="#">10 Interested</a>
-            </div>
-          </div>
-
-          <!--Table Row-->
-          <div class="and-table-row">
-            <div class="and-table-content and-table-col-50">
-              <p>I have a lient working with ReactJS, I need help configuring my stores with Redux</p>
-            </div>
-            <div class="and-table-content and-table-col-30">
-              <p>Redux, React Webpack</p>
-            </div>
-            <div class="and-table-content and-table-col-20">
-              <a href="#">5 Interested</a>
-            </div>
-          </div>
-
-          <!--Table Row-->
-          <div class="and-table-row">
-            <div class="and-table-content and-table-col-50">
-              <p>Need long term mentor for microservices</p>
-            </div>
-            <div class="and-table-content and-table-col-30">
-              <p>Microservices, gRPC</p>
-            </div>
-            <div class="and-table-content and-table-col-20">
-              <a href="#">15 Interested</a>
-            </div>
-          </div>
-
-          <!--Table Row-->
-          <div class="and-table-row">
-            <div class="and-table-content and-table-col-50">
-              <p>How does one configure multi container environment with docker-compose</p>
-            </div>
-            <div class="and-table-content and-table-col-30">
-              <p>Redux, React Webpack</p>
-            </div>
-            <div class="and-table-content and-table-col-20">
-              <a href="#">13 Interested</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
