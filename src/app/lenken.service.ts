@@ -24,6 +24,13 @@ export class LenkenService {
       .catch(this.handleError);
   }
 
+  getRequests(limit): Observable<any> {
+    return this.http
+      .get(this.lenkenBaseUrl + '/requests?limit=' + limit)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || {};
