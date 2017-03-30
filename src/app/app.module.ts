@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
@@ -28,12 +28,9 @@ if (authToken) {
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  { path: 'requests',  component: RequestsComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: '**', component: PagenotfoundComponent }
 ];
 

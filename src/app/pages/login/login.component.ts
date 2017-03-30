@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +9,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  notice;
   message = '';
   actionButtonLabel = 'Retry';
   action = false;
@@ -22,11 +22,9 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     public snackBar: MdSnackBar
   ) {
-    Cookie.deleteAll();
-    localStorage.removeItem('id_token');
+    this.auth.logOut();
+    this.notice = this.auth.notice;
   }
-
-  notice = this.auth.notice;
 
   /**
   *  openSnackBar
@@ -37,9 +35,10 @@ export class LoginComponent implements OnInit {
   */
   openSnackBar() {
     if (this.notice === 'permission') {
-      this.message = "Hello! It seems you do not have permission to access this application. Login using an Andelan email address";
+      this.message = `Hello! It seems you do not have permission
+      to access this application. Login using an Andelan email address`;
     } else if (this.notice === 'unauthorized') {
-      this.message = "Unauthorized ¯¯\\_(ツ)_/¯¯";
+      this.message = 'Unauthorized ¯¯\\_(ツ)_/¯¯';
     }
 
     const config = new MdSnackBarConfig();
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.notice != null) {
-      this.openSnackBar()
+      this.openSnackBar();
     }
   }
 }

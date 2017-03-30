@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   private isEmpty(obj) {
     return Object.getOwnPropertyNames(obj).length === 0 ? true : false;
@@ -21,18 +21,19 @@ export class AuthGuard implements CanActivate {
   *
   */
   canActivate() {
-    if(this.auth.loggedIn()) {
-      this.auth.decodeToken()
+    if (this.auth.loggedIn()) {
+      this.auth.decodeToken();
       if (this.isEmpty(this.auth.userInfo.permissions)) {
         this.auth.changeNotice('permission');
         this.router.navigate(['/login']);
         return false;
+      } else {
+        // TODO: check that the user has permission to view route
       }
       return true;
-    } else {
-      this.auth.changeNotice('unauthenticated');
-      this.router.navigate(['/login']);
-      return false;
     }
+    this.auth.changeNotice('unauthenticated');
+    this.router.navigate(['/login']);
+    return false;
   }
 }
