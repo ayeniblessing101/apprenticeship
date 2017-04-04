@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   actionButtonLabel = 'Retry';
   action = false;
   setAutoHide = true;
-  autoHide = 10000;
+  autoHide = 2000;
   addExtraClass = false;
 
   constructor(
@@ -26,30 +26,17 @@ export class LoginComponent implements OnInit {
     this.notice = this.auth.notice;
   }
 
-  /**
-  *  openSnackBar
-  *
-  *  calls angular material design snackbar to display the various notice
-  *  messages
-  *
-  */
-  openSnackBar() {
+  setMessage() {
     if (this.notice === 'permission') {
-      this.message = `Hello! It seems you do not have permission
-      to access this application. Login using an Andelan email address`;
-    } else if (this.notice === 'unauthorized') {
+      this.message = 'Hello! It seems you do not have permission to access this application. Login using an Andelan email address';
+    } else if (this.notice === 'unauthenticated') {
       this.message = 'Unauthorized ¯¯\\_(ツ)_/¯¯';
     }
-
-    const config = new MdSnackBarConfig();
-    config.duration = this.autoHide;
-    config.extraClasses = this.addExtraClass ? ['party'] : null;
-    this.snackBar.open(this.message, this.action && this.actionButtonLabel, config);
   }
 
   ngOnInit() {
     if (this.notice != null) {
-      this.openSnackBar();
+      this.setMessage();
     }
   }
 }
