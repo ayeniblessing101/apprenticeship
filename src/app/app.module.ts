@@ -29,6 +29,7 @@ if (authToken) {
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: '',
     redirectTo: 'dashboard',

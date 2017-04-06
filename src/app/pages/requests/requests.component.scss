@@ -16,7 +16,7 @@ div {
 }
 
 .requestText {
-    width:90vw;
+    width: 90vw;
 }
 
 .timePicker {
@@ -39,8 +39,28 @@ label {
     padding: 25px;
 }
 
-.pairingTime {
-    padding-bottom: 20px;
-}
+.pairingTime { padding-bottom: 20px; }
 
 label.start-time {padding-left: 0px;}
+span.error { color: red; }
+
+.mentorship-period { display: flex; }
+.time-picker {
+    width: 40%;
+
+    .zone { margin-left: 20px; }
+}
+
+.day-picker {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.form-section { 
+    margin-bottom: 1rem;
+
+    .full-width { width: 100%; }
+    textarea { resize: none; }
+}
+

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
+import { SkillService } from '../../services/skill.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
@@ -20,42 +21,61 @@ export class RequestsComponent implements OnInit {
   align = 'start';
   disabled = false;
   form: FormGroup;
+  lengthOfMentorship: Array<Number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  numMonths: Array<any>;
+  skills: Array<string> = [];
+  selection: Array<string>;
 
-    multiple0 = false;
-    multiple1 = true;
-    options0: Array<any> = [];
-    options1: Array<any> = [];
-    selection: Array<string>;
+  logSingleString = '';
+  logMultipleString = '';
 
-    logSingleString = '';
-    logMultipleString = '';
-
-    constructor(private requestService: RequestService, private router: Router, private snackbar: MdSnackBar) {
-
-        const numOptions = 100;
-        const opts = new Array(numOptions);
-
-        for (let i = 0; i < numOptions; i++) {
-            opts[i] = {
-                value: i.toString(),
-                label: i.toString()
-            };
-        }
-
-        this.options0 = opts.slice(0);
-        this.options1 = opts.slice(0);
-    }
+  constructor(
+      private requestService: RequestService,
+      private router: Router,
+      private snackbar: MdSnackBar,
+      private skillService: SkillService
+  ) {}
 
     ngOnInit() {
         this.form = new FormGroup({
             requiredSkills: new FormControl('', [Validators.required]),
-            otherSkills: new FormControl('', [Validators.required]),
+            otherSkills: new FormControl(''),
             lengthOfMentorship: new FormControl('', [Validators.required]),
             timeControlStart: new FormControl('', [Validators.required]),
             timeControlEnd: new FormControl('', [Validators.required]),
             timeZone: new FormControl('', [Validators.required]),
-            day: new FormControl('', [Validators.required]),
+            monday: new FormControl(),
+            tuesday: new FormControl(),
+            wednesday: new FormControl(),
+            thursday: new FormControl(),
+            friday: new FormControl(),
             description: new FormControl('', [Validators.required])
+        });
+        this.fetchSkills();
+        this.initMonths();
+    }
+
+    initMonths() {
+        this.numMonths = this.lengthOfMentorship.map((item) => {
+            return {
+                'label' : item,
+                'value' : item
+            };
+        });
+    }
+
+    fetchSkills() {
+        this.skillService.getSkills().subscribe(
+            (res) => { this.setSkills(res); }
+        );
+    }
+
+    setSkills(obj) {
+        this.skills = obj.map((obj) => {
+            return {
+                'label' : obj.name,
+                'value' : obj.name
+            };
         });
     }
 
@@ -94,6 +114,14 @@ export class RequestsComponent implements OnInit {
                        item.label + ')');
     }
 
+    private logMultiple(msg: string) {
+        this.logMultipleString += msg + '\n';
+    }
+
+    private logSingle(msg: string) {
+        this.logSingleString += msg + '\n';
+    }
+
   requestMentor(form) {
       const data = form.value;
       const config = new MdSnackBarConfig();
@@ -110,11 +138,4 @@ export class RequestsComponent implements OnInit {
        });
   }
 
-    private logMultiple(msg: string) {
-        this.logMultipleString += msg + '\n';
-    }
-
-    private logSingle(msg: string) {
-        this.logSingleString += msg + '\n';
-    }
 }

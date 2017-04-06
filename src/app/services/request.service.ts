@@ -17,7 +17,7 @@ export class RequestService {
    * @return Observable containing details of request
    */
   getRequestDetails() {
-    return this.http.get(`${this.apiBaseUrl}requests/1`)
+    return this.http.get(`${this.apiBaseUrl}/requests/1`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -56,7 +56,7 @@ export class RequestService {
    * @return Reponse object
    */
   requestMentor(data) {
-    return this.http.post(`${this.apiBaseUrl}requests`, data)
+    return this.http.post(`${this.apiBaseUrl}/requests`, data)
       .map(this.extractData)
       .catch(this.handleError);
   }

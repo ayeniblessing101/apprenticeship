@@ -1,30 +1,41 @@
 <app-header>
     <h2>Request For A Mentor</h2>
     <form [formGroup]="form" (ngSubmit)="requestMentor(form)" novalidate>
-            <div>Required Skills</div>
+
+            <div class="form-section">
+                <div>Required Skills</div>
                 <ng-select class="inputHeader"
-                        [options]="options1"
-                        [multiple]="multiple1"
+                        [options]="skills"
+                        [multiple]="true"
                         formControlName="requiredSkills"
                         (opened)="onMultipleOpened()"
                         (closed)="onMultipleClosed()"
                         (selected)="onMultipleSelected($event)"
                         (deselected)="onMultipleDeselected($event)">
                 </ng-select>
-            <div>Other Skills</div>
+                <span class="error" [hidden]=" form.get('requiredSkills').valid || form.get('requiredSkills').untouched">
+                    You need to submit at least one required skill * 
+                </span>
+            </div>
+            
+            <div class="form-section">
+                <div>Other Skills</div>
                 <ng-select
-                        [options]="options1"
-                        [multiple]="multiple1"
+                        [options]="skills"
+                        [multiple]="true"
                         formControlName="otherSkills"
                         (opened)="onMultipleOpened()"
                         (closed)="onMultipleClosed()"
                         (selected)="onMultipleSelected($event)"
                         (deselected)="onMultipleDeselected($event)">
                 </ng-select>
-            <div>Length of Mentorship Month(s)</div>
+            </div>
+
+            <div class="form-section">
+                <div>Length of Mentorship Month(s)</div>
                 <ng-select
-                    [options]="options0"
-                    [multiple]="multiple0"
+                    [options]="numMonths"
+                    [multiple]="true"
                     formControlName="lengthOfMentorship"
                     [allowClear]="true"
                     (opened)="onSingleOpened()"
@@ -32,33 +43,59 @@
                     (selected)="onSingleSelected($event)"
                     (deselected)="onSingleDeselected($event)">
 	            </ng-select>
-            <div layout="row" class="pairingTime">Pairing Time</div>
-
-                <label class="start-time">Start</label>
-                <input formControlName="timeControlStart" class="timePicker" type="time">
-                <label>End</label>
-                <input formControlName="timeControlEnd" class="timePicker" type="time">
-                <label>TimeZone</label>
-                <select formControlName="timeZone" id="timezone">
-                    <option>WAT</option>
-                    <option>EAT</option>
-                </select>
-                <label>Monday</label>
-                <input formControlName="day" type="checkbox">
-                <label>Tuesday</label>
-                <input formControlName="day" type="checkbox">
-                <label>Wednesday</label>
-                <input formControlName="day" type="checkbox">
-                <label>Thursday</label>
-                <input formControlName="day" type="checkbox">
-                <label>Friday</label>
-                <input formControlName="day" type="checkbox">
-            <div></div>
-                <md-input-container class="example-full-width">
-                    <textarea formControlName="description" mdInput placeholder="Description" class ="requestText"></textarea>
-                </md-input-container>
-            <div id="btn-request-container">
-                <button md-raised-button type="submit" class="submit">Send Request</button>
+                <span class="error" [hidden]=" form.get('lengthOfMentorship').valid || form.get('lengthOfMentorship').untouched">
+                    Choose length of mentorship *  
+                </span>
             </div>
+
+            <div class="form-section">
+                <div layout="row" class="pairingTime">Pairing Time</div>
+
+                <div layout="row" class="mentorship-period">
+
+                    <div class="time-picker">
+                        <label class="start-time">Start</label>
+                        <input formControlName="timeControlStart" class="timePicker" type="time">
+
+                        <label>End</label>
+                        <input formControlName="timeControlEnd" class="timePicker" type="time">
+
+                        <md-select class="zone" formControlName="timeZone" placeholder="time zone">
+                            <md-option value="WAT">WAT</md-option>
+                            <md-option value="EAT">EAT</md-option>
+                        </md-select>
+                    </div>
+
+                    <div class="day-picker">
+                        <md-checkbox formControlName="monday" value="monday">Monday</md-checkbox>
+
+                        <md-checkbox formControlName="tuesday" value="tuesday">Tuesday</md-checkbox>
+
+                        <md-checkbox formControlName="wednesday" value="wednesday">Wednesday</md-checkbox>
+
+                        <md-checkbox formControlName="thursday" value="thursday">Thursday</md-checkbox>
+
+                        <md-checkbox formControlName="friday" value="friday">Friday</md-checkbox>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div layout="row">
+                    <md-input-container class="full-width">
+                        <textarea formControlName="description" mdInput placeholder="Description" class ="requestText"></textarea>
+                    </md-input-container>
+
+                    <span class="error" [hidden]=" form.get('description').valid || form.get('description').untouched">
+                        Description required *
+                    </span> 
+                </div>
+            </div>
+
+            <div id="btn-request-container">
+                <button md-raised-button type="submit" class="submit" [disabled]="!form.valid">Create Request</button>
+            </div>
+
     </form>
 </app-header>
