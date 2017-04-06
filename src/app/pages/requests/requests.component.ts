@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import 'rxjs/add/operator/startWith';
-import { RequestService } from './requests.service';
+import { RequestService } from '../../services/request.service';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
-
+import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/toPromise';
 
@@ -13,7 +12,6 @@ import 'rxjs/add/operator/toPromise';
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss'],
-  providers: [RequestService]
 })
 
 export class RequestsComponent implements OnInit {
@@ -23,19 +21,19 @@ export class RequestsComponent implements OnInit {
   disabled = false;
   form: FormGroup;
 
-    multiple0: boolean = false;
-    multiple1: boolean = true;
+    multiple0 = false;
+    multiple1 = true;
     options0: Array<any> = [];
     options1: Array<any> = [];
     selection: Array<string>;
 
-    logSingleString: string = '';
-    logMultipleString: string = '';
+    logSingleString = '';
+    logMultipleString = '';
 
-    constructor(private _requestService: RequestService, private _router: Router, private _snackbar: MdSnackBar) {
+    constructor(private requestService: RequestService, private router: Router, private snackbar: MdSnackBar) {
 
-        let numOptions = 100;
-        let opts = new Array(numOptions);
+        const numOptions = 100;
+        const opts = new Array(numOptions);
 
         for (let i = 0; i < numOptions; i++) {
             opts[i] = {
@@ -98,20 +96,18 @@ export class RequestsComponent implements OnInit {
 
   requestMentor(form) {
       const data = form.value;
-      let config = new MdSnackBarConfig();
+      const config = new MdSnackBarConfig();
       config.duration = 1500;
-      this._requestService.requestMentor(JSON.stringify(data))
-      .toPromise().then((data) => {
-          this._snackbar.open('Request successfull', 'close', config).afterDismissed().subscribe(() => {
-            this._router.navigate(['./dashboard']);
-          })
+      this.requestService.requestMentor(JSON.stringify(data))
+        .toPromise()
+        .then(() => {
+          this.snackbar.open('Request successfull', 'close', config).afterDismissed().subscribe(() => {
+            this.router.navigate(['./dashboard']);
+          });
        }
        ).catch((error) => {
-           this._snackbar.open('Invalid Request', 'close', config);
-       })
-    // console.log(form.value);
-    // if (1){ return ;}
-
+           this.snackbar.open('Invalid Request', 'close', config);
+       });
   }
 
     private logMultiple(msg: string) {

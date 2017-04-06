@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LenkenService } from '../../lenken.service';
+import { SkillService } from '../../services/skill.service';
+import { RequestService } from '../../services/request.service';
 import { AccordionModule } from 'ngx-accordion';
 
 
@@ -18,7 +19,8 @@ export class FiltersComponent implements OnInit {
   icon2Name = 'add_box';
 
   constructor(
-    private api: LenkenService
+    private skillService: SkillService,
+    private requestService: RequestService
   ) { }
 
   toggleIcon(itemClickedIndex: Number) {
@@ -32,14 +34,15 @@ export class FiltersComponent implements OnInit {
   }
 
   getSkillsNStatus() {
-    this.api.getSkills()
+    this.skillService.getSkills()
       .subscribe(
-      skills => this.skills = skills,
-      error => this.errorMessage = <any>error);
-    this.api.getStatus()
+        skills => this.skills = skills,
+        error => this.errorMessage = <any>error
+      );
+    this.requestService.getStatus()
       .subscribe(
-      status => this.status = status,
-      error => this.errorMessage = <any>error);
+        status => this.status = status,
+        error => this.errorMessage = <any>error
+      );
   }
-
 }

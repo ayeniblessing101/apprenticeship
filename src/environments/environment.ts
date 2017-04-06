@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBaseUrl: 'http://private-729ea-lenken.apiary-mock.com',
+  lenkenBaseUrl: 'http://lenken-dev.andela.com:4200',
+  apiGateway: 'https://api-staging.andela.com'
 };

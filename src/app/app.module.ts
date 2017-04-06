@@ -4,10 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth-guard.service';
-import { LenkenService } from './lenken.service';
-
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { SkillService } from './services/skill.service';
+import { RequestService } from './services/request.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -19,6 +19,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
 import { FiltersComponent } from './components/filters/filters.component';
+import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 
 
 const authToken = Cookie.get('jwt-token');
@@ -28,9 +29,13 @@ if (authToken) {
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  { path: 'requests',  component: RequestsComponent},
+  { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard]},
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -44,6 +49,7 @@ const appRoutes: Routes = [
     RequestsComponent,
     HeaderComponent,
     FiltersComponent,
+    RequestdetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,7 @@ const appRoutes: Routes = [
     SelectModule,
     AccordionModule,
   ],
-  providers: [AuthService, AuthGuard, LenkenService],
+  providers: [AuthService, AuthGuard, SkillService, RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

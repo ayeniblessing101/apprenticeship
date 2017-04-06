@@ -1,0 +1,56 @@
+.container {
+    margin: 0px auto;
+    width: 1400px;
+}
+
+#length-of-mentorship {
+    margin-left: 20px;
+}
+
+#length-of-mentorship-span {
+    border: 1px solid #bdbdbd;
+    padding: 10px;
+    width: 200px;
+    color: #bdbdbd;
+}
+
+div#mdcheckbox {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+div#mdchiplist {
+    margin-left: 20px;
+}
+
+button {
+    margin-right: 10px;
+}
+
+div.top-div {
+    border-bottom: 1px solid #bdbdbd;
+    padding-bottom: 50px;
+    display: flex;
+}
+
+div#long-description {
+    width: 200px;
+    border: 2px solid #bdbdbd;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+div.flex-box-two {
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+md-card {
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+button.select-button {
+    background-color: green;
+    color: white;
+}

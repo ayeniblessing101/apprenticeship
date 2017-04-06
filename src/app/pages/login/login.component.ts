@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   setAutoHide = true;
   autoHide = 2000;
   addExtraClass = false;
+  redirectUrl = `${environment.apiGateway}/login?redirect_url=${environment.lenkenBaseUrl}/dashboard`;
 
   constructor(
     private route: ActivatedRoute,

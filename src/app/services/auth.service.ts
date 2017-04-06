@@ -44,6 +44,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     Cookie.delete('jwt-token', '/', '.andela.com');
   }
+
   /**
   *  decodeToken
   *
