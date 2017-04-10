@@ -1,0 +1,13 @@
+<div class="notification-item" [ngStyle]="setNotificationBg()">
+  <div class="notification-header">
+    <span>
+      {{ notification.type }} from <span class="sender"><strong>{{ notification.sender }}</strong></span>
+    </span>
+    <span class>13 mins ago</span>
+  </div>
+  <div class="notification-body" (click)="readNotification(userId, id)">
+    <span>
+      {{ trimMessageTitle(notification.message.title) }}
+    </span>
+  </div>
+</div>
