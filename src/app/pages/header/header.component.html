@@ -1,33 +1,32 @@
-  <nav class="app-header">
+<nav class="app-header">
     <div class="top-level-nav">
         <div class="logo">
-          <a href="#">
-            <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
-          </a>
+            <a href="#">
+                <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
+            </a>
         </div>
         <div class="app-name">
-          <h1>Lenken</h1>
+            <h1>Lenken</h1>
         </div>
         <notification-bar></notification-bar>
         <div class="user-options-group">
-          <img src="{{ picture }}" alt="avatar" class="avatar">
-          <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu">{{ firstName }}<i class="material-icons right">arrow_drop_down</i></button>
+            <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu"><span class="profileName">{{ firstName }}</span><img src="{{ picture }}" alt="avatar" class="avatar"><i class="material-icons right">arrow_drop_down</i></button>
             <md-menu #menu="mdMenu">
-              <button class="logOut" routerLink="/logout" md-menu-item>Logout</button>
+                <button class="logOut" routerLink="/logout" md-menu-item>Logout</button>
             </md-menu>
         </div>
     </div>
     <div class="sub-level-nav">
         <div class="sub-menu-items">
-          <a class="active" href="#">Home</a>
-          <a href="#">Mentor</a>
-          <a href="#">Mentee</a>
+            <a class="active" href="#">Home</a>
+            <a href="#">Mentor</a>
+            <a href="#">Mentee</a>
         </div>
         <div id="btn-request-container">
-          <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>REQUEST MENTOR</button>
+            <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>REQUEST MENTOR</button>
         </div>
     </div>
-  </nav>
-  <div id="container">
+</nav>
+<div id="container">
     <ng-content></ng-content>
-  </div>
+</div>
