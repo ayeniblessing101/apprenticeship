@@ -3,11 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { AngularFireModule } from 'angularfire2';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
+import { NotificationService } from './services/notifications/notifications.service';
+
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -61,8 +65,9 @@ const appRoutes: Routes = [
     MaterialModule,
     SelectModule,
     AccordionModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [AuthService, AuthGuard, SkillService, RequestService],
+  providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
