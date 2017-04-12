@@ -7,10 +7,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent  {
-
+  picture: string;
+  firstName: string;
   constructor(
     private auth: AuthService,
-  ) {}
-  picture = this.auth.userInfo.picture;
-  firstName = this.auth.userInfo.first_name;
+  ) {
+    this.picture = this.auth.userInfo.picture;
+    this.firstName = this.auth.userInfo.first_name;
+  }
 }

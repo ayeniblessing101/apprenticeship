@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
-import { NotificationService } from './services/notifications/notifications.service';
+import { NotificationService } from './services/notifications.service';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -23,8 +23,8 @@ import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
 import { FiltersComponent } from './components/filters/filters.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
-import { NotificationComponent }  from './components/notification/notification.component';
-import { NotificationItem }  from './components/notification/notification-item.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationItemComponent } from './components/notification/notification-item.component';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     FiltersComponent,
     RequestdetailsComponent,
     NotificationComponent,
-    NotificationItem
+    NotificationItemComponent
   ],
   imports: [
     BrowserModule,

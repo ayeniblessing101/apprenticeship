@@ -9,14 +9,15 @@
       <span (click)="updateUnreadNotifications('all')" class="mark-all-read">Mark all as read</span>
     </div>
     <div class="ntf-panel-body">
-      <span class="no-notification-msg" *ngIf="!msgKeys.length"><span>Wawuuu!!!</span><br/>You have no notifications yet!</span>
-      <notification-item
+      <span class="no-notification-msg" *ngIf="!msgKeys.length">You have no notifications yet!</span>
+      <app-notification-item
         (readNotificationMsg)="updateUnreadNotifications()"
         *ngFor="let key of msgKeys"
         [notification]="notifications[key]"
         [id]="key"
-      > 
-      </notification-item>
+        [userId]="userId"
+      >
+      </app-notification-item>
     </div>
     <div class="ntf-action-bar">
       View All

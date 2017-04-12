@@ -1,6 +1,6 @@
 @import '../../../assets/scss/_colors';
 
-.notification-item {
+.app-notification-item {
   width: 100%;
   height: 100px;
   padding: 5px 20px;
@@ -10,7 +10,7 @@
   background-color: #F6F9FA;
 }
 
-.notification-item:hover {
+.app-notification-item:hover {
   background-color: #fff;
   cursor: pointer;
 
