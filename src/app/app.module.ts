@@ -25,6 +25,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationItemComponent } from './components/notification/notification-item.component';
+import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   },
   { path: 'requests',  component: RequestsComponent},
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard]},
+  { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     FiltersComponent,
     RequestdetailsComponent,
     NotificationComponent,
-    NotificationItemComponent
+    NotificationItemComponent,
+    MentorRequestDetailComponent
   ],
   imports: [
     BrowserModule,

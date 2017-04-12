@@ -1,0 +1,99 @@
+@import '../../../assets/scss/chips';
+
+div#request-description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.request-detail h2 {
+  color: #333;
+}
+
+#length-of-mentorship {
+  color: #666;
+  display: inline-block;;
+}
+
+.emphasize {
+  font-weight: 700;
+  font-style: italic;
+}
+
+#length-of-mentorship h4 {
+  display: inline-block;
+}
+
+#md-chip-list {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+#md-chip-list button {
+  background-color: #e91e63;
+  color: #FFF;
+  margin-right: 5px;
+  width: 10px;
+}
+
+#interest-button {
+  display: block;
+  background-color: #e91e63;
+  color: #FFF;
+  margin: 40px 0;
+}
+
+#mentee-details {
+  margin-top: 80px;
+}
+
+#mentee-details .mentee-detail-profile {
+  width: 500px;
+  margin: 0 auto;
+  border: 2px solid #e7e7e7;
+  border-radius: 5px;
+  position: relative;
+  background-color: #FFF;
+}
+
+.mentee-detail-profile #img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: 200px;
+  background-color: #666;
+}
+
+.mentee-detail-profile .info {
+  margin-top: 60px;
+  color: #666;
+}
+
+.mentee-detail-profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.info #mentee-name {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #e7e7e7;
+  padding-bottom: 15px;
+}
+
+.info #mentee-name p {
+  font-weight: 100;
+  font-size: 0.7rem;
+  margin-bottom: 0px;
+  margin-top: 70px;
+}
+
+.info .content {
+  text-align: center;
+  background-color: #f7f7f7;
+  padding-top: 2px;
+}

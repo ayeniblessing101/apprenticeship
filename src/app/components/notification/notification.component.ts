@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdIcon } from '@angular/material';
 import { HostListener } from '@angular/core';
+
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notifications.service';
 

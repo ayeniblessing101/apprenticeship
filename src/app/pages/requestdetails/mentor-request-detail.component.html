@@ -1,0 +1,61 @@
+<app-header>
+  <div class="container">
+    <div class="request-detail">
+
+      <h2 *ngIf="details">
+        Request Detail - {{ details.description }}
+      </h2>
+
+      <div id="request-description">
+          A brief overview of my request needs: Need to level up my knowledge
+          map-based GUI / mapping technologies &amp; also using tools such as
+          OpenDroneMap and open layers.
+      </div>
+
+      <div id="md-chip-list">
+        <md-chip-list *ngIf="skills">
+          <div *ngFor="let skill of skills" class="chip">
+            {{skill}}
+          </div>
+        </md-chip-list>
+      </div>
+
+      <div class="request-detail-info">
+        <div id="length-of-mentorship">
+          Length of Mentorship is <span disabled="true" class="emphasize">1 month(s)</span> on <span class="emphasize">Mondays, Wednesdays and Fridays</span>
+           at <span class="emphasize">Time: 16:00 - 18:00 GMT</span>.
+        </div>
+        <button md-raised-button id="interest-button">I'm interested!</button>
+      </div>
+
+      <div class="clear-fix"></div>
+    </div>
+
+    <div id="mentee-details">
+
+      <div class="mentee-detail-profile">
+        <div class="info">
+          <div id="img">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFoAhgMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAEAAIDBQYBBwj/xAA3EAACAQMDAgQDBgUEAwAAAAABAgMABBEFEiExQQYTUWEUInEHMoGRodEjUsHw8SQzQmI0guH/xAAXAQADAQAAAAAAAAAAAAAAAAAAAQID/8QAGxEBAQEAAwEBAAAAAAAAAAAAAAERAiExQRL/2gAMAwEAAhEDEQA/APOvMEa7c9KP0q7SGZGfoOtVDZJrorJk3aanZsRuIbnijL/ULIW2EKnjGMV56GZRwamSQ7eTmq/Sv0Mu1F1JtToDmhzbCM/MM06GUpk9j1o4Wx+SXUd8ELDKLj53HqM9B/2P4ZqfU+gAMDFaHQvFt5pwEWS6KuOOoFNsr8SQyHQ/DiXaxkKZjC1wc9+f8VanxVqFrEq3WkSwD7kh+H8vGMdR2qpxs+nONiPUPG8842qxKgdG45rR/Z9q73TPHK+XaQn8MCg7fxFbagXCWrGXACxkBtxOCPXPbj0P0omxvrSJlntbSCORtv8AEQADLDJ+6Bnt2/arnvqsrfTFRE5f7oU5r5/8XzodbnWIjIOCR3r2Ua/DPA8YX+IQQCOhPYfj6V4h4ntZ7fWrgTxtGzMWAYfeHqPajmXxXCnKOa4nHWnO4UcVkSZMU2bFQLKc9a6GLGgpO3GUMMGlTzxSpmFL809TkVERxmuebt4owhBNSRMM80JvzXVdshVBZicADufSlgabTTFaWxv2jWeYyeVbQkZBcYJbHtkY/H0rT2fhdD/qfETtcSNgiAS4GT139zTbSwi0eH4i9SIpp8fkQfNndKQDI/ud2R7CsXqXiu9e9LRyk7DxmtJMaSZHtGnzwWNultaCGO2RQqxQqAq/v9amv7wtD/qE3Rs2wrjIx7+31ryPQfGaovw12WVCcq2M4NbbTPECXiCyBy5VctkckfvVSjFfqHhx47svZRZZnVFT+ZMdu34en61Evh+9tInnvjqF3cMP4FpYKXCn0Y7SPxHFegTvIJYishGMnGOvuf770r69igh3yIp4zyoPNLDeXJb+IYbuCzksprF5XGwTqVJ6YBYHB79qsZ7y9jmbTNeRZ4SwALDjt9xwOGA+n5ddaPEvnqVaYZU5RJFDBcemaHuJtH19RFqax+cpB82JipY+4Bwe/wBM0YHmWuWTaddhY5DNbSZME4UgOBwfoR0I/oRQ8UTyLmtdqXh+406zvNNuH86DHxVjL1K7cbh+KnGPYGsujND/AMcis6i9UPKjREAjinR81JLIH4IqDzAp4pJGIoxSqATEjrSpF2HONtDsuTUzDbULHDVUUW0gcVbeDbb4rxTp0Ugyvm7ycdNoJB/MCqoOMVqPs2XzPFKYzn4eQ7h1XGCD+YFOG13ipXn0uJV5jLyOw287i5ycjr2rzHUrRLVo3kVmRnwe2QK9VF2t7BPZtt822mddm8fdznOM8DvzWc1fR5L6EI8a+Wx+Vhwc+o45NVVsBPNFKoKQiJ8n7hO3Hbj1960/2exltYBCMy7cvg9Pegb/AML3Fkm95QQegA5ra/Zzpoto5mdTkKOSODmgNZMokuYVDAHaSQMdsfvWY+0y9ey0yIQSFWkfA55qK+1V18cRWUcQw0BR8Ng8nPH4LVd9p0UgtbEYwuSefX/Bp0MUkupTxFlkkMfqXCg/nUVvdXFtICrODnpk9agEblwvlsW9Mc1p9O0NmsUaUDcrbm9s9v3pBsPD11JqGh5vlK+WWCkDJYMuDzWOvITa3M1tKCGicoc+1bmG2ittCgXzlSR7hccF1YD1A5Ye2KyfjFUj1YPEu1ZolfBGCDjHPvxz75pcp0jnFFMBuqFk7ipJMtTCSOKhJRqaVdEm2lQCdc1C8WRRIO4ZpjnAoAYR7etabwBcR23iDZI5QT28kW4dV4zn9DWcY5p2mzSW2pWsw/4Sqck9s81UVK1+oaiND8XrerGhtnUK6LyCCMEj3r0W30xHKXefNiKiRCP5TyMfpWD13T4tSs2iUp59ux+bhQV9SewGK2v2fa7Za3pUVhO+y+gUKyE4L47j9u1XPVVzWLK3MahkHAOAO/8Af7UVpjwJb7kIC5zgDpwKb4itmUkxkggEdPr+9ZfRNRNtcG0u2ykzEBm7e1PwO2ukeZ4wn1W5lDMwKJEg4VQOv14/WpvE1sutywWhBHlg47880VqGq28Pl/DSA4TGcZ5x1P0yaF0SK8mlS4c4wePbnNIw+neGo4EMl0gyuApFOez8mQfD/Jgkt/IB+1b23sUnjMkwGMfMG4A9a8+8Ta3BqU8uj6V/s7iJrgfdK9OvoScU7MIPPdNfTKoAMTbY4Izjkclie+OhP0xVR4w8qS6jlDEuuYmHrjoc59zVvdzx6daNEhB/hCMyg854HHt1qgup4rvTHhRW3xxtJyBgYJIxjnGOue9RRe4pPMXNRuMnNDCTmiY2yKjGeOPjgUqZMcHilTw0gYKKax3VGAxFczg0A4HBpEbmGBzmuAg09FJdQMZJHWgNrB5tlexQyoD5gUMSxwRj7uCMHsMdj+gcqta3T3VgiiVJN6vGcGJs+2eP/nGOlzb38BgX4kFmcCTaxGAfr25GKAnt0OoF2dUZY2LeUxy7ZxtwePy4PWraNX4d8aR6qvw2rPClwG2JISF8z35wPw61B4j0QxbbiMbWL7hj061htR+HmLARbh0BAzn+oovTfE11ZWslq8kl1bY4WU/PH9D3o0LXRtNkvgiDcQWY7vXJP7Vs7CKHTI9l1LGqRgZ+cflj+leeQ+L7m20tLS3tYUYKBv3Zz61TzTm/ffIoGDkhRgZ9f80aG38S+M7zUVfSdEjEELHbJcDlnXp9AP1qm0+2j023MaMzTySdwMlcYIOfqKqbMsoKwOVQDD4OeB6n14oiLPltIX3hFI5PQDAzz9f1FGjE/iiMrZRTBhlpFXJAGOPoMflVVp7OY5hCQrCBxnPbnP59PfIqbVLwXllLE0qxOzBkBzjaowB65OBUdi05tTbwIXkDBUXvyfu/ixUfU0BmlqZHrrxqsrquMAnbjuO1M2HPFTUU98tSroBzzSoIeYlCe9V8qnfxRzfdqAf7hqYmGRwsRnFdEbBuc4FWMIG3pTHA3dKalgl4soyZNgUZVDwGHr7U6S6VYREzKEOBgDIB7YPVeo46Cq2cD4qx4HzQy59+DUw/8hB2K5I/9qpogdkZ/M2ozjgndz9femsN3KMgPqyY/wA02QAq2RnaePbmoJeJFxxlMnHfikBESJG3zZfP/JhhVH0qRGQxnMoCj/ttDH0wevamoiMSWVSR0JHTiobYAtKSASIyR7UwMF0gkXfNiFTnamRu98nr9KXxhCOURxCqsgWTqc+vuSPyoGJm+DlOTnA5zTnJBwDwFbA9OtBi5rllygaKUsjZDrwme657/KOalYw2jssLO8eVGZF2MejHjqOc/pVIWYygFiR5Z71e6ozHW5iSSQWYc9/WgBNSVfPiCR7THAkb/Nuyy5UnP4ChUQk9KJswPhF4H9iiIgMdKlnnatljIPSlR8wG7pSoGP/Z">
+          </div>
+          <div id="mentee-name">
+            <p>MENTEE</p>
+            Jorg Are
+          </div>
+          <div class="content">
+            <p>5 mentorship requests made</p>
+
+            <p>most requested skills</p>
+              <div id="md-chip-list">
+                <md-chip-list *ngIf="skills">
+                  <div *ngFor="let skill of skills" class="chip">
+                    {{skill}}
+                  </div>
+                </md-chip-list>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-header>

@@ -1,0 +1,16 @@
+@import 'colors';
+
+.chip {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid $grey-light-200;
+  background-color: $grey-light-300;
+  color: #FFF;
+  border-radius: 5%;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  min-width: 60px;
+  font-size: 0.7rem;
+  text-align: center;
+  text-transform: uppercase;
+}
