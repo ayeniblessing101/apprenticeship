@@ -25,7 +25,7 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)">
+            <div class="and-table-row" *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)" routerLink="/requests/{{request.id}}">
               <div class="and-table-content and-table-col-40">
                 <p>{{request.title}}</p>
               </div>

@@ -11,7 +11,6 @@ import { NotificationService } from '../../services/notifications.service';
   styleUrls: ['./notification.component.scss']
 })
 
-@HostListener('document:click', ['$event'])
 export class NotificationComponent implements OnInit {
   private notifications: Object;
   private msgKeys: string[];
@@ -35,8 +34,20 @@ export class NotificationComponent implements OnInit {
    */
   ngOnInit(): void {
     this.userId = this.auth.userInfo.id;
+    this.notificationService.sendMessage([this.userId], {
+      type: 'Request',
+      message: {
+        title: 'Random title',
+        content: 'some content',
+      },
+      sender: 'random person',
+      timestamp: Date.now()
+    });
     this.getNotifications(this.userId, this.msgLimit);
-    this.unreadNotifications = Object.keys(this.notifications).length;
+    setInterval(() => {
+      this.unreadNotifications = Object.keys(this.notifications).length;
+      this.msgKeys = Object.keys(this.notifications);
+    }, 2000);
   }
 
   /**
@@ -91,7 +102,9 @@ export class NotificationComponent implements OnInit {
    *
    * @param {Object} event - event object
    * @return {Void}
+   * 
    */
+  @HostListener('document:click', ['$event'])
   closeDropDown(event: Object): void {
     if (this.displayPanel) {
       if (!/ntf/.test(event['target'].className)) {

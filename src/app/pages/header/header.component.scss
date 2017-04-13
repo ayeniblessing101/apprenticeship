@@ -7,6 +7,7 @@
   background-color: $andela-blue;
   width: 100vw;
   height: 60px;
+  
   .logo {
     display: flex;
     flex-direction: column;
@@ -14,30 +15,35 @@
     width: 60px;
     height: 60px;
     border-right: 2px solid $andela-blue-dark-100;
+    
     a {
       display: inline-block;
       margin: 0 auto;
     }
   }
+
   .app-name {
     flex: 1;
     padding-left: 12px;
+    
     h1 {
       color: white;
       font-weight: 300;
       margin: 16px 0;
     }
   }
+
   .user-options-group {
     display: flex;
-    width: auto;
-    padding: 0 3.8rem 0 0;
+    padding: 0;
     display: flex;
     justify-content: flex-end;
   }
+
   #menu-dropdown {
     display: none;
   }
+
   .activate-dropdown {
     display: flex;
     flex: 1;
@@ -48,9 +54,11 @@
     color: white;
     text-decoration: none;
   }
+
   &:hover {
     background-color: $andela-blue;
   }
+
   p {
     flex: 1;
   }
@@ -89,8 +97,8 @@
   }
 }
 
-notification-bar {
-  z-index: 9999;
+app-notification-bar {
+  z-index: 999;
 }
 
 #container {
@@ -103,8 +111,7 @@ notification-bar {
   color: white;
   font-family: Roboto;
   font-size: 16px;
-  padding: 0;
-  padding-left: 5px;
+  padding: 0 1rem;
 }
 
 .profile-name {
