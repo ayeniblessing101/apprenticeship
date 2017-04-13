@@ -1,34 +1,33 @@
 <nav class="app-header">
   <div class="top-level-nav">
     <div class="logo">
-        <a href="#">
-          <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
-        </a>
+      <a href="#">
+        <img style="width:35px; height: auto;" src="../../../../assets/images/logo.png" alt="Logo">
+      </a>
     </div>
     <div class="app-name">
-        <h1>Lenken</h1>
+      <h1>Lenken</h1>
     </div>
     <app-notification-bar></app-notification-bar>
     <div class="user-options-group">
-        <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu">
-          <span class="profileName">{{ firstName }}</span>
-          <img src="{{ picture }}" alt="avatar" class="avatar">
-          <i class="material-icons right">arrow_drop_down</i>
-        </button>
-        <md-menu #menu="mdMenu">
-            <button class="logOut" routerLink="/logout" md-menu-item>Logout</button>
-        </md-menu>
+      <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu"><span class="profile-name">{{ firstName }}</span><img src="{{ picture }}" alt="avatar" class="avatar"><i class="material-icons right">arrow_drop_down</i></button>
+      <md-menu #menu="mdMenu">
+        <button class="profile-menu" routerLink="" md-menu-item>Profile</button>
+        <button class="profile-menu" routerLink="/logout" md-menu-item>Logout</button>
+      </md-menu>
     </div>
   </div>
+
+  <!--Sub level Nav-->
   <div class="sub-level-nav">
-      <div class="sub-menu-items">
-          <a class="active" href="#">Home</a>
-          <a href="#">Mentor</a>
-          <a href="/mentee">Mentee</a>
-      </div>
-      <div id="btn-request-container">
-          <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>REQUEST MENTOR</button>
-      </div>
+    <div class="sub-menu-items">
+      <a class="active" href="#">Home</a>
+      <a href="#">Mentor</a>
+      <a href="#">Mentee</a>
+    </div>
+    <div id="btn-request-container">
+      <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>REQUEST MENTOR</button>
+    </div>
   </div>
 </nav>
 <div id="container">
