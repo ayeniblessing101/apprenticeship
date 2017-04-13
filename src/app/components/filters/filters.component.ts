@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillService } from '../../services/skill.service';
 import { RequestService } from '../../services/request.service';
+import { FilterService }     from '../../services/filter.service';
 import { AccordionModule } from 'ngx-accordion';
 
 
@@ -9,30 +10,45 @@ import { AccordionModule } from 'ngx-accordion';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
+
 export class FiltersComponent implements OnInit {
   errorMessage: string;
   skills: any;
   status: any;
-  closed = true;
-  iconNames = ['add_box', 'remove_circle'];
-  icon1Name = 'add_box';
-  icon2Name = 'add_box';
+  iconNames = ['expand_more', 'expand_less'];
+  icon1Name = 'expand_more';
+  icon2Name = 'expand_more';
 
   constructor(
     private skillService: SkillService,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private filterService: FilterService
   ) { }
 
+  /**
+  *  toggleIcon
+  *
+  *  toggles the state of the caret on the filter options
+  *
+  *  @param Integer itemClickedIndex
+  */
   toggleIcon(itemClickedIndex: Number) {
-    this.closed = !this.closed;
-    const index = this.closed === true ? 0 : 1;
-    itemClickedIndex === 1 ? this.icon1Name = this.iconNames[index] : this.icon2Name = this.iconNames[index];
+    if (itemClickedIndex === 1) {
+      this.icon1Name = this.icon1Name === 'expand_more' ? 'expand_less' : 'expand_more';
+    } else if (itemClickedIndex === 2) {
+      this.icon2Name = this.icon2Name === 'expand_more' ? 'expand_less' : 'expand_more';
+    }
   }
 
   ngOnInit() {
     this.getSkillsNStatus();
   }
 
+  /**
+  *  getSkillsNStatus
+  *
+  *  gets skills and statuses from the Lenken API service
+  */
   getSkillsNStatus() {
     this.skillService.getSkills()
       .subscribe(
@@ -44,5 +60,27 @@ export class FiltersComponent implements OnInit {
         status => this.status = status,
         error => this.errorMessage = <any>error
       );
+  }
+
+  /**
+  *  toggleSkill
+  *
+  *  helper method that adds or removes a skill from the checkedSkills array in the filters service
+  *
+  *  @param String skill
+  */
+  toggleSkill(skill) {
+    this.filterService.toggleSkill(skill);
+  }
+
+  /**
+  *  toggleStatus
+  *
+  *  helper method that adds or removes a status from the checkedStatuses array in the filters service
+  *
+  *  @param String status
+  */
+  toggleStatus(status) {
+    this.filterService.toggleStatus((status).toLowerCase());
   }
 }

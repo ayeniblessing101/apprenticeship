@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { FilterService } from '../../services/filter.service';
-
+import { FilterService }     from '../../services/filter.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-mentee',
+  templateUrl: './mentee.component.html',
+  styleUrls: ['./mentee.component.scss']
 })
-export class DashboardComponent implements OnInit {
+
+export class MenteeComponent implements OnInit {
   errorMessage: string;
   requests: any;
   filteredSkills: any[] = [];
@@ -20,17 +20,17 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getRequests();
+    this.getMenteeRequests();
     this.watchFilters();
   }
 
   /**
-  *  getRequests
+  *  getMenteeRequests
   *
-  *  gets 20 requests from the Lenken API service
+  *  gets 20 requests belonging to a particular mentee from the Lenken API service
   */
-  getRequests() {
-    this.requestService.getRequests(20)
+  getMenteeRequests() {
+    this.requestService.getMenteeRequests(20)
       .subscribe(
         requests => this.requests = requests,
         error => this.errorMessage = <any>error

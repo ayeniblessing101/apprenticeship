@@ -23,13 +23,6 @@ export class SkillService {
       .catch(this.handleError);
   }
 
-  /**
-   * Return data as JSON
-   *
-   * @param Response res an Observable
-   *
-   * @return Object containing data from Observable
-   */
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};

@@ -43,7 +43,21 @@ export class RequestService {
    */
   getRequests(limit): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?limit=limit`)
+      .get(`${this.apiBaseUrl}/requests?limit=${limit}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Return mentorship requests for a particular mentee
+   *
+   * @param Number Limit number of requests to return
+   *
+   * @return Observable containing the mentee requests
+   */
+  getMenteeRequests(limit): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/requests?mentee=true&limit=${limit}`)
       .map(this.extractData)
       .catch(this.handleError);
   }

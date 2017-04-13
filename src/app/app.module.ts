@@ -11,6 +11,7 @@ import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
 import { environment } from '../environments/environment';
+import { FilterService } from './services/filter.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -26,6 +27,11 @@ import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.c
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationItemComponent } from './components/notification/notification-item.component';
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
+import { MenteeComponent } from './pages/mentee/mentee.component';
+import { SkillsPipe } from './components/pipes/skills.pipe';
+import { StatusPipe } from './components/pipes/status.pipe';
+import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
+
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -35,14 +41,12 @@ if (authToken) {
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  { path: 'requests',  component: RequestsComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard]},
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
+  { path: 'mentee', component: MenteeComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -59,7 +63,11 @@ const appRoutes: Routes = [
     RequestdetailsComponent,
     NotificationComponent,
     NotificationItemComponent,
-    MentorRequestDetailComponent
+    MentorRequestDetailComponent,
+    MenteeComponent,
+    SkillsPipe,
+    StatusPipe,
+    ArrayIntersectPipe
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,7 @@ const appRoutes: Routes = [
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService],
+  providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService, FilterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

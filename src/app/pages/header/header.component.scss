@@ -80,6 +80,25 @@
     p {
         flex: 1;
     }
+    .user-options-group {
+        display: flex;
+        width: 15rem;
+        padding: 5px;
+    }
+
+    #menu-dropdown {
+        display: none;
+    }
+    .activate-dropdown {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        height: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        color: white;
+        text-decoration: none;
+    }
 }
 
 .sub-level-nav {
