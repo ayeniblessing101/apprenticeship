@@ -31,7 +31,7 @@ import { MenteeComponent } from './pages/mentee/mentee.component';
 import { SkillsPipe } from './components/pipes/skills.pipe';
 import { StatusPipe } from './components/pipes/status.pipe';
 import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
-
+import { MentorComponent } from './pages/mentor/mentor.component';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -44,9 +44,10 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
-  { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard]},
+  { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
-  { path: 'mentee', component: MenteeComponent },
+  { path: 'mentee', component: MenteeComponent, canActivate: [AuthGuard] },
+  { path: 'mentor', component: MentorComponent, canActivate: [AuthGuard] },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -67,7 +68,8 @@ const appRoutes: Routes = [
     MenteeComponent,
     SkillsPipe,
     StatusPipe,
-    ArrayIntersectPipe
+    ArrayIntersectPipe,
+    MentorComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,7 @@ const appRoutes: Routes = [
     MaterialModule,
     SelectModule,
     AccordionModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService, FilterService],
   bootstrap: [AppComponent]

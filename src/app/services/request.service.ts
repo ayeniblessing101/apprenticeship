@@ -76,6 +76,19 @@ export class RequestService {
   }
 
   /**
+   * Return all open mentorship requests
+   *
+   * @param Number limit number of requests to return
+   *
+   * @return Observable containing all open requests
+   */
+  getMentorRequests(limit): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/requests?status=open&limit=${limit}&offset=0`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Return data as JSON
    *
    * @param Response res an Observable

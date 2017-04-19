@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { FilterService }     from '../../services/filter.service';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-mentee',

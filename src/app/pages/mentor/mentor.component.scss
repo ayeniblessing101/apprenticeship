@@ -2,6 +2,43 @@
 @import '../../../assets/scss/table';
 @import '../../../assets/scss/filter';
 
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Roboto;
+
+  .app-partial-outlet {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.and-list-filter-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .and-filter {
+    flex-basis: 20%;
+    margin-right: 20px;
+    height: 490px;
+  }
+
+.accordion {
+  font-size: 14px;
+}
+
+.accordion-heading {
+  display: flex;
+  line-height: 24px;
+}
+
+  .and-list {
+    flex: 1;
+  }
+}
+
 .top-level-nav {
   display: flex;
   background-color: $andela-blue;
@@ -35,13 +72,21 @@
 
   .user-options-group {
     display: flex;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
+    width: 15rem;
+    padding: 5px;
   }
 
   #menu-dropdown {
     display: none;
+  }
+
+  .avatar {
+    background-size: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid $andela-blue-dark-100;
   }
 
   .activate-dropdown {
@@ -53,14 +98,8 @@
     box-sizing: border-box;
     color: white;
     text-decoration: none;
-  }
 
-  &:hover {
-    background-color: $andela-blue;
-  }
-
-  p {
-    flex: 1;
+    p {flex: 1;}
   }
 }
 
@@ -74,59 +113,33 @@
   flex: 1;
   border-bottom: 1px solid $grey-light-500;
   box-sizing: border-box;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12),
+    0 3px 1px -2px rgba(0,0,0,0.2);
+
   .sub-menu-items {
     flex: 1;
   }
+
   #btn-request-container {
-    width: 10rem;
+    width: 9.5rem;
   }
-  .md-btn-andela-pink {
-    float: right;
-  }
+
   a {
     font-family: Roboto;
     padding: 16px 20px;
     color: #666;
     text-decoration: none;
-    &:hover,
-    &.active {
-      color: $andela-blue;
-      border-bottom: 3px solid $andela-blue;
-    }
   }
+
+}
+.material-icons {
+font-weight: bolder;
 }
 
-app-notification-bar {
-  z-index: 999;
+#done {
+color : #43a047;
 }
 
-#container {
-  width: 100vw;
-  box-sizing: border-box;
-  padding: 2rem 3.8rem;
-}
-
-.logoutTrigger {
-  color: white;
-  font-family: Roboto;
-  font-size: 16px;
-  padding: 0 1rem;
-}
-
-.profile-name {
-  padding-right: 10px;
-  text-align: right;
-}
-
-.avatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 2px solid #3359DF;
-  align-self: center;
-}
-
-.profile-menu {
-  text-align: center;
+#clear {
+color : #b71c1c;;
 }
