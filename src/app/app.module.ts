@@ -1,37 +1,46 @@
+// modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AngularFireModule } from 'angularfire2';
+import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from '@angular/material';
+import { SelectModule } from 'ng-select';
+import { AccordionModule } from 'ngx-accordion';
 
+// services 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
-import { environment } from '../environments/environment';
 import { FilterService } from './services/filter.service';
+
+// pipes
+import { SkillsPipe } from './components/pipes/skills.pipe';
+import { StatusPipe } from './components/pipes/status.pipe';
+import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
+
+// components 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
-import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from '@angular/material';
 import { RequestsComponent } from './pages/requests/requests.component';
 import { HeaderComponent } from './pages/header/header.component';
-import { SelectModule } from 'ng-select';
-import { AccordionModule } from 'ngx-accordion';
 import { FiltersComponent } from './components/filters/filters.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationItemComponent } from './components/notification/notification-item.component';
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
-import { SkillsPipe } from './components/pipes/skills.pipe';
-import { StatusPipe } from './components/pipes/status.pipe';
-import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
 import { MentorComponent } from './pages/mentor/mentor.component';
+import { AdminComponent } from './pages/admin/admin.component';
+
+// environment
+import { environment } from '../environments/environment';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -43,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'logout', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
@@ -54,6 +64,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    AdminComponent,
     AppComponent,
     DashboardComponent,
     LoginComponent,
@@ -66,10 +77,12 @@ const appRoutes: Routes = [
     NotificationItemComponent,
     MentorRequestDetailComponent,
     MenteeComponent,
+    MentorComponent,
+
+    // pipes
     SkillsPipe,
     StatusPipe,
     ArrayIntersectPipe,
-    MentorComponent,
   ],
   imports: [
     BrowserModule,

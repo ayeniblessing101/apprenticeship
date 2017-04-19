@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'mixins';
 
 .chip {
   display: inline-block;
@@ -13,4 +14,19 @@
   font-size: 0.7rem;
   text-align: center;
   text-transform: uppercase;
+}
+
+.rounded-chip-open {
+  @include rounded-chip;
+  background: $andela-blue;
+}
+
+.rounded-chip-matched {
+  @include rounded-chip;
+  background: #73D278;
+}
+
+.rounded-chip-closed {
+  @include rounded-chip;
+  background: $andela-secondary;
 }

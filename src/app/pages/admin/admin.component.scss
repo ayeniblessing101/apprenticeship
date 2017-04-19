@@ -1,0 +1,66 @@
+@import '../../../assets/scss/buttons';
+@import '../../../assets/scss/table';
+@import '../../../assets/scss/filter';
+@import '../../../assets/scss/chips';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/loaders';
+
+.and-list {
+  flex: 1;
+}
+
+md-card {
+  color: $grey-light-600;
+  margin-bottom: 10px;
+}
+
+.small-7 {
+  font-size: 0.7rem;
+}
+
+.bold-black {
+  font-weight: bold;
+  color: $black;
+}
+
+.card-header {
+  height: 35px;
+  line-height: 37px;
+  width: 100%;
+  position: relative;
+
+  .status {
+    margin-left: -14px;
+  }
+
+  .date-created {
+    float: right;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.card-content h2:hover {
+  color: $black;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.request-detail {
+  margin-top: -10px;
+  color: #999;
+}
+
+.card-content p {
+  line-height: 1.5rem;
+}
+
+.card-footer {
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 1441px) {
+  .skill-list {
+    margin-top: 5px;
+  }
+}

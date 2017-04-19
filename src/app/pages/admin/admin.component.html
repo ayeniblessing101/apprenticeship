@@ -1,0 +1,31 @@
+<app-header>
+  <div id="app-container">
+    <div class="app-partial-outlet">
+      <div class="and-list-filter-container">
+        <div class="and-filter">
+          <app-filters></app-filters>
+        </div>
+        <div class="and-list">
+          <div *ngIf="loading" class="loader">
+            <img src="../../../assets/images/default.svg" alt="...loading"/>
+          </div>
+          <md-card *ngFor="let request of allRequests">
+            <md-card-header class="card-header">
+              <span class="status small-7" [ngClass]="getStatusClass(request.status)">{{ request.status }}</span>
+              <span class="date-created small-7">Created at <strong>{{ request.created_at }}</strong></span>
+            </md-card-header>
+            <md-card-content class="card-content">
+              <h2><strong>{{ request.title }}</strong></h2>
+              <h5 class="request-detail">Requested by <span class="bold-black">{{ requestedBy }}</span> and has {{ request.interested.length || 0 }} interested mentors.</h5>
+              <p>{{ request.description }}</p>
+            </md-card-content>
+            <div class="skill-list">
+              <span *ngFor="let skill of request.skills" class="chip">{{ skill }}</span>
+            </div>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-header>

@@ -26,3 +26,12 @@
 
   justify-content: center;
 }
+
+@mixin rounded-chip {
+  height: 35px;
+  padding: 0 10px;
+  border-radius: 2px;
+  text-align: center;
+  color: $white;
+  text-transform: uppercase;
+}
