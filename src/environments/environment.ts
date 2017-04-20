@@ -13,12 +13,12 @@ interface Firebase {
 }
 
 const firebaseConfig: Firebase = {
-  apiKey: 'AIzaSyDPB8JMqzT05doF0KX4xlC8wwDuARaWC0s',
-  authDomain: 'lenken-client.firebaseapp.com',
-  databaseURL: 'https://lenken-client.firebaseio.com',
-  projectId: 'lenken-client',
-  storageBucket: 'lenken-client.appspot.com',
-  messagingSenderId: '234548638058'
+  apiKey: 'AIzaSyBKbI6DhMCxfpgNziMWePbYl0uFPH8T8NQ',
+  authDomain: 'lenken-messaging.firebaseapp.com',
+  databaseURL: 'https://lenken-messaging.firebaseio.com',
+  projectId: 'lenken-messaging',
+  storageBucket: 'lenken-messaging.appspot.com',
+  messagingSenderId: '11558842472'
 };
 
 export const environment = {
