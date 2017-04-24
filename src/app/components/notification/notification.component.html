@@ -1,21 +1,20 @@
-<div class="notification-wrapper ntf" (click)="setNotificationDropdownDisplay()">
+<div class="notification-wrapper ntf" (click)="toggleNotificationDropdown()">
   <div class="notification-badge-holder ntf">
     <span class="icon ntf"><md-icon class="ntf">notifications</md-icon></span>
-    <span class="notification-counter ntf" *ngIf="unreadNotifications > 0">{{ unreadNotifications }}</span>
+    <span class="notification-counter ntf" *ngIf="getUnreadCount() > 0">{{ getUnreadCount() }}</span>
   </div><br>
-  <div class="ntf-panel" [ngStyle]="toggleNotificationDropdown()">
+  <div class="ntf-panel" [ngStyle]="setDropDownStyle()">
     <div class="ntf-panel-header">
       <span>Notifications</span>
-      <span (click)="updateUnreadNotifications('all')" class="mark-all-read">Mark all as read</span>
+      <span (click)="markMessagesAsRead()" class="mark-all-read">Mark all as read</span>
     </div>
     <div class="ntf-panel-body">
-      <span class="no-notification-msg" *ngIf="!msgKeys.length">You have no notifications yet!</span>
+      <span class="no-notification-msg" *ngIf="!getNotifications().length">You have no notifications yet!</span>
       <app-notification-item
-        (readNotificationMsg)="updateUnreadNotifications()"
-        *ngFor="let key of msgKeys"
-        [notification]="notifications[key]"
-        [id]="key"
-        [userId]="userId"
+        (readNotificationMsg)="markMessagesAsRead($event)"
+        *ngFor="let notification of getNotifications()"
+        [notification]="notification"
+        [id]="notification.$key"
       >
       </app-notification-item>
     </div>

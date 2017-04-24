@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 
@@ -23,8 +24,8 @@ interface Message {
 
 @Injectable()
 export class NotificationService {
-  userMessages: {[id: string]: {}};
-
+  private userMessages: {[id: string]: {}};
+  private unreadCount: number;
   private database;
 
   /**
@@ -36,6 +37,7 @@ export class NotificationService {
   constructor(private firebase: AngularFire) {
     this.database = firebase.database;
     this.userMessages = {};
+    this.unreadCount = 0;
   }
 
   /**
@@ -43,7 +45,7 @@ export class NotificationService {
    *
    * @param {any[]} users an array of userIds
    * @param {Message} message notification object
-   * @returns {String} success message
+   * @return {String} success message
    * @memberOf NotificationService
    */
   sendMessage(users: any[], message: Message) {
@@ -65,27 +67,41 @@ export class NotificationService {
    *
    * @param {string} userId the userId
    * @param {number} limit the number of messages to return
-   * @returns {FirebaseListObservable<any[]>}
+   * @return {FirebaseListObservable<any[]>}
    * @memberOf NotificationService
-   * @Todo remenber to optimize database index for timestamp
+   * @Todo remember to optimize database index for timestamp
    */
   getUserMessages(userId: string, limit?: number) {
     return this.database.list(`Users/${userId}`, {
       query: {
         orderByChild: 'timestamp',
-        limitToLast: limit || 10
+        limitToLast: limit || 10,
       }
-    }).subscribe(queriedItems => {
+    })
+    .subscribe((queriedItems)=> {
       const messageKeys = [];
+      this.userMessages = {};
+      
       queriedItems.forEach(item => messageKeys.push(item['$key']));
-      Object.keys(this.userMessages).reverse().forEach((key) => {
-        if (!(key in messageKeys)) {
-          delete this.userMessages[key];
-        }
+
+      /**
+       * This block uses each message key stored earlier to subscribe to the messages collection,
+       * then appends read status/property of the messages stored in the users' collection to each message.
+       * The read status for each message is stored in the users' collection(the receiver) so that
+       * they can be independently updated. Based on the number of unread messages found
+       * for each user, the corresponding notification count is updated.
+       */
+      messageKeys.forEach((key) => {
+        this.unreadCount = 0;
+        this.database.object(`Messages/${key}`)
+          .subscribe(message => {
+            message.read = queriedItems.filter(item => item['$key'] === key)[0].read;
+            if (!message.read) {
+              this.unreadCount += 1;
+            }
+            this.userMessages[key] = message;
+          });
       });
-      return messageKeys.forEach(key => this
-      .database.object(`Messages/${key}`).subscribe(message => this
-      .userMessages[key] = message));
     });
   }
 
@@ -94,7 +110,7 @@ export class NotificationService {
    *
    * @param {string} userId the userId
    * @param {any[]} messageIds an array of messsage ids
-   * @returns {String} success message
+   * @return {String} success message
    * @memberOf NotificationService
    */
   markMessagesAsRead(userId: string, messageIds: any[]) {
@@ -106,13 +122,31 @@ export class NotificationService {
   }
 
   /**
+   * Get Current User's Latest Notifications
+   * 
+   * @return {Object} user notifications
+   */
+  getUserNotifications(): Object {
+    return this.userMessages;
+  }
+
+  /** 
+   * return the number of unread notifications
+   * 
+   * @return {Number}
+   */
+  getUnreadCount(): Number {
+    return this.unreadCount;
+  }
+
+  /**
    * handleSuccess method
    *
    * @private
-   * @returns {String} return a string message
+   * @return {String} return a string message
    * @memberOf NotificationService
    */
-  private handleSuccess() {
+  private handleSuccess(): String {
     return 'write successful';
   }
 
@@ -121,10 +155,10 @@ export class NotificationService {
    *
    * @private
    * @param {*} error error parameter
-   * @returns {*} returns the error parameter
+   * @return {*} return the error parameter
    * @memberOf NotificationService
    */
-  private handleError(error: any) {
+  private handleError(error: any): any {
     return error;
   }
 }

@@ -33,7 +33,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { NotificationItemComponent } from './components/notification/notification-item.component';
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';

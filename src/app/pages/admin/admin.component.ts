@@ -24,13 +24,13 @@ export class AdminComponent implements OnInit {
     this.watchFilters();
   }
 
-  /**
-   * gets all requests from request service
-   *
+  /** 
+   * gets all requests from request service 
+   * 
    * @param {Number} limit - number of requests to return
-   * @return {Void}
+   * @return {Void} 
    */
-  getRequests(limit: number): void {
+  getRequests(limit: number):void {
     this.loading = true;
     this.requests.getRequests(limit)
       .subscribe(requests => {
@@ -39,11 +39,11 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  /**
-   * pushes each request into a request array
-   *
-   * @param {Array} requestsArray - Array of requests
-   * @return {Void}
+  /** 
+   * pushes each request into a request array;
+   * 
+   * @param {Array} requests - Array of requests
+   * @return {Void} 
    */
   extractRequest(requestsArray: Array<Object>): void {
     requestsArray.forEach(request => {
@@ -51,11 +51,11 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  /**
+  /** 
    * returns a css class for chips based on request status
-   *
+   * 
    * @param {String} status - request status
-   * @return {String} statusClass - css class
+   * @return {String} statusClass - css class 
    */
   getStatusClass(status: string): string {
     let statusClass: string = '';

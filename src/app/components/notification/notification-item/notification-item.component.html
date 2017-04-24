@@ -3,9 +3,9 @@
     <span>
       {{ notification.type }} from <span class="sender"><strong>{{ notification.sender }}</strong></span>
     </span>
-    <span class>13 mins ago</span>
+    <span class>{{ notification.timestamp | date:'medium' }}</span>
   </div>
-  <div class="notification-body" (click)="readNotification(userId, id)">
+  <div class="notification-body" (click)="readNotification()">
     <span>
       {{ trimMessageTitle(notification.message.title) }}
     </span>

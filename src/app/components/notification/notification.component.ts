@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdIcon } from '@angular/material';
 import { HostListener } from '@angular/core';
-
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notifications.service';
 
@@ -12,88 +11,68 @@ import { NotificationService } from '../../services/notifications.service';
 })
 
 export class NotificationComponent implements OnInit {
-  private notifications: Object;
-  private msgKeys: string[];
-  private displayPanel: boolean;
+  private openNotificationPanel: boolean;
   private msgLimit: number;
-  private unreadNotifications: number;
-  private userId;
+  private userId: string;
 
   constructor (
     private notificationService: NotificationService, private auth: AuthService
   ) {
-    this.displayPanel = false;
+    this.userId = this.auth.userInfo.id;
+    this.openNotificationPanel = false;
     this.msgLimit = 10;
   }
 
-  /**
-   * gets notifications on component load and sets notification dropdown
-   * display to false
-   *
-   * @return {Void}
-   */
-  ngOnInit(): void {
-    this.userId = this.auth.userInfo.id;
-    this.notificationService.sendMessage([this.userId], {
-      type: 'Request',
-      message: {
-        title: 'Random title',
-        content: 'some content',
-      },
-      sender: 'random person',
-      timestamp: Date.now()
-    });
-    this.getNotifications(this.userId, this.msgLimit);
-    setInterval(() => {
-      this.unreadNotifications = Object.keys(this.notifications).length;
-      this.msgKeys = Object.keys(this.notifications);
-    }, 2000);
+  ngOnInit() {
+    this.getUserMessages(this.userId, this.msgLimit);
   }
 
   /**
-   * setNotificationDropdownDisplay
-   * toggles the boolean value of notification displayPanel
+   * triggers the notification service to fetch messages
    *
-   * @return {Void}
+   * @param {String} userId - Id of current user
+   * @param {Number} limit - maximum number of notifications per request
+   * @return {Object} notifications
    */
-  setNotificationDropdownDisplay(): void {
-    this.displayPanel ? this.displayPanel = false : this.displayPanel = true;
-  }
-
-  /**
-   * toggleNotificationDropdown
-   * toggles the notification dropdown display
-   *
-   * @return {Object} - css style object
-   */
-  toggleNotificationDropdown(): Object {
-    return this.displayPanel ? { display: 'block' } : { display: 'none' };
+  getUserMessages(userId: string, limit?: number): void {
+    this.notificationService.getUserMessages(userId, limit);
   }
 
   /**
    * fetches all notifications from notification service for current user
    *
-   * @param {String|Number} userId - Id of current user
-   * @param {Number} limit - maximum number of notifications per request
-   * @return {Void}
+   * @return {Array} notifications
    */
-  getNotifications(userId: string, limit?: number): void {
-    this.notificationService.getUserMessages(userId, limit);
-    this.notifications = this.notificationService.userMessages;
-    this.msgKeys = Object.keys(this.notifications);
+  getNotifications(): Array<any> {
+    const messages = this.notificationService.getUserNotifications();
+
+    return Object.keys(messages).map(messageId => messages[messageId]);
+  }
+
+  /** 
+   * returns the number of unread notifications
+   * 
+   * @return {Number}
+   */
+  getUnreadCount(): Number {
+    return this.notificationService.getUnreadCount();
   }
 
   /**
-   * updates number of unread notifications
+   * marks a message as read. If not supplied a paramter,
+   * it marks all notifications as read;
    *
-   * @param {String} all - all notifications (optional)
+   * @param {String} - optional id
    * @return {Void}
    */
-  updateUnreadNotifications(all?: string): void {
-    if (all && all === 'all') {
-      this.unreadNotifications = 0;
+  markMessagesAsRead(event?: Object): void {
+    if (event) {
+      this.notificationService.markMessagesAsRead(this.userId, [event]);
     } else {
-      this.unreadNotifications--;
+      this.notificationService.markMessagesAsRead(
+        this.userId,
+        this.getNotifications().map(message => message.$key)
+      );
     }
   }
 
@@ -106,10 +85,27 @@ export class NotificationComponent implements OnInit {
    */
   @HostListener('document:click', ['$event'])
   closeDropDown(event: Object): void {
-    if (this.displayPanel) {
-      if (!/ntf/.test(event['target'].className)) {
-        this.displayPanel = false;
-      }
+    if (this.openNotificationPanel && !/ntf/.test(event['target'].className)) {
+      this.openNotificationPanel = false;
     }
+  }
+
+  /**
+   * toggles the boolean value of openNotificationPanel
+   *
+   * @return {Void}
+   */
+  toggleNotificationDropdown(): void {
+    this.openNotificationPanel ?
+      this.openNotificationPanel = false: this.openNotificationPanel = true;
+  }
+
+  /**
+   * sets the dropdown style based on the current value of openNotificationPanel
+   *
+   * @return {Object} - css style object
+   */
+  setDropDownStyle(): Object {
+    return this.openNotificationPanel ? { display: 'block' } : { display: 'none' };
   }
 }
