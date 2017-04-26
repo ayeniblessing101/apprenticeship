@@ -1,16 +1,32 @@
 <ng-content></ng-content>
-<accordion [closeOthers]="false">
-  <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
-    <accordion-heading class="accordion-heading">
-      <i class="material-icons">{{ icon1Name }}</i>Primary Skills
-    </accordion-heading>
-    <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{skill.name}}</md-checkbox><br>
-  </accordion-group>
-  <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
-    <accordion-heading class="accordion-heading">
-      <i class="material-icons">{{ icon2Name }}</i>Status
-    </accordion-heading>
-    <md-checkbox color="primary" *ngFor="let state of status" (change)="toggleStatus(state)">{{state}}</md-checkbox><br>
-  </accordion-group>
+<accordion [closeOthers]="true">
+  <accordion>
+    <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
+      <accordion-heading class="accordion-heading">
+        <i class="material-icons">{{ icon1Name }}</i>Primary Skills
+      </accordion-heading>
+      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{skill.name}}</md-checkbox><br>
+    </accordion-group>
+  </accordion>
+  <accordion [expandAll]="true">
+    <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
+      <accordion-heading class="accordion-heading">
+        <i class="material-icons">{{ icon2Name }}</i>Status
+      </accordion-heading>
+      <div *ngFor="let state of status">
+        <div *ngIf="state === 'Open'">
+          <md-checkbox color="primary" [checked]="autoFilterStatus" (change)="toggleStatus(state)">
+            {{state}}
+          </md-checkbox>
+        </div>
+        <div *ngIf="state !== 'Open'">
+          <md-checkbox color="primary" (change)="toggleStatus(state)">
+            {{state}}
+          </md-checkbox>
+        </div>
+        <br>
+      </div>
+    </accordion-group>
+  </accordion>
 </accordion>
 <ng-content></ng-content>

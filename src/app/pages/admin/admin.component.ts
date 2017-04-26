@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
@@ -8,20 +8,27 @@ import { FilterService } from '../../services/filter.service';
   styleUrls: ['./admin.component.scss']
 })
 
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
   private allRequests: Array<Object> = [];
   private requestedBy: string = 'Abolaji Femi';
-  private limit: number = 10;
+  private limit: number = 5;
   private loading: boolean = false;
   private filteredSkills: any[] = [];
+  private checkedStatuses: any[] = [];
+  private statusFilterSubscription: any;
 
   constructor (
-    private requests: RequestService,
-    private filterService: FilterService) {}
+    private requestService: RequestService,
+    private filterService: FilterService
+  ) {}
 
   ngOnInit() {
     this.getRequests(this.limit);
     this.watchFilters();
+  }
+
+  ngOnDestroy() {
+    this.statusFilterSubscription.unsubscribe();
   }
 
   /** 
@@ -32,7 +39,7 @@ export class AdminComponent implements OnInit {
    */
   getRequests(limit: number):void {
     this.loading = true;
-    this.requests.getRequests(limit)
+    this.requestService.getRequests(limit)
       .subscribe(requests => {
         this.loading = false;
         this.extractRequest(requests);
@@ -77,5 +84,12 @@ export class AdminComponent implements OnInit {
   watchFilters(): void {
     this.filterService.getCheckedSkills()
       .subscribe(skills => this.filteredSkills = skills);
+    this.statusFilterSubscription = this.filterService.getCheckedStatuses()
+      .subscribe(statuses => {
+        const indexOfOpen = statuses.indexOf('open');
+        
+        if (indexOfOpen > -1) statuses.splice(indexOfOpen, 1);
+        this.checkedStatuses = statuses;
+      });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SkillService } from '../../services/skill.service';
 import { RequestService } from '../../services/request.service';
 import { FilterService }     from '../../services/filter.service';
@@ -12,17 +12,18 @@ import { AccordionModule } from 'ngx-accordion';
 })
 
 export class FiltersComponent implements OnInit {
+  @Input() autoFilterStatus;
   errorMessage: string;
   skills: any;
   status: any;
   iconNames = ['expand_more', 'expand_less'];
   icon1Name = 'expand_more';
-  icon2Name = 'expand_more';
+  icon2Name = 'expand_less';
 
   constructor(
     private skillService: SkillService,
     private requestService: RequestService,
-    private filterService: FilterService
+    private filterService: FilterService,
   ) { }
 
   /**
@@ -82,5 +83,9 @@ export class FiltersComponent implements OnInit {
   */
   toggleStatus(status) {
     this.filterService.toggleStatus((status).toLowerCase());
+  }
+
+  log(event) {
+    console.log(event);
   }
 }

@@ -4,7 +4,7 @@
     <div class="app-partial-outlet">
       <div class="and-list-filter-container">
         <div class="and-filter">
-          <app-filters></app-filters>
+          <app-filters [autoFilterStatus]="autoFilterStatus"></app-filters>
         </div>
         <div class="and-list">
           <div class="and-table-container">
@@ -42,7 +42,6 @@
                 <p>{{request.status.toUpperCase()}}</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
