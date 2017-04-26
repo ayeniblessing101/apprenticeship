@@ -20,5 +20,5 @@ export const environment = {
   production: true,
   firebaseConfig,
   apiBaseUrl: 'http://api-lenken.andela.com',
-  lenkenBaseUrl: 'http://lenken-staging.andela.com:4200'
+  lenkenBaseUrl: 'http://lenken.andela.com'
 };
