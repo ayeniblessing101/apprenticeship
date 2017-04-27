@@ -9,10 +9,10 @@
           <div *ngIf="loading" class="loader">
             <img src="../../../assets/images/default.svg" alt="...loading"/>
           </div>
-          <md-card *ngFor="let request of (allRequests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)">
+          <md-card *ngFor="let request of (allRequests | skillsFilter: filteredSkills | statusFilter: checkedStatuses | dateRangeFilter: dateRange[0])">
             <md-card-header class="card-header">
               <span class="status small-7" [ngClass]="getStatusClass(request.status)">{{ request.status }}</span>
-              <span class="date-created small-7">Created at <strong>{{ request.created_at }}</strong></span>
+              <span class="date-created small-7">Created on <strong>{{ request.created_at | amDateFormat: 'dddd, MMM Do YYYY [@] h:mm:ss a' }}</strong></span>
             </md-card-header>
             <md-card-content class="card-content">
               <h2><strong>{{ request.title }}</strong></h2>
@@ -27,5 +27,4 @@
       </div>
     </div>
   </div>
-
 </app-header>

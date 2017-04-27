@@ -9,8 +9,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
+import { MomentModule } from 'angular2-moment';
 
-// services 
+// services
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { SkillService } from './services/skill.service';
@@ -22,8 +23,9 @@ import { FilterService } from './services/filter.service';
 import { SkillsPipe } from './components/pipes/skills.pipe';
 import { StatusPipe } from './components/pipes/status.pipe';
 import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
+import { DateRangePipe } from './components/pipes/date-range.pipe';
 
-// components 
+// components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -41,6 +43,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 
 // environment
 import { environment } from '../environments/environment';
+
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -83,6 +86,7 @@ const appRoutes: Routes = [
     SkillsPipe,
     StatusPipe,
     ArrayIntersectPipe,
+    DateRangePipe,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +98,7 @@ const appRoutes: Routes = [
     SelectModule,
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    MomentModule
   ],
   providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService, FilterService],
   bootstrap: [AppComponent]

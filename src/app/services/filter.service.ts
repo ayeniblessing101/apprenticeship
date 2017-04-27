@@ -6,17 +6,18 @@ import 'rxjs/add/operator/map';
 export class FilterService {
   checkedSkills: any[] = [];
   checkedStatuses: any[] = [];
+  selectedDateRange: any[] = [0];
 
   constructor() {}
 
   /**
-  *  toggler
+  * toggler
   *
-  *  helper method that toggles a certain input on a target variable i.e. checks
-  *  if the input exists and adds it if it does not. If it exists, it removes the
-  *  input from the target.
+  * helper method that toggles a certain input on a target variable i.e. checks
+  * if the input exists and adds it if it does not. If it exists, it removes the
+  * input from the target.
   *
-  *  @param String input, Array target
+  * @param String input, Array target
   */
   toggler(target, input) {
     if (target.includes(input)) {
@@ -28,46 +29,72 @@ export class FilterService {
   }
 
   /**
-  *  toggleSkill
+  * toggleSkill
   *
-  *  this method uses the toggler method to toggle the checkedSkills
+  * this method uses the toggler method to toggle the checkedSkills
   *
-  *  @param String skill
+  * @param String skill
   */
   toggleSkill(skill) {
     this.toggler(this.checkedSkills, skill);
   }
 
   /**
-  *  toggleStatus
+  * toggleStatus
   *
-  *  this method uses the toggler method to toggle the checkedStatuses
+  * this method uses the toggler method to toggle the checkedStatuses
   *
-  *  @param String status
+  * @param String status
   */
   toggleStatus(status) {
     this.toggler(this.checkedStatuses, status);
   }
 
   /**
-  *  getCheckedSkills
+   * setDateRange
+   *
+   * this method assigns a value to the selectedDateRange attribute
+   *
+   * @param {number} value
+   *
+   * @memberOf FilterService
+   */
+  setDateRange(value) {
+    this.selectedDateRange[0] = value;
+  }
+
+  /**
+  * getCheckedSkills
   *
-  *  gets the checkedSkills attribute and returns it as an Observable
+  * gets the checkedSkills attribute and returns it as an Observable
   *
-  *  @return Observable containing checkedSkills array
+  * @return Observable containing checkedSkills array
   */
   getCheckedSkills(): Observable<any> {
     return Observable.of(this.checkedSkills);
   }
 
   /**
-  *  getCheckedStatuses
+  * getCheckedStatuses
   *
-  *  gets the checkedStatuses attribute and returns it as an Observable
+  * gets the checkedStatuses attribute and returns it as an Observable
   *
-  *  @return Observable containing checkedStatuses array
+  * @return Observable containing checkedStatuses array
   */
   getCheckedStatuses(): Observable<any> {
     return Observable.of(this.checkedStatuses);
+  }
+
+  /**
+  * getSelectedDateRange
+  *
+  * gets the selectedDateRange attribute and returns it as an Observable
+  *
+  * @return Observable containing selectedDateRange value
+  *
+  * @memberOf FilterService
+  */
+  getSelectedDateRange(): Observable<any> {
+    return Observable.of(this.selectedDateRange);
   }
 }

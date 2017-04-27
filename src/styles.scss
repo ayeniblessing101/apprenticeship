@@ -36,3 +36,15 @@ h4.panel-title {
 md-checkbox.mat-primary.mat-checkbox {
     display: block;
 }
+
+.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #673ab7;
+}
+
+.mat-radio-inner-circle {
+  background-color: #673ab7;
+}
+
+.mat-radio-ripple .mat-ripple-element {
+  background-color: rgba(103, 58, 183, .26)
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { SkillService } from '../../services/skill.service';
 import { RequestService } from '../../services/request.service';
-import { FilterService }     from '../../services/filter.service';
+import { FilterService } from '../../services/filter.service';
 import { AccordionModule } from 'ngx-accordion';
 
 
@@ -13,42 +14,59 @@ import { AccordionModule } from 'ngx-accordion';
 
 export class FiltersComponent implements OnInit {
   @Input() autoFilterStatus;
+  currentPage: string;
   errorMessage: string;
   skills: any;
   status: any;
+  dateRange: any;
+  dateRangeMap: any[];
   iconNames = ['expand_more', 'expand_less'];
   icon1Name = 'expand_more';
   icon2Name = 'expand_less';
+  icon3Name = 'expand_more';
 
   constructor(
     private skillService: SkillService,
     private requestService: RequestService,
     private filterService: FilterService,
-  ) { }
+    private router: Router
+  ) {
+    this.dateRange = {
+      'Last day': 1,
+      'Last 7 days': 7,
+      'Last 14 days': 14,
+      'Last month': 30,
+      'All time': 0
+    };
+    this.dateRangeMap = Object.keys(this.dateRange);
+  }
 
   /**
-  *  toggleIcon
+  * toggleIcon
   *
-  *  toggles the state of the caret on the filter options
+  * toggles the state of the caret on the filter options
   *
-  *  @param Integer itemClickedIndex
+  * @param Integer itemClickedIndex
   */
   toggleIcon(itemClickedIndex: Number) {
     if (itemClickedIndex === 1) {
       this.icon1Name = this.icon1Name === 'expand_more' ? 'expand_less' : 'expand_more';
     } else if (itemClickedIndex === 2) {
       this.icon2Name = this.icon2Name === 'expand_more' ? 'expand_less' : 'expand_more';
+    } else if (itemClickedIndex === 3) {
+      this.icon3Name = this.icon3Name === 'expand_more' ? 'expand_less' : 'expand_more';
     }
   }
 
   ngOnInit() {
+    this.currentPage = this.router.url.slice(1);
     this.getSkillsNStatus();
   }
 
   /**
-  *  getSkillsNStatus
+  * getSkillsNStatus
   *
-  *  gets skills and statuses from the Lenken API service
+  * gets skills and statuses from the Lenken API service
   */
   getSkillsNStatus() {
     this.skillService.getSkills()
@@ -64,22 +82,22 @@ export class FiltersComponent implements OnInit {
   }
 
   /**
-  *  toggleSkill
+  * toggleSkill
   *
-  *  helper method that adds or removes a skill from the checkedSkills array in the filters service
+  * helper method that adds or removes a skill from the checkedSkills array in the filters service
   *
-  *  @param String skill
+  * @param String skill
   */
   toggleSkill(skill) {
     this.filterService.toggleSkill(skill);
   }
 
   /**
-  *  toggleStatus
+  * toggleStatus
   *
-  *  helper method that adds or removes a status from the checkedStatuses array in the filters service
+  * helper method that adds or removes a status from the checkedStatuses array in the filters service
   *
-  *  @param String status
+  * @param String status
   */
   toggleStatus(status) {
     this.filterService.toggleStatus((status).toLowerCase());
@@ -87,5 +105,18 @@ export class FiltersComponent implements OnInit {
 
   log(event) {
     console.log(event);
+  }
+
+  /**
+   * setDateRange
+   *
+   * helper method assigns a value to the selectedDateRange attribute in the filters service
+   *
+   * @param {number} value
+   *
+   * @memberOf FiltersComponent
+   */
+  setDateRange(value) {
+    this.filterService.setDateRange(value);
   }
 }

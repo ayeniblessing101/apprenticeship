@@ -3,24 +3,28 @@ import { MaterialModule } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 
+
 @Component({
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 
 export class AdminComponent implements OnInit, OnDestroy {
-  private allRequests: Array<Object> = [];
-  private requestedBy: string = 'Abolaji Femi';
-  private limit: number = 5;
-  private loading: boolean = false;
+  public allRequests: Array<Object> = [];
+  public requestedBy: string;
+  public loading: boolean;
+  public dateRange: any[];
+  private limit: number;
   private filteredSkills: any[] = [];
   private checkedStatuses: any[] = [];
   private statusFilterSubscription: any;
 
-  constructor (
-    private requestService: RequestService,
-    private filterService: FilterService
-  ) {}
+  constructor(private requestService: RequestService, private filterService: FilterService) {
+    this.requestedBy = 'Abolaji Femi';
+    this.limit = 10;
+    this.loading = false;
+    this.dateRange = [0];
+  }
 
   ngOnInit() {
     this.getRequests(this.limit);
@@ -31,13 +35,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.statusFilterSubscription.unsubscribe();
   }
 
-  /** 
-   * gets all requests from request service 
-   * 
+  /**
+   * gets all requests from request service
+   *
    * @param {Number} limit - number of requests to return
-   * @return {Void} 
+   * @return {Void}
    */
-  getRequests(limit: number):void {
+  getRequests(limit: number): void {
     this.loading = true;
     this.requestService.getRequests(limit)
       .subscribe(requests => {
@@ -46,11 +50,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       });
   }
 
-  /** 
+  /**
    * pushes each request into a request array;
-   * 
+   *
    * @param {Array} requests - Array of requests
-   * @return {Void} 
+   * @return {Void}
    */
   extractRequest(requestsArray: Array<Object>): void {
     requestsArray.forEach(request => {
@@ -58,14 +62,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** 
+  /**
    * returns a css class for chips based on request status
-   * 
+   *
    * @param {String} status - request status
-   * @return {String} statusClass - css class 
+   * @return {String} statusClass - css class
    */
   getStatusClass(status: string): string {
-    let statusClass: string = '';
+    let statusClass = '';
 
     switch (status.toLowerCase()) {
       case 'open': statusClass = 'rounded-chip-open'; break;
@@ -77,19 +81,21 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   /**
-   *  watches for any changes in the checkedSkills arrays in the filters service
-   *
-   * @return {Void}
-   */
+  * watchFilters
+  *
+  * watches for any changes in the checkedSkills and selectedDateRange arrays in the filters service
+  * @return {Void}
+  */
   watchFilters(): void {
     this.filterService.getCheckedSkills()
       .subscribe(skills => this.filteredSkills = skills);
     this.statusFilterSubscription = this.filterService.getCheckedStatuses()
       .subscribe(statuses => {
         const indexOfOpen = statuses.indexOf('open');
-        
         if (indexOfOpen > -1) statuses.splice(indexOfOpen, 1);
         this.checkedStatuses = statuses;
       });
+    this.filterService.getSelectedDateRange()
+      .subscribe(range => this.dateRange = range);
   }
 }

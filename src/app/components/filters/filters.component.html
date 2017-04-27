@@ -1,14 +1,24 @@
 <ng-content></ng-content>
 <accordion [closeOthers]="true">
   <accordion>
+    <accordion-group *ngIf="currentPage === 'admin'" (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+      <accordion-heading class="accordion-heading">
+        <i class="material-icons">{{ icon3Name }}</i>Date
+      </accordion-heading>
+      <md-radio-group>
+        <md-radio-button class="date-range" *ngFor="let range of dateRangeMap" (change)="setDateRange(dateRange[range])" value={{range}} [checked]="dateRange[range] == 0">{{ range }}</md-radio-button>
+      </md-radio-group>
+    </accordion-group>
+  </accordion>
+  <accordion>
     <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
       <accordion-heading class="accordion-heading">
         <i class="material-icons">{{ icon1Name }}</i>Primary Skills
       </accordion-heading>
-      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{skill.name}}</md-checkbox><br>
+      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{ skill.name }}</md-checkbox><br>
     </accordion-group>
   </accordion>
-  <accordion [expandAll]="true">
+  <accordion [expandAll]="true"> <!-- TODO: use [expandAll]="currentPage==='the_page'" -->
     <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
       <accordion-heading class="accordion-heading">
         <i class="material-icons">{{ icon2Name }}</i>Status
@@ -16,12 +26,12 @@
       <div *ngFor="let state of status">
         <div *ngIf="state === 'Open'">
           <md-checkbox color="primary" [checked]="autoFilterStatus" (change)="toggleStatus(state)">
-            {{state}}
+            {{ state }}
           </md-checkbox>
         </div>
         <div *ngIf="state !== 'Open'">
           <md-checkbox color="primary" (change)="toggleStatus(state)">
-            {{state}}
+            {{ state }}
           </md-checkbox>
         </div>
         <br>
