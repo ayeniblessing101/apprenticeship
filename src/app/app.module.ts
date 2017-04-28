@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AngularFireModule } from 'angularfire2';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +18,7 @@ import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
 import { FilterService } from './services/filter.service';
+import { HttpService } from './services/http.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -38,11 +39,13 @@ import { NotificationComponent } from './components/notification/notification.co
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
+import { IndicateInterestDirective } from './directives/app.directive.mentor-request-interest.directive';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
 // environment
 import { environment } from '../environments/environment';
+import { localStorage } from '../app/globals';
 
 
 const authToken = Cookie.get('jwt-token');
@@ -80,6 +83,7 @@ const appRoutes: Routes = [
     NotificationItemComponent,
     MentorRequestDetailComponent,
     MenteeComponent,
+    IndicateInterestDirective,
     MentorComponent,
 
     // pipes
@@ -100,7 +104,21 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MomentModule
   ],
-  providers: [AuthService, AuthGuard, SkillService, RequestService, NotificationService, FilterService],
+  providers: [
+     {
+      provide: HttpService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpService(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions]
+    },
+    AuthService,
+    AuthGuard,
+    SkillService,
+    RequestService,
+    NotificationService,
+    FilterService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

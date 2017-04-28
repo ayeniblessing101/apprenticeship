@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpService as Http } from './http.service';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
@@ -7,17 +8,19 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RequestService {
-  private apiBaseUrl = environment.apiBaseUrl;
+  private apiBaseUrl: string = environment.apiBaseUrl;
 
   constructor(private http: Http) { }
 
   /**
    * Return details of a particular request
    *
+   * @param requestId the mentoship request Id
+   *
    * @return Observable containing details of request
    */
-  getRequestDetails() {
-    return this.http.get(`${this.apiBaseUrl}/requests/1`)
+  getRequestDetails(requestId: number) {
+    return this.http.get(`${this.apiBaseUrl}/requests/${requestId}`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -41,7 +44,7 @@ export class RequestService {
    *
    * @return Observable containing latest requests
    */
-  getRequests(limit): Observable<any> {
+  getRequests(limit: number): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/requests?limit=${limit}`)
       .map(this.extractData)
@@ -55,7 +58,7 @@ export class RequestService {
    *
    * @return Observable containing the mentee requests
    */
-  getMenteeRequests(limit): Observable<any> {
+  getMenteeRequests(limit: number): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/requests?mentee=true&limit=${limit}`)
       .map(this.extractData)
@@ -84,6 +87,21 @@ export class RequestService {
    */
   getMentorRequests(limit): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/requests?status=open&limit=${limit}&offset=0`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Update a mentorship request
+   *
+   * @param id the mentorship request Id
+   *
+   * @param data the update data
+   *
+   * @return Observable containing the updated request
+   */
+  updateMentorRequest(id: number, data): Observable<any> {
+    return this.http.patch(`${this.apiBaseUrl}/requests/${id}`, data)
       .map(this.extractData)
       .catch(this.handleError);
   }

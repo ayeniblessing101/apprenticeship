@@ -4,7 +4,6 @@ import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/toPromise';

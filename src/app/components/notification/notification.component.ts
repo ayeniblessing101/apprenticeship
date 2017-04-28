@@ -49,9 +49,9 @@ export class NotificationComponent implements OnInit {
     return Object.keys(messages).map(messageId => messages[messageId]);
   }
 
-  /** 
+  /**
    * returns the number of unread notifications
-   * 
+   *
    * @return {Number}
    */
   getUnreadCount(): Number {
@@ -81,7 +81,7 @@ export class NotificationComponent implements OnInit {
    *
    * @param {Object} event - event object
    * @return {Void}
-   * 
+   *
    */
   @HostListener('document:click', ['$event'])
   closeDropDown(event: Object): void {
@@ -97,7 +97,7 @@ export class NotificationComponent implements OnInit {
    */
   toggleNotificationDropdown(): void {
     this.openNotificationPanel ?
-      this.openNotificationPanel = false: this.openNotificationPanel = true;
+      this.openNotificationPanel = false : this.openNotificationPanel = true;
   }
 
   /**

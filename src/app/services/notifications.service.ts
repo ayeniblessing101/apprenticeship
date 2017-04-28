@@ -19,6 +19,7 @@ interface Message {
   type: string;
   message: Notice;
   sender: string;
+  messageUrl: string;
   timestamp: number;
 }
 
@@ -78,10 +79,10 @@ export class NotificationService {
         limitToLast: limit || 10,
       }
     })
-    .subscribe((queriedItems)=> {
+    .subscribe((queriedItems) => {
       const messageKeys = [];
       this.userMessages = {};
-      
+
       queriedItems.forEach(item => messageKeys.push(item['$key']));
 
       /**
@@ -123,16 +124,16 @@ export class NotificationService {
 
   /**
    * Get Current User's Latest Notifications
-   * 
+   *
    * @return {Object} user notifications
    */
   getUserNotifications(): Object {
     return this.userMessages;
   }
 
-  /** 
+  /**
    * return the number of unread notifications
-   * 
+   *
    * @return {Number}
    */
   getUnreadCount(): Number {

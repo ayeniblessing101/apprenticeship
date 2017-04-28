@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { localStorage } from '../../app/globals';
 
 @Injectable()
 export class AuthService {
