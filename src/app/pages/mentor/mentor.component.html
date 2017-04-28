@@ -3,23 +3,7 @@
     <div class="app-partial-outlet">
       <div class="and-list-filter-container">
         <div class="and-filter">
-          <accordion>
-            <accordion-group>
-              <accordion-heading class="accordion-heading">
-                <i class="material-icons">expand_more</i>Requests
-              </accordion-heading>
-            </accordion-group>
-            <accordion-group>
-              <accordion-heading class="accordion-heading">
-                <i class="material-icons">expand_more</i>Primary
-              </accordion-heading>
-            </accordion-group>
-            <accordion-group>
-              <accordion-heading class="accordion-heading">
-                <i class="material-icons">expand_more</i>Interested
-              </accordion-heading>
-            </accordion-group>
-          </accordion>
+          <app-filters></app-filters>
         </div>
         <div class="and-list">
           <div class="and-table-container">
@@ -35,20 +19,26 @@
                 PRIMARY SKILLS
               </div>
               <div class="and-table-heading and-table-col-20">
+                STATUS
+              </div>
+              <div class="and-table-heading and-table-col-20">
                 INTERESTED
               </div>
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of requests" routerLink="/requests/{{ request.id }}/mentor">
+            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses)" routerLink="/requests/{{ request.id }}/mentor">
               <div class="and-table-content and-table-col-20">
-                <p>{{request.requester}}</p>
+                <p>{{ request.requester }}</p>
               </div>
               <div class="and-table-content and-table-col-30">
-                <p>{{request.title}}</p>
+                <p>{{ request.title }}</p>
               </div>
               <div class="and-table-content and-table-col-30">
-                <p>{{request.skills}}</p>
+                <p>{{ request.skills }}</p>
+              </div>
+              <div class="and-table-content and-table-col-20">
+                <p>{{ request.status.toUpperCase() }}</p>
               </div>
               <div class="and-table-content and-table-col-20">
                 <p><i class="material-icons" id="done">done</i>

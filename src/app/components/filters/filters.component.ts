@@ -5,7 +5,6 @@ import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { AccordionModule } from 'ngx-accordion';
 
-
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
@@ -76,7 +75,14 @@ export class FiltersComponent implements OnInit {
       );
     this.requestService.getStatus()
       .subscribe(
-        status => this.status = status,
+        status => {
+        this.status = status;
+        if (this.currentPage === 'mentor') {
+          this.status = this.status.filter((item) => {
+            return item !== 'Closed';
+          });
+        }
+      },
         error => this.errorMessage = <any>error
       );
   }
@@ -101,10 +107,6 @@ export class FiltersComponent implements OnInit {
   */
   toggleStatus(status) {
     this.filterService.toggleStatus((status).toLowerCase());
-  }
-
-  log(event) {
-    console.log(event);
   }
 
   /**

@@ -38,5 +38,12 @@
       </div>
     </accordion-group>
   </accordion>
+  <accordion>
+    <accordion-group *ngIf="currentPage === 'mentor'" (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+      <accordion-heading class="accordion-heading">
+        <i class="material-icons">{{ icon3Name }}</i>Interested
+      </accordion-heading>
+    </accordion-group>
+  </accordion>
 </accordion>
 <ng-content></ng-content>
