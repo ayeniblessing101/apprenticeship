@@ -138,4 +138,15 @@ export class RequestService {
 
     return Observable.throw(errMsg);
   }
+
+  /**
+   * Send PUT request to update mentorship request status
+   *
+   * @param data
+   */
+  updateRequestStatus(data) {
+    return this.http.put(`${this.apiBaseUrl}/requests/${data['id']}`, data)
+           .map(res => res.json())
+           .catch(this.handleError);
+  }
 }

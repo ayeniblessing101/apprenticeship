@@ -43,11 +43,11 @@ import { MenteeComponent } from './pages/mentee/mentee.component';
 import { IndicateInterestDirective } from './directives/app.directive.mentor-request-interest.directive';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { CancelRequestDialog } from './pages/cancelrequest/cancelrequest.component';
 
 // environment
 import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
-
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -86,6 +86,7 @@ const appRoutes: Routes = [
     MenteeComponent,
     IndicateInterestDirective,
     MentorComponent,
+    CancelRequestDialog,
 
     // pipes
     SkillsPipe,
@@ -121,6 +122,7 @@ const appRoutes: Routes = [
     NotificationService,
     FilterService
   ],
+  entryComponents: [CancelRequestDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

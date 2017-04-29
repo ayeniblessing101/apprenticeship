@@ -1,0 +1,9 @@
+<div>
+    <md-dialog-content>
+        <p>{{ confirmMessage }}</p>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-button (click)="dialogRef.close(false)">{{ confirmAbort }}</button>
+        <button md-button (click)="dialogRef.close(true)">{{ confirmOK }}</button>
+    </md-dialog-actions>
+</div>
