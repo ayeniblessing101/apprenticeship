@@ -31,7 +31,7 @@ export class FiltersComponent implements OnInit {
     private requestService: RequestService,
     private filterService: FilterService,
     private router: Router,
-    private auth: AuthService
+    private authService: AuthService
   ) {
     this.dateRange = {
       'Last day': 1,
@@ -41,7 +41,7 @@ export class FiltersComponent implements OnInit {
       'All time': 0
     };
     this.dateRangeMap = Object.keys(this.dateRange);
-    this.userId = this.auth.userInfo.id;
+    this.userId = this.authService.userInfo.id;
   }
 
   /**
@@ -132,5 +132,13 @@ export class FiltersComponent implements OnInit {
    */
   setDateRange(value) {
     this.filterService.setDateRange(value);
+  }
+
+  /**
+   * helper method that adds to or removes a user id from the filteredInterest array in the filters service
+   */
+  toggleInterest() {
+    const user = this.authService.userInfo;
+    this.filterService.toggleInterest(user.id);
   }
 }

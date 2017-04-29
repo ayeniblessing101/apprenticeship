@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 
@@ -7,13 +7,15 @@ import { FilterService } from '../../services/filter.service';
   templateUrl: './mentor.component.html',
   styleUrls: ['./mentor.component.scss']
 })
-
-export class MentorComponent implements OnInit {
+export class MentorComponent implements OnInit, OnDestroy {
   private limit: number;
-  private errorMessage: string;
-  public requests: any;
-  public filteredSkills: any[] = [];
-  public checkedStatuses: any[] = [];
+  errorMessage: string;
+  requests: any;
+  filteredSkills: any[] = [];
+  checkedStatuses: any[] = [];
+  filterSubscription: any;
+  filteredInterest: any[];
+  interestFilterSubscription: any;
 
   constructor(private requestService: RequestService, private filterService: FilterService) {
     this.limit = 10;
@@ -22,6 +24,10 @@ export class MentorComponent implements OnInit {
   ngOnInit() {
     this.getMentorRequests(this.limit);
     this.watchFilters();
+  }
+  ngOnDestroy() {
+    this.filterSubscription.unsubscribe();
+    this.interestFilterSubscription.unsubscribe();
   }
 
   /**
@@ -45,9 +51,20 @@ export class MentorComponent implements OnInit {
   * @return {Void}
   */
   watchFilters(): void {
-    this.filterService.getCheckedStatuses()
+    this.filterSubscription = this.filterService.getCheckedStatuses()
       .subscribe(statuses => this.checkedStatuses = statuses);
+
     this.filterService.getCheckedSkills()
       .subscribe(skills => this.filteredSkills = skills);
+
+    this.interestFilterSubscription = this.filterService.getInterestedStatus()
+      .subscribe(
+        (interested) => {
+          if (interested.length) {
+            interested.splice(0, 1);
+          }
+          this.filteredInterest = interested;
+        }
+      );
   }
 }

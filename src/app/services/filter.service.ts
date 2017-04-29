@@ -7,6 +7,7 @@ export class FilterService {
   checkedSkills: any[] = [];
   checkedStatuses: any[] = [];
   selectedDateRange: any[] = [0];
+  interestedStatus: any[] = [];
 
   constructor() {}
 
@@ -64,6 +65,15 @@ export class FilterService {
   }
 
   /**
+   * this method toggles checkbox to indicate interest
+   *
+   * @param {String} userId
+   */
+  toggleInterest(userId) {
+    this.toggler(this.interestedStatus, userId);
+  }
+
+  /**
   * getCheckedSkills
   *
   * gets the checkedSkills attribute and returns it as an Observable
@@ -96,5 +106,14 @@ export class FilterService {
   */
   getSelectedDateRange(): Observable<any> {
     return Observable.of(this.selectedDateRange);
+  }
+
+  /**
+  * gets the interestedStatus attribute and returns it as an Observable
+  *
+  * @return Observable containing interestedStatus array
+  */
+  getInterestedStatus(): Observable<any> {
+    return Observable.of(this.interestedStatus);
   }
 }

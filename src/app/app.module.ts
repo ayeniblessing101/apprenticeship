@@ -25,6 +25,7 @@ import { SkillsPipe } from './components/pipes/skills.pipe';
 import { StatusPipe } from './components/pipes/status.pipe';
 import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
 import { DateRangePipe } from './components/pipes/date-range.pipe';
+import { InterestPipe } from './components/pipes/interest.pipe';
 
 // components
 import { AppComponent } from './app.component';
@@ -91,6 +92,7 @@ const appRoutes: Routes = [
     StatusPipe,
     ArrayIntersectPipe,
     DateRangePipe,
+    InterestPipe
   ],
   imports: [
     BrowserModule,
