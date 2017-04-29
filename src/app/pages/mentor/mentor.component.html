@@ -27,7 +27,7 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses)" routerLink="/requests/{{ request.id }}/mentor">
+            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills)" routerLink="/requests/{{ request.id }}/mentor">
               <div class="and-table-content and-table-col-20">
                 <p>{{ request.requester }}</p>
               </div>
@@ -52,5 +52,4 @@
       </div>
     </div>
   </div>
-
 </app-header>

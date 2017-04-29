@@ -24,6 +24,20 @@ export class SkillService {
       .catch(this.handleError);
   }
 
+  /**
+   * Return all mentor skills in the database
+   *
+   * @param {String} id - id of the currently logged in user
+   *
+   * @return Observable collection of mentor skills
+   */
+  getUserSkills(id): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/skills?id=${id}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};

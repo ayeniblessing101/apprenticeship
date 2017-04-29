@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DateRangePipe implements PipeTransform {
 
   transform(requests: any[], dateRange: number): any {
-    console.log(dateRange);
     if (!requests || requests === undefined) {
       return [];
     } else {

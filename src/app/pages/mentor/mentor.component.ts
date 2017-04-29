@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 
@@ -7,28 +7,31 @@ import { FilterService } from '../../services/filter.service';
   templateUrl: './mentor.component.html',
   styleUrls: ['./mentor.component.scss']
 })
-export class MentorComponent implements OnInit, OnDestroy {
-  errorMessage: string;
-  requests: any;
-  checkedStatuses: any[] = [];
-  filterSubscription: any;
 
-  constructor(
-    private requestService: RequestService,
-    private filterService: FilterService
-  ) { }
+export class MentorComponent implements OnInit {
+  private limit: number;
+  private errorMessage: string;
+  public requests: any;
+  public filteredSkills: any[] = [];
+  public checkedStatuses: any[] = [];
+
+  constructor(private requestService: RequestService, private filterService: FilterService) {
+    this.limit = 10;
+  }
 
   ngOnInit() {
-    this.getMentorRequests();
+    this.getMentorRequests(this.limit);
     this.watchFilters();
   }
 
-  ngOnDestroy() {
-    this.filterSubscription.unsubscribe();
-  }
-
-  getMentorRequests() {
-    this.requestService.getMentorRequests(20)
+  /**
+   * gets all Mentor requests from request service
+   *
+   * @param {Number} limit - number of requests to return
+   * @return {Void}
+   */
+  getMentorRequests(limit: number): void {
+    this.requestService.getMentorRequests(limit)
       .subscribe(
         requests => this.requests = requests,
         error => this.errorMessage = <any>error,
@@ -36,14 +39,15 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   /**
-  *  watchFilters
+  * watchFilters
   *
-  *  watches for any changes in the checkedStatuses arrays in the filters service
+  * watches for any changes in the checkedStatuses and checkedSkills arrays in the filters service
+  * @return {Void}
   */
-  watchFilters() {
-    this.filterService.getCheckedStatuses().subscribe(
-      statuses => this.checkedStatuses = statuses
-    );
+  watchFilters(): void {
+    this.filterService.getCheckedStatuses()
+      .subscribe(statuses => this.checkedStatuses = statuses);
+    this.filterService.getCheckedSkills()
+      .subscribe(skills => this.filteredSkills = skills);
   }
-
 }

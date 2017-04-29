@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { SkillService } from '../../services/skill.service';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
@@ -13,6 +14,7 @@ import { AccordionModule } from 'ngx-accordion';
 
 export class FiltersComponent implements OnInit {
   @Input() autoFilterStatus;
+  userId: string;
   currentPage: string;
   errorMessage: string;
   skills: any;
@@ -28,7 +30,8 @@ export class FiltersComponent implements OnInit {
     private skillService: SkillService,
     private requestService: RequestService,
     private filterService: FilterService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
     this.dateRange = {
       'Last day': 1,
@@ -38,6 +41,7 @@ export class FiltersComponent implements OnInit {
       'All time': 0
     };
     this.dateRangeMap = Object.keys(this.dateRange);
+    this.userId = this.auth.userInfo.id;
   }
 
   /**
@@ -68,11 +72,19 @@ export class FiltersComponent implements OnInit {
   * gets skills and statuses from the Lenken API service
   */
   getSkillsNStatus() {
-    this.skillService.getSkills()
-      .subscribe(
-        skills => this.skills = skills,
-        error => this.errorMessage = <any>error
-      );
+    if (this.currentPage === 'mentor') {
+      this.skillService.getUserSkills(this.userId)
+        .subscribe(
+          skills => this.skills = skills,
+          error => this.errorMessage = <any>error
+        );
+    } else {
+      this.skillService.getSkills()
+        .subscribe(
+          skills => this.skills = skills,
+          error => this.errorMessage = <any>error
+        );
+    }
     this.requestService.getStatus()
       .subscribe(
         status => {

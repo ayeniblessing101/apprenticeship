@@ -1,7 +1,7 @@
 <ng-content></ng-content>
 <accordion [closeOthers]="true">
-  <accordion>
-    <accordion-group *ngIf="currentPage === 'admin'" (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+  <accordion *ngIf="currentPage === 'admin'">
+    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
       <accordion-heading class="accordion-heading">
         <i class="material-icons">{{ icon3Name }}</i>Date
       </accordion-heading>
@@ -10,7 +10,15 @@
       </md-radio-group>
     </accordion-group>
   </accordion>
-  <accordion>
+  <accordion *ngIf="currentPage === 'mentor'">
+    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+      <accordion-heading class="accordion-heading">
+        <i class="material-icons">{{ icon3Name }}</i>Primary
+      </accordion-heading>
+      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{ skill.name }}</md-checkbox><br>
+    </accordion-group>
+  </accordion>
+  <accordion *ngIf="currentPage !== 'mentor'">
     <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
       <accordion-heading class="accordion-heading">
         <i class="material-icons">{{ icon1Name }}</i>Primary Skills
