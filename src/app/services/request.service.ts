@@ -95,7 +95,6 @@ export class RequestService {
    * Update a mentorship request
    *
    * @param id the mentorship request Id
-   *
    * @param data the update data
    *
    * @return Observable containing the updated request

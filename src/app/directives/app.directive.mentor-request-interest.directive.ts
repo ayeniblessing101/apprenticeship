@@ -1,9 +1,9 @@
-import { environment } from '../../environments/environment';
-import { HostListener, Directive, Injector } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
 import { RequestService } from './../services/request.service';
 import { NotificationService } from '../services/notifications.service';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../../environments/environment';
+import { HostListener, Directive, Injector } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 @Directive({selector: 'button[appMentorshipInterestButton]'})
 export class IndicateInterestDirective {
@@ -11,6 +11,7 @@ export class IndicateInterestDirective {
   private menteeId: string | number;
   private mentorName: string;
   private requestId: number;
+
   constructor(
     private page: Injector,
     private requestsService: RequestService,
@@ -24,6 +25,7 @@ export class IndicateInterestDirective {
     this.menteeId = this.page['_view'].context.details.mentee_id;
     this.mentorName = this.auth.userInfo.name;
     this.requestId = this.page['_view'].context.details.id;
+ 
     return this.requestsService
       .updateMentorRequest(this.requestId, { interested: [this.mentorId] })
       .toPromise()
@@ -35,7 +37,7 @@ export class IndicateInterestDirective {
         },
         sender: `${this.mentorName}`,
         timestamp: Date.now(),
-        messageUrl: `${environment.lenkenBaseUrl}/requests/${this.requestId}/mentor`
+        messageUrl: `${environment.lenkenBaseUrl}/requests/${this.requestId}`
       }))
       .catch(err => err);
   }
