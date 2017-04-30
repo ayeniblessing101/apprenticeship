@@ -108,11 +108,9 @@ const appRoutes: Routes = [
     MomentModule
   ],
   providers: [
-     {
+    {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions) => {
-        return new HttpService(backend, options);
-      },
+      useFactory: HttpService.useFactory,
       deps: [XHRBackend, RequestOptions]
     },
     AuthService,

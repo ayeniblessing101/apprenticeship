@@ -16,6 +16,11 @@ import { localStorage } from '../../app/globals';
 @Injectable()
 export class HttpService extends Http {
   private token: string;
+  
+  static useFactory(backend: XHRBackend, options: RequestOptions) {
+    return new HttpService(backend, options);
+  }
+  
   constructor (backend: XHRBackend, options: RequestOptions) {
     super(backend, options);
     this.token = localStorage.getItem('id_token');
@@ -34,6 +39,7 @@ export class HttpService extends Http {
     } else {
       url.headers.set('Authorization', `Bearer ${this.token}`);
     }
+
     return super.request(url, options).catch(this.catchAuthenticationError(this));
   }
 
@@ -41,3 +47,4 @@ export class HttpService extends Http {
     return (response: Response) => Observable.throw(response);
   }
 }
+
