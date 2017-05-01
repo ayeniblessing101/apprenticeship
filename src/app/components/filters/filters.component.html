@@ -26,20 +26,21 @@
       <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{ skill.name }}</md-checkbox><br>
     </accordion-group>
   </accordion>
-  <accordion [expandAll]="true"> <!-- TODO: use [expandAll]="currentPage==='the_page'" -->
+  <accordion [expandAll]="true">
+    <!-- TODO: use [expandAll]="currentPage==='the_page'" -->
     <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
       <accordion-heading class="accordion-heading">
         <i class="material-icons">{{ icon2Name }}</i>Status
       </accordion-heading>
       <div *ngFor="let state of status">
-        <div *ngIf="state === 'Open'">
-          <md-checkbox color="primary" [checked]="autoFilterStatus" (change)="toggleStatus(state)">
-            {{ state }}
+        <div *ngIf="state.name === 'open'">
+          <md-checkbox color="primary" [checked]="autoFilterStatus" (change)="toggleStatus(state.name)">
+            {{ state.name }}
           </md-checkbox>
         </div>
-        <div *ngIf="state !== 'Open'">
-          <md-checkbox color="primary" (change)="toggleStatus(state)">
-            {{ state }}
+        <div *ngIf="state.name !== 'open'">
+          <md-checkbox color="primary" (change)="toggleStatus(state.name)">
+            {{ state.name }}
           </md-checkbox>
         </div>
         <br>

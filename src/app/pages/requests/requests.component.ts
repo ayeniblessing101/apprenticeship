@@ -21,7 +21,9 @@ export class RequestsComponent implements OnInit {
   disabled = false;
   form: FormGroup;
   lengthOfMentorship: Array<Number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  daysOfAvailability: Array<String> = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
   numMonths: Array<any>;
+  days:Array<any>;
   skills: Array<string> = [];
   selection: Array<string>;
 
@@ -39,21 +41,24 @@ export class RequestsComponent implements OnInit {
         this.form = new FormGroup({
             requiredSkills: new FormControl('', [Validators.required]),
             otherSkills: new FormControl(''),
-            lengthOfMentorship: new FormControl('', [Validators.required]),
+            duration: new FormControl('', [Validators.required]),
             timeControlStart: new FormControl('', [Validators.required]),
             timeControlEnd: new FormControl('', [Validators.required]),
             timeZone: new FormControl('', [Validators.required]),
-            monday: new FormControl(),
-            tuesday: new FormControl(),
-            wednesday: new FormControl(),
-            thursday: new FormControl(),
-            friday: new FormControl(),
-            description: new FormControl('', [Validators.required])
+            selectedDays: new FormControl('', [Validators.required]),
+            description: new FormControl('', [Validators.required]),
+            title: new FormControl('', [Validators.required])
         });
         this.fetchSkills();
         this.initMonths();
+        this.setDays();
     }
 
+    /**
+     * Maps the length of mentorship array to be used in the select input field
+     * for duration of mentorship
+     * @return {Object} number of months
+     */
     initMonths() {
         this.numMonths = this.lengthOfMentorship.map((item) => {
             return {
@@ -63,17 +68,42 @@ export class RequestsComponent implements OnInit {
         });
     }
 
+
+    /**
+     * Maps the days of the week array to be used in the days available 
+     * select input field
+     * @return {Object} days of the week
+     */
+    setDays() {
+        this.days = this.daysOfAvailability.map((item) => {
+            return {
+                'label' : item,
+                'value' : item
+            };
+        });
+    }
+
+    /**
+     * Gets the list of skills from the server
+     * @return {void}
+     */
     fetchSkills() {
         this.skillService.getSkills().subscribe(
             (res) => { this.setSkills(res); }
         );
     }
 
+    /**
+     * Maps the returned skills list to be used in the select skills input field 
+     * select input field
+     * @param {Array} obj Array of object to be mapped
+     * @return {Object} list of skills
+     */
     setSkills(obj) {
         this.skills = obj.map((obj) => {
             return {
                 'label' : obj.name,
-                'value' : obj.name
+                'value' : obj.id
             };
         });
     }
@@ -121,14 +151,20 @@ export class RequestsComponent implements OnInit {
         this.logSingleString += msg + '\n';
     }
 
-  requestMentor(form) {
+    /**
+     * Takes the form values and makes POST request to the requests endpoint
+     * to create a new request.
+     * @param form
+     * @return {void}
+     */
+    requestMentor(form) {
       const data = form.value;
       const config = new MdSnackBarConfig();
       config.duration = 1500;
-      this.requestService.requestMentor(JSON.stringify(data))
+      this.requestService.requestMentor(data)
         .toPromise()
         .then(() => {
-          this.snackbar.open('Request successfull', 'close', config).afterDismissed().subscribe(() => {
+          this.snackbar.open('Request successful', 'close', config).afterDismissed().subscribe(() => {
             this.router.navigate(['./dashboard']);
           });
        }

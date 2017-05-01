@@ -73,7 +73,8 @@ export class RequestService {
    * @return Reponse object
    */
   requestMentor(data) {
-    return this.http.post(`${this.apiBaseUrl}/requests`, data)
+    const formattedData = this.formatRequestForm(data);
+    return this.http.post(`${this.apiBaseUrl}/requests`, formattedData)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -114,7 +115,7 @@ export class RequestService {
    */
   extractData(res: Response) {
     const body = res.json();
-    return body.data || {};
+    return body.data || [];
   }
 
   /**
@@ -140,13 +141,38 @@ export class RequestService {
   }
 
   /**
+   * Format Request Form data
+   *
+   * @param {Object} formValue
+   *
+   * @return {Object}
+   */
+  formatRequestForm(formValue) {
+    const result =  {
+      title: formValue.title,
+      description: formValue.description,
+      primary: formValue.requiredSkills,
+      secondary: formValue.otherSkills,
+      duration: formValue.duration,
+      pairing: {
+        start_time: formValue.timeControlStart,
+        end_time: formValue.timeControlEnd,
+        days: formValue.selectedDays,
+        timezone: formValue.timeZone
+      }
+    };
+    
+    return result;
+  }
+
+  /*
    * Send PUT request to update mentorship request status
    *
    * @param data
    */
   updateRequestStatus(data) {
     return this.http.put(`${this.apiBaseUrl}/requests/${data['id']}`, data)
-           .map(res => res.json())
-           .catch(this.handleError);
+      .map(res => res.json())
+      .catch(this.handleError);
   }
 }

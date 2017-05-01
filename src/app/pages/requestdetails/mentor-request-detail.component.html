@@ -2,28 +2,25 @@
   <div class="container">
     <div class="request-detail">
 
-      <h2 *ngIf="details">
-        Request Detail - {{ details.description }}
+      <h2>
+        Request Detail - {{ details.title }}
       </h2>
 
       <div id="request-description">
-          A brief overview of my request needs: Need to level up my knowledge
-          map-based GUI / mapping technologies &amp; also using tools such as
-          OpenDroneMap and open layers.
+        {{ details.description }}
       </div>
 
       <div id="md-chip-list">
-        <md-chip-list *ngIf="skills">
-          <div *ngFor="let skill of skills" class="chip">
-            {{skill}}
+        <md-chip-list *ngIf="details.request_skills">
+          <div *ngFor="let skill of details.request_skills" class="chip">
+            {{ skill.skill_name }}
           </div>
         </md-chip-list>
       </div>
 
       <div class="request-detail-info">
         <div id="length-of-mentorship">
-          Length of Mentorship is <span disabled="true" class="emphasize">1 month(s)</span> on <span class="emphasize">Mondays, Wednesdays and Fridays</span>
-           at <span class="emphasize">Time: 16:00 - 18:00 GMT</span>.
+          Length of Mentorship is <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on <span class="emphasize">{{ days.join(', ') }} </span> at <span class="emphasize">Time: {{ pairing.start_time }} - {{ pairing.end_time }} {{pairing.timezone}}</span>.
         </div>
         <button md-raised-button id="appMentorshipInterestButton" appMentorshipInterestButton>I'm interested!</button>
       </div>
@@ -46,13 +43,13 @@
             <p>5 mentorship requests made</p>
 
             <p>most requested skills</p>
-              <div id="md-chip-list">
-                <md-chip-list *ngIf="skills">
-                  <div *ngFor="let skill of skills" class="chip">
-                    {{skill}}
-                  </div>
-                </md-chip-list>
-              </div>
+            <div id="md-chip-list">
+              <md-chip-list *ngIf="skills">
+                <div *ngFor="let skill of skills" class="chip">
+                  <!--{{skill}}-->
+                </div>
+              </md-chip-list>
+            </div>
           </div>
         </div>
       </div>

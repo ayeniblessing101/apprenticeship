@@ -25,19 +25,17 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row"
-              *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)"
-              routerLink="/requests/{{ request.id }}"
-            >
+            <div class="and-table-row" *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)" routerLink="/requests/{{ request.id }}">
               <div class="and-table-content and-table-col-40">
                 <p>{{request.title}}</p>
               </div>
               <div class="and-table-content and-table-col-30">
-                <p>{{request.skills.join(", ")}}</p>
+                <p><span *ngFor="let skill of request.request_skills">{{skill.skill_name}}, </span></p>
               </div>
-              <div class="and-table-content and-table-col-10">
+              <div *ngIf="request.interested" class="and-table-content and-table-col-20">
                 <a href="#">{{request.interested.length}} Interested</a>
               </div>
+              <div *ngIf="!request.interested" class="and-table-content and-table-col-20">No Interested</div>
               <div class="and-table-content and-table-col-10">
                 <p>{{request.status.toUpperCase()}}</p>
               </div>
