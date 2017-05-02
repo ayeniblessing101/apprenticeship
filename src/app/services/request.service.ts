@@ -101,8 +101,44 @@ export class RequestService {
    * @return Observable containing the updated request
    */
   updateMentorRequest(id: number, data): Observable<any> {
-    return this.http.patch(`${this.apiBaseUrl}/requests/${id}`, data)
-      .map(this.extractData)
+    return this.http.patch(`${this.apiBaseUrl}/requests/${id}`, data);
+  }
+
+
+  /**
+   * Format Request Form data
+   *
+   * @param {Object} formValue
+   *
+   * @return {Object}
+   */
+  formatRequestForm(formValue) {
+    const result =  {
+      title: formValue.title,
+      description: formValue.description,
+      primary: formValue.requiredSkills,
+      secondary: formValue.otherSkills,
+      duration: formValue.duration,
+      pairing: {
+        start_time: formValue.timeControlStart,
+        end_time: formValue.timeControlEnd,
+        days: formValue.selectedDays,
+        timezone: formValue.timeZone
+      }
+    };
+
+    return result;
+  }
+
+  /**
+   * Send PUT request to update mentorship request status
+   *
+   * @param {Number} id the id of the request
+   * @param {Object} data the update data
+   */
+  updateRequestStatus(id, data) {
+    return this.http.put(`${this.apiBaseUrl}/requests/${id}`, data)
+      .map(res => res.json())
       .catch(this.handleError);
   }
 
@@ -138,41 +174,5 @@ export class RequestService {
     }
 
     return Observable.throw(errMsg);
-  }
-
-  /**
-   * Format Request Form data
-   *
-   * @param {Object} formValue
-   *
-   * @return {Object}
-   */
-  formatRequestForm(formValue) {
-    const result =  {
-      title: formValue.title,
-      description: formValue.description,
-      primary: formValue.requiredSkills,
-      secondary: formValue.otherSkills,
-      duration: formValue.duration,
-      pairing: {
-        start_time: formValue.timeControlStart,
-        end_time: formValue.timeControlEnd,
-        days: formValue.selectedDays,
-        timezone: formValue.timeZone
-      }
-    };
-    
-    return result;
-  }
-
-  /*
-   * Send PUT request to update mentorship request status
-   *
-   * @param data
-   */
-  updateRequestStatus(data) {
-    return this.http.put(`${this.apiBaseUrl}/requests/${data['id']}`, data)
-      .map(res => res.json())
-      .catch(this.handleError);
   }
 }

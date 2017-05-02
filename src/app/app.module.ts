@@ -40,10 +40,9 @@ import { NotificationComponent } from './components/notification/notification.co
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
-import { IndicateInterestDirective } from './directives/app.directive.mentor-request-interest.directive';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { CancelRequestDialog } from './pages/cancelrequest/cancelrequest.component';
+import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -84,9 +83,8 @@ const appRoutes: Routes = [
     NotificationItemComponent,
     MentorRequestDetailComponent,
     MenteeComponent,
-    IndicateInterestDirective,
     MentorComponent,
-    CancelRequestDialog,
+    CancelRequestDialogComponent,
 
     // pipes
     SkillsPipe,
@@ -120,7 +118,7 @@ const appRoutes: Routes = [
     NotificationService,
     FilterService
   ],
-  entryComponents: [CancelRequestDialog],
+  entryComponents: [CancelRequestDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

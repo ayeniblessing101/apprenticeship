@@ -1,6 +1,6 @@
 <app-header>
   <div class="container">
-    <div class="request-detail">
+    <div class="request-detail" *ngIf="details">
 
       <h2>
         Request Detail - {{ details.title }}
@@ -13,7 +13,7 @@
       <div id="md-chip-list">
         <md-chip-list *ngIf="details.request_skills">
           <div *ngFor="let skill of details.request_skills" class="chip">
-            {{ skill.skill_name }}
+            {{ skill.name }}
           </div>
         </md-chip-list>
       </div>
@@ -22,7 +22,7 @@
         <div id="length-of-mentorship">
           Length of Mentorship is <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on <span class="emphasize">{{ days.join(', ') }} </span> at <span class="emphasize">Time: {{ pairing.start_time }} - {{ pairing.end_time }} {{pairing.timezone}}</span>.
         </div>
-        <button md-raised-button id="appMentorshipInterestButton" appMentorshipInterestButton>I'm interested!</button>
+        <button md-raised-button id="appMentorshipInterestButton" (click)="indicateInterest(details)">I'm interested!</button>
       </div>
 
       <div class="clear-fix"></div>

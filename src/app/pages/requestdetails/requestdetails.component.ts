@@ -4,7 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { SkillService } from './../../services/skill.service';
 import { RequestService } from './../../services/request.service';
 import { Observable } from 'rxjs/Rx';
-import { CancelRequestDialog } from '../cancelrequest/cancelrequest.component';
+import { CancelRequestDialogComponent } from '../cancelrequest/cancelrequest.component';
+import { Details } from '../../interfaces/details.interface';
+import { Skill } from '../../interfaces/skill.interface';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,10 +14,9 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: './requestdetails.component.html',
   styleUrls: ['./requestdetails.component.scss'],
 })
-export class RequestdetailsComponent implements OnInit, OnDestroy {
-  skills: any;
-  details: any;
-  sub: any;
+export class RequestdetailsComponent implements OnInit {
+  skills: Skill;
+  details: Details;
   requestId: number;
 
   constructor(
@@ -26,29 +27,29 @@ export class RequestdetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-     this.requestId = this.route.snapshot.params['id'];
-      this.skillsService.getSkills().toPromise().then((res) => {
+    this.requestId = +this.route.snapshot.params['id'];
+    this.skillsService
+      .getSkills()
+      .toPromise()
+      .then((res) => {
           this.skills = res.data;
       });
 
-      this.requestsService.getRequestDetails(this.requestId).toPromise().then((res) => {
+    this.requestsService
+      .getRequestDetails(this.requestId)
+      .toPromise()
+      .then((res) => {
           this.details = res.data[0];
       });
   }
 
   cancelRequest() {
-      const dialogRef = this.dialog.open(CancelRequestDialog);
+      const dialogRef = this.dialog.open(CancelRequestDialogComponent);
       dialogRef.afterClosed().subscribe((result => {
-
         if (result) {
-            const body = { id: this.requestId, status: 3 };
-            this.requestsService.updateRequestStatus(body);
+          this.requestsService.updateRequestStatus(this.requestId, { status: 3 });
         }
       }));
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 }
 

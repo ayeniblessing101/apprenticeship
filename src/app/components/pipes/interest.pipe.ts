@@ -12,9 +12,8 @@ export class InterestPipe implements PipeTransform {
       if (!interestedStatus.length) {
         return requests;
       }
-      return requests.filter(request =>
-        request.interested.includes(interestedStatus[0])
-      );
+      return requests.filter(request => request.interested ? request
+        .interested.includes(interestedStatus[0]) : false);
     }
   }
 }

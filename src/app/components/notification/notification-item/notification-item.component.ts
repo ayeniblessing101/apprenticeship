@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Message } from '../../../interfaces/message.interface';
 
 @Component({
   selector: 'app-notification-item',
@@ -7,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 
 export class NotificationItemComponent {
-  @Input() notification: Object;
+  @Input() notification: Message;
   @Input() id: string;
   @Output() readNotificationMsg = new EventEmitter();
 
@@ -20,8 +21,7 @@ export class NotificationItemComponent {
    * @return {String} title - trimmed title
    */
   trimMessageTitle(title: string): String {
-    if (title.length > 100) return `${title.substr(0, 100)}...`;
-    return title;
+    return title.length > 100 ? `${title.substr(0, 100)}...` : title;
   }
 
   /**
@@ -31,7 +31,9 @@ export class NotificationItemComponent {
    * @return {Object} title - trimmed title
    */
   setNotificationBg(): Object {
-    if (this.notification['read']) return { background: '#fff' };
+    if (this.notification['read']) {
+      return { background: '#fff' }
+    }
   }
 
   /**

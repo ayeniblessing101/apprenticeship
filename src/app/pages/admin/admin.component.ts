@@ -10,14 +10,14 @@ import { FilterService } from '../../services/filter.service';
 })
 
 export class AdminComponent implements OnInit, OnDestroy {
-  public allRequests: Array<Object> = [];
-  public requestedBy: string;
-  public loading: boolean;
-  public dateRange: any[];
-  private limit: number;
-  private filteredSkills: any[] = [];
-  private checkedStatuses: any[] = [];
-  private statusFilterSubscription: any;
+  allRequests: Array<Object> = [];
+  requestedBy: string;
+  loading: boolean;
+  dateRange: any[];
+  limit: number;
+  filteredSkills: any[] = [];
+  checkedStatuses: any[] = [];
+  statusFilterSubscription: any;
 
   constructor(private requestService: RequestService, private filterService: FilterService) {
     this.requestedBy = 'Abolaji Femi';
@@ -92,7 +92,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.statusFilterSubscription = this.filterService.getCheckedStatuses()
       .subscribe(statuses => {
         const indexOfOpen = statuses.indexOf('open');
-        if (indexOfOpen > -1) statuses.splice(indexOfOpen, 1);
+        if (indexOfOpen > -1) {
+          statuses.splice(indexOfOpen, 1);
+        }
         this.checkedStatuses = statuses;
       });
     this.filterService.getSelectedDateRange()

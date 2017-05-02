@@ -1,27 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
-
-/**
- * @interface Notice
- * Blueprint for the notification message
- */
-interface Notice {
-  title: string;
-  content: string;
-}
-
-/**
- * @interface Message
- * Blueprint for the notification object
- */
-interface Message {
-  type: string;
-  message: Notice;
-  sender: string;
-  messageUrl: string;
-  timestamp: number;
-}
+import { Message } from '../interfaces/message.interface';
 
 @Injectable()
 export class NotificationService {

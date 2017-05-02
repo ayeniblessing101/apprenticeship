@@ -9,12 +9,12 @@ import { FilterService } from '../../services/filter.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private errorMessage: string;
-  private requests: any;
-  private filteredSkills: any[] = [];
-  private checkedStatuses: any[] = [];
-  private statusFilterSubscription: any;
-  private autoFilterStatus: boolean;
+  errorMessage: string;
+  requests: any;
+  filteredSkills: any[] = [];
+  checkedStatuses: any[] = [];
+  statusFilterSubscription: any;
+  autoFilterStatus: boolean;
 
   constructor(
     private requestService: RequestService,
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getRequests() {
     this.requestService.getRequests(20)
       .subscribe(
-        requests => this.requests = requests,
+        (requests) => this.requests = requests,
         error => this.errorMessage = <any>error
       );
   }

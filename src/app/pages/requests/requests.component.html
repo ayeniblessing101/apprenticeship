@@ -28,7 +28,7 @@
       <ng-select class="inputHeader" [options]="skills" [multiple]="true" formControlName="requiredSkills" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
       </ng-select>
       <span class="error" [hidden]=" form.get('requiredSkills').valid || form.get('requiredSkills').untouched">
-                You need to submit at least one required skill * 
+                You need to submit at least one required skill *
             </span>
     </div>
 
@@ -43,7 +43,7 @@
       <ng-select [options]="numMonths" formControlName="duration" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)">
       </ng-select>
       <span class="error" [hidden]=" form.get('duration').valid || form.get('duration').untouched">
-                Choose length of mentorship *  
+                Choose length of mentorship *
             </span>
     </div>
 
@@ -71,7 +71,7 @@
           <ng-select [options]="days" [multiple]="true" formControlName="selectedDays" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
           </ng-select>
           <span class="error" [hidden]=" form.get('selectedDays').valid || form.get('selectedDays').untouched">
-            You need to select at least one day * 
+            You need to select at least one day *
           </span>
         </div>
       </div>

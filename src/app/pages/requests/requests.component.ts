@@ -23,7 +23,7 @@ export class RequestsComponent implements OnInit {
   lengthOfMentorship: Array<Number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   daysOfAvailability: Array<String> = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
   numMonths: Array<any>;
-  days:Array<any>;
+  days: Array<any>;
   skills: Array<string> = [];
   selection: Array<string>;
 
@@ -31,27 +31,27 @@ export class RequestsComponent implements OnInit {
   logMultipleString = '';
 
   constructor(
-      private requestService: RequestService,
-      private router: Router,
-      private snackbar: MdSnackBar,
-      private skillService: SkillService
+    private requestService: RequestService,
+    private router: Router,
+    private snackbar: MdSnackBar,
+    private skillService: SkillService
   ) {}
 
     ngOnInit() {
-        this.form = new FormGroup({
-            requiredSkills: new FormControl('', [Validators.required]),
-            otherSkills: new FormControl(''),
-            duration: new FormControl('', [Validators.required]),
-            timeControlStart: new FormControl('', [Validators.required]),
-            timeControlEnd: new FormControl('', [Validators.required]),
-            timeZone: new FormControl('', [Validators.required]),
-            selectedDays: new FormControl('', [Validators.required]),
-            description: new FormControl('', [Validators.required]),
-            title: new FormControl('', [Validators.required])
-        });
-        this.fetchSkills();
-        this.initMonths();
-        this.setDays();
+      this.form = new FormGroup({
+        requiredSkills: new FormControl('', [Validators.required]),
+        otherSkills: new FormControl(''),
+        duration: new FormControl('', [Validators.required]),
+        timeControlStart: new FormControl('', [Validators.required]),
+        timeControlEnd: new FormControl('', [Validators.required]),
+        timeZone: new FormControl('', [Validators.required]),
+        selectedDays: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        title: new FormControl('', [Validators.required])
+      });
+      this.fetchSkills();
+      this.initMonths();
+      this.setDays();
     }
 
     /**
@@ -60,27 +60,23 @@ export class RequestsComponent implements OnInit {
      * @return {Object} number of months
      */
     initMonths() {
-        this.numMonths = this.lengthOfMentorship.map((item) => {
-            return {
-                'label' : item,
-                'value' : item
-            };
-        });
+      this.numMonths = this.lengthOfMentorship.map((item) => ({
+        'label' : item,
+        'value' : item
+      }));
     }
 
 
     /**
-     * Maps the days of the week array to be used in the days available 
+     * Maps the days of the week array to be used in the days available
      * select input field
      * @return {Object} days of the week
      */
     setDays() {
-        this.days = this.daysOfAvailability.map((item) => {
-            return {
-                'label' : item,
-                'value' : item
-            };
-        });
+      this.days = this.daysOfAvailability.map((item) => ({
+        'label' : item,
+        'value' : item
+      }));
     }
 
     /**
@@ -88,67 +84,61 @@ export class RequestsComponent implements OnInit {
      * @return {void}
      */
     fetchSkills() {
-        this.skillService.getSkills().subscribe(
-            (res) => { this.setSkills(res); }
-        );
+      this.skillService
+        .getSkills()
+        .subscribe(res => this.setSkills(res));
     }
 
     /**
-     * Maps the returned skills list to be used in the select skills input field 
+     * Maps the returned skills list to be used in the select skills input field
      * select input field
-     * @param {Array} obj Array of object to be mapped
+     * @param {Array} skills Array of object to be mapped
      * @return {Object} list of skills
      */
-    setSkills(obj) {
-        this.skills = obj.map((obj) => {
-            return {
-                'label' : obj.name,
-                'value' : obj.id
-            };
-        });
+    setSkills(skills) {
+      this.skills = skills.map(skill => ({
+        'label' : skill.name,
+        'value' : skill.id
+      }));
     }
 
     onSingleOpened() {
-        this.logSingle('- opened');
+      this.logSingle('- opened');
     }
 
     onSingleClosed() {
-        this.logSingle('- closed');
+      this.logSingle('- closed');
     }
 
     onSingleSelected(item) {
-        this.logSingle('- selected (value: ' + item.value  + ', label:' +
-                       item.label + ')');
+      this.logSingle(`- selected (value: ${item.value}, label: ${item.label}`);
     }
 
     onSingleDeselected(item) {
-        this.logSingle('- deselected (value: ' + item.value  + ', label:' +
-                       item.label + ')');
+      this.logSingle(`- deselected (value: ${item.value}, label: ${item.label}`);
     }
     onMultipleOpened() {
-        this.logMultiple('- opened');
+      this.logMultiple('- opened');
     }
 
     onMultipleClosed() {
-        this.logMultiple('- closed');
+      this.logMultiple('- closed');
     }
 
     onMultipleSelected(item) {
-        this.logMultiple('- selected (value: ' + item.value  + ', label:' +
-                       item.label + ')');
+      this.logMultiple(`- selected (value: ${item.value}, label: ${item.label}`);
     }
 
     onMultipleDeselected(item) {
-        this.logMultiple('- deselected (value: ' + item.value  + ', label:' +
-                       item.label + ')');
+      this.logMultiple(`- deselected (value: ${item.value}, label: ${item.label}`);
     }
 
     private logMultiple(msg: string) {
-        this.logMultipleString += msg + '\n';
+      this.logMultipleString += `${msg} \n`;
     }
 
     private logSingle(msg: string) {
-        this.logSingleString += msg + '\n';
+      this.logSingleString += `${msg} \n`;
     }
 
     /**
@@ -163,14 +153,13 @@ export class RequestsComponent implements OnInit {
       config.duration = 1500;
       this.requestService.requestMentor(data)
         .toPromise()
-        .then(() => {
-          this.snackbar.open('Request successful', 'close', config).afterDismissed().subscribe(() => {
-            this.router.navigate(['./dashboard']);
-          });
-       }
-       ).catch((error) => {
-           this.snackbar.open('Invalid Request', 'close', config);
-       });
+        .then(() => this.snackbar
+          .open('Request successful', 'close', config)
+          .afterDismissed()
+          .subscribe(() => this.router
+            .navigate(['./dashboard'], { queryParams: { refresh: 'dashboard' } })))
+            .catch(error => this.snackbar
+              .open('Invalid Request', 'close', config));
   }
 
 }
