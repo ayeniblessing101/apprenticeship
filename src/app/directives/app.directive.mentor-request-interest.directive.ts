@@ -25,7 +25,7 @@ export class IndicateInterestDirective {
     this.menteeId = this.page['_view'].context.details.mentee_id;
     this.mentorName = this.auth.userInfo.name;
     this.requestId = this.page['_view'].context.details.id;
-    
+
     return this.requestsService
       .updateMentorRequest(this.requestId, { interested: [this.mentorId] })
       .toPromise()

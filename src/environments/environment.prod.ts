@@ -1,24 +1,7 @@
-interface Firebase {
-  apiKey: string;
-  authDomain: string;
-  databaseURL: string;
-  projectId?: string;
-  storageBucket?: string;
-  messagingSenderId?: string;
-}
+import { environment } from '../env';
 
- const firebaseConfig: Firebase = {
-  apiKey: 'AIzaSyDPB8JMqzT05doF0KX4xlC8wwDuARaWC0s',
-  authDomain: 'lenken-client.firebaseapp.com',
-  databaseURL: 'https://lenken-client.firebaseio.com',
-  projectId: 'lenken-client',
-  storageBucket: 'lenken-client.appspot.com',
-  messagingSenderId: '234548638058'
-};
+environment.production = true;
+environment.apiBaseUrl = 'http://lenken-api-staging.herokuapp.com/api/v1';
+environment.lenkenBaseUrl = 'http://lenken.andela.com';
 
-export const environment = {
-  production: true,
-  firebaseConfig,
-  apiBaseUrl: 'http://api-lenken.andela.com',
-  lenkenBaseUrl: 'http://lenken.andela.com'
-};
+export { environment }

@@ -11,10 +11,9 @@ import 'rxjs/add/operator/toPromise';
 })
 export class MentorRequestDetailComponent implements OnInit {
   skills: any;
-  details:Object = {};
-  pairing:Object = {};
-  days:any = [];
-
+  details: Object = {};
+  pairing: Object = {};
+  days: any = [];
   private requestId: number;
 
   constructor(

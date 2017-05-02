@@ -16,11 +16,11 @@ import { localStorage } from '../../app/globals';
 @Injectable()
 export class HttpService extends Http {
   private token: string;
-  
+
   static useFactory(backend: XHRBackend, options: RequestOptions) {
     return new HttpService(backend, options);
   }
-  
+
   constructor (backend: XHRBackend, options: RequestOptions) {
     super(backend, options);
     this.token = localStorage.getItem('id_token');

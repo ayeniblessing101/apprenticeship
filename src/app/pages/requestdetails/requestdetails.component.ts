@@ -3,7 +3,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { SkillService } from './../../services/skill.service';
 import { RequestService } from './../../services/request.service';
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Rx';
 import { CancelRequestDialog } from '../cancelrequest/cancelrequest.component';
 import 'rxjs/add/operator/toPromise';
 
