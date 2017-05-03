@@ -36,7 +36,7 @@
                 </p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-20">
-                <a href="#">{{ request.interested.length }} Interested</a>
+                <a routerLink="/requests/{{ request.id }}/mentor">{{ request.interested.length }} Interested</a>
               </div>
               <div *ngIf="!request.interested" class="and-table-content and-table-col-20">No Interested</div>
 

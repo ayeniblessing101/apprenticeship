@@ -33,7 +33,7 @@
                 <p><span *ngFor="let skill of request.request_skills">{{ skill.name }}, </span></p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-20">
-                <a href="#">{{ request.interested.length }} Interested</a>
+                <a routerLink="/requests/{{ request.id }}">{{ request.interested.length }} Interested</a>
               </div>
               <div *ngIf="!request.interested" class="and-table-content and-table-col-20">No Interested</div>
               <div class="and-table-content and-table-col-10">
