@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
@@ -45,7 +45,8 @@ export class RequestsComponent implements OnInit {
         timeControlStart: new FormControl('', [Validators.required]),
         timeControlEnd: new FormControl('', [Validators.required]),
         timeZone: new FormControl('', [Validators.required]),
-        selectedDays: new FormControl('', [Validators.required]),
+        selectedDays: new FormArray(this.daysOfAvailability
+          .map(() => new FormControl(false)), this.validateSelectedDays),
         description: new FormControl('', [Validators.required]),
         title: new FormControl('', [Validators.required])
       });
@@ -65,7 +66,6 @@ export class RequestsComponent implements OnInit {
         'value' : item
       }));
     }
-
 
     /**
      * Maps the days of the week array to be used in the days available
@@ -100,6 +100,21 @@ export class RequestsComponent implements OnInit {
         'label' : skill.name,
         'value' : skill.id
       }));
+    }
+
+    /**
+     * Validates the selected days input field
+     *
+     * @param {Object} selectedDays The form selectedDays array object to be validated
+     *
+     * @return {Object|Boolean} the validity of the field
+     */
+    validateSelectedDays(selectedDays: FormArray): any {
+      return selectedDays.value.indexOf(true) !== -1 ? null : {
+        selectedDays: {
+          valid: false
+        }
+      };
     }
 
     onSingleOpened() {
@@ -148,9 +163,13 @@ export class RequestsComponent implements OnInit {
      * @return {void}
      */
     requestMentor(form) {
+      form.value.selectedDays = form.value.selectedDays
+        .map((day, index) => day === true ? this.daysOfAvailability[index] : false)
+        .filter(day => day !== false);
       const data = form.value;
       const config = new MdSnackBarConfig();
       config.duration = 1500;
+
       this.requestService.requestMentor(data)
         .toPromise()
         .then(() => this.snackbar

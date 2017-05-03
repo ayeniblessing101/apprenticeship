@@ -57,7 +57,7 @@ export class MentorRequestDetailComponent implements OnInit {
     const requestId = details.id;
 
     return this.requestsService
-      .updateMentorRequest(requestId, { interested: [mentorId] })
+      .updateMentorRequestInterested(requestId, { interested: [mentorId] })
       .toPromise()
       .then(() => this.notificationService.sendMessage([menteeId], {
         type: '',
