@@ -24,6 +24,9 @@
               <div class="and-table-heading and-table-col-20">
                 INTERESTED
               </div>
+              <div class="and-table-heading and-table-col-20">
+                DURATION
+              </div>
             </div>
 
             <!--Table Row-->
@@ -45,6 +48,9 @@
               <div class="and-table-content and-table-col-20">
                 <p><i class="material-icons" id="done">done</i>
                   <i class="material-icons" id="clear">clear</i></p>
+              </div>
+              <div class="and-table-content and-table-col-20">
+                <p>{{ request.duration }} {{ formatMonth(request.duration) }}</p>
               </div>
             </div>
 

@@ -67,4 +67,15 @@ export class MentorComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+  /**
+  * This singularizes or pluralarizes the months on the duration column
+  *
+  * @param {number} numOfMonths
+  *
+  * @return {string} formatted version of months
+  */
+  formatMonth(numOfMonths: number): string {
+    return numOfMonths > 1 ? 'months' : 'month';
+  }
 }
