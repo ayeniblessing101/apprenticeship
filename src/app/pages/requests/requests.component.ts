@@ -170,7 +170,7 @@ export class RequestsComponent implements OnInit {
       const config = new MdSnackBarConfig();
       config.duration = 1500;
 
-      this.requestService.requestMentor(data)
+      return this.requestService.requestMentor(data)
         .toPromise()
         .then(() => this.snackbar
           .open('Request successful', 'close', config)

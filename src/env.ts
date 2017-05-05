@@ -3,7 +3,7 @@ interface Firebase {
   authDomain: string;
   databaseURL: string;
   projectId?: string;
-  storageBucket?: string;
+  storageBucket: string;
   messagingSenderId?: string;
 }
 
