@@ -4,3 +4,17 @@
     background-color: $andela-secondary;
     color: white;
 }
+
+.md-btn-andela-green {
+    background: green;
+    color: white;
+}
+
+.md-btn-default {
+    background: $white;
+    color: black;
+}
+
+.md-btn-default:hover {
+    background: $grey-light-400;
+}

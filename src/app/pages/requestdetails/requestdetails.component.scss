@@ -1,56 +1,197 @@
+@import '../../../assets/scss/chips';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/buttons';
+
 .container {
-    margin: 0px auto;
-    width: 1400px;
+  margin: 0px auto;
 }
 
-#length-of-mentorship {
-    margin-left: 20px;
+.title {
+  margin-top: 2rem;
 }
 
-#length-of-mentorship-span {
-    border: 1px solid #bdbdbd;
-    padding: 10px;
-    width: 200px;
-    color: #bdbdbd;
+.small-7 {
+  font-size: 0.7rem;
 }
 
-div#mdcheckbox {
-    margin-top: 10px;
-    margin-left: 20px;
+.medium-txt {
+  font-size: 1rem;
 }
 
-div#mdchiplist {
-    margin-left: 20px;
+.bold {
+  font-weight: bold;
 }
 
-button {
-    margin-right: 10px;
+.clear {
+  display: none;
+  height: 1px;
 }
 
-div.top-div {
-    border-bottom: 1px solid #bdbdbd;
-    padding-bottom: 50px;
-    display: flex;
+table tr td {
+  height: 30px;
 }
 
-div#long-description {
-    width: 200px;
-    border: 2px solid #bdbdbd;
-    padding: 20px;
-    border-radius: 4px;
+.padded {
+  padding-left: 20px;
 }
 
-div.flex-box-two {
-    margin-left: 100px;
-    margin-top: 20px;
+.pairing-days-checkbox {
+  padding-right: 10px;
 }
 
-md-card {
-    width: 400px;
-    margin-bottom: 10px;
+.request-detail-card {
+  margin: 0 auto;
 }
 
-button.select-button {
-    background-color: green;
-    color: white;
+.card-content {
+
+  > div {
+    min-height: 200px;
+    width: 100%;
+  }
+}
+
+.content-right, .content-left {
+  @include box-sizing();
+}
+
+.content-left {
+  padding-bottom: 20px;
+  padding-right: 50px;
+}
+
+.content-right {
+  padding: 20px;
+  border-left: 4px solid #f2f2f2;
+}
+
+.content-right p {
+  line-height: 1.3rem;
+}
+
+.card-actions {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.mentor-list-container {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.mentor-list-container {
+  md-card {
+    height: 100px;
+    width: 100%;
+    @include box-sizing();
+    padding: 12px 20px 0 20px;
+    display: inline-block;
+  }
+}
+
+.mentor-avatar {
+  height: 70px;
+  width: 70px;
+  line-height:70px; 
+  border-radius: 50%;
+  border: 3px solid #e8e8e8;
+  float: left;
+}
+
+.mentor-info {
+  float: right;
+  width: 150px;
+}
+
+.mentor-name {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.list-span {
+  width: 100%;
+  display: flex;
+  flex-direction: column 
+}
+
+.item {
+  order: 1;
+}
+
+.interested {
+  width: 100%;
+}
+
+.length-of-mentorship {
+  color: #666;
+  display: inline-block;
+  line-height: 1.5rem;
+}
+
+.emphasize {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.md-chip-list {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+/*
+ * Tablet (min-width: 769px)
+ */
+@media screen and (min-width: 769px) {
+  .card-content {
+
+    > div {
+      width: 50%;
+    }
+  }
+
+  .content-left {
+    float: left;
+  }
+
+  .content-right {
+    float: right;
+  }
+
+  .clear {
+    display: block;
+    clear: none;
+  }
+
+  .mentor-list-container {
+    width: 100%;
+  }
+
+  md-card {
+    margin-right: 2rem;
+  }
+
+  .list-span {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .mentor-list-container {
+    md-card {
+      height: 100px;
+      width: 280px;
+      @include box-sizing();
+    }
+  }
+}
+
+/*
+ * Desktop (min-width: 1025px)
+ */
+@media screen and (min-width: 1025px) {
+  .container {
+    width: 100%;
+  }
 }

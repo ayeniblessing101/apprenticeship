@@ -7,7 +7,7 @@
         </div>
         <div class="and-list">
           <div *ngIf="loading" class="loader">
-            <img src="../../../assets/images/default.svg" alt="...loading"/>
+            <md-spinner></md-spinner>
           </div>
           <md-card *ngFor="let request of (allRequests | skillsFilter: filteredSkills | statusFilter: checkedStatuses | dateRangeFilter: dateRange[0])">
             <md-card-header class="card-header">

@@ -19,6 +19,7 @@ import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
 import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
+import { UserDetailService } from './services/user-detail.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -43,6 +44,8 @@ import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
+import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
+
 
 // environment
 import { environment } from '../environments/environment';
@@ -85,6 +88,7 @@ const appRoutes: Routes = [
     MenteeComponent,
     MentorComponent,
     CancelRequestDialogComponent,
+    DialogModalComponent,
 
     // pipes
     SkillsPipe,
@@ -116,9 +120,14 @@ const appRoutes: Routes = [
     SkillService,
     RequestService,
     NotificationService,
-    FilterService
+    FilterService,
+    UserDetailService,
   ],
-  entryComponents: [CancelRequestDialogComponent],
+  entryComponents: [
+    DialogModalComponent,
+    CancelRequestDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

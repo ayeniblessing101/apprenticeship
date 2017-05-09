@@ -30,3 +30,8 @@
   @include rounded-chip;
   background: $andela-secondary;
 }
+
+.rounded-chip-cancelled {
+  @include rounded-chip;
+  background: grey;
+}

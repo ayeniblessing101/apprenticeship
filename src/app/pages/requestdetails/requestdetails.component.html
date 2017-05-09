@@ -1,82 +1,64 @@
 <app-header>
-    <div class="container">
-        <div class="top-div">
-
-            <div class="flex-box-one">
-                <h2 *ngIf="details">
-                    Request Detail: {{ details.description }}
-                </h2>
-
-                <h3 id="length-of-mentorship">
-                    Lengh of mentorship <span disabled="true" id="length-of-mentorship-span">1</span> month
-                </h3>
-
-                <div id="mdchiplist">
-                    <md-chip-list *ngIf="skills">
-                        <button md-raised-button disabled="true" *ngFor="let skill of skills">
-                            <md-icon>done</md-icon>{{ skill.name }}
-                        </button>
-                    </md-chip-list>
+  <div *ngIf="loading" class="loader">
+    <md-spinner></md-spinner>
+  </div>
+  <div class="container" id="app-container" *ngIf="!loading">
+    <div>
+      <md-card class="request-detail-card">
+        <md-card-content class="card-content">
+          <div class="content-left">
+            <div class="status small-7 rounded-chip" [ngClass]="getStatusClass(details?.status)">{{ details.status }}</div>
+            <h1 class="title">{{ details.title }}</h1>
+            
+            <div class="md-chip-list">
+              <md-chip-list *ngIf="details.request_skills">
+                <div *ngFor="let skill of details.request_skills" class="chip">
+                  {{ skill.name }}
                 </div>
-
-                <div id="mdcheckbox">
-                    <md-checkbox [checked]="true" [disabled]="true">Monday</md-checkbox>
-                    <md-checkbox [checked]="true" [disabled]="true">Tuesday</md-checkbox>
-                    <md-checkbox [checked]="true" [disabled]="true">Wednesday</md-checkbox>
-                </div>
-
+              </md-chip-list>
             </div>
-
-            <div class="flex-box-two">
-                <div id="long-description">
-                    A brief overview of my request needs: Need to level up my knowledge
-                    map-based GUI / mapping technologies &amp; also using tools such as
-                    OpenDroneMap and open layers
-
-                </div>
+            
+            <div class="request-detail-info">
+              <div class="length-of-mentorship">
+                Length of Mentorship is
+                <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on
+                <span class="emphasize">{{ details.pairing_days?.join(', ') }} </span> at
+                <span class="emphasize">Time: {{ details.pairing?.start_time }} - {{ details.pairing?.end_time }} {{ details.pairing?.timezone}}</span>.
+              </div>
             </div>
-
+          </div>
+          <div class="content-right">
+            <h3><strong>Overview</strong></h3>
+            <p>{{ details.description }}</p>
+          </div>
+          <div class="clear"></div>
+        </md-card-content>
+        <div class="card-actions">
+          <div *ngIf="details.status === 'open'">
+            <button (click)="cancelRequest()" md-raised-button>Cancel Request
+            </button>
+            <button md-raised-button class="md-btn-andela-pink">Edit Request
+            </button>
+            
+          </div>
         </div>
-
-        <div class="bottom">
-            <h2>Interested Mentors</h2>
-
-            <div class="action-buttons">
-                <button (click)="cancelRequest()" md-raised-button color="warn">Cancel Request</button>
-                <button md-raised-button class="select-button">Edit</button>
-            </div>
-
-            <br />
-
-            <md-card>
-                <md-card-header>
-                    <md-card-title>John Dhoe</md-card-title>
-                    <md-card-subtitle>Interested</md-card-subtitle>
-                </md-card-header>
-                <md-icon>face</md-icon>
-                <md-card-content>
-                    Hey, I'd love to take you through the basics of ...
-                </md-card-content>
-                <md-card-actions>
-                    <button md-raised-button class="select-button">SELECT</button>
-                </md-card-actions>
-            </md-card>
-
-            <md-card>
-                <md-card-header>
-                    <md-card-title>Jane Dhoe</md-card-title>
-                    <md-card-subtitle>Interested</md-card-subtitle>
-                </md-card-header>
-                <md-icon>face</md-icon>
-                <md-card-content>
-                    Finally, I've been looking for such an opportunity for soo long' ...
-                </md-card-content>
-                <md-card-actions>
-                    <button md-raised-button class="select-button">SELECT</button>
-                </md-card-actions>
-            </md-card>
-
-        </div>
-
+      </md-card>
     </div>
+    <div class="mentor-list-container" *ngIf="details.status === 'open' && details.interested">
+      <div class="interested">
+        <h2>Interested Mentors</h2>
+      </div>
+      <span class="list-span">
+        <md-card class="item" *ngFor="let mentor of interestedMentors">
+          <img src="{{ mentor.picture }}" alt="{{ mentor.name }}" class="mentor-avatar">
+          <div class="mentor-info">
+            <span class="mentor-name">{{ mentor.name }}</span>
+            <button md-raised-button class="md-btn-andela-pink" (click)="openModal(mentor)">
+              Select Mentor
+            </button>
+          </div>
+        </md-card>
+      </span>
+    </div>
+  </div>
 </app-header>

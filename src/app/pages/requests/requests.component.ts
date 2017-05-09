@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/startWith';
@@ -29,13 +29,16 @@ export class RequestsComponent implements OnInit {
 
   logSingleString = '';
   logMultipleString = '';
+  snackBarConfig: any;
 
   constructor(
     private requestService: RequestService,
     private router: Router,
     private snackbar: MdSnackBar,
     private skillService: SkillService
-  ) {}
+  ) {
+    this.snackBarConfig = { duration: 3000 };
+  }
 
     ngOnInit() {
       this.form = new FormGroup({
@@ -167,18 +170,24 @@ export class RequestsComponent implements OnInit {
         .map((day, index) => day === true ? this.daysOfAvailability[index] : false)
         .filter(day => day !== false);
       const data = form.value;
-      const config = new MdSnackBarConfig();
-      config.duration = 1500;
-
       return this.requestService.requestMentor(data)
         .toPromise()
-        .then(() => this.snackbar
-          .open('Request successful', 'close', config)
-          .afterDismissed()
-          .subscribe(() => this.router
-            .navigate(['./dashboard'], { queryParams: { refresh: 'dashboard' } })))
-            .catch(error => this.snackbar
-              .open('Invalid Request', 'close', config));
+        .then(() => this.snackBarOpen(true))
+        .catch(err => this.snackBarOpen(false));
+  }
+
+  private snackBarOpen(status: Boolean) {
+    if (!status) {
+      return this.snackbar
+        .open('Invalid Request!', 'close', this.snackBarConfig);
+    }
+
+    this.snackbar
+      .open('Request successful', 'close', this.snackBarConfig)
+      .afterDismissed()
+      .subscribe(() => {
+        this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
+      })
   }
 
 }

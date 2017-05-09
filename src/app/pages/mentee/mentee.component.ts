@@ -7,9 +7,10 @@ import { FilterService } from '../../services/filter.service';
   templateUrl: './mentee.component.html',
   styleUrls: ['./mentee.component.scss']
 })
-
 export class MenteeComponent implements OnInit {
-  errorMessage: string;
+  private errorMessage: string;
+  private limit: number;
+  
   requests: any;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
@@ -17,7 +18,9 @@ export class MenteeComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private filterService: FilterService
-  ) { }
+  ) {
+    this.limit = 20;
+  }
 
   ngOnInit() {
     this.getMenteeRequests();
@@ -25,12 +28,12 @@ export class MenteeComponent implements OnInit {
   }
 
   /**
-  *  getMenteeRequests
-  *
-  *  gets 20 requests belonging to a particular mentee from the Lenken API service
-  */
+   * gets 20 requests belonging to a particular mentee from the Lenken API service
+   * 
+   * @return {Null}
+   */
   getMenteeRequests() {
-    this.requestService.getMenteeRequests(20)
+    this.requestService.getMenteeRequests(this.limit)
       .subscribe(
         requests => this.requests = requests,
         error => this.errorMessage = <any>error
@@ -38,10 +41,9 @@ export class MenteeComponent implements OnInit {
   }
 
   /**
-  *  watchFilters
-  *
-  *  watches for any changes in the checkedSkills and checkedStatuses arrays in the filters service
-  */
+   * watches for any changes in the checkedSkills and checkedStatuses arrays in the filters service
+   * 
+   */
   watchFilters() {
     this.filterService.getCheckedSkills().subscribe(
       skills => this.filteredSkills = skills

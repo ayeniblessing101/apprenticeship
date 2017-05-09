@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class RequestService {
@@ -68,9 +69,9 @@ export class RequestService {
   /**
    * Create a new mentorship request
    *
-   * @param Object Data containing details of mentorship request
+   * @param {Object} Data containing details of mentorship request
    *
-   * @return Reponse object
+   * @return {Reponse} object
    */
   requestMentor(data) {
     const formattedData = this.formatRequestForm(data);
@@ -82,12 +83,27 @@ export class RequestService {
   /**
    * Return all open mentorship requests
    *
-   * @param Number limit number of requests to return
+   * @param {Number} limit number of requests to return
    *
-   * @return Observable containing all open requests
+   * @return {Observable} containing all open requests
    */
   getMentorRequests(limit): Observable<any> {
-    return this.http.get(`${this.apiBaseUrl}/requests?status=open&limit=${limit}&offset=0`)
+    return this.http
+      .get(`${this.apiBaseUrl}/requests?mentor=true&status=open&limit=${limit}&offset=0`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Match a mentee with a mentor
+   *
+   * @param {Number} requestId 
+   *
+   * @return {Observable} containing all open requests
+   */
+  matchMenteeRequest(requestId: Number, requestUpdate: Object): Observable<any> {
+    return this.http
+      .patch(`${this.apiBaseUrl}/requests/${requestId}/update-mentor`, requestUpdate)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -145,9 +161,9 @@ export class RequestService {
   /**
    * Return data as JSON
    *
-   * @param Response res an Observable
+   * @param {Response} res an Observable
    *
-   * @return Object containing data from Observable
+   * @return {Object} containing data from Observable
    */
   extractData(res: Response) {
     const body = res.json();
@@ -157,7 +173,7 @@ export class RequestService {
   /**
    * Handle errors
    *
-   * @param Response http error
+   * @param {Response} http error
    *
    * @return ErrorObservable
    */
