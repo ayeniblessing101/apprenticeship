@@ -9,9 +9,6 @@
           <div class="and-table-container">
             <!--Table Header-->
             <div class="and-table-head-row">
-              <div class="and-table-heading and-table-col-20">
-                REQUESTER
-              </div>
               <div class="and-table-heading and-table-col-30">
                 REQUESTS
               </div>
@@ -33,11 +30,10 @@
             <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills | interestFilter: filteredInterest)"
               routerLink="/requests/{{ request.id }}/mentor"
             >
-              <div class="and-table-content and-table-col-20">
-                <p>{{ request.requester }}</p>
-              </div>
               <div class="and-table-content and-table-col-30">
+                <span class="date-created-small-7">Requested <strong>{{ request.created_at | amTimeAgo }}</strong></span>
                 <p>{{ request.title }}</p>
+                <span class="requester-small-7">by <strong>Jorg Are</strong></span>
               </div>
               <div class="and-table-content and-table-col-30">
                 <p>{{ request.skills }}</p>
