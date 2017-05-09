@@ -33,8 +33,6 @@ export class RequestdetailsComponent implements OnInit, OnDestroy {
   msgs: Object;
   loading: boolean;
   skillSubscription: any;
-  statusSubscription: any;
-  requestDetailsSubscription: any;
 
   constructor(
     private skillsService: SkillService,
@@ -65,12 +63,12 @@ export class RequestdetailsComponent implements OnInit, OnDestroy {
         this.skills = res.data;
       });
 
-    this.statusSubscription = this.requestsService
+    this.requestsService
       .getStatus()
       .toPromise()
       .then(res => this.statuses = res);
 
-    this.requestDetailsSubscription = this.requestsService
+    this.requestsService
       .getRequestDetails(this.requestId)
       .toPromise()
       .then((res) => {
@@ -82,8 +80,6 @@ export class RequestdetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.skillSubscription.unsubscribe();
-    this.statusSubscription.unsubscribe();;
-    this.requestDetailsSubscription.unsubscribe();;
   }
 
   /**
