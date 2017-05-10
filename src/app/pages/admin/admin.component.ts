@@ -11,15 +11,26 @@ import { FilterService } from '../../services/filter.service';
 
 export class AdminComponent implements OnInit, OnDestroy {
   allRequests: Array<Object> = [];
+  allRequestsIds: any[] =  [];
   requestedBy: string;
   loading: boolean;
   dateRange: any[];
   limit: number;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
-  statusFilterSubscription: any;
 
-  constructor(private requestService: RequestService, private filterService: FilterService) {
+  // Filter Subscriptions
+  statusFilterSubscription: any;
+  skillsFilterSubscription: any;
+  dateFilterSubscription: any;
+
+  constructor(
+    private requestService: RequestService, 
+    private filterService: FilterService
+  ) {
+    filterService.statusResult.subscribe(response => {
+      this.extractRequest(response)
+    });
     this.requestedBy = 'Abolaji Femi';
     this.limit = 10;
     this.loading = false;
@@ -33,6 +44,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.statusFilterSubscription.unsubscribe();
+    this.skillsFilterSubscription.unsubscribe();
+    this.dateFilterSubscription.unsubscribe();
   }
 
   /**
@@ -56,10 +69,32 @@ export class AdminComponent implements OnInit, OnDestroy {
    * @param {Array} requests - Array of requests
    * @return {Void}
    */
-  extractRequest(requestsArray: Array<Object>): void {
-    requestsArray.forEach(request => {
-      this.allRequests.push(request);
+  extractRequest(requestsArray) {
+    let newRequestIds = [];
+    this.allRequestsIds = this.getRequestId(this.allRequests);
+    newRequestIds = this.getRequestId(requestsArray);
+    newRequestIds.forEach(id => {
+      if (!this.allRequestsIds.includes(id)) {
+        const newResult = requestsArray.filter((result) => {
+          return result.id == id;
+        });
+        this.allRequests.push(newResult[0]);
+        this.allRequestsIds.push(id);
+      }
     });
+  }
+
+  /**
+   * Retrieves the id of incoming requests and stores in an array
+   * @param {Array} requests
+   * @return {Array} result
+   */
+  getRequestId(requests) {
+    let result = [];
+    requests.map((request) => {
+      return result.push(request.id);
+    });
+    return result;
   }
 
   /**
@@ -83,21 +118,34 @@ export class AdminComponent implements OnInit, OnDestroy {
   /**
   * watchFilters
   *
-  * watches for any changes in the checkedSkills and selectedDateRange arrays in the filters service
+  * watches for any changes in any of the filter types in the filters service
   * @return {Void}
   */
   watchFilters(): void {
-    this.filterService.getCheckedSkills()
+    this.skillsFilterSubscription = this.filterService.getCheckedSkills()
       .subscribe(skills => this.filteredSkills = skills);
+
     this.statusFilterSubscription = this.filterService.getCheckedStatuses()
-      .subscribe(statuses => {
+      .subscribe((statuses) => {
         const indexOfOpen = statuses.indexOf('open');
+
         if (indexOfOpen > -1) {
           statuses.splice(indexOfOpen, 1);
         }
+
         this.checkedStatuses = statuses;
+
+        this.filterService
+          .getAllRequestsByStatus(
+            this.checkedStatuses[this.checkedStatuses.length - 1]
+          )
+          .subscribe((requests) => {
+            this.extractRequest(requests);     
+          });
       });
-    this.filterService.getSelectedDateRange()
+
+    this.dateFilterSubscription = this.filterService.getSelectedDateRange()
       .subscribe(range => this.dateRange = range);
   }
+
 }

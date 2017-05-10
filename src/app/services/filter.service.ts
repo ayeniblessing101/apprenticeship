@@ -1,31 +1,65 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject }    from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
+import 'rxjs/'
+
+import { RequestService } from './request.service';
 
 @Injectable()
 export class FilterService {
+  // Array that stored checked filter.
   checkedSkills: any[] = [];
-  checkedStatuses: any[] = [];
-  selectedDateRange: any[] = [0];
   interestedStatus: any[] = [];
+  checkedStatuses: any[] = [];
 
-  constructor() {}
+  // Array that keeps track of each filter that has been clicked for the first time
+  statusRegister: any[] = [];
+  skillsRegister: any[] = [];
+  interestedRegister: any[] = [];
+  selectedDateRange: any[] = [0];
+  
+
+  // Publishes new result to other observables and subscribes to incoming results
+  statusResult = new Subject<Object[]>();
+  constructor(private request: RequestService) {}
 
   /**
-  * toggler
+  *  Filter filterRegistry
   *
-  * helper method that toggles a certain input on a target variable i.e. checks
-  * if the input exists and adds it if it does not. If it exists, it removes the
-  * input from the target.
+  *  Helper function that helps to keep state of checked filters.
   *
-  * @param String input, Array target
+  *  @param Array filterRegister Register of a particular filter
+  *  @param Array filterState store for checked filters
+  *  @param String filter Value of the filter
+  *  @param string type the type of filter eg. status, skills
   */
-  toggler(target, input) {
-    if (target.includes(input)) {
-      const pos = target.indexOf(input);
-      target.splice(pos, 1);
+  filterRegistry(filterRegister, filterState, type, filter) {
+    /* 
+     * Check if the filter has been clicked once before making a call to the 
+     * server
+     */ 
+    if (filterRegister.includes(filter)) {
+      // Check if a filter is currently selected
+      if (filterState.includes(filter)) {
+        const pos = filterState.indexOf(filter);
+        filterState.splice(pos, 1);
+      } else {
+        filterState.push(filter);
+      }
+
+       return Observable.of([]);
+    } else if (filter === undefined) {
+      return Observable.of([]);
     } else {
-      target.push(input);
+      /*
+       * if a filter has not been clicked before, add it to that filter
+       * register and save the state as checked
+       */
+      filterRegister.push(filter);
+      filterState.push(filter);
+
+      return this.request.getRequestsByFilter(type, filter);
     }
   }
 
@@ -37,7 +71,7 @@ export class FilterService {
   * @param String skill
   */
   toggleSkill(skill) {
-    this.toggler(this.checkedSkills, skill);
+    this.filterRegistry(this.skillsRegister, this.checkedSkills, 'skills', skill);
   }
 
   /**
@@ -48,7 +82,9 @@ export class FilterService {
   * @param String status
   */
   toggleStatus(status) {
-    this.toggler(this.checkedStatuses, status);
+    return this.filterRegistry(this.statusRegister,this.checkedStatuses, 'status', status).subscribe((res) => {
+      this.statusResult.next(res);
+    });
   }
 
   /**
@@ -70,7 +106,7 @@ export class FilterService {
    * @param {String} userId
    */
   toggleInterest(userId) {
-    this.toggler(this.interestedStatus, userId);
+    this.filterRegistry(this.interestedRegister, this.interestedStatus, 'interested', userId);
   }
 
   /**
@@ -93,6 +129,17 @@ export class FilterService {
   */
   getCheckedStatuses(): Observable<any> {
     return Observable.of(this.checkedStatuses);
+  }
+
+  /**
+  *  getAllRequestByStatus
+  *
+  *  gets all the request that matches the selected status
+  *
+  *  @return Observable containing  array
+  */
+  getAllRequestsByStatus(status): Observable<any> {
+    return this.filterRegistry(this.statusRegister, this.checkedStatuses, 'status', status);
   }
 
   /**

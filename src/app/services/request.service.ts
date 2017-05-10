@@ -53,6 +53,20 @@ export class RequestService {
   }
 
   /**
+   * Return latest mentorship requests
+   *
+   * @param String the status parameter to search for
+   *
+   * @return Observable containing matching requests
+   */
+  getRequestsByStatus(status): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/requests?status=${status}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Return mentorship requests for a particular mentee
    *
    * @param Number Limit number of requests to return
@@ -190,5 +204,13 @@ export class RequestService {
     }
 
     return Observable.throw(errMsg);
+  }
+
+  getRequestsByFilter(type, filter): Observable<any> {
+    switch (type) {
+      case 'status':
+      default:
+        return this.getRequestsByStatus(filter);
+    }
   }
 }
