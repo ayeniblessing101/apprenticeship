@@ -1,0 +1,87 @@
+<div *ngIf="details">
+  <form [formGroup]="editRequestForm" (ngSubmit)="editRequest(editRequestForm)" novalidate>
+    <h1 md-dialog-title>Edit Request</h1>
+
+    <md-dialog-content>
+        <div class="form-section">
+          <div layout="row">
+            <md-input-container class="full-width">
+              <input formControlName="title" mdInput placeholder="Enter a title" class="requestText" />
+            </md-input-container>
+
+            <span class="error" [hidden]="editRequestForm.get('title').valid || editRequestForm.get('title').untouched">Title required *</span>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div layout="row">
+            <md-input-container class="full-width">
+              <textarea formControlName="description" mdInput placeholder="Description" class="requestText" rows="4"></textarea>
+            </md-input-container>
+
+            <span class="error" [hidden]="editRequestForm.get('description').valid || editRequestForm.get('description').untouched">
+                Description required *
+            </span>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div>Required Skills</div>
+          <ng-select class="inputHeader" [options]="skills" [multiple]="true" formControlName="primary" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
+          </ng-select>
+          <span class="error" [hidden]=" editRequestForm.get('primary').valid || editRequestForm.get('primary').untouched">
+            You need to submit at least one required skill *
+          </span>
+        </div>
+
+        <div class="form-section">
+          <div>Other Skills</div>
+          <ng-select [options]="skills" [multiple]="true" formControlName="secondary" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
+          </ng-select>
+        </div>
+
+        <div class="form-section">
+          <div>Length of Mentorship Month(s)</div>
+          <ng-select [options]="numMonths" formControlName="duration" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)">
+          </ng-select>
+          <span class="error" [hidden]=" editRequestForm.get('duration').valid || editRequestForm.get('duration').untouched">
+            Choose length of mentorship *
+          </span>
+        </div>
+
+        <div class="form-section">
+          <div layout="row" class="pairingTime">Pairing Time</div>
+
+          <div layout="row" class="mentorship-period">
+
+            <div class="time-picker">
+                <label class="start-time">Start</label>
+                <input formControlName="timeControlStart" class="timePicker" type="time">
+
+                <label>End</label>
+                <input formControlName="timeControlEnd" class="timePicker" type="time">
+                <br>
+                <br>
+
+                <md-select class="zone" formControlName="timeZone" placeholder="time zone">
+                    <md-option value="WAT">WAT</md-option>
+                    <md-option value="EAT">EAT</md-option>
+                </md-select>
+            </div>
+            <br>
+            <div class="day-picker" formArrayName="selectedDays">
+                <md-checkbox *ngFor="let item of daysOfAvailability; let index = index" formControlName="{{ index }}">{{ daysOfAvailability[index] }}</md-checkbox>
+            </div>
+
+          </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+      <div id="btn-request-container">
+        <button md-raised-button (click)="dialogRef.close(false)" class="action-button">Cancel</button>
+        <button md-raised-button class="md-btn-andela-pink" type="submit" [disabled]="!editRequestForm.valid">Update Request</button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</div>

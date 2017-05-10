@@ -12,6 +12,7 @@ import { CancelRequestDialogComponent } from '../cancelrequest/cancelrequest.com
 import { DialogModalComponent } from '../../components/dialog-modal/dialog-modal.component';
 import { Details } from '../../interfaces/details.interface';
 import { Skill } from '../../interfaces/skill.interface';
+import { EditDialogComponent } from '../editrequest/edit-request.component';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -198,5 +199,17 @@ export class RequestdetailsComponent implements OnInit, OnDestroy {
         this.requestsService.updateRequestStatus(this.requestId, { status: 3 });
       }
     }));
+  }
+
+  /**
+   * opens edit dialog modal
+   */
+  editRequest() {
+    this.dialog.open(EditDialogComponent, {
+      data: {
+        id: this.requestId,
+        details: this.details
+      }
+    });
   }
 }

@@ -46,7 +46,7 @@ import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
-
+import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -90,6 +90,7 @@ const appRoutes: Routes = [
     MentorComponent,
     CancelRequestDialogComponent,
     DialogModalComponent,
+    EditDialogComponent,
 
     // pipes
     SkillsPipe,
@@ -127,7 +128,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     DialogModalComponent,
-    CancelRequestDialogComponent
+    CancelRequestDialogComponent,
+    EditDialogComponent
   ],
   bootstrap: [AppComponent]
 })
