@@ -30,7 +30,7 @@
                 <p>{{ request.title }}</p>
               </div>
               <div class="and-table-content and-table-col-30">
-                <p><span *ngFor="let skill of request.request_skills">{{ skill.name }}, </span></p>
+                <p>{{ helper.joinSkills(request.request_skills) }}</p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-10">
                 <a routerLink="/requests/{{ request.id }}">{{ request.interested.length }} Interested</a>

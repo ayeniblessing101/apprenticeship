@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
+import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   selector: 'app-mentor',
@@ -17,7 +18,11 @@ export class MentorComponent implements OnInit, OnDestroy {
   filteredInterest: any[];
   interestFilterSubscription: any;
 
-  constructor(private requestService: RequestService, private filterService: FilterService) {
+  constructor(
+    private requestService: RequestService,
+    private filterService: FilterService,
+    public helper: Helper
+  ) {
     this.limit = 10;
   }
 

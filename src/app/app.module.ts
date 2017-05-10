@@ -20,6 +20,7 @@ import { NotificationService } from './services/notifications.service';
 import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
 import { UserDetailService } from './services/user-detail.service';
+import { HelperService } from './services/helper.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -122,6 +123,7 @@ const appRoutes: Routes = [
     NotificationService,
     FilterService,
     UserDetailService,
+    HelperService
   ],
   entryComponents: [
     DialogModalComponent,

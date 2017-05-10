@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
+import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   selector: 'app-mentee',
@@ -10,14 +11,15 @@ import { FilterService } from '../../services/filter.service';
 export class MenteeComponent implements OnInit {
   private errorMessage: string;
   private limit: number;
-  
+
   requests: any;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
 
   constructor(
     private requestService: RequestService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    public helper: Helper
   ) {
     this.limit = 20;
   }
@@ -29,7 +31,7 @@ export class MenteeComponent implements OnInit {
 
   /**
    * gets 20 requests belonging to a particular mentee from the Lenken API service
-   * 
+   *
    * @return {Null}
    */
   getMenteeRequests() {
@@ -42,7 +44,7 @@ export class MenteeComponent implements OnInit {
 
   /**
    * watches for any changes in the checkedSkills and checkedStatuses arrays in the filters service
-   * 
+   *
    */
   watchFilters() {
     this.filterService.getCheckedSkills().subscribe(

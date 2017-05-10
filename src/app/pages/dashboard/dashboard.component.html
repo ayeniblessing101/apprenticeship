@@ -31,8 +31,7 @@
               </div>
               <div class="and-table-content and-table-col-30">
                 <p>
-                  <span *ngFor="let skill of request.request_skills">
-                  {{ skill.name }}, </span>
+                  {{ helper.joinSkills(request.request_skills) }}
                 </p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-20">
