@@ -75,7 +75,7 @@ export class RequestService {
    */
   getMenteeRequests(limit: number): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?mentee=true&limit=${limit}`)
+      .get(`${this.apiBaseUrl}/requests?self=true&limit=${limit}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -111,7 +111,7 @@ export class RequestService {
   /**
    * Match a mentee with a mentor
    *
-   * @param {Number} requestId 
+   * @param {Number} requestId
    *
    * @return {Observable} containing all open requests
    */
@@ -143,7 +143,7 @@ export class RequestService {
    * @return {Object}
    */
   formatRequestForm(formValue) {
-    const result =  {
+    const result = {
       title: formValue.title,
       description: formValue.description,
       primary: formValue.requiredSkills,
