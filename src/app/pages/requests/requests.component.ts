@@ -187,7 +187,7 @@ export class RequestsComponent implements OnInit {
       .afterDismissed()
       .subscribe(() => {
         this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
-      })
+      });
   }
 
 }

@@ -40,10 +40,20 @@ div#request-description {
   background-color: #e91e63;
   color: #FFF;
   margin: 40px 0;
+
+  &[disabled] { background-color: rgba(0, 0, 0, 0.12);}
 }
 
 #mentee-details {
   margin-top: 80px;
+}
+
+md-spinner {
+  float: right;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  margin: 7px 0 0 10px;
 }
 
 #mentee-details .mentee-detail-profile {

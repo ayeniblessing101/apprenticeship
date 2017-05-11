@@ -20,9 +20,20 @@
 
       <div class="request-detail-info">
         <div id="length-of-mentorship">
-          Length of Mentorship is <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on <span class="emphasize">{{ days.join(', ') }} </span> at <span class="emphasize">Time: {{ pairing.start_time }} - {{ pairing.end_time }} {{pairing.timezone}}</span>.
+          Length of Mentorship is
+          <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span>
+          on
+          <span class="emphasize">{{ days.join(', ') }} </span>
+          at <span class="emphasize">Time: {{ pairing.start_time }} - {{ pairing.end_time }} {{pairing.timezone}}</span>.
         </div>
-        <button md-raised-button id="appMentorshipInterestButton" (click)="indicateInterest(details)">I'm interested!</button>
+        <button md-raised-button *ngIf="!loading" id="appMentorshipInterestButton" (click)="indicateInterest(details)" [disabled]="hasAlreadyIndicatedInterest">
+          {{hasAlreadyIndicatedInterest ? "You've already indicated Your interest" : "I'm interested!"}}
+        </button>
+
+        <button md-raised-button *ngIf="loading" id="appMentorshipInterestButton" (click)="indicateInterest(details)" [disabled]="hasAlreadyIndicatedInterest">
+          {{hasAlreadyIndicatedInterest ? "You've already indicated Your interest" : "I'm interested!"}}
+          <md-spinner></md-spinner>
+        </button>
       </div>
 
       <div class="clear-fix"></div>

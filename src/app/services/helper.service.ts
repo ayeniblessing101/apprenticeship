@@ -12,7 +12,7 @@ export class HelperService {
   *
   *  @return an array of names of skills
   */
-extractSkills(arrayOfSkills: any[]): string[] {
+  extractSkills(arrayOfSkills: any[]): string[] {
     return arrayOfSkills.map(skill => skill.name);
   }
 
