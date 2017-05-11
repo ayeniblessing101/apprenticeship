@@ -53,13 +53,15 @@
       <div layout="row" class="mentorship-period">
 
         <div class="time-picker">
-            <label class="start-time">Start</label>
-            <input formControlName="timeControlStart" class="timePicker" type="time">
+            <md-select formControlName="timeControlStart" class="timePicker" placeholder="Start">
+               <md-option value="{{ time }}" *ngFor="let time of timepickerArray">{{ time }}</md-option>
+            </md-select>
 
-            <label>End</label>
-            <input formControlName="timeControlEnd" class="timePicker" type="time">
+            <md-select formControlName="timeControlEnd" class="timePicker" placeholder="End">
+               <md-option value="{{ time }}" *ngFor="let time of timepickerArray">{{ time }}</md-option>
+            </md-select>
 
-            <md-select class="zone" formControlName="timeZone" placeholder="time zone">
+            <md-select class="zone" formControlName="timeZone" placeholder="Time Zone">
                 <md-option value="WAT">WAT</md-option>
                 <md-option value="EAT">EAT</md-option>
             </md-select>
