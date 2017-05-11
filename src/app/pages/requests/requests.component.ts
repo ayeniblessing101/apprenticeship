@@ -59,7 +59,10 @@ export class RequestsComponent implements OnInit {
     this.fetchSkills();
     this.initMonths();
     this.setDays();
+<<<<<<< af00abdc6078c3716411f5681432d09b347d86c9
     this.timeSlots = this.getTimeSlots(this.timeSlots);
+=======
+>>>>>>> style(time-widget): align start, end and timezone controls all on one line
   }
 
   /**
@@ -193,6 +196,7 @@ export class RequestsComponent implements OnInit {
         this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
       });
   }
+<<<<<<< af00abdc6078c3716411f5681432d09b347d86c9
 
   /**
    * Curate a selection of time slots for the start and end time select boxes
@@ -216,4 +220,6 @@ export class RequestsComponent implements OnInit {
 
     return timeSlots;
   }
+=======
+>>>>>>> style(time-widget): align start, end and timezone controls all on one line
 }
