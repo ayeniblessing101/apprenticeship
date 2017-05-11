@@ -10,7 +10,7 @@ import { SkillService } from '../../services/skill.service';
 })
 export class ProfileComponent implements OnInit {
   errorMessage: string;
-  userData = {level: ""};
+  userData: any;
   testId: string;
   userSkills: any;
   userId: string;
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
    *  gets a user's information based on their userId
    *
    * @param {String} userId - the id of the logged in user
-   * @return {Void}   
+   * @return {Void}
    */
   getUserInfo(userId: string): void {
     this._userService.getUserInfo(this.userId)
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
    *  gets a user's skills based on thier userId
    *
    * @param {String} testId - the id of the logged in user
-   * @return {Void} 
+   * @return {Void}
    */
   getUserSkills(testId: String): void {
     this._skillService.getUserSkills(this.testId)
@@ -62,5 +62,4 @@ export class ProfileComponent implements OnInit {
         error => this.errorMessage = <any>error
       );
   }
-
 }
