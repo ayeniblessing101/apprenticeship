@@ -4,6 +4,8 @@ import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/toPromise';
@@ -22,6 +24,7 @@ export class RequestsComponent implements OnInit {
   form: FormGroup;
   lengthOfMentorship: Array<Number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   daysOfAvailability: Array<String> = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+  timeSlots: Array<string> = [];
   numMonths: Array<any>;
   days: Array<any>;
   skills: Array<string> = [];
@@ -56,6 +59,7 @@ export class RequestsComponent implements OnInit {
     this.fetchSkills();
     this.initMonths();
     this.setDays();
+    this.timeSlots = this.getTimeSlots(this.timeSlots);
   }
 
   /**
@@ -188,5 +192,28 @@ export class RequestsComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
       });
+  }
+
+  /**
+   * Curate a selection of time slots for the start and end time select boxes
+   *
+   * @param {Array} timeSlots the initial collection of time slots
+   *
+   * @return {Array} timeSlots the fully seeded collection of timeslots
+   */
+  private getTimeSlots(timeSlots: Array<string>) {
+    // for some reason this class is called twice, let's avoid time slot dupes
+    const totalTimeSteps = 48;
+
+    if (timeSlots.length < totalTimeSteps) {
+      let currentTime = moment().startOf('day');
+
+      for (let i = 1; i <= totalTimeSteps; i++) {
+        timeSlots.push(currentTime.format('HH:mm'));
+        currentTime.add(30, 'm'); // time intervals of 30mins each
+      }
+    }
+
+    return timeSlots;
   }
 }

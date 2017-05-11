@@ -54,11 +54,11 @@
 
         <div class="time-picker">
             <md-select formControlName="timeControlStart" class="timePicker" placeholder="Start">
-               <md-option value="{{ time }}" *ngFor="let time of timepickerArray">{{ time }}</md-option>
+               <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
             </md-select>
 
             <md-select formControlName="timeControlEnd" class="timePicker" placeholder="End">
-               <md-option value="{{ time }}" *ngFor="let time of timepickerArray">{{ time }}</md-option>
+               <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
             </md-select>
 
             <md-select class="zone" formControlName="timeZone" placeholder="Time Zone">
