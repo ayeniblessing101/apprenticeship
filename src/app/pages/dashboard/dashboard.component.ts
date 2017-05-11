@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MdSnackBar } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { HelperService as Helper } from '../../services/helper.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,12 +21,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
+    private authService: AuthService,
+    public snackBar: MdSnackBar,
     public helper: Helper
   ) {
     this.autoFilterStatus = true;
   }
 
   ngOnInit() {
+   if (this.authService.notice === 'unauthorized') {
+      this.snackBar.open('You are not authorized to view the Admin page', 'Unathorized', {
+        duration: 8000,
+      });
+    }
     this.getRequests();
     this.watchFilters();
   }

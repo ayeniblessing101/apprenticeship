@@ -14,6 +14,7 @@ import { MomentModule } from 'angular2-moment';
 // services
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { AdminGuard } from './services/admin-guard.service';
 import { SkillService } from './services/skill.service';
 import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
@@ -62,7 +63,7 @@ const appRoutes: Routes = [
   { path: 'logout', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
     },
     AuthService,
     AuthGuard,
+    AdminGuard,
     SkillService,
     RequestService,
     NotificationService,

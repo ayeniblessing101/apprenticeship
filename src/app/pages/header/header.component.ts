@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -6,13 +6,22 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   picture: string;
   firstName: string;
+  isAdmin: Boolean;
+
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
   ) {
-    this.picture = this.auth.userInfo.picture;
-    this.firstName = this.auth.userInfo.first_name;
+    this.picture = this.authService.userInfo.picture;
+    this.firstName = this.authService.userInfo.first_name;
+    this.isAdmin = false;
+  }
+
+  ngOnInit() {
+    if (this.authService.userInfo.roles.LENKEN_ADMIN) {
+      this.isAdmin = true;
+    }
   }
 }

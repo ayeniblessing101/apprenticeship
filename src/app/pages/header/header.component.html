@@ -24,7 +24,7 @@
       <a routerLink="/dashboard" routerLinkActive="active">Home</a>
       <a routerLink="/mentor" routerLinkActive="active">Mentor</a>
       <a routerLink="/mentee" routerLinkActive="active">Mentee</a>
-      <a routerLink="/admin" routerLinkActive="active">See all Requests</a>
+      <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">See all Requests</a>
     </div>
     <div id="btn-request-container">
       <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>REQUEST MENTOR</button>
