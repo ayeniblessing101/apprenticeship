@@ -1,0 +1,22 @@
+<app-header>
+  <div id="profile-container">
+
+    <md-card>
+      <div class="image-container">
+        <div class="top"></div>
+        <div class="profile-image" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
+      </div>
+
+      <md-card-footer class="md-footer">
+        <h4 class="username">{{ fullName }}</h4>
+        <p class="level">{{ userData.level.name }}</p>
+
+        <div class="skills">
+          <span *ngFor="let skill of userSkills" class="chip">{{ skill.name }}</span>
+        </div>
+      </md-card-footer>
+
+    </md-card>
+
+  </div>
+</app-header>

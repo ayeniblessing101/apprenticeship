@@ -22,6 +22,7 @@ import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
 import { UserDetailService } from './services/user-detail.service';
 import { HelperService } from './services/helper.service';
+import { UserService } from './services/user.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -48,6 +49,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -69,6 +71,7 @@ const appRoutes: Routes = [
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
   { path: 'mentee', component: MenteeComponent, canActivate: [AuthGuard] },
   { path: 'mentor', component: MentorComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -98,7 +101,8 @@ const appRoutes: Routes = [
     StatusPipe,
     ArrayIntersectPipe,
     DateRangePipe,
-    InterestPipe
+    InterestPipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +130,8 @@ const appRoutes: Routes = [
     NotificationService,
     FilterService,
     UserDetailService,
-    HelperService
+    HelperService,
+    UserService
   ],
   entryComponents: [
     DialogModalComponent,
