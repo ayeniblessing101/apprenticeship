@@ -50,6 +50,7 @@ import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelreques
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -95,6 +96,7 @@ const appRoutes: Routes = [
     CancelRequestDialogComponent,
     DialogModalComponent,
     EditDialogComponent,
+    RequestDetailMiniComponent,
 
     // pipes
     SkillsPipe,

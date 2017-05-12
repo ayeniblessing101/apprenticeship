@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
-
 import { NotificationService } from '../../services/notifications.service';
 import { SkillService } from './../../services/skill.service';
 import { RequestService } from './../../services/request.service';
-import { Details } from '../../interfaces/details.interface';
-import { Pairing } from '../../interfaces/pairing.interface';
-import { Skill } from '../../interfaces/skill.interface';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
 
@@ -19,14 +15,14 @@ import 'rxjs/add/operator/toPromise';
   styleUrls: ['./mentor-request-detail.component.scss']
 })
 export class MentorRequestDetailComponent implements OnInit {
-  skills: Array<Skill>;
-  details: Details;
-  pairing: Pairing;
-  days: any = [];
+  private requestId: number;
+  details: {};
+  actionButtons: Array<Object>;
+  menteeDetails: {};
   snackBarConfig: any;
+  snackBarMsg: string;
   hasAlreadyIndicatedInterest: Boolean = false;
   loading: Boolean = false;
-  private requestId: number;
 
   constructor(
     private requestsService: RequestService,
@@ -35,7 +31,17 @@ export class MentorRequestDetailComponent implements OnInit {
     private auth: AuthService,
     private snackbar: MdSnackBar,
   ) {
-    this.snackBarConfig = { duration: 3000};
+    this.snackBarConfig = { duration: 3000 };
+    this.snackBarMsg = '';
+    this.details = {};
+    this.actionButtons = [
+      {
+        id: 'appMentorshipInterestButton',
+        name: 'I\'m interested',
+        class: 'md-btn-andela-pink',
+      }
+    ];
+    this.menteeDetails = this.auth.userInfo;
   }
 
   ngOnInit() {
@@ -45,10 +51,9 @@ export class MentorRequestDetailComponent implements OnInit {
       .then((res) => {
         res.data.interested = res.data.interested ? res.data.interested : [];
         this.details = res.data;
-        this.pairing = res.data.pairing;
-        this.days = this.pairing['days'];
         this.hasAlreadyIndicatedInterest = res
           .data.interested.includes(this.auth.userInfo.id);
+        this.details['days'] = res.data['pairing'].days;
       });
   }
 
@@ -60,7 +65,7 @@ export class MentorRequestDetailComponent implements OnInit {
    *
    * @return {Object} the response of the api call
    */
-  private indicateInterest(details) {
+  indicateInterest(details) {
     this.loading = true;
     const mentorId = this.auth.userInfo.id;
     const menteeId = details.mentee_id;
@@ -82,17 +87,16 @@ export class MentorRequestDetailComponent implements OnInit {
       }))
       .then(() => {
         this.loading = false;
-        this.snackBarOpen(true);
+        this.snackBarMsg = 'You have indicated interest in this mentorship request!';
+        this.snackBarOpen(true, this.snackBarMsg);
       })
-      .catch(error => this.snackBarOpen(false, error));
+      .catch(error => {
+        this.snackBarMsg = 'Something went wrong! please try again.';
+        this.snackBarOpen(false, this.snackBarMsg);
+      });
   }
 
-  private snackBarOpen(status: Boolean, message?: string) {
-    if (status === false && !message) {
-      message = 'Something went wrong! please try again.';
-    } else if (status === true && !message) {
-      message = 'You have indicated interest in this mentorship request!';
-    }
+  private snackBarOpen(status: Boolean, message: string) {
     if (!status) {
       return this.snackbar
         .open(message, 'close', this.snackBarConfig);
@@ -101,8 +105,6 @@ export class MentorRequestDetailComponent implements OnInit {
     this.snackbar
       .open(message, 'close', this.snackBarConfig)
       .afterDismissed()
-      .subscribe(() => {
-        this.hasAlreadyIndicatedInterest = true;
-      });
+      .subscribe(() => this.hasAlreadyIndicatedInterest = true);
   }
 }

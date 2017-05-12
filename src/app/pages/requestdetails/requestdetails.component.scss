@@ -2,77 +2,10 @@
 @import '../../../assets/scss/colors';
 @import '../../../assets/scss/mixins';
 @import '../../../assets/scss/buttons';
+@import '../../../assets/scss/loaders';
 
 .container {
   margin: 0px auto;
-}
-
-.title {
-  margin-top: 2rem;
-}
-
-.small-7 {
-  font-size: 0.7rem;
-}
-
-.medium-txt {
-  font-size: 1rem;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.clear {
-  display: none;
-  height: 1px;
-}
-
-table tr td {
-  height: 30px;
-}
-
-.padded {
-  padding-left: 20px;
-}
-
-.pairing-days-checkbox {
-  padding-right: 10px;
-}
-
-.request-detail-card {
-  margin: 0 auto;
-}
-
-.card-content {
-
-  > div {
-    min-height: 200px;
-    width: 100%;
-  }
-}
-
-.content-right, .content-left {
-  @include box-sizing();
-}
-
-.content-left {
-  padding-bottom: 20px;
-  padding-right: 50px;
-}
-
-.content-right {
-  padding: 20px;
-  border-left: 4px solid #f2f2f2;
-}
-
-.content-right p {
-  line-height: 1.3rem;
-}
-
-.card-actions {
-  padding: 20px 0;
-  width: 100%;
 }
 
 .mentor-list-container {
@@ -124,45 +57,10 @@ table tr td {
   width: 100%;
 }
 
-.length-of-mentorship {
-  color: #666;
-  display: inline-block;
-  line-height: 1.5rem;
-}
-
-.emphasize {
-  font-weight: 700;
-  font-style: italic;
-}
-
-.md-chip-list {
-  display: inline-block;
-  margin-bottom: 15px;
-}
-
 /*
  * Tablet (min-width: 769px)
  */
 @media screen and (min-width: 769px) {
-  .card-content {
-
-    > div {
-      width: 50%;
-    }
-  }
-
-  .content-left {
-    float: left;
-  }
-
-  .content-right {
-    float: right;
-  }
-
-  .clear {
-    display: block;
-    clear: none;
-  }
 
   .mentor-list-container {
     width: 100%;

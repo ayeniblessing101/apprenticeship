@@ -1,0 +1,64 @@
+<div class="request-detail-card">
+  <div class="card-content">
+    <div class="content-left">
+      <div class="status small-7 rounded-chip" [ngClass]="getClassName(details?.status)">{{ details.status }}</div>
+      <div class="title">{{ details.title }}</div>
+      <div class="md-chip-list">
+        <md-chip-list>
+          <div *ngFor="let skill of details.request_skills" class="chip">{{ skill.name }}</div>
+        </md-chip-list>
+      </div>
+      <div class="request-detail-info">
+        <div class="length-of-mentorship">
+          Length of Mentorship is
+          <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on
+          <span class="emphasize">{{ details['days']?.join(', ') }} </span> at
+          <span class="emphasize">Time: {{ details.pairing?.start_time }} - {{ details.pairing?.end_time }} {{ details.pairing?.timezone}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="overview">
+        <h5><strong>Overview</strong></h5>
+        <p>{{ details.description }}</p>
+        <hr>
+      </div>
+      <div class="overview">
+        <h5><strong>Mentee</strong></h5>
+        <div class="mentee-info">
+          <div class="avatar">
+            <img src="{{ menteeDetails.picture }}" alt="">
+          </div>
+          <div class="bio">
+            <div>{{ menteeDetails.name }}</div>
+            <div>5 mentorship requests made</div>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <div class="overview">
+        <h5><strong>Most Requested Skills</strong></h5>
+        <div class="md-chip-list">
+          <md-chip-list>
+            <div *ngFor="let skill of details.request_skills" class="chip">
+              {{ skill.name }}
+            </div>
+          </md-chip-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-actions">
+    <div *ngIf="details.status === 'open'">
+      <button md-raised-button
+        *ngFor="let button of actionButtons"
+        class="{{ button.class }}"
+        id="{{ button.id }}"
+        [disabled]="hasAlreadyIndicatedInterest"
+        (click)="emitClickAction(button.name)">
+        {{ hasAlreadyIndicatedInterest ? "You have indicated interest" : button.name }}
+        <md-spinner *ngIf="loading"></md-spinner>
+      </button>  
+    </div>
+  </div>
+</div>

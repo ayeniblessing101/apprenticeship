@@ -1,0 +1,228 @@
+@import '../../../assets/scss/chips';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/buttons';
+@import '../../../assets/scss/loaders';
+
+.container {
+  margin: 0px auto;
+}
+
+button {
+  margin-right: 10px;
+}
+
+#appMentorshipInterestButton {
+  display: block;
+  background-color: $andela-secondary;
+  color: #FFF;
+
+  &[disabled] { background-color: rgba(0, 0, 0, 0.12);}
+}
+
+.small-7 {
+  font-size: 0.7rem;
+}
+
+.medium-txt {
+  font-size: 1rem;
+}
+
+.request-detail-card {
+  margin: 0 auto;
+  padding: 30px;
+  background: $white;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.card-content {
+  width: 100%;
+}
+
+.content-right, .content-left {
+  width: 100%;
+  @include box-sizing();
+}
+
+.title {
+  padding-top: 2rem;
+  font-size: 1.3rem;
+}
+
+.content-right {
+  padding-left: 20px;
+  border-left: 4px solid #f2f2f2;
+}
+
+.overview {
+  
+  h5 {
+    text-transform: uppercase;
+    color: $grey-light-400;
+    height: 5px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  hr {
+    border: 1px solid $grey-light-200;
+    margin-top: 10px;
+  }
+}
+
+.content-right p {
+  line-height: 1.3rem;
+}
+
+.card-actions {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.avatar {
+  height: 50px;
+  width: 50px;
+  float: left;
+
+  img {
+    border-radius: 50%;
+    border: 3px solid #e8e8e8;
+    height: inherit;
+    width: inherit;
+    @include box-sizing();
+  }
+}
+
+.bio {
+  height: 50px;
+  max-width: 300px;
+  margin-left: 65px;
+
+  > div:first-child {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  > div:last-child {
+    margin-top: 7px;
+    color: $grey-light-400;
+    font-size: 0.7rem;
+  }
+
+}
+
+.mentor-list-container {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.mentor-list-container {
+  md-card {
+    height: 100px;
+    width: 100%;
+    @include box-sizing();
+    padding: 12px 20px 0 20px;
+    display: inline-block;
+  }
+}
+
+.list-span {
+  width: 100%;
+  display: flex;
+  flex-direction: column 
+}
+
+.item {
+  order: 1;
+}
+
+.interested {
+  width: 100%;
+}
+
+.length-of-mentorship {
+  color: #666;
+  display: inline-block;
+  line-height: 1.5rem;
+}
+
+.emphasize {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.md-chip-list {
+  display: inline-block;
+  margin: 20px 0 20px 0;
+}
+
+/*
+ * Tablet (min-width: 769px)
+ */
+@media screen and (min-width: 769px) {
+  .card-content {
+    width: 100%;
+    display: flex;
+  }
+
+  .content-left, .content-right {
+    width: 50%;
+  }
+
+  .content-left {
+    padding-right: 40px;
+  }
+
+  .title {
+    padding-top: 2rem;
+    font-size: 1.7rem;
+  }
+
+  .content-right {
+    display: block;
+  }
+
+  .overview {
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .card-actions {
+    width: 100%;
+  }
+
+  .mentor-list-container {
+    width: 100%;
+  }
+
+  md-card {
+    margin-right: 2rem;
+  }
+
+  .list-span {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .mentor-list-container {
+    md-card {
+      height: 100px;
+      width: 280px;
+      @include box-sizing();
+    }
+  }
+}
+
+/*
+ * Desktop (min-width: 1025px)
+ */
+@media screen and (min-width: 1025px) {
+  .container {
+    width: 100%;
+  }
+}

@@ -1,48 +1,13 @@
 <app-header>
-  <div *ngIf="loading" class="loader">
-    <md-spinner></md-spinner>
-  </div>
-  <div class="container" id="app-container" *ngIf="!loading">
+  <div class="container" id="app-container">
     <div>
-      <md-card class="request-detail-card">
-        <md-card-content class="card-content">
-          <div class="content-left">
-            <div class="status small-7 rounded-chip" [ngClass]="getStatusClass(details?.status)">{{ details.status }}</div>
-            <h1 class="title">{{ details.title }}</h1>
-            
-            <div class="md-chip-list">
-              <md-chip-list *ngIf="details.request_skills">
-                <div *ngFor="let skill of details.request_skills" class="chip">
-                  {{ skill.name }}
-                </div>
-              </md-chip-list>
-            </div>
-            
-            <div class="request-detail-info">
-              <div class="length-of-mentorship">
-                Length of Mentorship is
-                <span disabled="true" class="emphasize">{{ details.duration }} month(s)</span> on
-                <span class="emphasize">{{ details.pairing_days?.join(', ') }} </span> at
-                <span class="emphasize">Time: {{ details.pairing?.start_time }} - {{ details.pairing?.end_time }} {{ details.pairing?.timezone}}</span>.
-              </div>
-            </div>
-          </div>
-          <div class="content-right">
-            <h3><strong>Overview</strong></h3>
-            <p>{{ details.description }}</p>
-          </div>
-          <div class="clear"></div>
-        </md-card-content>
-        <div class="card-actions">
-          <div *ngIf="details.status === 'open'">
-            <button (click)="cancelRequest()" md-raised-button>Cancel Request
-            </button>
-            <button (click)="editRequest()" md-raised-button class="md-btn-andela-pink">Edit Request
-            </button>
-            
-          </div>
-        </div>
-      </md-card>
+      <app-request-detail
+        [details]="details"
+        [menteeDetails]="menteeDetails"
+        [actionButtons]="actionButtons"
+        (buttonClickEmitter)="callButtonAction($event)"
+      >
+      </app-request-detail>
     </div>
     <div class="mentor-list-container" *ngIf="details.status === 'open' && details.interested">
       <div class="interested">
@@ -55,6 +20,7 @@
             <span class="mentor-name">{{ mentor.name }}</span>
             <button md-raised-button class="md-btn-andela-pink" (click)="openModal(mentor)">
               Select Mentor
+              <md-spinner *ngIf="currentMentorButton === mentor.name && loading"></md-spinner>
             </button>
           </div>
         </md-card>
