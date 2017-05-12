@@ -29,6 +29,7 @@ export class RequestsComponent implements OnInit {
   days: Array<any>;
   skills: Array<string> = [];
   selection: Array<string>;
+  allDays = false;
 
   logSingleString = '';
   logMultipleString = '';
@@ -216,5 +217,28 @@ export class RequestsComponent implements OnInit {
     }
 
     return timeSlots;
+  }
+
+  /**
+   * toggles All days checkbox
+   *
+   * @param {Object} form
+   */
+  toggleAllDays(form) {
+    if (this.allDays) {
+      this.allDays = false;
+      form.patchValue({
+        selectedDays: [
+          false, false, false, false, false
+        ]
+      });
+    } else {
+      this.allDays = true;
+      form.patchValue({
+        selectedDays: [
+          true, true, true, true, true
+        ]
+      });
+    }
   }
 }
