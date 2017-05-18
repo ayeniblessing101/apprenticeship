@@ -48,12 +48,12 @@ export class RequestdetailsComponent implements OnInit {
     this.menteeDetails = this.auth.userInfo;
     this.actionButtons = [
       {
-        name: 'Cancel',
-        class: '',
-      },
-      {
         name: 'Edit',
         class: 'md-btn-andela-pink',
+      },
+      {
+        name: 'Cancel Request',
+        class: '',
       }
     ];
   }
@@ -223,7 +223,7 @@ export class RequestdetailsComponent implements OnInit {
    */
   callButtonAction(buttonName: string) {
     switch (buttonName.toLowerCase()) {
-      case 'cancel': return this.cancelRequest();
+      case 'cancel request': return this.cancelRequest();
       case 'edit': return this.editRequest();
       default: return;
     }
