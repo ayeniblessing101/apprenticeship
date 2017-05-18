@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdSnackBarConfig} from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -70,8 +70,8 @@ export class RequestdetailsComponent implements OnInit {
   }
 
   /**
-   * fetches user details
-   * 
+   * fetches mentor details
+   *
    * @param {Array} interested - list of interested mentor ids
    * @return {Null}
    */
@@ -92,7 +92,7 @@ export class RequestdetailsComponent implements OnInit {
 
   /**
    * opens dialog modal and triggers selectMentor()
-   * 
+   *
    * @param {Object} mentorDetail - mentor detail object
    * @return {Null}
    */
@@ -105,8 +105,8 @@ export class RequestdetailsComponent implements OnInit {
 
   /**
    * matches a mentor to a mentee via request service
-   * 
-   * @param {Event} status 
+   *
+   * @param {Event} status
    * @param {Object} mentorDetail
    * @return {Null}
    */
@@ -137,7 +137,7 @@ export class RequestdetailsComponent implements OnInit {
 
   /**
    * triggers snackbar
-   * 
+   *
    * @param {Boolean} status
    * @return {Null}
    */
@@ -173,21 +173,32 @@ export class RequestdetailsComponent implements OnInit {
       }
 
       return statusClass;
-    }    
+    }
   }
 
   /**
    * cancels a pending request
-   * 
+   *
    * @return {Null}
    */
   cancelRequest() {
     const dialogRef = this.dialog.open(CancelRequestDialogComponent);
-    dialogRef.afterClosed().subscribe((result => {
+    dialogRef.afterClosed().toPromise().then((result) => {
       if (result) {
-        this.requestsService.updateRequestStatus(this.requestId, { status: 3 });
+        this.requestsService.cancelRequest(this.requestId)
+          .toPromise().then(() => {
+            let snackbarConfig = new MdSnackBarConfig();
+            snackbarConfig.duration = 2000;
+
+            this.snackbar.open('Request cancelled', 'close', snackbarConfig)
+            .afterDismissed()
+            .toPromise()
+            .then(()=> {
+              this.router.navigate(['/mentee']);
+            });
+          });
       }
-    }));
+    });
   }
 
   /**
@@ -204,9 +215,9 @@ export class RequestdetailsComponent implements OnInit {
     });
   }
 
-  /** 
+  /**
    * calls a button action
-   * 
+   *
    * @param {String} buttonName
    * @return {Function}
    */

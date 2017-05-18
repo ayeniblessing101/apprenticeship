@@ -173,6 +173,19 @@ export class RequestService {
   }
 
   /**
+   * Send PATCH request to cancel mentorship request status
+   *
+   * @param {Number} id the id of the request
+   * @param {Object} data the update data
+   */
+  cancelRequest(id) {
+    const data = {id};
+    return this.http.patch(`${this.apiBaseUrl}/requests/${id}/cancel-request`, data)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  /**
    * Return data as JSON
    *
    * @param {Response} res an Observable

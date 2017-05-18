@@ -8,7 +8,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 })
 export class CancelRequestDialogComponent {
    confirmMessage = 'Are you sure you want to proceed with this action?';
-   confirmOK = 'I\'m Sure';
+   confirmOK = 'Yes I\'m Sure';
    confirmAbort = 'Abort';
 
    constructor(public dialogRef: MdDialogRef<CancelRequestDialogComponent>) {}
