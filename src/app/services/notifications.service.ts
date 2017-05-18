@@ -63,7 +63,7 @@ export class NotificationService {
       const messageKeys = [];
       this.userMessages = {};
 
-      queriedItems.forEach(item => messageKeys.push(item['$key']));
+      queriedItems.reverse().forEach(item => messageKeys.push(item['$key']));
 
       /**
        * This block uses each message key stored earlier to subscribe to the messages collection,
