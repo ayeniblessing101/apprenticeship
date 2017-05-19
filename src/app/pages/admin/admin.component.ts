@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   dateFilterSubscription: any;
 
   constructor(
-    private requestService: RequestService, 
+    private requestService: RequestService,
     private filterService: FilterService
   ) {
     filterService.statusResult.subscribe(response => {
@@ -86,14 +86,14 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   /**
    * Retrieves the id of incoming requests and stores in an array
+   *
    * @param {Array} requests
    * @return {Array} result
    */
   getRequestId(requests) {
     let result = [];
-    requests.map((request) => {
-      return result.push(request.id);
-    });
+    requests.map(request => result.push(request.id));
+
     return result;
   }
 
@@ -140,12 +140,11 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.checkedStatuses[this.checkedStatuses.length - 1]
           )
           .subscribe((requests) => {
-            this.extractRequest(requests);     
+            this.extractRequest(requests);
           });
       });
 
     this.dateFilterSubscription = this.filterService.getSelectedDateRange()
       .subscribe(range => this.dateRange = range);
   }
-
 }

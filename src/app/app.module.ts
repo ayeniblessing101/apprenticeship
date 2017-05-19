@@ -51,6 +51,7 @@ import { DialogModalComponent } from './components/dialog-modal/dialog-modal.com
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
+import { ReportComponent } from './pages/report/report.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'report', component: ReportComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
@@ -97,6 +99,7 @@ const appRoutes: Routes = [
     DialogModalComponent,
     EditDialogComponent,
     RequestDetailMiniComponent,
+    ReportComponent,
 
     // pipes
     SkillsPipe,

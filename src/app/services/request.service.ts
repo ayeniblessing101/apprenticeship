@@ -53,6 +53,21 @@ export class RequestService {
   }
 
   /**
+   * Returns requests based on period
+   *
+   * @param period
+   * @param limit
+   *
+   * @return {Observable<R>}
+   */
+  getRequestsByPeriod(period: number | string, limit?: number): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/requests?period=${period}&limit=${limit}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Return latest mentorship requests
    *
    * @param String the status parameter to search for
@@ -219,11 +234,19 @@ export class RequestService {
     return Observable.throw(errMsg);
   }
 
-  getRequestsByFilter(type, filter): Observable<any> {
+  /**
+   * Retrieves mentorship requests with different possible filters
+   * e.g if we choose to filter by status, the value can either be
+   * open, closed, cancelled, matched
+   *
+   * @param {String} type what filter to use to sieve mentorship requests
+   * @param {String} value actual value of filter
+   */
+  getRequestsByFilter(type, value): Observable<any> {
     switch (type) {
       case 'status':
       default:
-        return this.getRequestsByStatus(filter);
+        return this.getRequestsByStatus(value);
     }
   }
 }
