@@ -7,7 +7,7 @@
 Mentorship matching and perfomance application.
 
 ## Description
-Mentorship is an integral part of the fellowship as it encourages fellows to learn different skills from each other hence accelerate the learning process. 
+Mentorship is an integral part of the fellowship as it encourages fellows to learn different skills from each other hence accelerate the learning process.
 
 Lenken automates the process of matching up mentees with respective mentors thus it facilitates knowledge and skills transfer within the fellowship in the quickest and most efficient way possible by taking advantage of both internal and external mentors .Fellows can easily request mentors and be matched up with appropriate mentors easily through this platform.
 
@@ -20,23 +20,23 @@ Lenken automates the process of matching up mentees with respective mentors thus
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/)
-	
+
 	- To install node , run this command:
-	 
+
 	 ```
 	 brew install node
 	 ```
 
 	- This will install both node and npm.
-	
+
 - [AngularCLI](https://cli.angular.io/)
-	
+
 	- To install AngularCLI , run this command:
-	
+
 	```
 	npm install -g @angular/cli
 	```
-		
+
 After installing all the prerequisites, clone the repository:
 
 ```
@@ -64,6 +64,14 @@ ng serve
 This will bundle all the files using webpack and load the files for you using a custom http server. You'll be able to access the app on `localhost://4200`
 or any provided port on the terminal.
 
+## Know Issues while setting up:
+- `Invalid host header` error when server is run.
+
+### Solution: 
+- Run
+
+	`ng serve --host lenken-dev.andela.com:4200`
+
 ### Architecture
 Lenken application is written in PHP using Lumen and Angular 2. Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax.It attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
@@ -79,9 +87,9 @@ The application is a based on a three-tier architecture having the following lay
 - #### Business layer
 
 	In this layer we have the `nginx`, `api` and `cache` docker containers. It 	provides the business processes logic and the data access.
-	
+
 - Data layer
-	
+
 	It has the `db` docker container which persists the state of the 	application.
 
 Please refer to the application's [docker-compose.yml](https://github.com/andela/lenken/blob/develop/docker-compose.yml).
