@@ -30,7 +30,7 @@
                 <p>{{ request.title }}</p>
               </div>
               <div class="and-table-content and-table-col-30">
-                <p>{{ helper.joinSkills(request.request_skills) }}</p>
+                <p>{{ helper.joinSkills(request.request_skills, 'primary') }}</p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-10">
                 <a routerLink="/requests/{{ request.id }}">{{ request.interested.length }} Interested</a>

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
-
+import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -26,7 +26,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestService: RequestService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    public helper: Helper
   ) {
     filterService.statusResult.subscribe(response => {
       this.extractRequest(response)

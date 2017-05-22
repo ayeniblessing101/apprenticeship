@@ -22,7 +22,8 @@
               <p>{{ request.description }}</p>
             </md-card-content>
             <div class="skill-list">
-              <span *ngFor="let skill of request.request_skills" class="chip">{{ skill.name }}</span>
+              <span class="chip">{{ helper.joinSkills(request.request_skills, 'primary') }}</span>
+
             </div>
           </md-card>
         </div>
