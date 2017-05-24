@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanActivate } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -18,22 +17,26 @@ export class AuthGuard implements CanActivate {
   *  This method checks whether a user is logged in by checking if the id_token
   *  stored localStorage is valid and has not expired. It also checks the
   *  permissions of the user in the stored JWT token.
-  *
   */
   canActivate() {
     if (this.auth.loggedIn()) {
       this.auth.decodeToken();
-      if (this.isEmpty(this.auth.userInfo.permissions)) {
+
+      if (this.auth.userInfo.roles.Guest) {
         this.auth.changeNotice('permission');
         this.router.navigate(['/login']);
+
         return false;
       } else {
         // TODO: check that the user has permission to view route
       }
+
       return true;
     }
+
     this.auth.changeNotice('unauthenticated');
     this.router.navigate(['/login']);
+
     return false;
   }
 }
