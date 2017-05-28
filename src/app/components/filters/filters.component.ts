@@ -9,7 +9,7 @@ import { AccordionModule } from 'ngx-accordion';
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss']
+  styleUrls: ['./filters.component.scss'],
 })
 
 export class FiltersComponent implements OnInit {
@@ -31,14 +31,14 @@ export class FiltersComponent implements OnInit {
     private requestService: RequestService,
     private filterService: FilterService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.dateRange = {
       'Last day': 1,
       'Last 7 days': 7,
       'Last 14 days': 14,
       'Last month': 30,
-      'All time': 0
+      'All time': 0,
     };
     this.dateRangeMap = Object.keys(this.dateRange);
     this.userId = this.authService.userInfo.id;
@@ -76,26 +76,28 @@ export class FiltersComponent implements OnInit {
       this.skillService.getUserSkills(this.userId)
         .subscribe(
           skills => this.skills = skills,
-          error => this.errorMessage = <any>error
+          error => this.errorMessage = <any>error,
         );
     } else {
       this.skillService.getSkills()
         .subscribe(
           skills => this.skills = skills,
-          error => this.errorMessage = <any>error
+          error => this.errorMessage = <any>error,
         );
     }
+
     this.requestService.getStatus()
       .subscribe(
-        status => {
-        this.status = status;
-        if (this.currentPage === 'mentor') {
-          this.status = this.status.filter((item) => {
-            return item !== 'Closed';
-          });
-        }
-      },
-        error => this.errorMessage = <any>error
+        (status) => {
+          this.status = status;
+
+          if (this.currentPage === 'mentor') {
+            this.status = this.status.filter((item) => {
+              return item !== 'Closed';
+            });
+          }
+        },
+        error => this.errorMessage = <any>error,
       );
   }
 

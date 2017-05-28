@@ -117,10 +117,9 @@ export class RequestService {
    * @return {Observable} containing all open requests
    */
   getMentorRequests(limit): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/requests?mentor=true&status=open&limit=${limit}&offset=0`)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(`${this.apiBaseUrl}/requests?mentor=true&limit=${limit}`)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   /**

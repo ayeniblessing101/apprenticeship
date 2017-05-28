@@ -23,17 +23,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private filterService: FilterService,
     private authService: AuthService,
     public snackBar: MdSnackBar,
-    public helper: Helper
+    public helper: Helper,
   ) {
     this.autoFilterStatus = true;
   }
 
   ngOnInit() {
-   if (this.authService.notice === 'unauthorized') {
+    if (this.authService.notice === 'unauthorized') {
       this.snackBar.open('You are not authorized to view the Admin page', 'Unathorized', {
         duration: 8000,
       });
     }
+
     this.getRequests();
     this.watchFilters();
   }
@@ -50,9 +51,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getRequests() {
     this.requestService.getRequests(20)
       .subscribe(
-        (requests) => this.requests = requests,
-        error => this.errorMessage = <any>error
+        requests => this.requests = requests,
+        error => this.errorMessage = <any>error,
       );
+  }
+
+  /**
+   * checks if the logged in user is the owner of the request
+   *
+   * @param {object} request mentorshp request to verify
+   *
+   * @return {boolean} whether or not the logged in user owns the request
+   */
+  isRequestOwner(request: any): boolean {
+    return request.mentee_id === this.authService.userInfo.id;
   }
 
   /**
@@ -62,11 +74,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   */
   watchFilters() {
     this.filterService.getCheckedSkills().subscribe(
-      skills => this.filteredSkills = skills
+      skills => this.filteredSkills = skills,
     );
-    this.statusFilterSubscription = this.filterService.getCheckedStatuses().subscribe(statuses => {
-      this.filterService.toggleStatus('open');
-      this.checkedStatuses = statuses;
-    });
+
+    this.statusFilterSubscription = this.filterService.getCheckedStatuses()
+      .subscribe((statuses) => {
+        this.filterService.toggleStatus('open');
+        this.checkedStatuses = statuses;
+      });
   }
 }

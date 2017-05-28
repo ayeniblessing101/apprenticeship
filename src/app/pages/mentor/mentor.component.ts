@@ -6,7 +6,7 @@ import { HelperService as Helper } from '../../services/helper.service';
 @Component({
   selector: 'app-mentor',
   templateUrl: './mentor.component.html',
-  styleUrls: ['./mentor.component.scss']
+  styleUrls: ['./mentor.component.scss'],
 })
 export class MentorComponent implements OnInit, OnDestroy {
   private limit: number;
@@ -17,22 +17,27 @@ export class MentorComponent implements OnInit, OnDestroy {
   filterSubscription: any;
   filteredInterest: any[];
   interestFilterSubscription: any;
+  statusFilterSubscription: any;
+  autoFilterStatus: boolean;
 
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
-    public helper: Helper
+    public helper: Helper,
   ) {
     this.limit = 10;
+    this.autoFilterStatus = true;
   }
 
   ngOnInit() {
     this.getMentorRequests(this.limit);
     this.watchFilters();
   }
+
   ngOnDestroy() {
     this.filterSubscription.unsubscribe();
     this.interestFilterSubscription.unsubscribe();
+    this.statusFilterSubscription.unsubscribe();
   }
 
   /**
@@ -46,7 +51,7 @@ export class MentorComponent implements OnInit, OnDestroy {
       .subscribe(
         requests => this.requests = requests,
         error => this.errorMessage = <any>error,
-    );
+      );
   }
 
   /**
@@ -63,14 +68,20 @@ export class MentorComponent implements OnInit, OnDestroy {
       .subscribe(skills => this.filteredSkills = skills);
 
     this.interestFilterSubscription = this.filterService.getInterestedStatus()
-      .subscribe(
-        (interested) => {
-          if (interested.length) {
-            interested.splice(0, 1);
-          }
-          this.filteredInterest = interested;
+      .subscribe((interested) => {
+        if (interested.length) {
+          interested.splice(0, 1);
         }
-      );
+
+        this.filteredInterest = interested;
+      },
+    );
+
+    this.statusFilterSubscription = this.filterService.getCheckedStatuses()
+      .subscribe((statuses) => {
+        this.filterService.toggleStatus('open');
+        this.checkedStatuses = statuses;
+      });
   }
 
   /**

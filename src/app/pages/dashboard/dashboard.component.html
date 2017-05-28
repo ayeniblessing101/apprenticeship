@@ -25,18 +25,24 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)" routerLink="/requests/{{ request.id }}/mentor">
+            <div class="and-table-row"
+              *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)"
+              [routerLink]="isRequestOwner(request) ? ['/requests/', request.id] : ['/requests/', request.id, 'mentor']">
+
               <div class="and-table-content and-table-col-40">
                 <p>{{ request.title }}</p>
               </div>
+
               <div class="and-table-content and-table-col-30">
                 <p>
                   {{ helper.joinSkills(request.request_skills, 'primary') }}
                 </p>
               </div>
+
               <div *ngIf="request.interested" class="and-table-content and-table-col-20">
                 <a routerLink="/requests/{{ request.id }}/mentor">{{ request.interested.length }} Interested</a>
               </div>
+
               <div *ngIf="!request.interested" class="and-table-content and-table-col-20">No Interested</div>
 
               <div class="and-table-content and-table-col-10">
