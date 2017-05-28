@@ -16,7 +16,7 @@ export class UserService {
   /**
    * Returns the logged in user's information
    *
-   * @param String id number of the logged in user 
+   * @param String id number of the logged in user
    *
    * @return Observable containing the user's info
    */
@@ -36,6 +36,8 @@ export class UserService {
    */
   extractData(res: Response) {
     const body = res.json();
+    body.data.request_count = body['request_count'];
+
     return body.data || [];
   }
 

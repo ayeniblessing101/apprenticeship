@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RequestService } from './../../services/request.service';
-import { UserDetailService } from '../../services/user-detail.service';
+import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs/Rx';
 import { CancelRequestDialogComponent } from '../cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from '../../components/dialog-modal/dialog-modal.component';
@@ -32,7 +32,7 @@ export class RequestdetailsComponent implements OnInit {
 
   constructor(
     private requestsService: RequestService,
-    private userDetailService: UserDetailService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MdDialog,
@@ -41,11 +41,11 @@ export class RequestdetailsComponent implements OnInit {
   ) {
     this.requestId = +this.route.snapshot.params['id'];
     this.details = {};
+    this.menteeDetails = null;
     this.interestedMentors = [];
     this.msg = '';
     this.snackBarConfig = { duration: 3000 };
     this.loading = false;
-    this.menteeDetails = this.auth.userInfo;
     this.actionButtons = [
       {
         name: 'Edit',
@@ -59,14 +59,30 @@ export class RequestdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    /**
+     * Gets the request details and thereafter gets the details of the mentee
+     */
     this.requestsService
       .getRequestDetails(this.requestId)
       .toPromise()
       .then((res) => {
         this.details = res.data;
         this.details['days'] = res.data['pairing'].days;
-        this.getMentorDetails(res.data.interested)
+        this.getMentorDetails(res.data.interested);
+
+        return this.details;
+      })
+      .then(() => {
+        this.userService.getUserInfo(this.details['mentee_id'])
+          .toPromise()
+          .then((userDetails) => {
+            this.menteeDetails = userDetails;
+
+            return this.menteeDetails;
+          });
       });
+
+
   }
 
   /**
@@ -79,7 +95,7 @@ export class RequestdetailsComponent implements OnInit {
     if (!interested) return;
 
     interested.map((mentorId) => {
-      this.userDetailService.getUserDetails(mentorId)
+      this.userService.getUserInfo(mentorId)
         .subscribe(
           mentorDetails => this.interestedMentors.push(mentorDetails),
           error => {
@@ -87,7 +103,7 @@ export class RequestdetailsComponent implements OnInit {
             this.snackBarOpen(false, this.msg);
           }
         );
-    })
+    });
   }
 
   /**
@@ -115,7 +131,6 @@ export class RequestdetailsComponent implements OnInit {
     const currentDate = Math.ceil(Date.now() / 1000);
     this.loading = true;
     this.currentMentorButton = mentorDetail['name'];
-    console.log(mentorDetail['name']);
     const requestUpdate = {
       mentor_id: mentorDetail['id'],
       mentee_name: this.auth.userInfo.name,

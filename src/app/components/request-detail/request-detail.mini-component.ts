@@ -2,20 +2,20 @@ import {
   Component,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
   selector: 'app-request-detail',
   templateUrl: './request-detail.mini-component.html',
-  styleUrls: ['./request-detail.mini-component.scss']
+  styleUrls: ['./request-detail.mini-component.scss'],
 })
 export class RequestDetailMiniComponent {
   @Input() details: any;
   @Input() menteeDetails: any;
-  @Input() actionButtons: Array<Object>;
-  @Input() loading: Boolean = false; 
-  @Input() hasAlreadyIndicatedInterest: Boolean = false; 
+  @Input() actionButtons: [any];
+  @Input() loading: Boolean = false;
+  @Input() hasAlreadyIndicatedInterest: Boolean = false;
   @Output() buttonClickEmitter = new EventEmitter();
 
   constructor() {}
@@ -32,7 +32,7 @@ export class RequestDetailMiniComponent {
    */
   getClassName(matchStatus: string): string {
     let className = '';
-    
+
     if (matchStatus) {
       switch (matchStatus.toLowerCase()) {
         case 'open': className = 'rounded-chip-open'; break;

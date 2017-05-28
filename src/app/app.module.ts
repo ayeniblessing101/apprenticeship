@@ -20,7 +20,6 @@ import { RequestService } from './services/request.service';
 import { NotificationService } from './services/notifications.service';
 import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
-import { UserDetailService } from './services/user-detail.service';
 import { HelperService } from './services/helper.service';
 import { UserService } from './services/user.service';
 
@@ -134,7 +133,6 @@ const appRoutes: Routes = [
     RequestService,
     NotificationService,
     FilterService,
-    UserDetailService,
     HelperService,
     UserService
   ],

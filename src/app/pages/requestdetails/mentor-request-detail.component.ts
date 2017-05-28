@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { NotificationService } from '../../services/notifications.service';
+import { UserService } from '../../services/user.service';
 import { SkillService } from './../../services/skill.service';
 import { RequestService } from './../../services/request.service';
 import { AuthService } from '../../services/auth.service';
@@ -12,12 +13,12 @@ import 'rxjs/add/operator/toPromise';
 @Component({
   selector: 'app-mentor-request-detail',
   templateUrl: './mentor-request-detail.component.html',
-  styleUrls: ['./mentor-request-detail.component.scss']
+  styleUrls: ['./mentor-request-detail.component.scss'],
 })
 export class MentorRequestDetailComponent implements OnInit {
   private requestId: number;
   details: {};
-  actionButtons: Array<Object>;
+  actionButtons: [any];
   menteeDetails: {};
   snackBarConfig: any;
   snackBarMsg: string;
@@ -25,35 +26,52 @@ export class MentorRequestDetailComponent implements OnInit {
   loading: Boolean = false;
 
   constructor(
-    private requestsService: RequestService,
+    private requestService: RequestService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private auth: AuthService,
     private snackbar: MdSnackBar,
+    private userService: UserService,
   ) {
     this.snackBarConfig = { duration: 3000 };
     this.snackBarMsg = '';
     this.details = {};
+    this.menteeDetails = null;
     this.actionButtons = [
       {
         id: 'appMentorshipInterestButton',
         name: 'I\'m interested',
         class: 'md-btn-andela-pink',
-      }
+      },
     ];
-    this.menteeDetails = this.auth.userInfo;
   }
 
   ngOnInit() {
+    /**
+     * Gets the request details and thereafter gets the details of the mentee
+     */
     this.requestId = this.route.snapshot.params['id'];
-    this.requestsService.getRequestDetails(this.requestId)
+
+    this.requestService.getRequestDetails(this.requestId)
       .toPromise()
       .then((res) => {
         res.data.interested = res.data.interested ? res.data.interested : [];
         this.details = res.data;
-        this.hasAlreadyIndicatedInterest = res
-          .data.interested.includes(this.auth.userInfo.id);
+        this.hasAlreadyIndicatedInterest = res.data.interested.includes(
+          this.auth.userInfo.id,
+        );
         this.details['days'] = res.data['pairing'].days;
+
+        return this.details;
+      })
+      .then(() => {
+        this.userService.getUserInfo(this.details['mentee_id'])
+          .toPromise()
+          .then((userDetails) => {
+            this.menteeDetails = userDetails;
+
+            return this.menteeDetails;
+          })
       });
   }
 
@@ -72,25 +90,25 @@ export class MentorRequestDetailComponent implements OnInit {
     const mentorName = this.auth.userInfo.name;
     const requestId = details.id;
 
-    return this.requestsService
+    return this.requestService
       .updateMentorRequestInterested(requestId, { interested: [mentorId] })
       .toPromise()
       .then(() => this.notificationService.sendMessage([menteeId], {
         type: '',
         message: {
           title: `${mentorName} has indicated interest in being your mentor`,
-          content: 'I would like to mentor you.'
+          content: 'I would like to mentor you.',
         },
         sender: `${mentorName}`,
         timestamp: Date.now(),
-        messageUrl: `${environment.lenkenBaseUrl}/requests/${requestId}`
+        messageUrl: `${environment.lenkenBaseUrl}/requests/${requestId}`,
       }))
       .then(() => {
         this.loading = false;
         this.snackBarMsg = 'You have indicated interest in this mentorship request!';
         this.snackBarOpen(true, this.snackBarMsg);
       })
-      .catch(error => {
+      .catch((error) => {
         this.snackBarMsg = 'Something went wrong! please try again.';
         this.snackBarOpen(false, this.snackBarMsg);
       });

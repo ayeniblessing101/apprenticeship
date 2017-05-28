@@ -82,11 +82,11 @@ export class RequestService {
   }
 
   /**
-   * Return mentorship requests for a particular mentee
+   * Return mentorship requests for the logged in user
    *
-   * @param Number Limit number of requests to return
+   * @param {Number} limit number of requests to return
    *
-   * @return Observable containing the mentee requests
+   * @return {Observable} containing the mentee requests
    */
   getMenteeRequests(limit: number): Observable<any> {
     return this.http
@@ -167,8 +167,8 @@ export class RequestService {
         start_time: formValue.timeControlStart,
         end_time: formValue.timeControlEnd,
         days: formValue.selectedDays,
-        timezone: formValue.timeZone
-      }
+        timezone: formValue.timeZone,
+      },
     };
 
     return result;
@@ -193,7 +193,7 @@ export class RequestService {
    * @param {Object} data the update data
    */
   cancelRequest(id) {
-    const data = {id};
+    const data = { id };
     return this.http.patch(`${this.apiBaseUrl}/requests/${id}/cancel-request`, data)
       .map(res => res.json())
       .catch(this.handleError);
