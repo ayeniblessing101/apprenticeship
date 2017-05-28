@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../services/request.service';
+import { RequestService } from '../../../services/request.service';
 
 @Component({
   selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  templateUrl: './admin-report.component.html',
+  styleUrls: ['./admin-report.component.scss']
 })
-export class ReportComponent implements OnInit {
+export class AdminReportComponent implements OnInit {
   mode = 'determinate';
   bufferValue = 0;
   periods: {};

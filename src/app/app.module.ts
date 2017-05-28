@@ -44,13 +44,13 @@ import { NotificationItemComponent } from './components/notification/notificatio
 import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';
-import { AdminComponent } from './pages/admin/admin.component';
+import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.component';
+import { AdminReportComponent } from './pages/admin/report/admin-report.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
-import { ReportComponent } from './pages/report/report.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -66,8 +66,9 @@ const appRoutes: Routes = [
   { path: 'logout', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'report', component: ReportComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/requests', component: AdminRequestsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/report', component: AdminReportComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
@@ -80,7 +81,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AdminComponent,
+    AdminRequestsComponent,
+    AdminReportComponent,
     AppComponent,
     DashboardComponent,
     LoginComponent,
@@ -98,7 +100,6 @@ const appRoutes: Routes = [
     DialogModalComponent,
     EditDialogComponent,
     RequestDetailMiniComponent,
-    ReportComponent,
 
     // pipes
     SkillsPipe,

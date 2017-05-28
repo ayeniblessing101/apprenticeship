@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MaterialModule } from '@angular/material';
-import { RequestService } from '../../services/request.service';
-import { FilterService } from '../../services/filter.service';
-import { HelperService as Helper } from '../../services/helper.service';
+import { RequestService } from '../../../services/request.service';
+import { FilterService } from '../../../services/filter.service';
+import { HelperService as Helper } from '../../../services/helper.service';
 
 @Component({
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  templateUrl: './admin-requests.component.html',
+  styleUrls: ['./admin-requests.component.scss']
 })
 
-export class AdminComponent implements OnInit, OnDestroy {
+export class AdminRequestsComponent implements OnInit, OnDestroy {
   allRequests: Array<Object> = [];
   allRequestsIds: any[] =  [];
   requestedBy: string;
