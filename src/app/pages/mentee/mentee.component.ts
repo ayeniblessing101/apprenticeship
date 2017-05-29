@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
+import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   selector: 'app-mentee',
   templateUrl: './mentee.component.html',
-  styleUrls: ['./mentee.component.scss']
+  styleUrls: ['./mentee.component.scss'],
 })
 export class MenteeComponent implements OnInit {
   private errorMessage: string;
@@ -15,18 +16,24 @@ export class MenteeComponent implements OnInit {
   requests: any;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
+  menteeFilters: any = {
+    Primary: [],
+    Status: [],
+  };
 
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
-    public helper: Helper
+    private skillService: SkillService,
+    public helper: Helper,
   ) {
     this.limit = 20;
   }
 
   ngOnInit() {
     this.getMenteeRequests();
-    this.watchFilters();
+    this.getSkills();
+    this.getStatus();
   }
 
   /**
@@ -38,20 +45,61 @@ export class MenteeComponent implements OnInit {
     this.requestService.getMenteeRequests(this.limit)
       .subscribe(
         requests => this.requests = requests,
-        error => this.errorMessage = <any>error
+        error => this.errorMessage = <any>error,
       );
   }
 
   /**
-   * watches for any changes in the checkedSkills and checkedStatuses arrays in the filters service
+   * getSkills
    *
+   * gets skills from the Lenken API service
    */
-  watchFilters() {
-    this.filterService.getCheckedSkills().subscribe(
-      skills => this.filteredSkills = skills
-    );
-    this.filterService.getCheckedStatuses().subscribe(
-      statuses => this.checkedStatuses = statuses
-    );
+  getSkills() {
+    this.skillService.getSkills()
+      .subscribe(
+        skills => this.menteeFilters['Primary'] = skills,
+        error => this.errorMessage = <any>error,
+      );
+  }
+
+  /**
+   * getStatus
+   *
+   * gets statuses from the Lenken API service
+   */
+  getStatus() {
+    this.requestService.getStatus()
+      .subscribe(
+        status => this.menteeFilters['Status'] = status,
+        error => this.errorMessage = <any>error,
+      );
+  }
+
+  /**
+   * function that handles the event emitted from the
+   * <app-filters> child component
+   *
+   * @param {object} eventData Object that contains,
+   * the event emitted, the filter selected
+   * and the value of the filter selected
+   */
+  menteeFilter(eventData) {
+    if (eventData.filterName === 'Primary') {
+      // toggle clicked primary skill
+      if (eventData.eventType) {
+        this.filteredSkills.push(eventData.itemName);
+      } else {
+        const pos = this.filteredSkills.indexOf(eventData.itemName);
+        this.filteredSkills.splice(pos, 1);
+      }
+    } else if (eventData.filterName === 'Status') {
+      // toggle clicked status
+      if (eventData.eventType) {
+        this.checkedStatuses.push(eventData.itemName);
+      } else {
+        const pos = this.checkedStatuses.indexOf(eventData.itemName);
+        this.checkedStatuses.splice(pos, 1);
+      }
+    }
   }
 }

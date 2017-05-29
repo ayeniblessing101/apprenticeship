@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'dateRangeFilter',
-  pure: false
+  pure: false,
 })
 export class DateRangePipe implements PipeTransform {
 
@@ -13,6 +13,7 @@ export class DateRangePipe implements PipeTransform {
       if (dateRange === 0) {
         return requests;
       }
+
       return requests.filter(request => {
         return (Number(Date.now()) - Number(new Date(request.created_at))) <= (86400000 * dateRange);
       });

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from '../../services/request.service';
+import { AuthService } from '../../services/auth.service';
 import { FilterService } from '../../services/filter.service';
+import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
@@ -11,32 +13,48 @@ import { HelperService as Helper } from '../../services/helper.service';
 export class MentorComponent implements OnInit, OnDestroy {
   private limit: number;
   errorMessage: string;
+  interested: any[] = [];
   requests: any;
+  userId: string;
+
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
-  filterSubscription: any;
-  filteredInterest: any[];
-  interestFilterSubscription: any;
+  filteredInterest: any[] = [];
+
+  requestSubscription: any;
+  skillFilterSubscription: any;
   statusFilterSubscription: any;
+
   autoFilterStatus: boolean;
+  mentorFilters: any = {
+    Primary: [],
+    Status: [],
+    Interested: [],
+  };
 
   constructor(
     private requestService: RequestService,
+    private authService: AuthService,
     private filterService: FilterService,
+    private skillService: SkillService,
     public helper: Helper,
   ) {
     this.limit = 10;
     this.autoFilterStatus = true;
+    this.userId = this.authService.userInfo.id;
+    this.interested.push({ name: 'Yes' });
   }
 
   ngOnInit() {
     this.getMentorRequests(this.limit);
-    this.watchFilters();
+    this.getUserSkills();
+    this.getStatus();
+    this.getInterested();
   }
 
   ngOnDestroy() {
-    this.filterSubscription.unsubscribe();
-    this.interestFilterSubscription.unsubscribe();
+    this.requestSubscription.unsubscribe();
+    this.skillFilterSubscription.unsubscribe();
     this.statusFilterSubscription.unsubscribe();
   }
 
@@ -47,7 +65,7 @@ export class MentorComponent implements OnInit, OnDestroy {
    * @return {Void}
    */
   getMentorRequests(limit: number): void {
-    this.requestService.getMentorRequests(limit)
+    this.requestSubscription = this.requestService.getMentorRequests(limit)
       .subscribe(
         requests => this.requests = requests,
         error => this.errorMessage = <any>error,
@@ -55,33 +73,38 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * watchFilters
-  *
-  * watches for any changes in the checkedStatuses and checkedSkills arrays in the filters service
-  * @return {Void}
-  */
-  watchFilters(): void {
-    this.filterSubscription = this.filterService.getCheckedStatuses()
-      .subscribe(statuses => this.checkedStatuses = statuses);
+   * getUserSkills
+   *
+   * gets current user's skills from the Lenken API service
+   */
+  getUserSkills() {
+    this.skillFilterSubscription = this.skillService.getUserSkills(this.userId)
+      .subscribe(
+        skills => this.mentorFilters['Primary'] = skills,
+        error => this.errorMessage = <any>error,
+      );
+  }
 
-    this.filterService.getCheckedSkills()
-      .subscribe(skills => this.filteredSkills = skills);
+  /**
+   * getStatus
+   *
+   * gets statuses from the Lenken API service
+   */
+  getStatus() {
+    this.statusFilterSubscription = this.requestService.getStatus()
+      .subscribe(
+        status => this.mentorFilters['Status'] = status,
+        error => this.errorMessage = <any>error,
+      );
+  }
 
-    this.interestFilterSubscription = this.filterService.getInterestedStatus()
-      .subscribe((interested) => {
-        if (interested.length) {
-          interested.splice(0, 1);
-        }
-
-        this.filteredInterest = interested;
-      },
-    );
-
-    this.statusFilterSubscription = this.filterService.getCheckedStatuses()
-      .subscribe((statuses) => {
-        this.filterService.toggleStatus('open');
-        this.checkedStatuses = statuses;
-      });
+  /**
+   * getInterested
+   *
+   * gets statuses from the Lenken API service
+   */
+  getInterested() {
+    this.mentorFilters['Interested'] = this.interested;
   }
 
   /**
@@ -93,5 +116,36 @@ export class MentorComponent implements OnInit, OnDestroy {
   */
   formatMonth(numOfMonths: number): string {
     return numOfMonths > 1 ? 'months' : 'month';
+  }
+
+  /**
+   * function that handles the event emitted from the <app-filters>
+   * child component
+   *
+   * @param {object} eventData Object that contains, the event emitted,
+   * the filter selected and the value selected
+   */
+  mentorFilter(eventData) {
+    if (eventData.filterName === 'Primary') {
+      // toggle clicked primary skill
+      if (eventData.eventType) {
+        this.filteredSkills.push(eventData.itemName);
+      } else {
+        const pos = this.filteredSkills.indexOf(eventData.itemName);
+        this.filteredSkills.splice(pos, 1);
+      }
+    } else if (eventData.filterName === 'Status') {
+      // toggle clicked status
+      if (eventData.eventType) {
+        this.checkedStatuses.push(eventData.itemName);
+      } else {
+        const pos = this.checkedStatuses.indexOf(eventData.itemName);
+        this.checkedStatuses.splice(pos, 1);
+      }
+    } else if (eventData.filterName === 'Interested') {
+      if (eventData.type) {
+        this.filteredInterest.push(eventData.itemName);
+      }
+    }
   }
 }

@@ -1,59 +1,43 @@
 <ng-content></ng-content>
-<accordion [closeOthers]="true">
-  <accordion *ngIf="currentPage === 'admin'">
-    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+<accordion *ngFor="let key of filterKeys">
+  <accordion *ngIf="key==='Date'">
+    <accordion-group (onOpen)="toggleIcon(4)" (onClose)="toggleIcon(4)">
       <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon3Name }}</i>Date
+        <i class="material-icons">{{ icon4Name }}</i>{{ key }}
       </accordion-heading>
       <md-radio-group>
-        <md-radio-button class="date-range" *ngFor="let range of dateRangeMap" (change)="setDateRange(dateRange[range])" value={{range}} [checked]="dateRange[range] == 0">{{ range }}</md-radio-button>
-      </md-radio-group>
+        <md-radio-button *ngFor="let item of filtersObject[key]" (change)="onChange($event, item, key)" class="date-range" [value]="item.name"
+            [checked]="item.name ==='All time'">{{ item.name }}</md-radio-button>
+     </md-radio-group>
     </accordion-group>
   </accordion>
-  <accordion *ngIf="currentPage === 'mentor'">
-    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
-      <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon3Name }}</i>Primary
-      </accordion-heading>
-      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{ skill.name }}</md-checkbox><br>
-    </accordion-group>
-  </accordion>
-  <accordion *ngIf="currentPage !== 'mentor'">
+
+  <accordion *ngIf="key==='Status'" [expandAll]="true">
     <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
       <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon1Name }}</i>Primary Skills
+        <i class="material-icons">{{ icon2Name }}</i>{{ key }}
       </accordion-heading>
-      <md-checkbox color="primary" *ngFor="let skill of skills" (change)="toggleSkill(skill.name)">{{ skill.name }}</md-checkbox><br>
+      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
     </accordion-group>
   </accordion>
-  <accordion [expandAll]="true">
-    <!-- TODO: use [expandAll]="currentPage==='the_page'" -->
+
+  <accordion *ngIf="key==='Primary'">
     <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
       <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon2Name }}</i>Status
+        <i class="material-icons">{{ icon2Name }}</i>{{ key }}
       </accordion-heading>
-      <div *ngFor="let state of status">
-        <div *ngIf="state.name === 'open'">
-          <md-checkbox color="primary" [checked]="autoFilterStatus" (change)="toggleStatus(state.name)">
-            {{ state.name }}
-          </md-checkbox>
-        </div>
-        <div *ngIf="state.name !== 'open'">
-          <md-checkbox color="primary" (change)="toggleStatus(state.name)">
-            {{ state.name }}
-          </md-checkbox>
-        </div>
-        <br>
-      </div>
+      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
     </accordion-group>
   </accordion>
-  <accordion>
-    <accordion-group *ngIf="currentPage === 'mentor'" (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+
+  <accordion *ngIf="key==='Interested'">
+    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
       <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon3Name }}</i>Interested
+        <i class="material-icons">{{ icon3Name }}</i>{{ key }}
       </accordion-heading>
-      <md-checkbox color="primary" (change)="toggleInterest()">Yes</md-checkbox>
+      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
     </accordion-group>
   </accordion>
+
 </accordion>
 <ng-content></ng-content>

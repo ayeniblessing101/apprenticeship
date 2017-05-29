@@ -42,17 +42,6 @@
               made</div>
           </div>
         </div>
-        <hr>
-      </div>
-      <div class="overview">
-        <h5><strong>Most Requested Skills</strong></h5>
-        <div class="md-chip-list">
-          <md-chip-list>
-            <div *ngFor="let skill of details.request_skills" class="chip">
-              {{ skill.name }}
-            </div>
-          </md-chip-list>
-        </div>
       </div>
     </div>
     <div *ngIf="!menteeDetails" class="content-right" class="loader">

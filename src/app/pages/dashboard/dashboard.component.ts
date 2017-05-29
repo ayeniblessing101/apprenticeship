@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
+import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,17 +11,22 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   errorMessage: string;
   requests: any;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
   statusFilterSubscription: any;
   autoFilterStatus: boolean;
+  dashBoardFilters: any = {
+    Primary: [],
+    Status: [],
+  };
 
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
+    private skillService: SkillService,
     private authService: AuthService,
     public snackBar: MdSnackBar,
     public helper: Helper,
@@ -36,11 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     this.getRequests();
-    this.watchFilters();
-  }
-
-  ngOnDestroy() {
-    this.statusFilterSubscription.unsubscribe();
+    this.getSkills();
+    this.getStatus();
   }
 
   /**
@@ -51,7 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getRequests() {
     this.requestService.getRequests(20)
       .subscribe(
-        requests => this.requests = requests,
+        (requests) => this.requests = requests,
         error => this.errorMessage = <any>error,
       );
   }
@@ -82,5 +85,59 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.filterService.toggleStatus('open');
         this.checkedStatuses = statuses;
       });
+  }
+
+   /**
+   * getSkills
+   *
+   * gets skills from the Lenken API service
+   */
+  getSkills() {
+    this.skillService.getSkills()
+      .subscribe(
+        skills => this.dashBoardFilters['Primary'] = skills,
+        error => this.errorMessage = <any>error,
+      );
+  }
+
+  /**
+   * getStatus
+   *
+   * gets statuses from the Lenken API service
+   */
+  getStatus() {
+    this.requestService.getStatus()
+      .subscribe(
+        status => this.dashBoardFilters['Status'] = status,
+        error => this.errorMessage = <any>error,
+      );
+  }
+
+  /**
+   * function that handles the event emitted from the
+   * <app-filters> child component
+   *
+   * @param {object} eventData Object that contains,
+   * the event emitted, the filter selected
+   * and the value of the filter selected
+   */
+  dashboardFilter(eventData) {
+    if (eventData.filterName === 'Primary') {
+      // toggle clicked primary skill
+      if (eventData.eventType) {
+        this.filteredSkills.push(eventData.itemName);
+      } else {
+        const pos = this.filteredSkills.indexOf(eventData.itemName);
+        this.filteredSkills.splice(pos, 1);
+      }
+    } else if (eventData.filterName === 'Status') {
+      // toggle clicked status
+      if (eventData.eventType) {
+        this.checkedStatuses.push(eventData.itemName);
+      } else {
+        const pos = this.checkedStatuses.indexOf(eventData.itemName);
+        this.checkedStatuses.splice(pos, 1);
+      }
+    }
   }
 }

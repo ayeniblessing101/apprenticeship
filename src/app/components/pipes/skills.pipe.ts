@@ -19,7 +19,7 @@ export class SkillsPipe implements PipeTransform {
       }
       return requests.filter(request => {
         const requestSkills = this.helper.extractSkills(request.request_skills);
-        return ArrayIntersectPipe.get(requestSkills, filteredSkills).length >= filteredSkills.length;
+        return ArrayIntersectPipe.get(requestSkills, filteredSkills).length > 0;
       });
     }
   }
