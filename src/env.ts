@@ -13,7 +13,7 @@ const firebaseConfigObject: Firebase = {
   databaseURL: 'https://lenken-client.firebaseio.com',
   projectId: 'lenken-client',
   storageBucket: 'lenken-client.appspot.com',
-  messagingSenderId: '234548638058'
+  messagingSenderId: '234548638058',
 };
 
 export const environment = {
@@ -21,5 +21,5 @@ export const environment = {
   firebaseConfig: firebaseConfigObject,
   apiBaseUrl: 'http://lenken-dev.andela.com:3000/api/v1',
   lenkenBaseUrl: 'http://lenken-dev.andela.com:4200',
-  apiGateway: 'https://api-staging.andela.com'
+  apiGateway: 'https://api-staging.andela.com',
 };
