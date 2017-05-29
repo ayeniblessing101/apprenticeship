@@ -1,4 +1,3 @@
-
 # Lenken
 [![Coverage Status](https://coveralls.io/repos/github/andela/lenken/badge.svg?t=0GlA6W)](https://coveralls.io/github/andela/lenken)
 [![Code Climate](https://codeclimate.com/repos/58aaff583de51e3db2001f76/badges/5b62c4058b728e58f3a5/gpa.svg)](https://codeclimate.com/repos/58aaff583de51e3db2001f76/feed)
@@ -71,25 +70,3 @@ or any provided port on the terminal.
 - Run
 
 	`ng serve --host lenken-dev.andela.com:4200`
-
-### Architecture
-Lenken application is written in PHP using Lumen and Angular 2. Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax.It attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
-
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
-
-
-The application is a based on a three-tier architecture having the following layers:
-
-- #### Client layer
-
-	`client` docker container with the angular front-end.
-
-- #### Business layer
-
-	In this layer we have the `nginx`, `api` and `cache` docker containers. It 	provides the business processes logic and the data access.
-
-- Data layer
-
-	It has the `db` docker container which persists the state of the 	application.
-
-Please refer to the application's [docker-compose.yml](https://github.com/andela/lenken/blob/develop/docker-compose.yml).
