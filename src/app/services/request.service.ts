@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../environments/environment';
+import { HelperService as Helper } from './helper.service';
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -11,7 +14,10 @@ import 'rxjs/add/observable/throw';
 export class RequestService {
   private apiBaseUrl: string = environment.apiBaseUrl;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private helper: Helper,
+  ) { }
 
   /**
    * Return details of a particular request
@@ -163,6 +169,7 @@ export class RequestService {
       primary: formValue.requiredSkills,
       secondary: formValue.otherSkills,
       duration: formValue.duration,
+      location: this.helper.getTimeZone(),
       pairing: {
         start_time: formValue.timeControlStart,
         end_time: formValue.timeControlEnd,
