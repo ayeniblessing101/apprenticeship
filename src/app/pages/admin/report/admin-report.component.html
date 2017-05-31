@@ -5,10 +5,10 @@
         Mentorship Report
       </span>
       <span class="dropdown">
-        <md-select class="timePicker" placeholder="All Users">
+        <md-select class="timePicker" placeholder="Location" (change)="reloadReport($event)">
           <md-option value="{{ user }}" *ngFor="let user of users">{{ user }}</md-option>
         </md-select>
-        <md-select class="period" placeholder="{{ getPeriods()[0] }}" (change)="reloadReport($event)">
+        <md-select class="period" placeholder="Period" (change)="reloadReport($event)">
           <md-option value="{{ period }}" *ngFor="let period of getPeriods()">{{ period }}</md-option>
         </md-select>
       </span>
@@ -21,17 +21,16 @@
     <div class="main">
       <md-card>
         <md-card-content>
-          <div *ngFor="let skill of skillStatistics" class="skill-row">
-            <div class="skill-name">{{ skill.name }}</div>
-            <div class="skill-progress">
-              <md-progress-bar
-                class="progress-bar mat-progress-bar-buffer"
-                [mode]="mode"
-                [value]="skill.percentage"
-                [bufferValue]="bufferValue">
-              </md-progress-bar>
-            </div>
-            <div class="skill-percent">{{ skill.percentage }}%</div>
+          <div *ngFor="let skill of reports" class="skill-row">
+              <div class="skill-name">{{ skill.name }}</div>
+              <div class="skill-progress">
+                <md-progress-bar
+                  class="progress-bar mat-progress-bar-buffer"
+                  [mode]="mode"
+                  value="{{ (skill.count/reports.length) * 100 | number:0 }}">
+                </md-progress-bar>
+              </div>
+              <div class="skill-percent">{{ (skill.count/reports.length) * 100 | number:0 }}%</div>
           </div>
         </md-card-content>
       </md-card>

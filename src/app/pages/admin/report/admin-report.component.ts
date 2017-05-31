@@ -8,64 +8,27 @@ import { RequestService } from '../../../services/request.service';
 })
 export class AdminReportComponent implements OnInit {
   mode = 'determinate';
-  bufferValue = 0;
   periods: {};
   users: Array<string>;
-  skillStatistics: Array<any>;
   totalRequests: number;
   currentPeriod: number | string;
-  limit: number;
+  reports: any;
 
-  constructor(
-    private requestService: RequestService,
-  ) {
-    this.users = ['Admin', 'Mentor', 'Mentee'];
-
-    // dummy skill distribution stats, to be replaced by actual API call
-    this.skillStatistics = [
-      {
-        name: 'Javascript',
-        percentage: 40
-      },
-      {
-        name: 'Python',
-        percentage: 20
-      },
-      {
-        name: 'Ruby',
-        percentage: 10
-      },
-      {
-        name: 'Java',
-        percentage: 10
-      }
-    ];
+  constructor(private requestService: RequestService) {
+    this.users = ['All Users', 'NBO', 'LOS'];
     this.totalRequests = 0;
     this.periods = {
-      'All': 'ALL',
+      'All Time': '',
       'Last 1 week': '1',
       'Last 2 weeks': '2',
-      'Last 1 month': '4',
-      'Last 2 months': '8',
+      'Last 3 weeks': '3',
+      'Last month': '4',
     };
-    this.currentPeriod = 'ALL';
-    this.limit = 1000;
+    this.currentPeriod = this.periods['All Time'];
   }
 
   ngOnInit() {
-    this.getRequestsByPeriod(this.currentPeriod, this.limit);
-  }
-
-  /**
-   * fetches requests within a specified period
-   *
-   * @param {Number|String} period
-   * @param {Number} limit - max number of results to be retrieved
-   * @return {Null}
-   */
-  getRequestsByPeriod(period?: number | string, limit?: number): void {
-    this.requestService.getRequestsByPeriod(period, limit)
-      .subscribe(requests => this.totalRequests = requests.length);
+    this.getReports(this.currentPeriod, '');
   }
 
   /**
@@ -84,6 +47,22 @@ export class AdminReportComponent implements OnInit {
    * @return {Null}
    */
   reloadReport(event) {
-    this.getRequestsByPeriod(this.periods[event.value], this.limit);
+    this.getReports(this.periods[event.value], '');
+  }
+
+  /**
+   * gets all reports from request service
+   *
+   * @param period {String | Number}, location {String}
+   * @return {Void}
+   */
+  getReports(period?: string | number, location?: string): void {
+    let options = {
+      period: period,
+      location: location
+    };
+
+    this.requestService.getReports(options)
+      .subscribe(requests => this.reports = requests.skills);
   }
 }

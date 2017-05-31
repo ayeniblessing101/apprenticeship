@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
-import { Response } from '@angular/http';
+import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
@@ -54,21 +54,6 @@ export class RequestService {
   getRequests(limit: number): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/requests?limit=${limit}`)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  /**
-   * Returns requests based on period
-   *
-   * @param period
-   * @param limit
-   *
-   * @return {Observable<R>}
-   */
-  getRequestsByPeriod(period: number | string, limit?: number): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/requests?period=${period}&limit=${limit}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -203,6 +188,24 @@ export class RequestService {
     const data = { id };
     return this.http.patch(`${this.apiBaseUrl}/requests/${id}/cancel-request`, data)
       .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get report requests
+   *
+   * @param period {String | Number}, location {String}
+   * @return Observable containing reports by location and period
+   */
+  getReports(options): Observable<any> {
+    let params = new URLSearchParams();
+    for (let key in options) {
+        params.set(key, options[key]);
+    }
+
+    return this.http
+      .get(`${this.apiBaseUrl}/reports?${params.toString()}`)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
