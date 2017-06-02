@@ -37,6 +37,7 @@ export class UserService {
   extractData(res: Response) {
     const body = res.json();
     body.data.request_count = body['request_count'];
+    body.data.skills = body['skills'];
 
     return body.data || [];
   }

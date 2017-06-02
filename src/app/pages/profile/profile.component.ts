@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { SkillService } from '../../services/skill.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,27 +11,24 @@ export class ProfileComponent implements OnInit {
   errorMessage: string;
   userData: any;
   testId: string;
-  userSkills: any;
   userId: string;
   picture: string;
   firstName: string;
   fullName: string;
+  skillsTitle: string;
 
   constructor(
-    private _auth: AuthService,
-    private _userService: UserService,
-    private _skillService: SkillService
+    private authService: AuthService,
+    private userService: UserService
   ) {
-    this.userId = this._auth.userInfo.id;
-    this.testId = '6';
-    this.picture = this._auth.userInfo.picture;
-    this.firstName = this._auth.userInfo.first_name;
-    this.fullName = this._auth.userInfo.name;
+    this.userId = this.authService.userInfo.id;
+    this.picture = this.authService.userInfo.picture;
+    this.firstName = this.authService.userInfo.first_name;
+    this.fullName = this.authService.userInfo.name;
   }
 
   ngOnInit() {
     this.getUserInfo(this.userId);
-    this.getUserSkills(this.testId);
   }
 
    /**
@@ -42,23 +38,12 @@ export class ProfileComponent implements OnInit {
    * @return {Void}
    */
   getUserInfo(userId: string): void {
-    this._userService.getUserInfo(this.userId)
+    this.userService.getUserInfo(this.userId)
       .subscribe(
-        (requests) => this.userData = requests,
-        error => this.errorMessage = <any>error
-      );
-  }
-
-  /**
-   *  gets a user's skills based on thier userId
-   *
-   * @param {String} testId - the id of the logged in user
-   * @return {Void}
-   */
-  getUserSkills(testId: String): void {
-    this._skillService.getUserSkills(this.testId)
-      .subscribe(
-        (requests) => this.userSkills = requests,
+        (requests) => {
+          this.userData = requests;
+          this.skillsTitle = requests.skills.length > 1 ? 'YOUR SKILLS' : 'YOUR SKILL';
+        },
         error => this.errorMessage = <any>error
       );
   }

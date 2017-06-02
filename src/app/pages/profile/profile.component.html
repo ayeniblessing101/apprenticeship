@@ -7,12 +7,13 @@
         <div class="profile-image" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
       </div>
 
-      <md-card-footer class="md-footer">
+      <md-card-footer class="md-footer" *ngIf="userData">
         <h4 class="username">{{ fullName }}</h4>
-        <p class="level">{{ userData.level.name }}</p>
+        <p class="level" *ngIf="userData.level">{{ userData.level.name }}</p>
 
         <div class="skills">
-          <span *ngFor="let skill of userSkills" class="chip">{{ skill.name }}</span>
+          <h4 *ngIf="userData.skills.length">{{ skillsTitle }}</h4>
+          <span *ngFor="let skill of userData.skills" class="chip">{{ skill.name }}</span>
         </div>
       </md-card-footer>
 
