@@ -197,7 +197,7 @@ export class RequestService {
    * @param period {String | Number}, location {String}
    * @return Observable containing reports by location and period
    */
-  getReports(options): Observable<any> {
+  getReports(options: {}): Observable<any> {
     let params = new URLSearchParams();
     for (let key in options) {
         params.set(key, options[key]);

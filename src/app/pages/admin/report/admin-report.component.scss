@@ -1,9 +1,19 @@
 @import '../../../../assets/scss/colors';
 @import '../../../../assets/scss/mixins';
+@import '../../../../assets/scss/_loaders';
 
 /* global styles */
 md-select {
   margin-right: 20px;
+}
+
+.spinner {
+  text-align: center;
+}
+
+md-spinner {
+  float: none;
+  margin: 0 auto;
 }
 
 /* end: global styles */
