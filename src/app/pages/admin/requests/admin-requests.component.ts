@@ -45,7 +45,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     this.requestedBy = 'Abolaji Femi';
     this.limit = 10;
     this.loading = false;
-    this.dateRange = 1;
+    this.dateRange = 0;
     this.dateFilters = {
       'Last day': 1,
       'Last 7 days': 7,
