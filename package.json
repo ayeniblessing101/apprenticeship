@@ -10,7 +10,7 @@
     "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod",
+    "postinstall": "ng build --prod --env=$ENV",
     "tslint": "node_modules/tslint/bin/tslint"
   },
   "private": true,
