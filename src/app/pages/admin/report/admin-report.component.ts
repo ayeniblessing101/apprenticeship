@@ -15,7 +15,7 @@ export class AdminReportComponent implements OnInit {
   totalRequests: number;
   totalRequestsMatched: number;
   sessionsCompleted: number;
-  atm: number;
+  averageTimeToMatch: string;
   selectedPeriod: string;
   selectedLocation: string;
   include: Array<string>;
@@ -29,7 +29,7 @@ export class AdminReportComponent implements OnInit {
     this.totalRequests = 0;
     this.totalRequestsMatched = 0;
     this.sessionsCompleted = 0;
-    this.atm = 0;
+    this.averageTimeToMatch = '0';
     this.locations = {
       'All': '',
       'Lagos': 'Lagos',
@@ -44,7 +44,11 @@ export class AdminReportComponent implements OnInit {
     };
     this.selectedPeriod = '';
     this.selectedLocation = '';
-    this.include = ['totalRequests', 'totalRequestsMatched'];
+    this.include = [
+      'totalRequests',
+      'totalRequestsMatched',
+      'averageTimeToMatch',
+    ];
     this.loading = false;
   }
 
@@ -85,9 +89,10 @@ export class AdminReportComponent implements OnInit {
         this.skills = report.skills_count;
         this.totalRequests = report.totalRequests;
         this.totalRequestsMatched = report.totalRequestsMatched;
+        this.averageTimeToMatch = report.averageTimeToMatch;
         this.totalSkillCount = this.getTotalSkillCount(this.skills);
       });
-  }
+  }  
 
   /**
    * fetches new report when location or period changes
