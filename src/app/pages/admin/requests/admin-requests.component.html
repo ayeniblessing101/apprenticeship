@@ -16,7 +16,7 @@
             </md-card-header>
             <md-card-content class="card-content">
               <h2><strong>{{ request.title }}</strong></h2>
-              <h5 class="request-detail">Requested by <span class="bold-black">{{ requestedBy }}</span> and has
+              <h5 class="request-detail">Requested by <span class="bold-black">{{ getMenteeName(request.mentee_email) }}</span> and has
                 <span *ngIf="request.interested">{{ request.interested.length }}</span>
                 <span *ngIf="!request.interested">No </span> interested mentors.</h5>
               <p>{{ request.description }}</p>

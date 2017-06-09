@@ -120,6 +120,24 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Retrieves the full name from the passed email
+   *
+   * @param {String} email
+   * @return {String} username
+   */
+  getMenteeName(email) {
+    if (!email) {
+      return email;
+    }
+
+    // remove the '@' email suffix to get the user's full name
+    let userName = email.match(/(.+)@/);
+    userName = userName[1].split('.');
+
+    return userName.join(' ');
+  }
+
+  /**
    * returns a css class for chips based on request status
    *
    * @param {String} status - request status
@@ -138,19 +156,19 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * getDate
-  *
-  * Adds the date filter
-  */
+   * getDate
+   *
+   * Adds the date filter
+   */
   getDate() {
     this.adminFilters['Date'] = this.dateRangeMap;
   }
 
   /**
-  * getSkills
-  *
-  * Gets skills from the Lenken api
-  */
+   * getSkills
+   *
+   * Gets skills from the Lenken api
+   */
   getSkills() {
     this.skillsFilterSubscription = this.skillService.getSkills()
       .subscribe(
@@ -160,10 +178,10 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * getStatus
-  *
-  * Gets statuses from the Lenken api
-  */
+   * getStatus
+   *
+   * Gets statuses from the Lenken api
+   */
   getStatus() {
     this.statusFilterSubscription = this.requestService.getStatus()
       .subscribe(

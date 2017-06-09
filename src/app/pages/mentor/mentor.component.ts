@@ -86,6 +86,24 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Retrieves the full name from the passed email
+   *
+   * @param {String} email
+   * @return {String} username
+   */
+  getMenteeName(email) {
+    if (!email) {
+      return email;
+    }
+
+    // remove the '@' email suffix to get the user's full name
+    let userName = email.match(/(.+)@/);    
+    userName = userName[1].split('.');
+
+    return userName.join(' ');
+  }
+
+  /**
    * getStatus
    *
    * gets statuses from the Lenken API service
