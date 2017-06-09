@@ -10,7 +10,7 @@ export class AdminReportComponent implements OnInit {
   mode = 'determinate';
   periods: {};
   locations: {};
-  skills: Array<Object>;
+  skills: any[];
   totalSkillCount: number;
   totalRequests: number;
   totalRequestsMatched: number;
@@ -18,8 +18,9 @@ export class AdminReportComponent implements OnInit {
   averageTimeToMatch: string;
   selectedPeriod: string;
   selectedLocation: string;
-  include: Array<string>;
+  include: any[];
   loading: boolean;
+  lineDelimiter: string;
 
   constructor(
     private requestService: RequestService,
@@ -50,6 +51,7 @@ export class AdminReportComponent implements OnInit {
       'averageTimeToMatch',
     ];
     this.loading = false;
+    this.lineDelimiter = '\r\n';
   }
 
   ngOnInit() {
@@ -86,13 +88,13 @@ export class AdminReportComponent implements OnInit {
     this.requestService.getReports(options)
       .subscribe((report) => {
         this.loading = false;
-        this.skills = report.skills_count;
         this.totalRequests = report.totalRequests;
         this.totalRequestsMatched = report.totalRequestsMatched;
         this.averageTimeToMatch = report.averageTimeToMatch;
-        this.totalSkillCount = this.getTotalSkillCount(this.skills);
+        this.totalSkillCount = this.getTotalSkillCount(report.skills_count);
+        this.skills = this.calculatePercentage(report.skills_count);
       });
-  }  
+  }
 
   /**
    * fetches new report when location or period changes
@@ -112,11 +114,14 @@ export class AdminReportComponent implements OnInit {
   /**
    * calculates the skill percentage occurence
    *
-   * @param {Number} skillCount - total occurence of each skill
-   * @return {Number} - percentage occurence
+   * @param {Array} skills - total occurence of each skill
+   * @return {Array} - percentage occurence
    */
-  getPercentage(skillCount: number): number {
-    return ((skillCount / this.totalSkillCount) * 100);
+  calculatePercentage(skills: any[]): any[] {
+    return skills.map((skill) => {
+      skill.percentage = ((skill.count / this.totalSkillCount) * 100).toFixed(2);
+      return skill;
+    });
   }
 
   /**
@@ -125,9 +130,80 @@ export class AdminReportComponent implements OnInit {
    * @param {Array} skills - array of skill objects
    * @return {Number} total skill count
    */
-  getTotalSkillCount(skills: Array<any>): number {
+  getTotalSkillCount(skills: any[]): number {
     return skills.reduce((total, skill) => {
-      return total + skill['count'];
+      return total + skill.count;
     }, 0);
+  }
+
+  /**
+   * triggers the download of report
+   *
+   * @return {Void}
+   */
+  downloadReport(): void {
+    const reportSummary = this.getReportSummary();
+    const downloadLink = document.createElement('a');
+    const csvData = this.writeToCsv(this.skills);
+    const blob = new Blob([csvData, `${this.lineDelimiter}`, reportSummary], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    downloadLink.href = url;
+    downloadLink.download = 'report.csv';
+    downloadLink.click();
+  }
+
+  /**
+   * writes skills data to csv
+   *
+   * @param {Array} skillsData - array of skill objects
+   * @return {String} report
+   */
+  writeToCsv(skillsData: any[]): string {
+    let report = '';
+    const columnDelimiter = ',';
+
+    if (!skillsData || skillsData.length < 1) {
+      return null;
+    }
+
+    const keys = Object.keys(skillsData[0]);
+    report += keys.join(columnDelimiter);
+    report += this.lineDelimiter;
+
+    skillsData.forEach((data) => {
+      let column = 0;
+      keys.forEach((key) => {
+        if (column > 0) {
+          report += columnDelimiter;
+        }
+        report += data[key];
+        column += 1;
+      });
+      report += this.lineDelimiter;
+    });
+
+    return report;
+  }
+
+  /**
+   * composes the report summary
+   *
+   * @return {String} - report summary
+   */
+  getReportSummary(): string {
+    const location = this.selectedLocation.length === 0
+      ? `Location,All${this.lineDelimiter}`
+      : `Location,${this.selectedLocation}${this.lineDelimiter}`;
+
+    const period = this.selectedPeriod.length === 0
+      ? `Period,All${this.lineDelimiter}`
+      : `Period,${this.selectedPeriod}${this.lineDelimiter}`;
+
+    const totalRequestMade = `Total Requests,${this.totalRequests}${this.lineDelimiter}`;
+    const requestMatched = `Total Requests Matched,${this.totalRequestsMatched}${this.lineDelimiter}`;
+    const averageTime = `Average Time to Match,${this.averageTimeToMatch}${this.lineDelimiter}`;
+
+    return `SUMMARY${this.lineDelimiter}${location}${period}${totalRequestMade}${requestMatched}${averageTime}`;
   }
 }

@@ -16,7 +16,7 @@
       </span>
     </div>
     <div class="right">
-      <span class="download">Download Report <md-icon>get_app</md-icon></span>
+      <span class="download" (click)="downloadReport()">Download Report <md-icon>get_app</md-icon></span>
     </div>
   </div>
   <div class="report-body">
@@ -35,10 +35,10 @@
                 <md-progress-bar
                   class="progress-bar mat-progress-bar-buffer"
                   [mode]="mode"
-                  value="{{ getPercentage(skill.count) }}">
+                  value="{{ skill.percentage }}">
                 </md-progress-bar>
               </div>
-              <div class="skill-percent">{{ getPercentage(skill.count) | number: '1.1-1' }}%</div>
+              <div class="skill-percent">{{ skill.percentage | number: '1.1-1' }}%</div>
           </div>
         </md-card-content>
       </md-card>
