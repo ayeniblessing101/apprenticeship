@@ -46,6 +46,7 @@ import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.component';
 import { AdminReportComponent } from './pages/admin/report/admin-report.component';
+import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'admin/requests', component: AdminRequestsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/report', component: AdminReportComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/skills', component: AdminSkillsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
@@ -83,6 +85,7 @@ const appRoutes: Routes = [
   declarations: [
     AdminRequestsComponent,
     AdminReportComponent,
+    AdminSkillsComponent,
     AppComponent,
     DashboardComponent,
     LoginComponent,

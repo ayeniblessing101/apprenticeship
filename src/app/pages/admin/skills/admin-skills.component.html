@@ -1,0 +1,35 @@
+<app-header>
+  <div class="header">
+    <span class="title">
+      Admin Skills
+    </span>
+    <span class="add-btn">
+      <button md-raised-button class="md-btn-andela-pink">Add Skill</button>
+    </span>
+  </div>
+  <div id="app-container">
+    <div class="app-partial-outlet">
+      <div class="and-list-filter-container">
+        <div class="and-list">
+          <div *ngIf="loading" class="loader">
+            <md-spinner></md-spinner>
+          </div>
+          <md-card *ngFor="let skill of skills">
+            <md-card-header class="card-header">
+              <span><strong>{{ skill.name }}</strong></span>
+              <div class="skill-btn">
+                <span><md-icon>edit</md-icon></span>
+                <span><md-icon>delete</md-icon></span>
+              </div>
+            </md-card-header>
+            <md-card-content class="card-content">
+            </md-card-content>
+            <md-chip-list>
+              <md-chip selected="">currently linked to at least one mentorship request</md-chip>
+            </md-chip-list>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-header>
