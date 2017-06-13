@@ -50,6 +50,7 @@ import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.componen
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
+import { SlackModal } from './components/slack-modal/slack-modal.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 
@@ -102,6 +103,7 @@ const appRoutes: Routes = [
     CancelRequestDialogComponent,
     DialogModalComponent,
     EditDialogComponent,
+    SlackModal,
     RequestDetailMiniComponent,
 
     // pipes
@@ -143,7 +145,8 @@ const appRoutes: Routes = [
   entryComponents: [
     DialogModalComponent,
     CancelRequestDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    SlackModal
   ],
   bootstrap: [AppComponent]
 })

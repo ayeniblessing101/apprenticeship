@@ -1,0 +1,21 @@
+<div class="main">
+     <form [formGroup]="slackHandleForm" (ngSubmit)="onSubmit(slackHandleForm)" novalidate>
+        <h4>{{ title }}</h4>
+        <div>
+            <md-dialog-content>
+                 <div class="form-section">
+                     <div layout="row">
+                        <md-input-container class="full-width">
+                          <input formControlName="slackHandle" mdInput placeholder="Enter your slack handle" class="requestText" />
+                        </md-input-container>
+                      </div>
+                    </div>
+                    <button md-raised-button  class="md-btn-andela-pink" type="submit">SEND</button>
+                    <button md-raised-button (click)="slackRef.close()">Cancel</button>
+                    <div class="spinner">
+                      <md-spinner *ngIf="showSpinner"></md-spinner>
+                    </div>
+            </md-dialog-content>
+        </div>
+    </form>
+</div>

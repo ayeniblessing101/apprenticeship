@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import {Component, OnInit } from '@angular/core';
+import { MdSnackBar, MdDialog } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { SlackModal } from '../../components/slack-modal/slack-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,20 +18,22 @@ export class DashboardComponent implements OnInit {
   requests: any;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
-  statusFilterSubscription: any;
   autoFilterStatus: boolean;
   dashBoardFilters: any = {
     Primary: [],
     Status: [],
   };
+  slackHandle: string;
 
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
     private skillService: SkillService,
     private authService: AuthService,
+    private userService: UserService,
     public snackBar: MdSnackBar,
     public helper: Helper,
+    private dialog: MdDialog,
   ) {
     this.autoFilterStatus = true;
   }
@@ -44,13 +48,14 @@ export class DashboardComponent implements OnInit {
     this.getRequests();
     this.getSkills();
     this.getStatus();
+    this.openModal();
   }
 
   /**
-  *  getRequests
-  *
-  *  gets 20 requests from the Lenken API service
-  */
+   *  getRequests
+   *
+   *  gets 20 requests from the Lenken API service
+   */
   getRequests() {
     this.requestService.getRequests(20)
       .subscribe(
@@ -59,69 +64,69 @@ export class DashboardComponent implements OnInit {
       );
   }
 
-  /**
-   * checks if the logged in user is the owner of the request
-   *
-   * @param {object} request mentorshp request to verify
-   *
-   * @return {boolean} whether or not the logged in user owns the request
-   */
-  isRequestOwner(request: any): boolean {
+   /**
+    * checks if the logged in user is the owner of the request
+    *
+    * @param {object} request mentorshp request to verify
+    *
+    * @return {boolean} whether or not the logged in user owns the request
+    */
+   isRequestOwner(request: any): boolean {
     return request.mentee_id === this.authService.userInfo.id;
-  }
-
-  /**
-  *  watchFilters
-  *
-  *  watches for any changes in the checkedSkills and checkedStatuses arrays in the filters service
-  */
-  watchFilters() {
-    this.filterService.getCheckedSkills().subscribe(
-      skills => this.filteredSkills = skills,
-    );
-
-    this.statusFilterSubscription = this.filterService.getCheckedStatuses()
-      .subscribe((statuses) => {
-        this.filterService.toggleStatus('open');
-        this.checkedStatuses = statuses;
-      });
-  }
+   }
 
    /**
-   * getSkills
-   *
-   * gets skills from the Lenken API service
-   */
-  getSkills() {
+    * getSkills
+    *
+    * gets skills from the Lenken API service
+    *
+    */
+   getSkills() {
     this.skillService.getSkills()
       .subscribe(
-        skills => this.dashBoardFilters['Primary'] = skills,
+        skills => this.dashBoardFilters.Primary = skills,
         error => this.errorMessage = <any>error,
       );
-  }
+   }
 
-  /**
-   * getStatus
-   *
-   * gets statuses from the Lenken API service
-   */
-  getStatus() {
+   /**
+    * getStatus
+    *
+    * gets statuses from the Lenken API service
+    */
+   getStatus() {
     this.requestService.getStatus()
       .subscribe(
-        status => this.dashBoardFilters['Status'] = status,
+        status => this.dashBoardFilters.Status = status,
         error => this.errorMessage = <any>error,
       );
-  }
+   }
+
+   /**
+    *  openModal
+    *
+    *  renders a modal if the user
+    *  has not provided their slack handle
+    *  when they log in
+    */
+   openModal() {
+    this.userService.checkSlackHandleStatus(this.authService.userInfo.id)
+      .subscribe((data) => {
+        if (data.slackHandle == null) {
+          this.dialog.open(SlackModal);
+        }
+      });
+   }
 
   /**
-   * function that handles the event emitted from the
-   * <app-filters> child component
-   *
-   * @param {object} eventData Object that contains,
-   * the event emitted, the filter selected
-   * and the value of the filter selected
-   */
-  dashboardFilter(eventData) {
+    * function that handles the event emitted from the
+    * <app-filters> child component
+    *
+    * @param {object} eventData Object that contains,
+    * the event emitted, the filter selected
+    * and the value of the filter selected
+    */
+   dashboardFilter(eventData) {
     if (eventData.filterName === 'Primary') {
       // toggle clicked primary skill
       if (eventData.eventType) {
