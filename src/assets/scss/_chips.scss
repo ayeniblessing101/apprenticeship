@@ -16,6 +16,10 @@
   text-transform: uppercase;
 }
 
+.green {
+  background: #73D278;
+}
+
 .rounded-chip-open {
   @include rounded-chip;
   background: $andela-blue;

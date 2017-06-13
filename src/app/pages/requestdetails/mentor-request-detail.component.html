@@ -2,6 +2,7 @@
   <div class="container">
     <app-request-detail
         [details]="details"
+        [mentorDetails]="mentorDetails"
         [menteeDetails]="menteeDetails"
         [actionButtons]="actionButtons"
         [loading]="loading"
@@ -9,5 +10,8 @@
         (buttonClickEmitter)="indicateInterest(details)"
       >
       </app-request-detail>
+  </div>
+  <div *ngIf="details.status === 'matched' && details.mentor_id === userId">
+    <app-sessions></app-sessions>
   </div>
 </app-header>

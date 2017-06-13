@@ -31,9 +31,10 @@ button {
 .request-detail-card {
   margin: 0 auto;
   padding: 1.937rem;
+  border-radius: 0.125rem;
   background: $white;
   box-shadow: 0 0.0625rem 0.0625rem 0.0625rem rgba(0, 0, 0, 0.2);
-  border-radius: 0.125rem;
+  
 }
 
 .card-content {
@@ -51,8 +52,10 @@ button {
 }
 
 .content-right {
-  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
   border-left: 0.25rem solid #f2f2f2;
+  padding-left: 1.25rem;
 }
 
 .overview {
@@ -80,9 +83,9 @@ button {
 }
 
 .avatar {
+  float: left;
   height: 3.125rem;
   width: 3.125rem;
-  float: left;
 
   img {
     border-radius: 50%;
@@ -105,8 +108,8 @@ button {
 
   > div:last-child {
     margin-top: 0.438rem;
-    color: $grey-light-400;
     font-size: 0.7rem;
+    color: $grey-light-400;
   }
 }
 
@@ -117,18 +120,18 @@ button {
 
 .mentor-list-container {
   md-card {
+    display: inline-block;
     height: 6.25rem;
     width: 100%;
     @include box-sizing();
     padding: 0.75rem 1.25rem 0 1.25rem;
-    display: inline-block;
   }
 }
 
 .list-span {
-  width: 100%;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  width: 100%;
 }
 
 .item {
@@ -140,9 +143,9 @@ button {
 }
 
 .length-of-mentorship {
-  color: #666;
   display: inline-block;
   line-height: 1.5rem;
+  color: #666;
 }
 
 .emphasize {
@@ -178,10 +181,13 @@ button {
   }
 
   .content-right {
-    display: block;
+    display: flex;
+    flex-direction: row;
   }
 
   .overview {
+    width: 50%;
+
     p {
       font-size: 0.8rem;
     }

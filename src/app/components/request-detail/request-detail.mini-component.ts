@@ -12,6 +12,7 @@ import {
 })
 export class RequestDetailMiniComponent {
   @Input() details: any;
+  @Input() mentorDetails: any;
   @Input() menteeDetails: any;
   @Input() actionButtons: [any];
   @Input() loading: Boolean = false;

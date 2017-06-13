@@ -10,10 +10,12 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
   errorMessage: string;
   skills: any;
   skillSubscription: any;
+  loading: boolean;
 
   constructor(
     private skillService: SkillService
   ) {
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -30,9 +32,13 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
   * @return {Void}
   */
   getSkills(): void {
+    this.loading = true;
     this.skillSubscription = this.skillService.getSkills()
       .subscribe(
-        skills => this.skills = skills,
+        (skills) => {
+          this.loading = false;
+          this.skills = skills;
+        },
         error => this.errorMessage = error
       );
   }

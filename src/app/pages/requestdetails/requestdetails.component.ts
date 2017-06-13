@@ -29,6 +29,8 @@ export class RequestdetailsComponent implements OnInit {
   menteeDetails: {};
   actionButtons: Array<Object>;
   currentMentorButton: string = '';
+  matchedMentor: {};
+  userId: string;
 
   constructor(
     private requestsService: RequestService,
@@ -56,9 +58,13 @@ export class RequestdetailsComponent implements OnInit {
         class: '',
       }
     ];
+    this.matchedMentor = {};
+    this.userId = '';
   }
 
   ngOnInit() {
+    this.userId = this.auth.userInfo.id;
+
     /**
      * Gets the request details and thereafter gets the details of the mentee
      */
@@ -67,38 +73,46 @@ export class RequestdetailsComponent implements OnInit {
       .toPromise()
       .then((res) => {
         this.details = res.data;
-        this.details['days'] = res.data['pairing'].days;
-        this.getMentorDetails(res.data.interested);
+        this.details.days = res.data.pairing.days;
+
+        // check if a mentor has been matched already
+        if (this.details.mentor_id && this.details.match_date) {
+          this.getMentorInfo(this.details.mentor_id.split(), true);
+        } else {
+          this.getMentorInfo(res.data.interested, false);
+        }
 
         return this.details;
       })
       .then(() => {
-        this.userService.getUserInfo(this.details['mentee_id'])
+        this.userService.getUserInfo(this.details.mentee_id)
           .toPromise()
           .then((userDetails) => {
             this.menteeDetails = userDetails;
-
             return this.menteeDetails;
           });
       });
-
-
   }
 
   /**
-   * fetches mentor details
+   * fetches user details
    *
-   * @param {Array} interested - list of interested mentor ids
+   * @param {Any} interested - list of interested mentor ids
    * @return {Null}
    */
-  getMentorDetails (interested: Array<string>) {
+  getMentorInfo (interested: Array<any>, isMatched: boolean) {
     if (!interested) return;
 
     interested.map((mentorId) => {
       this.userService.getUserInfo(mentorId)
-        .subscribe(
-          mentorDetails => this.interestedMentors.push(mentorDetails),
-          error => {
+        .subscribe((mentorDetails) => {
+            if (isMatched) {
+              this.matchedMentor = mentorDetails;
+            } else {
+              this.interestedMentors.push(mentorDetails);
+            }
+          },
+          (error) => {
             this.msg = 'Unable to get mentor details';
             this.snackBarOpen(false, this.msg);
           }
@@ -126,25 +140,26 @@ export class RequestdetailsComponent implements OnInit {
    * @param {Object} mentorDetail
    * @return {Null}
    */
-  selectMentor(status: boolean, mentorDetail: Object) {
+  selectMentor(status: boolean, mentorDetail: any): void {
     if (!status) return;
     const currentDate = Math.ceil(Date.now() / 1000);
     this.loading = true;
-    this.currentMentorButton = mentorDetail['name'];
+    this.currentMentorButton = mentorDetail.name;
     const requestUpdate = {
-      mentor_id: mentorDetail['id'],
+      mentor_id: mentorDetail.id,
       mentee_name: this.auth.userInfo.name,
       match_date: currentDate
     };
 
     this.requestsService.matchMenteeRequest(this.requestId, requestUpdate)
       .toPromise()
-      .then(res => {
+      .then((res) => {
         this.loading = false;
+        this.matchedMentor = mentorDetail;
         this.msg = `Thank you. You have been matched with ${mentorDetail['name']}!`;
         this.snackBarOpen(true, this.msg);
       })
-      .catch(error => {
+      .catch((error) => {
         this.msg = 'Failed to Match Request! Try again.';
         this.snackBarOpen(false, this.msg);
       });
@@ -156,7 +171,7 @@ export class RequestdetailsComponent implements OnInit {
    * @param {Boolean} status
    * @return {Null}
    */
-  private snackBarOpen(status: boolean, message: string) {
+  private snackBarOpen(status: boolean, message: string): any {
     if (!status) {
       return this.snackbar
         .open(message, 'close', this.snackBarConfig);
@@ -196,7 +211,7 @@ export class RequestdetailsComponent implements OnInit {
    *
    * @return {Null}
    */
-  cancelRequest() {
+  cancelRequest(): void {
     const dialogRef = this.dialog.open(CancelRequestDialogComponent);
     dialogRef.afterClosed().toPromise().then((result) => {
       if (result) {
@@ -221,7 +236,7 @@ export class RequestdetailsComponent implements OnInit {
    *
    * @return {Null}
    */
-  editRequest() {
+  editRequest(): void {
     this.dialog.open(EditDialogComponent, {
       data: {
         id: this.requestId,
@@ -236,7 +251,7 @@ export class RequestdetailsComponent implements OnInit {
    * @param {String} buttonName
    * @return {Function}
    */
-  callButtonAction(buttonName: string) {
+  callButtonAction(buttonName: string): void {
     switch (buttonName.toLowerCase()) {
       case 'cancel request': return this.cancelRequest();
       case 'edit': return this.editRequest();

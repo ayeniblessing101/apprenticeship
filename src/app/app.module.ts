@@ -53,6 +53,7 @@ import { EditDialogComponent } from './pages/editrequest/edit-request.component'
 import { SlackModal } from './components/slack-modal/slack-modal.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
+import { SessionsComponent } from './components/sessions/sessions.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -81,7 +82,6 @@ const appRoutes: Routes = [
   { path: '**', component: PagenotfoundComponent }
 ];
 
-
 @NgModule({
   declarations: [
     AdminRequestsComponent,
@@ -105,6 +105,7 @@ const appRoutes: Routes = [
     EditDialogComponent,
     SlackModal,
     RequestDetailMiniComponent,
+    SessionsComponent,
 
     // pipes
     SkillsPipe,

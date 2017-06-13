@@ -25,14 +25,14 @@
         <h5><strong>Mentee</strong></h5>
         <div class="mentee-info">
           <div class="avatar">
-            <img src="{{ menteeDetails.picture }}" alt="">
+            <img src="{{ menteeDetails?.picture }}" alt="">
           </div>
           <div class="bio">
-            <div>{{ menteeDetails.name }}</div>
+            <div>{{ menteeDetails?.name }}</div>
             <div>
               <p>
                 <span *ngFor="let role of menteeDetails.roles"
-                      class="emphasize">{{ role.name }}, </span>
+                      class="emphasize">{{ role?.name }}, </span>
               </p>
             </div>
             <div>{{ menteeDetails?.level?.name }}</div>
@@ -43,8 +43,30 @@
           </div>
         </div>
       </div>
+      <div *ngIf="details.status === 'matched'" class="overview">
+        <h5><strong>Mentor</strong></h5>
+        <div class="mentee-info">
+          <div class="avatar">
+            <img src="{{ mentorDetails?.picture }}" alt="">
+          </div>
+          <div class="bio">
+            <div>{{ mentorDetails?.name }}</div>
+            <div>
+              <p>
+                <span *ngFor="let role of mentorDetails.roles"
+                      class="emphasize">{{ role?.name }}, </span>
+              </p>
+            </div>
+            <div>{{ mentorDetails?.level?.name }}</div>
+            <div>{{ mentorDetails?.cohort?.name }}</div>
+            <div>{{ mentorDetails?.location?.name }}</div>
+            <div>{{ mentorDetails?.request_count }} mentorship request(s)
+              made</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div *ngIf="!menteeDetails" class="content-right" class="loader">
+    <div *ngIf="!menteeDetails || !mentorDetails" class="content-right" class="loader">
       <md-spinner></md-spinner>
     </div>
   </div>

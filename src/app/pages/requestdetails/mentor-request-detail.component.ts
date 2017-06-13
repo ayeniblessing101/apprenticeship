@@ -17,13 +17,15 @@ import 'rxjs/add/operator/toPromise';
 })
 export class MentorRequestDetailComponent implements OnInit {
   private requestId: number;
-  details: {};
+  details: any;
   actionButtons: [any];
-  menteeDetails: {};
+  menteeDetails: any;
+  mentorDetails: any;
   snackBarConfig: any;
   snackBarMsg: string;
   hasAlreadyIndicatedInterest: Boolean = false;
   loading: Boolean = false;
+  userId: string;
 
   constructor(
     private requestService: RequestService,
@@ -36,7 +38,8 @@ export class MentorRequestDetailComponent implements OnInit {
     this.snackBarConfig = { duration: 3000 };
     this.snackBarMsg = '';
     this.details = {};
-    this.menteeDetails = null;
+    this.menteeDetails = {};
+    this.mentorDetails = {};
     this.actionButtons = [
       {
         id: 'appMentorshipInterestButton',
@@ -44,6 +47,7 @@ export class MentorRequestDetailComponent implements OnInit {
         class: 'md-btn-andela-pink',
       },
     ];
+    this.userId = '';
   }
 
   ngOnInit() {
@@ -51,15 +55,14 @@ export class MentorRequestDetailComponent implements OnInit {
      * Gets the request details and thereafter gets the details of the mentee
      */
     this.requestId = this.route.snapshot.params['id'];
+    this.userId = this.auth.userInfo.id;
 
     this.requestService.getRequestDetails(this.requestId)
       .toPromise()
       .then((res) => {
         res.data.interested = res.data.interested ? res.data.interested : [];
         this.details = res.data;
-        this.hasAlreadyIndicatedInterest = res.data.interested.includes(
-          this.auth.userInfo.id,
-        );
+        this.hasAlreadyIndicatedInterest = res.data.interested.includes(this.userId);
         this.details['days'] = res.data['pairing'].days;
 
         return this.details;
@@ -69,10 +72,33 @@ export class MentorRequestDetailComponent implements OnInit {
           .toPromise()
           .then((userDetails) => {
             this.menteeDetails = userDetails;
-
             return this.menteeDetails;
-          })
-      });
+          });
+      })
+      .then(() => {
+        if (this.details.mentor_id) {
+          this.getMentorInfo(this.details.mentor_id);
+        }
+      })
+  }
+
+  /**
+   * fetches user details
+   *
+   * @param {String} interested - list of interested mentor ids
+   * @return {Null}
+   */
+  getMentorInfo (userId: string) {
+    if (!userId) return;
+
+    this.userService.getUserInfo(userId)
+      .subscribe((userDetails) => {
+          this.mentorDetails = userDetails;
+        },
+        (error) => {
+          this.snackBarOpen(false, 'Unable to get mentor details');
+        }
+      );
   }
 
   /**

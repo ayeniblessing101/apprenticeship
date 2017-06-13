@@ -3,6 +3,7 @@
     <div>
       <app-request-detail
         [details]="details"
+        [mentorDetails]="matchedMentor"
         [menteeDetails]="menteeDetails"
         [actionButtons]="actionButtons"
         (buttonClickEmitter)="callButtonAction($event)"
@@ -25,6 +26,9 @@
           </div>
         </md-card>
       </span>
+    </div>
+    <div *ngIf="details.status === 'matched' && details.mentee_id === userId">
+      <app-sessions></app-sessions>
     </div>
   </div>
 </app-header>

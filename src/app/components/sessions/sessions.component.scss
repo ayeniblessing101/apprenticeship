@@ -1,0 +1,117 @@
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/_loaders';
+@import '../../../assets/scss/side-info';
+@import '../../../assets/scss/_buttons';
+@import '../../../assets/scss/_chips';
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.main .header {
+  margin-left: -1rem;
+  display: flex;
+  flex-direction: column;
+  height: 2.5rem;
+  width: 100%;
+  line-height: 2.5rem;
+
+  > div:first-child {
+    width: 100%;
+  }
+}
+
+.main {
+  width: 100%;
+}
+
+.side-info {
+  margin-top: 1.875rem;
+  width: 100%;
+}
+
+.sessions md-card-content {
+  margin-top: 3rem;
+}
+
+.session-list {
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
+}
+
+.session-row {
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.col-date {
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+/**
+ *
+ * tablet
+ *
+ */
+@media screen and (min-width: 769px) {
+  .chip {
+    margin-top: .5rem;
+  }
+
+  .shell {
+    flex-direction: row;
+  }
+
+  .main {
+    width: 78%;
+    margin-bottom: 30px;
+  }
+
+  .main .header {
+    flex-direction: row;
+
+    > div:first-child {
+      text-align: left;
+    }
+
+    > div:nth-child(2) {
+      text-align: right;
+    }
+  }
+
+  .side-info {
+    margin-left: 2%;
+    margin-top: 0;
+    width: 20%;
+  }
+
+  .sessions md-card-content {
+    margin-top: 0;
+  }
+
+  .session-list {
+    border-top: 1px solid #e5e5e5;
+    width: 100%;
+  }
+
+  .session-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #e5e5e5;
+    width: 100%;
+  }
+
+  .col-date {
+    width: 50%;
+  }
+
+  .col-logged {
+    height: 2.5rem;
+    width: 50%;
+    text-align: right;
+  }
+}

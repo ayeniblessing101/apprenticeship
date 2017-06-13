@@ -1,0 +1,21 @@
+.side-info {
+  width: 100%;
+
+  md-card {
+    margin-bottom: 15px;
+
+    span.title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+      color: $andela-blue;
+    }
+
+    span.content {
+      font-size: 2rem;
+      font-weight: 300;
+      color: $grey-light-600;
+    }
+  }
+}

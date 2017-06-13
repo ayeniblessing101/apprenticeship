@@ -1,6 +1,7 @@
 @import '../../../../assets/scss/colors';
 @import '../../../../assets/scss/mixins';
 @import '../../../../assets/scss/_loaders';
+@import '../../../../assets/scss/_side-info.scss';
 
 /* global styles */
 md-select {
@@ -91,27 +92,6 @@ md-spinner {
     margin-bottom: 20px;
   }
 
-  .side-info {
-    width: 100%;
-
-    md-card {
-      margin-bottom: 15px;
-
-      span.title {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        display: block;
-        margin-bottom: 5px;
-        color: $andela-blue;
-      }
-
-      span.content {
-        font-size: 2rem;
-        font-weight: 300;
-        color: $grey-light-600;
-      }
-    }
-  }
 }
 
 .main {
@@ -230,5 +210,3 @@ md-spinner {
     background-color: $andela-blue !important;
   }
 }
-
-// desktop
