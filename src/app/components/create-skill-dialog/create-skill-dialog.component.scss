@@ -1,0 +1,28 @@
+@import '../../../assets/scss/buttons';
+
+.modal {
+  padding: 1rem;
+  width: 300px;
+
+  .form-section {
+    margin-bottom: 1rem;
+  }
+
+  md-dialog-actions {
+    flex-direction: row-reverse;
+
+    .action-button { 
+      color: #333;
+      margin-right: 5px;
+      width: 7rem;
+    }
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  span.error {
+    color: red;
+  }
+}

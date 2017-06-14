@@ -38,6 +38,18 @@ export class SkillService {
       .catch(this.handleError);
   }
 
+  /**
+   * Creates a new skill
+   *
+   * @param {Object} data - containing name of the skill to be created
+   * @return Observable of the newly created skill
+   */
+  createSkill(data: Object): Observable<any> {
+    return this.http.post(`${this.apiBaseUrl}/skills`, data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};

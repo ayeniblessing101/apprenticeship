@@ -1,0 +1,22 @@
+<div class="modal">
+  <form [formGroup]="form" (ngSubmit)="createSkill(form)" novalidate>
+    <h1 md-dialog-title>Create Skill</h1>
+    <md-dialog-content>
+      <div class="form-section">
+        <div layout>
+          <md-input-container class="full-width">
+            <input formControlName="name" mdInput placeholder="Enter a skill name"/>
+          </md-input-container>
+
+          <span class="error" [hidden]="form.get('name').valid || form.get('name').untouched">Name required *</span>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <div id="btn-request-container">
+        <button md-raised-button (click)="dialogRef.close(false)" class="action-button">Cancel</button>
+        <button md-raised-button type="submit" class="md-btn-andela-pink" [disabled]="!form.valid">Create Skill</button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</div>

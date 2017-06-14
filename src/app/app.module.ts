@@ -54,6 +54,7 @@ import { SlackModal } from './components/slack-modal/slack-modal.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 import { SessionsComponent } from './components/sessions/sessions.component';
+import { CreateSkillDialogComponent } from './components/create-skill-dialog/create-skill-dialog.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -106,6 +107,7 @@ const appRoutes: Routes = [
     SlackModal,
     RequestDetailMiniComponent,
     SessionsComponent,
+    CreateSkillDialogComponent,
 
     // pipes
     SkillsPipe,
@@ -147,7 +149,8 @@ const appRoutes: Routes = [
     DialogModalComponent,
     CancelRequestDialogComponent,
     EditDialogComponent,
-    SlackModal
+    SlackModal,
+    CreateSkillDialogComponent
   ],
   bootstrap: [AppComponent]
 })
