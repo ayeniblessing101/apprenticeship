@@ -118,9 +118,12 @@ export class AdminReportComponent implements OnInit {
    * @return {Array} - percentage occurence
    */
   calculatePercentage(skills: any[]): any[] {
-    return skills.map((skill) => {
+    const unsorted =  skills.map((skill) => {
       skill.percentage = ((skill.count / this.totalSkillCount) * 100).toFixed(2);
       return skill;
+    });
+    return unsorted.sort((skill, nextSkill) => {
+      return nextSkill.percentage - skill.percentage;
     });
   }
 
