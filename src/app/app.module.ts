@@ -50,7 +50,7 @@ import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.componen
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
-import { SlackModal } from './components/slack-modal/slack-modal.component';
+import { SlackModalDialogComponent } from './components/slack-modal-dialog/slack-modal-dialog.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 import { SessionsComponent } from './components/sessions/sessions.component';
@@ -104,7 +104,7 @@ const appRoutes: Routes = [
     CancelRequestDialogComponent,
     DialogModalComponent,
     EditDialogComponent,
-    SlackModal,
+    SlackModalDialogComponent,
     RequestDetailMiniComponent,
     SessionsComponent,
     CreateSkillDialogComponent,
@@ -149,8 +149,8 @@ const appRoutes: Routes = [
     DialogModalComponent,
     CancelRequestDialogComponent,
     EditDialogComponent,
-    SlackModal,
-    CreateSkillDialogComponent
+    CreateSkillDialogComponent,
+    SlackModalDialogComponent
   ],
   bootstrap: [AppComponent]
 })

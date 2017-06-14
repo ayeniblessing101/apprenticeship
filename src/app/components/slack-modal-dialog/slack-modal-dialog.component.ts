@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
    templateUrl: './slack-modal.component.html',
    styleUrls: ['./slack-modal.component.scss'],
   })
- export class SlackModal implements OnInit {
+ export class SlackModalDialogComponent implements OnInit {
    title: String;
    slackHandleForm: FormGroup;
    userId: String;
@@ -20,9 +20,9 @@ import { AuthService } from '../../services/auth.service';
      private userService: UserService,
      private auth: AuthService,
      public snackBar: MdSnackBar,
-     public slackRef: MdDialogRef<SlackModal>,
+     public slackRef: MdDialogRef<SlackModalDialogComponent>,
    ) {
-     this.title = 'Please provide your Slack username to recieve Lenken notifications';
+     this.title = 'Please provide your Slack username to receive Lenken notifications';
      this.userId = this.auth.userInfo.id;
    }
    ngOnInit() {

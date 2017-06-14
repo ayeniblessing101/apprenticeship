@@ -6,7 +6,7 @@ import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { SlackModal } from '../../components/slack-modal/slack-modal.component';
+import { SlackModalDialogComponent } from '../../components/slack-modal-dialog/slack-modal-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit {
     this.userService.checkSlackHandleStatus(this.authService.userInfo.id)
       .subscribe((data) => {
         if (data.slackHandle == null) {
-          this.dialog.open(SlackModal);
+          this.dialog.open(SlackModalDialogComponent);
         }
       });
    }
