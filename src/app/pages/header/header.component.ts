@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit{
   picture: string;
   firstName: string;
   isAdmin: Boolean;
+  userId: string;
 
   constructor(
     private authService: AuthService,
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit{
     this.picture = this.authService.userInfo.picture;
     this.firstName = this.authService.userInfo.first_name;
     this.isAdmin = false;
+    this.userId = this.authService.userInfo.id;
   }
 
   ngOnInit() {

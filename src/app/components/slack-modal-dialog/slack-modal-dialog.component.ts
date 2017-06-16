@@ -5,9 +5,9 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 
  @Component({
-   selector: 'slack-modal',
-   templateUrl: './slack-modal.component.html',
-   styleUrls: ['./slack-modal.component.scss'],
+   selector: 'slack-modal-dialog',
+   templateUrl: './slack-modal-dialog.component.html',
+   styleUrls: ['./slack-modal-dialog.component.scss'],
   })
  export class SlackModalDialogComponent implements OnInit {
    title: String;

@@ -18,7 +18,9 @@
         <md-card class="item" *ngFor="let mentor of interestedMentors">
           <img src="{{ mentor.picture }}" alt="{{ mentor.name }}" class="mentor-avatar">
           <div class="mentor-info">
-            <span class="mentor-name">{{ mentor.name }}</span>
+            <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: mentor.id }">
+              <span class="mentor-name">{{ mentor.name }}</span>
+            </a>
             <button md-raised-button class="md-btn-andela-pink" (click)="openModal(mentor)">
               Select Mentor
               <md-spinner *ngIf="currentMentorButton === mentor.name && loading"></md-spinner>

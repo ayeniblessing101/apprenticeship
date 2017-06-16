@@ -12,8 +12,9 @@
     <div class="user-options-group">
       <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu"><span class="profile-name">{{ firstName }}</span><img src="{{ picture }}" alt="avatar" class="avatar"><i class="material-icons right">arrow_drop_down</i></button>
       <md-menu #menu="mdMenu">
-        <button class="profile-menu" routerLink="/profile" md-menu-item>Profile</button>
-        <button class="profile-menu" routerLink="/logout" md-menu-item>Logout</button>
+        <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: userId }" md-menu-item>
+          Profile</a>
+        <a class="profile-menu" routerLink="/logout" md-menu-item>Logout</a>
       </md-menu>
     </div>
   </div>

@@ -26,7 +26,7 @@
 .mentor-avatar {
   height: 70px;
   width: 70px;
-  line-height:70px; 
+  line-height:70px;
   border-radius: 50%;
   border: 3px solid #e8e8e8;
   float: left;
@@ -46,7 +46,7 @@
 .list-span {
   width: 100%;
   display: flex;
-  flex-direction: column 
+  flex-direction: column
 }
 
 .item {
@@ -55,6 +55,10 @@
 
 .interested {
   width: 100%;
+}
+
+.profile-menu {
+  text-decoration: none;
 }
 
 /*
