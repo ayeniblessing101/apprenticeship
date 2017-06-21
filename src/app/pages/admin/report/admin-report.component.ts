@@ -167,7 +167,7 @@ export class AdminReportComponent implements OnInit {
     const columnDelimiter = ',';
 
     if (!skillsData || skillsData.length < 1) {
-      return null;
+      return 'No Record';
     }
 
     const keys = Object.keys(skillsData[0]);
