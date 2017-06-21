@@ -201,7 +201,7 @@ export class AdminReportComponent implements OnInit {
 
     const period = this.selectedPeriod.length === 0
       ? `Period,All${this.lineDelimiter}`
-      : `Period,${this.selectedPeriod}${this.lineDelimiter}`;
+      : `Period,Last ${this.selectedPeriod} week(s)${this.lineDelimiter}`;
 
     const totalRequestMade = `Total Requests,${this.totalRequests}${this.lineDelimiter}`;
     const requestMatched = `Total Requests Matched,${this.totalRequestsMatched}${this.lineDelimiter}`;
