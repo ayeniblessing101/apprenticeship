@@ -1,6 +1,7 @@
 <div class="modal">
-  <form [formGroup]="form" (ngSubmit)="createSkill(form)" novalidate>
-    <h1 md-dialog-title>Create Skill</h1>
+  <form [formGroup]="form" (ngSubmit)="skill ? editSkill(form) : createSkill(form)" novalidate>
+    <h1 *ngIf="skill" md-dialog-title>Edit Skill</h1>
+    <h1 *ngIf="!skill" md-dialog-title>Create Skill</h1>
     <md-dialog-content>
       <div class="form-section">
         <div layout>
@@ -15,8 +16,11 @@
     <md-dialog-actions>
       <div id="btn-request-container">
         <button md-raised-button (click)="dialogRef.close(false)" class="action-button">Cancel</button>
-        <button md-raised-button type="submit" class="md-btn-andela-pink" [disabled]="!form.valid">Create Skill</button>
+        <button md-raised-button type="submit" class="md-btn-andela-pink" [disabled]="!form.valid">Save Skill</button>
       </div>
     </md-dialog-actions>
   </form>
+</div>
+<div *ngIf="loading" class="progress-bar">
+  <md-progress-bar mode="indeterminate"></md-progress-bar>
 </div>

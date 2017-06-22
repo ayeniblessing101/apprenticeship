@@ -4,7 +4,7 @@
       Admin Skills
     </span>
     <span class="add-btn">
-      <button md-raised-button class="md-btn-andela-pink" (click)="createSkillModal()">Add Skill</button>
+      <button md-raised-button class="md-btn-andela-pink" (click)="openSkillModal()">Add Skill</button>
     </span>
   </div>
   <div id="app-container">
@@ -18,7 +18,7 @@
             <md-card-header class="card-header">
               <span><strong>{{ skill.name }}</strong></span>
               <div class="skill-btn">
-                <span><md-icon>edit</md-icon></span>
+                <span (click)="openSkillModal(skill)"><md-icon>edit</md-icon></span>
                 <span><md-icon>delete</md-icon></span>
               </div>
             </md-card-header>

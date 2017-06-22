@@ -47,7 +47,26 @@ export class SkillService {
   createSkill(data: Object): Observable<any> {
     return this.http.post(`${this.apiBaseUrl}/skills`, data)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(
+        error => Observable.throw(error.json()),
+      );
+  }
+
+  /**
+   * Edit an existing skill
+   *
+   * @param {Number} id - id of the skill to be edited
+   * @param data the update data
+   *
+   * @return Observable of the newly edited skill
+   */
+  editSkill(id: number, data): Observable<any> {
+    return this.http
+      .put(`${this.apiBaseUrl}/skills/${id}`, data)
+      .map(this.extractData)
+      .catch(
+        error => Observable.throw(error.json()),
+      );
   }
 
   private extractData(res: Response) {

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
 import { SkillService } from '../../../services/skill.service';
-import { CreateSkillDialogComponent } from '../../../components/create-skill-dialog/create-skill-dialog.component';
+import { SkillDialogComponent } from '../../../components/skill-dialog/skill-dialog.component';
 
 @Component({
   selector: 'app-skills',
@@ -17,7 +17,7 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
 
   constructor(
     private skillService: SkillService,
-    private dialog: MdDialog
+    private dialog: MdDialog,
   ) {
     this.loading = false;
   }
@@ -43,14 +43,18 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.skills = skills;
         },
-        error => this.errorMessage = error
+        error => this.errorMessage = error,
       );
   }
 
   /**
-   * open dialog to create skill
+   * open dialog to create or edit a skill
    */
-  createSkillModal() {
-    this.dialog.open(CreateSkillDialogComponent);
+  openSkillModal(skill = false) {
+    this.dialog.open(SkillDialogComponent, { data: skill })
+      .afterClosed().subscribe(
+        (result) => {
+          this.getSkills();
+        });
   }
 }

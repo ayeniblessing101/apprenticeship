@@ -11,7 +11,7 @@
   md-dialog-actions {
     flex-direction: row-reverse;
 
-    .action-button { 
+    .action-button {
       color: #333;
       margin-right: 5px;
       width: 7rem;
@@ -25,4 +25,8 @@
   span.error {
     color: red;
   }
+}
+
+.progress-bar {
+  margin-top: 10px;
 }
