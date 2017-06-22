@@ -33,6 +33,7 @@ export class SkillDialogComponent {
    * @param {Object} form - submitted form object
    */
   createSkill(form) {
+    this.loading = true;
     this.skillService
       .createSkill(form.value)
       .toPromise()
