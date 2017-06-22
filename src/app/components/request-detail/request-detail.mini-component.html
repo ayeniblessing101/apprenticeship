@@ -36,6 +36,10 @@
               </p>
             </div>
             <div>{{ menteeDetails?.level?.name }}</div>
+            <div>
+              <p *ngIf="!menteeDetails.placement"><strong>Client status: </strong>Not Placed</p>
+              <p *ngIf="menteeDetails.placement && userData.placement?.status !== ''"><strong>Client status: </strong>Not Placed</p>
+            </div>
             <div>{{ menteeDetails?.cohort?.name }}</div>
             <div>{{ menteeDetails?.location?.name }}</div>
             <div>{{ menteeDetails?.request_count }} mentorship request(s)
