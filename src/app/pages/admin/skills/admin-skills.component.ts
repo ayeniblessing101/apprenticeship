@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { SkillService } from '../../../services/skill.service';
 import { SkillDialogComponent } from '../../../components/skill-dialog/skill-dialog.component';
+import { CancelRequestDialogComponent } from '../../cancelrequest/cancelrequest.component';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-skills',
@@ -18,6 +20,7 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
   constructor(
     private skillService: SkillService,
     private dialog: MdDialog,
+    private snackbar: MdSnackBar,
   ) {
     this.loading = false;
   }
@@ -56,5 +59,30 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
         (result) => {
           this.getSkills();
         });
+  }
+
+  deleteSkill(id) {
+    const dialogRef = this.dialog.open(CancelRequestDialogComponent);
+
+    dialogRef.afterClosed()
+      .toPromise()
+      .then((result) => {
+        if (result) {
+          this.skillService.deleteSkill(id)
+            .toPromise()
+            .then(() => {
+              const snackbarConfig = new MdSnackBarConfig();
+              snackbarConfig.duration = 2000;
+
+              this.snackbar.open('Skill deleted', 'close', snackbarConfig)
+                .afterDismissed()
+                .toPromise()
+                .then(() => {
+                  // remove the deleted skill from the skills list
+                  this.skills = this.skills.filter(skill => skill.id !== id);
+                });
+            });
+        }
+      });
   }
 }

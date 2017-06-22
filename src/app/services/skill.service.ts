@@ -69,6 +69,19 @@ export class SkillService {
       );
   }
 
+  /**
+   * Deletes an existing skill
+   *
+   * @param {integer} id - id of the skill to be deleted
+   * @return Observable object
+   */
+  deleteSkill(id) {
+    return this.http
+      .delete(`${this.apiBaseUrl}/skills/${id}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};
