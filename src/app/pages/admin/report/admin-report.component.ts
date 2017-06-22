@@ -48,7 +48,8 @@ export class AdminReportComponent implements OnInit {
     this.include = [
       'totalRequests',
       'totalRequestsMatched',
-      'averageTimeToMatch',
+      'sessionsCompleted',
+      'averageTimeToMatch'
     ];
     this.loading = false;
     this.lineDelimiter = '\r\n';
@@ -90,6 +91,7 @@ export class AdminReportComponent implements OnInit {
         this.loading = false;
         this.totalRequests = report.totalRequests;
         this.totalRequestsMatched = report.totalRequestsMatched;
+        this.sessionsCompleted = report.sessionsCompleted;
         this.averageTimeToMatch = report.averageTimeToMatch;
         this.totalSkillCount = this.getTotalSkillCount(report.skills_count);
         this.skills = this.calculatePercentage(report.skills_count);

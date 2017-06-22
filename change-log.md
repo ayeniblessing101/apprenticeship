@@ -1,3 +1,8 @@
+# v 1.1.1
+
+## Features
+- add number of sessions completed to report
+
 # v 1.1.0
 
 ## Features
