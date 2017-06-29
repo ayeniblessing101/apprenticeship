@@ -1,4 +1,4 @@
-interface Firebase {
+export interface Firebase {
   apiKey: string;
   authDomain: string;
   databaseURL: string;
@@ -8,12 +8,12 @@ interface Firebase {
 }
 
 const firebaseConfigObject: Firebase = {
-  apiKey: 'AIzaSyDPB8JMqzT05doF0KX4xlC8wwDuARaWC0s',
-  authDomain: 'lenken-client.firebaseapp.com',
-  databaseURL: 'https://lenken-messaging.firebaseio.com/',
-  projectId: 'lenken-client',
-  storageBucket: 'lenken-client.appspot.com',
-  messagingSenderId: '234548638058',
+  apiKey: 'AIzaSyDF5hVbvUUVnJTp0waVh3qPhwgjZst4f6U',
+  authDomain: 'lenken-staging-messaging.firebaseapp.com',
+  databaseURL: 'https://lenken-staging-messaging.firebaseio.com',
+  projectId: 'lenken-staging-messaging',
+  storageBucket: 'lenken-staging-messaging.appspot.com',
+  messagingSenderId: '181468316764',
 };
 
 export const environment = {
