@@ -22,6 +22,7 @@ import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
 import { HelperService } from './services/helper.service';
 import { UserService } from './services/user.service';
+import { SessionService } from './services/session.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -55,6 +56,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
+import { LogSessionDialogComponent } from './components/sessions/dialog/log-session-dialog.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -108,6 +110,7 @@ const appRoutes: Routes = [
     RequestDetailMiniComponent,
     SessionsComponent,
     SkillDialogComponent,
+    LogSessionDialogComponent,
 
     // pipes
     SkillsPipe,
@@ -143,14 +146,16 @@ const appRoutes: Routes = [
     NotificationService,
     FilterService,
     HelperService,
-    UserService
+    UserService,
+    SessionService
   ],
   entryComponents: [
     DialogModalComponent,
     CancelRequestDialogComponent,
     EditDialogComponent,
     SkillDialogComponent,
-    SlackModalDialogComponent
+    SlackModalDialogComponent,
+    LogSessionDialogComponent
   ],
   bootstrap: [AppComponent]
 })

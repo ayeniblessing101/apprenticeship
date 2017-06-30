@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig } from '@angular/material';
 import { MdSnackBar, MdSnackBarConfig} from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RequestService } from './../../services/request.service';
 import { UserService } from '../../services/user.service';
-import { Observable } from 'rxjs/Rx';
+import { SessionService } from '../../services/session.service';
 import { CancelRequestDialogComponent } from '../cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from '../../components/dialog-modal/dialog-modal.component';
-import { Details } from '../../interfaces/details.interface';
-import { Skill } from '../../interfaces/skill.interface';
+import { LogSessionDialogComponent } from '../../components/sessions/dialog/log-session-dialog.component';
+import { SessionDetails } from '../../interfaces/session.interface';
 import { EditDialogComponent } from '../editrequest/edit-request.component';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -31,6 +32,10 @@ export class RequestdetailsComponent implements OnInit {
   currentMentorButton: string = '';
   matchedMentor: {};
   userId: string;
+  updater: string;
+  sessions: any[];
+  include: string[];
+  sessionDetails: SessionDetails;
 
   constructor(
     private requestsService: RequestService,
@@ -39,7 +44,8 @@ export class RequestdetailsComponent implements OnInit {
     private router: Router,
     private dialog: MdDialog,
     private snackbar: MdSnackBar,
-    private auth: AuthService
+    private auth: AuthService,
+    private sessionService: SessionService
   ) {
     this.requestId = +this.route.snapshot.params['id'];
     this.details = {};
@@ -60,23 +66,30 @@ export class RequestdetailsComponent implements OnInit {
     ];
     this.matchedMentor = {};
     this.userId = '';
+    this.updater = 'mentee';
+    this.sessions = [];
+    this.include = ['totalSessions', 'totalSessionsLogged', 'totalSessionsPending', 'totalSessionsUnlogged'];
+    this.sessionDetails = {
+      totalSessions: 0,
+      totalSessionsLogged: 0,
+      totalSessionsPending: 0,
+      totalSessionsUnlogged: 0
+    };
   }
 
   ngOnInit() {
     this.userId = this.auth.userInfo.id;
-
     /**
      * Gets the request details and thereafter gets the details of the mentee
      */
-    this.requestsService
-      .getRequestDetails(this.requestId)
+    this.requestsService.getRequestDetails(this.requestId)
       .toPromise()
       .then((res) => {
         this.details = res.data;
         this.details.days = res.data.pairing.days;
 
         // check if a mentor has been matched already
-        if (this.details.mentor_id && this.details.match_date) {
+        if (this.details.mentor_id) {
           this.getMentorInfo(this.details.mentor_id.split(), true);
         } else {
           this.getMentorInfo(res.data.interested, false);
@@ -91,7 +104,8 @@ export class RequestdetailsComponent implements OnInit {
             this.menteeDetails = userDetails;
             return this.menteeDetails;
           });
-      });
+      })
+      .then(() => this.getSessions(this.details.id, this.include.join(',')));
   }
 
   /**
@@ -157,7 +171,11 @@ export class RequestdetailsComponent implements OnInit {
         this.loading = false;
         this.matchedMentor = mentorDetail;
         this.msg = `Thank you. You have been matched with ${mentorDetail['name']}!`;
-        this.snackBarOpen(true, this.msg);
+        this.snackBarOpen(true, this.msg)
+          .afterDismissed()
+          .subscribe(() => {
+            this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
+          });
       })
       .catch((error) => {
         this.msg = 'Failed to Match Request! Try again.';
@@ -166,7 +184,7 @@ export class RequestdetailsComponent implements OnInit {
   }
 
   /**
-   * triggers snackbar
+   * opens snackbar
    *
    * @param {Boolean} status
    * @return {Null}
@@ -177,12 +195,8 @@ export class RequestdetailsComponent implements OnInit {
         .open(message, 'close', this.snackBarConfig);
     }
 
-    this.snackbar
+    return this.snackbar
       .open(message, 'close', this.snackBarConfig)
-      .afterDismissed()
-      .subscribe(() => {
-        this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
-      });
   }
 
   /**
@@ -257,5 +271,83 @@ export class RequestdetailsComponent implements OnInit {
       case 'edit': return this.editRequest();
       default: return;
     }
+  }
+
+  /**
+   * opens log session dialog
+   *
+   * @return {Null}
+   */
+  openLogSessionDialog(): void {
+    const config = new MdDialogConfig();
+    config.data = {
+      requestDetails: this.details,
+      userId: this.userId,
+      peer: 'mentor',
+    };
+
+    const dialogRef = this.dialog.open(LogSessionDialogComponent, config);
+    dialogRef.afterClosed()
+      .subscribe((res) => {
+        if (typeof res === 'undefined') return 0;
+
+        if (res.status) {
+          this.snackBarOpen(false, res.message);
+        } else if (!res.status) {
+          res.date = new Date(res.date);
+          this.sessions.push(res);
+          this.snackBarOpen(true, 'Session successfully saved');
+        } else {
+          this.snackBarOpen(false, 'Failed to save session. Please try again!');
+        }
+      });
+  }
+
+  /**
+   * retrieves all logged sessions for a request
+   *
+   * @param {Number} requestId
+   * @return {Observable}
+   */
+  getSessions(requestId: number, include: string) {
+    return this.sessionService.getSessions(requestId, include)
+      .subscribe(
+        (res) => {
+          this.sessions = res.sessions.map((session) => {
+            return session.date = (new Date(session.date)).toDateString();
+          });
+          this.sessions = res.sessions.reverse();
+          this.sessionDetails = {
+            totalSessions: res.totalSessions,
+            totalSessionsLogged: res.totalSessionsLogged,
+            totalSessionsPending: res.totalSessionsPending,
+            totalSessionsUnlogged: res.totalSessionsUnlogged
+          }
+        },
+        error => this.snackBarOpen(false, 'Unable to retrieve saved sessions')
+      );
+  }
+
+  /**
+   * approves a pending session
+   *
+   * @param {Event} event - event object
+   */
+  approveSession(event) {
+    const updatePayload = {
+      user_Id: this.userId
+    };
+
+    return this.sessionService
+      .approveSession(event.sessionId, updatePayload)
+      .subscribe(
+        (res) => {
+          const session = this.sessions.find(session => session.id === res.id);
+          session.mentee_log_at = res.mentee_log_at;
+          this.getSessions(this.details.id, this.include.join(','));
+          this.snackBarOpen(true, 'Session successfully updated!');
+        },
+        error => this.snackBarOpen(false, 'Unable to update session. Please try again!')
+      )
   }
 }

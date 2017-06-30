@@ -1,3 +1,9 @@
+# v 1.1.0
+
+## Features
+- implement Sessions feature
+- show if a Skill is linked to a Request or User
+
 # v 1.0.4
 
 ## Features

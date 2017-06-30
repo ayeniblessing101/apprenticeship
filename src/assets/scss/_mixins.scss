@@ -45,3 +45,10 @@
        -o-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+@mixin border-radius($rad) {
+  -webkit-border-radius: $rad;
+     -moz-border-radius: $rad;
+       -o-border-radius: $rad;
+          border-radius: $rad;
+}

@@ -5,67 +5,63 @@
         <div class="header">
           <div>Mentorship Sessions</div>
           <div>
-            <button md-raised-button class="md-btn-andela-pink">LOG SESSION</button>
+            <button *ngIf="!isMentorshipComplete()" md-raised-button class="md-btn-andela-pink" (click)="emitLogAction()" [disabled]="loading">LOG SESSION</button>
+            <button *ngIf="isMentorshipComplete()" md-raised-button class="md-btn-andela-pink" [disabled]="true">MENTORSHIP COMPLETED</button>
           </div>
         </div>
       </md-card-header>
-      <md-card-content>
-        <div class="session-list">
-          <div class="session-row">
-            <div class="col-date">Monday 2012-06-16 21:58:24</div>
-            <div class="col-logged">
-              <div class="chip green">MENTOR LOGGED</div>
-              <div class="chip">MENTEE PENDING</div>
+        <md-card-content *ngIf="sessions?.length > 0">
+          <div class="session-list">
+            <div class="session-row" *ngIf="loading">
+              <md-spinner></md-spinner>
+            </div>
+            <div class="session-row" *ngFor="let session of sessions">
+              <div class="col-date">
+                {{ session?.date | date : 'fullDate' }}
+                <span class="pairing-time">
+                  ({{ '00 ' + session?.start_time | date : 'shortTime' }} - {{ '00 ' + session?.end_time | date : 'shortTime' }})
+                </span>
+              </div>
+              <div class="col-logged" *ngIf="updater === 'mentee'">
+                <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
+                <div class="chip" *ngIf="!session?.mentor_approved">MENTOR PENDING</div>
+                <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
+                <div class="chip update-btn" *ngIf="!session?.mentee_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
+              </div>
+              <div class="col-logged" *ngIf="updater === 'mentor'">
+                <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
+                <div class="chip update-btn" *ngIf="!session?.mentor_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
+                <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
+                <div class="chip" *ngIf="!session?.mentee_approved">MENTEE PENDING</div>
+              </div>
             </div>
           </div>
-          <div class="session-row">
-            <div class="col-date">Monday 2012-06-16 21:58:24</div>
-            <div class="col-logged">
-              <div class="chip green">MENTOR LOGGED</div>
-              <div class="chip">MENTEE PENDING</div>
-            </div>
-          </div>
-          <div class="session-row">
-            <div class="col-date">Monday 2012-06-16 21:58:24</div>
-            <div class="col-logged">
-              <div class="chip green">MENTOR LOGGED</div>
-              <div class="chip">MENTEE PENDING</div>
-            </div>
-          </div>
-          <div class="session-row">
-            <div class="col-date">Monday 2012-06-16 21:58:24</div>
-            <div class="col-logged">
-              <div class="chip green">MENTOR LOGGED</div>
-              <div class="chip">MENTEE PENDING</div>
-            </div>
-          </div>
-        </div>
-      </md-card-content>
+        </md-card-content>
     </md-card>
   </div>
   <div class="side-info">
     <md-card>
       <md-card-content>
         <span class="title">Total Sessions</span>
-        <span class="content">24</span>
+        <span class="content">{{ sessionDetails?.totalSessions }}</span>
       </md-card-content>
     </md-card>
     <md-card>
       <md-card-content>
         <span class="title">Sessions Logged</span>
-        <span class="content">0</span>
+        <span class="content">{{ sessionDetails?.totalSessionsLogged }}</span>
       </md-card-content>
     </md-card>
     <md-card>
       <md-card-content>
         <span class="title">Awaiting Confirmation</span>
-        <span class="content">4</span>
+        <span class="content">{{ sessionDetails?.totalSessionsPending }}</span>
       </md-card-content>
     </md-card>
     <md-card>
       <md-card-content>
         <span class="title">Sessions Unlogged</span>
-        <span class="content">24</span>
+        <span class="content">{{ sessionDetails?.totalSessionsUnlogged }}</span>
       </md-card-content>
     </md-card>
   </div>

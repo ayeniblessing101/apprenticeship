@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
+import { SessionDetails } from '../../interfaces/session.interface';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -29,6 +30,7 @@ export class RequestsComponent implements OnInit {
   days: Array<any>;
   skills: Array<string> = [];
   selection: Array<string>;
+  sessionDetails: SessionDetails;
   allDays = false;
 
   logSingleString = '';
@@ -42,6 +44,12 @@ export class RequestsComponent implements OnInit {
     private skillService: SkillService
   ) {
     this.snackBarConfig = { duration: 3000 };
+    this.sessionDetails = {
+      totalSessions: 0,
+      totalSessionsLogged: 0,
+      totalSessionsPending: 0,
+      totalSessionsUnlogged: 0
+    };
   }
 
   ngOnInit() {

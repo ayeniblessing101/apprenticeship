@@ -38,18 +38,31 @@
 }
 
 .session-list {
-  border-top: 1px solid #e5e5e5;
   width: 100%;
 }
 
 .session-row {
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
 }
 
 .col-date {
   height: 2.5rem;
   line-height: 2.5rem;
+}
+
+.pairing-time {
+  color: lightslategrey;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.update-btn {
+  cursor: pointer;
+  background: $andela-secondary;
+  @include border-radius(3px);
+  border: 0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 /**
@@ -60,6 +73,7 @@
 @media screen and (min-width: 769px) {
   .chip {
     margin-top: .5rem;
+    width: 100px;
   }
 
   .shell {
@@ -94,14 +108,13 @@
   }
 
   .session-list {
-    border-top: 1px solid #e5e5e5;
     width: 100%;
   }
 
   .session-row {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     width: 100%;
   }
 

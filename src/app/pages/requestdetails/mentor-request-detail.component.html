@@ -12,6 +12,14 @@
       </app-request-detail>
   </div>
   <div *ngIf="details.status === 'matched' && details.mentor_id === userId">
-    <app-sessions></app-sessions>
+    <app-sessions
+    [loading]="loading"
+    [updater]="updater"
+    [sessions]="sessions"
+    [details]="details"
+    [sessionDetails]="sessionDetails"
+    (logSession)="openLogSessionDialog()"
+    (approveSession)="approveSession($event)"
+    ></app-sessions>
   </div>
 </app-header>
