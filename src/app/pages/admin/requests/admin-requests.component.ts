@@ -82,7 +82,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     this.requestSubscription = this.requestService.getRequests(limit)
       .subscribe((requests) => {
         this.loading = false;
-        this.extractRequest(requests);
+        this.extractRequest(requests.data);
       });
   }
 

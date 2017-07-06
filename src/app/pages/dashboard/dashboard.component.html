@@ -26,7 +26,8 @@
 
             <!--Table Row-->
             <div class="and-table-row"
-              *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)"
+              *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses |
+              paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems })"
               routerLink="/requests/{{request.id}}">
 
               <div class="and-table-content and-table-col-40">
@@ -50,6 +51,7 @@
               </div>
             </div>
           </div>
+          <app-pagination (pageChange)="getRequests($event)"></app-pagination>
         </div>
       </div>
     </div>

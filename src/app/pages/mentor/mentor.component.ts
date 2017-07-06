@@ -97,7 +97,7 @@ export class MentorComponent implements OnInit, OnDestroy {
     }
 
     // remove the '@' email suffix to get the user's full name
-    let userName = email.match(/(.+)@/);    
+    let userName = email.match(/(.+)@/);
     userName = userName[1].split('.');
 
     return userName.join(' ');

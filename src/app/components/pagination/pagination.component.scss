@@ -1,0 +1,10 @@
+@import '../../../assets/scss/colors';
+
+.request-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.request-pagination /deep/ .ngx-pagination .current {
+  background: $andela-blue;
+}

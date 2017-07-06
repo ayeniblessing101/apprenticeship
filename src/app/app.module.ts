@@ -12,6 +12,7 @@ import { AccordionModule } from 'ngx-accordion';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Angulartics2Module, Angulartics2Segment } from 'angulartics2';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -60,8 +61,9 @@ import { RequestDetailMiniComponent } from './components/request-detail/request-
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 import { LogSessionDialogComponent } from './components/sessions/dialog/log-session-dialog.component';
-import { RateSessionDialogComponent } from './components/sessions/sessions-rating/rating-dialog/rate-session-dialog.component'
-import { RatingStarComponent } from './components/sessions/sessions-rating/rating-star/rating-star.component'
+import { RateSessionDialogComponent } from './components/sessions/sessions-rating/rating-dialog/rate-session-dialog.component';
+import { RatingStarComponent } from './components/sessions/sessions-rating/rating-star/rating-star.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -117,6 +119,7 @@ const appRoutes: Routes = [
     LogSessionDialogComponent,
     RateSessionDialogComponent,
     RatingStarComponent,
+    PaginationComponent,
 
     // pipes
     SkillsPipe,
@@ -140,6 +143,7 @@ const appRoutes: Routes = [
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MomentModule,
+    NgxPaginationModule
   ],
   providers: [
     {

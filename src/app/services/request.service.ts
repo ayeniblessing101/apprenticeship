@@ -57,11 +57,19 @@ export class RequestService {
    *
    * @return Observable containing latest requests
    */
-  getRequests(limit: number): Observable<any> {
+  getRequests(limit: number, page?: number): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?limit=${limit}`)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .get(`${this.apiBaseUrl}/requests?limit=${limit}&page=${page}`)
+      .map(
+        (res: Response) => {
+          return res.json();
+        }
+      )
+      .catch(
+        (error) => {
+          return Observable.throw(error.json());
+        }
+      );
   }
 
   /**

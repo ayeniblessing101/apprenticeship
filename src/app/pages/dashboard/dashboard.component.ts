@@ -24,6 +24,9 @@ export class DashboardComponent implements OnInit {
     Status: [],
   };
   slackHandle: string;
+  currentPage: number;
+  itemsPerPage: number;
+  totalItems: number;
 
   constructor(
     private requestService: RequestService,
@@ -44,23 +47,33 @@ export class DashboardComponent implements OnInit {
         duration: 8000,
       });
     }
+    this.currentPage = 1;
 
-    this.getRequests();
+    this.getRequests(this.currentPage);
     this.getSkills();
     this.getStatus();
     this.openModal();
   }
 
   /**
-   *  getRequests
+   * Get 20 requests from the Lenken API service
    *
-   *  gets 20 requests from the Lenken API service
+   * @param {Number} page - the page number to view.
    */
-  getRequests() {
-    this.requestService.getRequests(20)
-      .subscribe(
-        (requests) => this.requests = requests,
-        error => this.errorMessage = <any>error,
+  getRequests(page: number) {
+    this.currentPage = page;
+
+    this.requestService.getRequests(20, page)
+      .toPromise()
+      .then(
+        (requests) => {
+          this.requests = requests.data,
+          this.itemsPerPage = requests.pagination["pageSize"],
+          this.totalItems = requests.pagination["totalCount"]
+        },
+      )
+      .catch(
+        error => this.errorMessage = error
       );
   }
 
