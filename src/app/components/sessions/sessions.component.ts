@@ -13,8 +13,8 @@ import { RateSessionDialogComponent } from './sessions-rating/rating-dialog/rate
 export class SessionsComponent {
   @Input() updater: string;
   @Input() details: any;
-  @Input() loading: boolean;
-  @Input() sessions: Array<any>;
+  @Input() loading: any = {};
+  @Input() sessions: any[];
   @Input() sessionDetails: SessionDetails;
   @Output() logSession: EventEmitter<any> = new EventEmitter();
   @Output() approveSession: EventEmitter<any> = new EventEmitter();
@@ -41,7 +41,7 @@ export class SessionsComponent {
    * @return {Null}
    */
   emitApproveAction(sessionId: number): void {
-    this.approveSession.emit({ sessionId: sessionId });
+    this.approveSession.emit({ sessionId });
   }
 
   /**

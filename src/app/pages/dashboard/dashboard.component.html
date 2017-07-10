@@ -27,7 +27,7 @@
             <!--Table Row-->
             <div class="and-table-row"
               *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)"
-              [routerLink]="isRequestOwner(request) ? ['/requests/', request.id] : ['/requests/', request.id, 'mentor']">
+              routerLink="/requests/{{request.id}}">
 
               <div class="and-table-content and-table-col-40">
                 <p>{{ request.title }}</p>
@@ -40,7 +40,7 @@
               </div>
 
               <div *ngIf="request.interested" class="and-table-content and-table-col-20">
-                <a routerLink="/requests/{{ request.id }}/mentor">{{ request.interested.length }} Interested</a>
+                <a routerLink="/requests/{{ request.id }}">{{ request.interested.length }} Interested</a>
               </div>
 
               <div *ngIf="!request.interested" class="and-table-content and-table-col-20">No Interested</div>

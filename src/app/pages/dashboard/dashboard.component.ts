@@ -65,17 +65,6 @@ export class DashboardComponent implements OnInit {
   }
 
    /**
-    * checks if the logged in user is the owner of the request
-    *
-    * @param {object} request mentorshp request to verify
-    *
-    * @return {boolean} whether or not the logged in user owns the request
-    */
-   isRequestOwner(request: any): boolean {
-    return request.mentee_id === this.authService.userInfo.id;
-   }
-
-   /**
     * getSkills
     *
     * gets skills from the Lenken API service

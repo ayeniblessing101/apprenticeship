@@ -76,15 +76,18 @@
   </div>
   <div class="card-actions">
     <div *ngIf="details.status === 'open'">
-      <button md-raised-button
-        *ngFor="let button of actionButtons"
-        class="mat-raised-button {{ button.class }}"
-        id="{{ button.id }}"
-        [disabled]="hasAlreadyIndicatedInterest"
-        (click)="emitClickAction(button.name)">
-        {{ hasAlreadyIndicatedInterest ? "You have indicated interest" : button.name }}
-        <md-spinner *ngIf="loading"></md-spinner>
-      </button>
+      <ng-container *ngFor="let button of actionButtons">
+        <button md-raised-button
+          class="mat-raised-button {{ button.class }}"
+          id="{{ button.id }}"
+          [disabled]="hasAlreadyIndicatedInterest"
+          *ngIf="(button.id !== 'interested' && details.mentee_id === userId) || 
+          (button.id === 'interested' && details.mentee_id !== userId)"
+          (click)="emitClickAction(button.id)">
+          {{ hasAlreadyIndicatedInterest ? "You have indicated interest" : button.name }}
+          <md-spinner *ngIf="loading.interested"></md-spinner>
+        </button>
+      </ng-container>
     </div>
   </div>
 </div>

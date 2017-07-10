@@ -5,14 +5,14 @@
         <div class="header">
           <div>Mentorship Sessions</div>
           <div>
-            <button *ngIf="!isMentorshipComplete()" md-raised-button class="md-btn-andela-pink" (click)="emitLogAction()" [disabled]="loading">LOG SESSION</button>
+            <button *ngIf="!isMentorshipComplete()" md-raised-button class="md-btn-andela-pink" (click)="emitLogAction()">LOG SESSION</button>
             <button *ngIf="isMentorshipComplete()" md-raised-button class="md-btn-andela-pink" [disabled]="true">MENTORSHIP COMPLETED</button>
           </div>
         </div>
       </md-card-header>
         <md-card-content *ngIf="sessions?.length > 0">
           <div class="session-list">
-            <div class="session-row" *ngIf="loading">
+            <div class="session-row" *ngIf="loading.sessionsLoading">
               <md-spinner></md-spinner>
             </div>
             <div class="session-row" *ngFor="let session of sessions">

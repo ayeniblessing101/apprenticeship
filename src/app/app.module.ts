@@ -44,7 +44,6 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
-import { MentorRequestDetailComponent } from './pages/requestdetails/mentor-request-detail.component';
 import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.component';
@@ -83,11 +82,10 @@ const appRoutes: Routes = [
   { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
-  { path: 'requests/:id/mentor', component: MentorRequestDetailComponent, canActivate: [AuthGuard] },
   { path: 'mentee', component: MenteeComponent, canActivate: [AuthGuard] },
   { path: 'mentor', component: MentorComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: '**', component: PagenotfoundComponent }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PagenotfoundComponent },
 ];
 
 @NgModule({
@@ -105,7 +103,6 @@ const appRoutes: Routes = [
     RequestdetailsComponent,
     NotificationComponent,
     NotificationItemComponent,
-    MentorRequestDetailComponent,
     MenteeComponent,
     MentorComponent,
     CancelRequestDialogComponent,
@@ -139,13 +136,13 @@ const appRoutes: Routes = [
     SelectModule,
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    MomentModule
+    MomentModule,
   ],
   providers: [
     {
       provide: HttpService,
       useFactory: HttpService.useFactory,
-      deps: [XHRBackend, RequestOptions]
+      deps: [XHRBackend, RequestOptions],
     },
     AngularFireDatabase,
     AuthService,
@@ -168,7 +165,7 @@ const appRoutes: Routes = [
     LogSessionDialogComponent,
     RateSessionDialogComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
 export class AppModule { }

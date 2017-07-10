@@ -3,14 +3,17 @@
     <div>
       <app-request-detail
         [details]="details"
-        [mentorDetails]="matchedMentor"
+        [userId]="userId"
+        [mentorDetails]="mentorDetails"
         [menteeDetails]="menteeDetails"
         [actionButtons]="actionButtons"
+        [loading]="loading"
+        [hasAlreadyIndicatedInterest]="hasAlreadyIndicatedInterest"
         (buttonClickEmitter)="callButtonAction($event)"
       >
       </app-request-detail>
     </div>
-    <div class="mentor-list-container" *ngIf="details.status === 'open' && details.interested">
+    <div class="mentor-list-container" *ngIf="details.status === 'open' && details.interested.length && details.mentee_id === userId">
       <div class="interested">
         <h2>Interested Mentors</h2>
       </div>
@@ -21,15 +24,18 @@
             <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: mentor.id }">
               <span class="mentor-name">{{ mentor.name }}</span>
             </a>
-            <button md-raised-button class="md-btn-andela-pink" (click)="openModal(mentor)">
+            <button
+            [disabled]="loading.selectMentor"
+            md-raised-button class="md-btn-andela-pink"
+            (click)="openModal(mentor)">
               Select Mentor
-              <md-spinner *ngIf="currentMentorButton === mentor.name && loading"></md-spinner>
+              <md-spinner *ngIf="currentMentorButton === mentor.name && loading.selectMentor"></md-spinner>
             </button>
           </div>
         </md-card>
       </span>
     </div>
-    <div *ngIf="details.status === 'matched' && details.mentee_id === userId">
+    <div *ngIf="(details.status === 'matched' && details.mentee_id === userId) || (details.status === 'matched' && details.mentor_id === userId)">
       <app-sessions
       [loading]="loading"
       [updater]="updater"

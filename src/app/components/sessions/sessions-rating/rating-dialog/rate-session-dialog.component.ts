@@ -2,7 +2,6 @@ import { Component, Optional, Inject, OnInit } from '@angular/core';
 import { MdDialogRef, MdSnackBar, MD_DIALOG_DATA} from '@angular/material';
 
 import { SessionService } from '../../../../services/session.service';
-import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-rate-session',
@@ -11,7 +10,6 @@ import { UserService } from '../../../../services/user.service';
 })
 export class RateSessionDialogComponent {
   loading: boolean;
-  mentorDetails: any;
   scale: number = 5;
   ratedMetric: any = {
     session_id: this.session.id,
@@ -45,7 +43,6 @@ export class RateSessionDialogComponent {
 
   constructor(
     private sessionService: SessionService,
-    private userService: UserService,
     public dialogRef: MdDialogRef<any>,
     private snackBar: MdSnackBar,
     @Optional() @Inject(MD_DIALOG_DATA) public session: any,

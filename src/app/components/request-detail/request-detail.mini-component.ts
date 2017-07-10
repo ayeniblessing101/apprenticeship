@@ -12,10 +12,11 @@ import {
 })
 export class RequestDetailMiniComponent {
   @Input() details: any;
+  @Input() userId: any;
   @Input() mentorDetails: any;
   @Input() menteeDetails: any;
   @Input() actionButtons: [any];
-  @Input() loading: Boolean = false;
+  @Input() loading: any = {};
   @Input() hasAlreadyIndicatedInterest: Boolean = false;
   @Output() buttonClickEmitter = new EventEmitter();
 
