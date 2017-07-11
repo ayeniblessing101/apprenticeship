@@ -1,43 +1,47 @@
 <ng-content></ng-content>
 <accordion *ngFor="let key of filterKeys">
-  <accordion *ngIf="key==='Date'">
-    <accordion-group (onOpen)="toggleIcon(4)" (onClose)="toggleIcon(4)">
-      <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon4Name }}</i>{{ key }}
-      </accordion-heading>
-      <md-radio-group>
-        <md-radio-button *ngFor="let item of filtersObject[key]" (change)="onChange($event, item, key)" class="date-range" [value]="item.name"
-            [checked]="item.name ==='All time'">{{ item.name }}</md-radio-button>
-     </md-radio-group>
-    </accordion-group>
-  </accordion>
+    <accordion *ngIf="key==='Date'">
+        <accordion-group (onOpen)="toggleIcon(4)" (onClose)="toggleIcon(4)">
+            <accordion-heading class="accordion-heading">
+                <i class="material-icons">{{ icon4Name }}</i>{{ key }}
+            </accordion-heading>
+            <md-radio-group>
+                <md-radio-button *ngFor="let item of filtersObject[key]" (change)="onChange($event, item, key)" class="date-range" [value]="item.name" [checked]="item.name ==='All time'">{{ item.name }}</md-radio-button>
+            </md-radio-group>
+        </accordion-group>
+    </accordion>
 
-  <accordion *ngIf="key==='Status'" [expandAll]="true">
-    <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
-      <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon2Name }}</i>{{ key }}
-      </accordion-heading>
-      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
-    </accordion-group>
-  </accordion>
+    <accordion *ngIf="key==='Status'" [expandAll]="true">
+        <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
+            <accordion-heading class="accordion-heading">
+                <i class="material-icons">{{ icon2Name }}</i>{{ key }}
+            </accordion-heading>
+            <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
+        </accordion-group>
+    </accordion>
 
-  <accordion *ngIf="key==='Primary'">
-    <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
-      <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon2Name }}</i>{{ key }}
-      </accordion-heading>
-      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
-    </accordion-group>
-  </accordion>
+    <accordion *ngIf="key==='Primary'">
+        <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
+            <div class="row">
+                <md-input-container class="full-width">
+                    <input mdInput placeholder="Search Skill" [(ngModel)]="term" />
+                </md-input-container>
+            </div>
+            <accordion-heading class="accordion-heading">
+                <i class="material-icons">{{ icon2Name }}</i>{{ key }}
+            </accordion-heading>
+            <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key] | searchFilter: term">{{ item.name }}</md-checkbox><br>
+        </accordion-group>
+    </accordion>
 
-  <accordion *ngIf="key==='Interested'">
-    <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
-      <accordion-heading class="accordion-heading">
-        <i class="material-icons">{{ icon3Name }}</i>{{ key }}
-      </accordion-heading>
-      <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
-    </accordion-group>
-  </accordion>
+    <accordion *ngIf="key==='Interested'">
+        <accordion-group (onOpen)="toggleIcon(3)" (onClose)="toggleIcon(3)">
+            <accordion-heading class="accordion-heading">
+                <i class="material-icons">{{ icon3Name }}</i>{{ key }}
+            </accordion-heading>
+            <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
+        </accordion-group>
+    </accordion>
 
 </accordion>
 <ng-content></ng-content>

@@ -30,6 +30,7 @@ import { StatusPipe } from './components/pipes/status.pipe';
 import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
 import { DateRangePipe } from './components/pipes/date-range.pipe';
 import { InterestPipe } from './components/pipes/interest.pipe';
+import { SearchFilterPipe } from './components/pipes/search-filter.pipe';
 
 // components
 import { AppComponent } from './app.component';
@@ -118,7 +119,8 @@ const appRoutes: Routes = [
     ArrayIntersectPipe,
     DateRangePipe,
     InterestPipe,
-    ProfileComponent
+    ProfileComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
