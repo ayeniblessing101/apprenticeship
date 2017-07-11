@@ -13,6 +13,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AdminSkillsComponent implements OnInit, OnDestroy {
   errorMessage: string;
+  term: string;
   skills: any;
   skillSubscription: any;
   loading: boolean;

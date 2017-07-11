@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Inject} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
+import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/startWith';
@@ -27,7 +27,8 @@ export class EditDialogComponent extends RequestsComponent implements OnInit {
     private editRequestService: RequestService,
     private editRouter: Router,
     private mdSnackbar: MdSnackBar,
-    private editSkillService: SkillService
+    private editSkillService: SkillService,
+    @Inject(MD_DIALOG_DATA) private data: any
   ) {
     super(
       editRequestService,
@@ -35,7 +36,7 @@ export class EditDialogComponent extends RequestsComponent implements OnInit {
       mdSnackbar,
       editSkillService
     );
-    this.requestId = this.dialogRef.config.data.id;
+    this.requestId = this.data.id;
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class EditDialogComponent extends RequestsComponent implements OnInit {
       .toPromise()
       .then((skills) => {
         this.setSkills(skills);
-        this.details = this.dialogRef.config.data.details;
+        this.details = this.data.details;
 
         this.details.request_skills.forEach((skill) => {
           skill.type === 'primary' ?

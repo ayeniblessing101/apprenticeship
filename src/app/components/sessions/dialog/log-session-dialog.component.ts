@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../../services/session.service';
 import * as moment from 'moment';
@@ -22,14 +22,15 @@ export class LogSessionDialogComponent implements OnInit {
   constructor(
     public dialogRef: MdDialogRef<LogSessionDialogComponent>,
     private formBuilder: FormBuilder,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    @Inject(MD_DIALOG_DATA) private data: any
   ) {
-    this.peer = this.dialogRef.config.data.peer;
+    this.peer = this.data.peer;
     this.title = 'LOG SESSION';
     this.info = `You are about to log a mentorship session. This process will be completed when your ${this.peer} approves`;
-    this.userId = this.dialogRef.config.data.userId;
+    this.userId = this.data.userId;
     this.loading = false;
-    this.details = this.dialogRef.config.data.requestDetails;
+    this.details = this.data.requestDetails;
   }
 
   ngOnInit() {

@@ -61,9 +61,13 @@ import { AuthService } from '../../services/auth.service';
          (data) => {
            this.showSpinner = false;
            this.userService.addSlackHandleStatus(this.userId)
-             .then(this.snackBar.open('Your slack handle has been added successfully', 'Success', {
-               duration: 8000,
-             })),
+             .then(()=>
+             {
+               this.snackBar.open('Your slack handle has been added successfully', 'Success',
+                 {
+                   duration: 8000,
+                 })
+             }),
            this.slackRef.close();
          },
          (err) => {

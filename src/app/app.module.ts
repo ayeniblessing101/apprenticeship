@@ -10,6 +10,7 @@ import { MaterialModule } from '@angular/material';
 import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
 import { MomentModule } from 'angular2-moment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // services
 import { AuthService } from './services/auth.service';
@@ -62,6 +63,7 @@ import { LogSessionDialogComponent } from './components/sessions/dialog/log-sess
 // environment
 import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
+import {AngularFireDatabase} from "angularfire2/database";
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -124,11 +126,12 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    MaterialModule,
+    MaterialModule, // TODO: Refactor, MaterialModule has been been deprecated
     SelectModule,
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -140,6 +143,7 @@ const appRoutes: Routes = [
       useFactory: HttpService.useFactory,
       deps: [XHRBackend, RequestOptions]
     },
+    AngularFireDatabase,
     AuthService,
     AuthGuard,
     AdminGuard,

@@ -3,7 +3,7 @@ import { HttpService as Http } from './http.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { AngularFire} from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
@@ -11,13 +11,11 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class UserService {
   private apiBaseUrl: string = environment.apiBaseUrl;
-  private database;
 
   constructor(
     private http: Http,
-    private firebase: AngularFire,
+    private database: AngularFireDatabase,
   ) {
-    this.database = firebase.database;
   }
 
    /**

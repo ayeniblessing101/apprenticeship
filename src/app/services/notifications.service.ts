@@ -1,13 +1,12 @@
 
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Message } from '../interfaces/message.interface';
 
 @Injectable()
 export class NotificationService {
   private userMessages: {[id: string]: {}};
   private unreadCount: number;
-  private database;
 
   /**
    * Creates an instance of the NotificationService.
@@ -15,8 +14,7 @@ export class NotificationService {
    * @param {AngularFire} firebase firebase SDK
    * @memberOf NotificationService
    */
-  constructor(private firebase: AngularFire) {
-    this.database = firebase.database;
+  constructor(private database: AngularFireDatabase) {
     this.userMessages = {};
     this.unreadCount = 0;
   }
