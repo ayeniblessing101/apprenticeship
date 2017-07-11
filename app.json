@@ -1,0 +1,21 @@
+{
+  "name": "lenken-staging",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "ENV": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
