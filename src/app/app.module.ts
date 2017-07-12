@@ -59,6 +59,8 @@ import { RequestDetailMiniComponent } from './components/request-detail/request-
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 import { LogSessionDialogComponent } from './components/sessions/dialog/log-session-dialog.component';
+import { RateSessionDialogComponent } from './components/sessions/sessions-rating/rating-dialog/rate-session-dialog.component'
+import { RatingStarComponent } from './components/sessions/sessions-rating/rating-star/rating-star.component'
 
 // environment
 import { environment } from '../environments/environment';
@@ -114,6 +116,8 @@ const appRoutes: Routes = [
     SessionsComponent,
     SkillDialogComponent,
     LogSessionDialogComponent,
+    RateSessionDialogComponent,
+    RatingStarComponent,
 
     // pipes
     SkillsPipe,
@@ -161,7 +165,8 @@ const appRoutes: Routes = [
     EditDialogComponent,
     SkillDialogComponent,
     SlackModalDialogComponent,
-    LogSessionDialogComponent
+    LogSessionDialogComponent,
+    RateSessionDialogComponent,
   ],
   bootstrap: [AppComponent]
 })

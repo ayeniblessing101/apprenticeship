@@ -23,6 +23,7 @@
                 </span>
               </div>
               <div class="col-logged" *ngIf="updater === 'mentee'">
+                <div class="chip rate update-btn" (click)= "openRateSessionDialog(session)">RATE</div>
                 <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
                 <div class="chip" *ngIf="!session?.mentor_approved">MENTOR PENDING</div>
                 <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>

@@ -18,19 +18,19 @@ export class UserService {
   ) {
   }
 
-   /**
-    * Returns the logged in user's information
-    *
-    * @param String id number of the logged in user
-    *
-    * @return Observable containing the user's info
-    */
-   getUserInfo(userId: string): Observable<any> {
+  /**
+   * Returns the logged in user's information
+   *
+   * @param String id number of the logged in user
+   *
+   * @return Observable containing the user's info
+   */
+  getUserInfo(userId: string): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/users/${userId}`)
       .map(this.extractData)
       .catch(this.handleError);
-   }
+  }
 
    /**
     * Adds the logged in user's slack handle to

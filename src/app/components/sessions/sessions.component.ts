@@ -1,6 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { SessionDetails } from'../../interfaces/session.interface';
+import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import * as moment from 'moment';
+
+import { SessionDetails } from'../../interfaces/session.interface';
+import { RateSessionDialogComponent } from './sessions-rating/rating-dialog/rate-session-dialog.component'
 
 @Component({
   selector: 'app-sessions',
@@ -15,6 +18,11 @@ export class SessionsComponent {
   @Input() sessionDetails: SessionDetails;
   @Output() logSession: EventEmitter<any> = new EventEmitter();
   @Output() approveSession: EventEmitter<any> = new EventEmitter();
+
+  constructor(
+    private dialog: MdDialog,
+    private snackbar: MdSnackBar,
+  ) {}
 
   /**
    * emits logSession event
@@ -55,6 +63,13 @@ export class SessionsComponent {
    */
   isMentorshipComplete(): boolean {
     return this.getMentorshipDaysLeft() < 0;
+  }
+
+  /**
+   * open dialog to rate a logged session
+   */
+  openRateSessionDialog(session) {
+    this.dialog.open(RateSessionDialogComponent, { data: session })
   }
 
 }
