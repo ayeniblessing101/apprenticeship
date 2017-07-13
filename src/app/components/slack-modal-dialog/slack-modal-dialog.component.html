@@ -11,7 +11,7 @@
                       </div>
                     </div>
                     <button md-raised-button  class="md-btn-andela-pink" type="submit">SEND</button>
-                    <button md-raised-button (click)="slackRef.close()">Cancel</button>
+                    <button md-raised-button (click)="slackRef.close()" type="button">Cancel</button>
                     <div class="spinner">
                       <md-spinner *ngIf="showSpinner"></md-spinner>
                     </div>
