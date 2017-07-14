@@ -16,7 +16,7 @@ export class RateSessionDialogComponent {
   ratedMetric: any = {
     session_id: this.session.id,
     scale: this.scale,
-    ratings: {},
+    values: {},
   };
   ratingMetrics: any[] = [{
     id: 'Availability',
@@ -64,13 +64,13 @@ export class RateSessionDialogComponent {
     .toPromise()
     .then(
       (value) => {
-        this.snackBarOpen(true, value);
+        this.snackBarOpen(true, 'Rating submitted successfully.');
         this.loading = false;
       },
     )
     .catch(
         (error) => {
-          this.snackBarOpen(false, error);
+          this.snackBarOpen(false, error.message);
           this.loading = false;
         },
       )
@@ -78,11 +78,11 @@ export class RateSessionDialogComponent {
 
   /**
    * Validates the ratedMetric object
-   * 
-   * @return {Boolean} 
+   *
+   * @return {Boolean}
    */
   validateRatedMetric() {
-    return !(Object.keys(this.ratedMetric.ratings).length === this.scale);
+    return !(Object.keys(this.ratedMetric.values).length === this.scale);
   }
 
   /**
@@ -91,7 +91,7 @@ export class RateSessionDialogComponent {
    * @param {Object} clickObj - holds the metric and their corresponding values
    */
   ratingStarClick(clickObj: any): void {
-      this.ratedMetric.ratings[clickObj.id.toLowerCase()] = clickObj.rating;
+      this.ratedMetric.values[clickObj.id.toLowerCase()] = clickObj.rating;
   }
 
   /**
@@ -99,16 +99,16 @@ export class RateSessionDialogComponent {
    *
    * @param {Boolean} status - indicates if the request was successful or not
    */
-  private snackBarOpen(status, value) {
+  private snackBarOpen(status, message) {
     const config = { duration: 3000 };
 
     if (!status) {
       return this.snackBar
-        .open(value.message, 'close', config);
+        .open(message, 'close', config);
     }
 
     this.snackBar
-      .open(value.message, 'close', config)
+      .open(message, 'close', config)
       .afterDismissed()
       .toPromise().then(() => {
         this.dialogRef.close(true);

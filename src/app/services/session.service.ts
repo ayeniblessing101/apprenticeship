@@ -53,14 +53,16 @@ export class SessionService {
 
   /**
    * Sends the rated sessions data to a given endpiont
-   * 
+   *
    * @param ratings{Object} - object containing data on sessions rated
    * @return {Observable} obeservable object
    */
   rateSession(ratings): Observable<any> {
     return this.http
-      .post(`${this.apiBaseUrl}/sessions/rating`, ratings)
-      .map(this.extractData)
+      .post(`${this.apiBaseUrl}/ratings`, ratings)
+      .map((res) => {
+        return res.json().rating;
+      })
       .catch(this.handleError);
   }
 
