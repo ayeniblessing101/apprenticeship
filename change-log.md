@@ -1,3 +1,15 @@
+# v 1.1.2
+
+## Features
+- add Sessions completed to Report page
+- implement search for Skills
+- implement Session Ratings
+- upgrade the application to Angular4
+
+## Fixed Bugs
+- fix Slack modal cancel button that submits
+- fix Placement error on Request details page
+
 # v 1.1.1
 
 ## Features

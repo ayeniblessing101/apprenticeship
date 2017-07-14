@@ -64,13 +64,13 @@ export class RateSessionDialogComponent {
     .toPromise()
     .then(
       (value) => {
-        this.snackBarOpen(true, 'Rating submitted successfully.');
+        this.snackBarOpen('Rating submitted successfully.');
         this.loading = false;
       },
     )
     .catch(
         (error) => {
-          this.snackBarOpen(false, error.message);
+          this.snackBarOpen(error.message);
           this.loading = false;
         },
       )
@@ -99,13 +99,8 @@ export class RateSessionDialogComponent {
    *
    * @param {Boolean} status - indicates if the request was successful or not
    */
-  private snackBarOpen(status, message) {
+  private snackBarOpen(message) {
     const config = { duration: 3000 };
-
-    if (!status) {
-      return this.snackBar
-        .open(message, 'close', config);
-    }
 
     this.snackBar
       .open(message, 'close', config)

@@ -63,7 +63,9 @@ export class SessionService {
       .map((res) => {
         return res.json().rating;
       })
-      .catch(this.handleError);
+      .catch((error) => {
+        return Observable.throw(error.json());
+      });
   }
 
   /**
