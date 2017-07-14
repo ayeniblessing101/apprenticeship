@@ -78,7 +78,7 @@
     <div *ngIf="details.status === 'open'">
       <button md-raised-button
         *ngFor="let button of actionButtons"
-        class="{{ button.class }}"
+        class="mat-raised-button {{ button.class }}"
         id="{{ button.id }}"
         [disabled]="hasAlreadyIndicatedInterest"
         (click)="emitClickAction(button.name)">
