@@ -70,6 +70,13 @@ export class SessionsComponent {
    */
   openRateSessionDialog(session) {
     this.dialog.open(RateSessionDialogComponent, { data: session })
+    .afterClosed().toPromise()
+    .then((result) => {
+      if (result) {
+        const session = this.sessions.find(session => session.id === session.id);
+        session.rating_count = 1;
+      }
+    })
   }
 
 }

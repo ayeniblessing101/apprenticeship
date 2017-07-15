@@ -65,6 +65,12 @@
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
+.update-btn:disabled {
+  background-color: rgba(0,0,0,.12);
+  box-shadow: none;
+  cursor: default;
+}
+
 /**
  *
  * tablet
