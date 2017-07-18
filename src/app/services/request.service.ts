@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class RequestService {
   private apiBaseUrl: string = environment.apiBaseUrl;
-
+  private statuses: any;
   constructor(
     private http: Http,
     private helper: Helper,
@@ -38,10 +38,16 @@ export class RequestService {
    * @return Observable containing collection of possible statuses
    */
   getStatus(): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/status`)
-      .map(this.extractData)
-      .catch(this.handleError);
+    if (!this.statuses) {
+      this.statuses = this.http
+        .get(`${this.apiBaseUrl}/status`)
+        .map(this.extractData)
+        .publishReplay(1, 30000)
+        .refCount()
+        .catch(this.handleError);
+    }
+
+    return this.statuses
   }
 
   /**

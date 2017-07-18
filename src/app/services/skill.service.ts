@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SkillService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
-
+  private skills: any;
   constructor(private http: Http) { }
 
   /**
@@ -18,10 +18,16 @@ export class SkillService {
    * @return Observable collection of skills
    */
   getSkills(): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/skills`)
-      .map(this.extractData)
-      .catch(this.handleError);
+    if (!this.skills) {
+      this.skills = this.http
+        .get(`${this.apiBaseUrl}/skills`)
+        .map(this.extractData)
+        .publishReplay(1, 30000)
+        .refCount()
+        .catch(this.handleError);
+    }
+
+    return this.skills;
   }
 
   /**
