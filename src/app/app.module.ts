@@ -11,6 +11,7 @@ import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { Angulartics2Module, Angulartics2Segment } from 'angulartics2';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -24,6 +25,7 @@ import { HttpService } from './services/http.service';
 import { HelperService } from './services/helper.service';
 import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
+import { SegmentAnalytics } from './services/segment-analytics.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -132,6 +134,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    Angulartics2Module.forRoot([Angulartics2Segment]),
     MaterialModule, // TODO: Refactor, MaterialModule has been been deprecated
     SelectModule,
     AccordionModule,
@@ -154,7 +157,8 @@ const appRoutes: Routes = [
     FilterService,
     HelperService,
     UserService,
-    SessionService
+    SessionService,
+    SegmentAnalytics
   ],
   entryComponents: [
     DialogModalComponent,
