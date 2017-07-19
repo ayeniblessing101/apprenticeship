@@ -125,7 +125,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    * @param {String} email
    * @return {String} username
    */
-  getMenteeName(email) {
+  getName(email) {
     if (!email) {
       return email;
     }
@@ -133,9 +133,17 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     // remove the '@' email suffix to get the user's full name
     let userName = email.match(/(.+)@/);
     userName = userName[1].split('.');
-
-    return userName.join(' ');
+    
+    return userName.join(' ').replace(/\w\S*/g, (txt => txt[0].toUpperCase() + txt.substr(1).toLowerCase() ));;
   }
+  
+/**
+   * Retrieves the full name of mentor from the mentor's id
+   *
+   * @param {String} email
+   * @return {String} username
+   */
+  
 
   /**
    * returns a css class for chips based on request status
