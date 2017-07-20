@@ -13,7 +13,7 @@
       >
       </app-request-detail>
     </div>
-    <div class="mentor-list-container" *ngIf="details.status === 'open' && details.interested.length && details.mentee_id === userId">
+    <div class="mentor-list-container" *ngIf="canViewInterested">
       <div class="interested">
         <h2>Interested Mentors</h2>
       </div>
@@ -27,6 +27,7 @@
             <button
             [disabled]="loading.selectMentor"
             md-raised-button class="md-btn-andela-pink"
+            *ngIf="details.mentee_id === userId"
             (click)="openModal(mentor)">
               Select Mentor
               <md-spinner *ngIf="currentMentorButton === mentor.name && loading.selectMentor"></md-spinner>

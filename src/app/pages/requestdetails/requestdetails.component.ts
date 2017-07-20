@@ -40,6 +40,7 @@ export class RequestdetailsComponent implements OnInit {
   userId: string;
   updater: string;
   include: string[];
+  canViewInterested: boolean;
 
   constructor(
     private userService: UserService,
@@ -105,6 +106,10 @@ export class RequestdetailsComponent implements OnInit {
       .then(() => {
         this.getUserInfo(this.details.mentee_id, 'mentee');
         this.getMentorInfo(this.details.interested, false);
+        this.canViewInterested = (this.details.status === 'open' && this.details.interested &&
+                                  this.details.mentee_id === this.userId) || 
+                                 (this.details.interested.length && 
+                                  this.auth.userInfo.roles.LENKEN_ADMIN);
 
         if (this.details.mentor_id) {
           this.getUserInfo(this.details.mentor_id, 'mentor');
