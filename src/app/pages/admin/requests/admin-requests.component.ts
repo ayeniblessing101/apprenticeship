@@ -161,7 +161,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    * Adds the date filter
    */
   getDate() {
-    this.adminFilters['Date'] = this.dateRangeMap;
+    this.adminFilters.Date = this.dateRangeMap;
   }
 
   /**
@@ -172,7 +172,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   getSkills() {
     this.skillsFilterSubscription = this.skillService.getSkills()
       .subscribe(
-        skills => this.adminFilters['Primary'] = skills,
+        skills => this.adminFilters.Primary = skills,
         error => this.errorMessage = <any>error,
       );
   }
@@ -185,7 +185,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   getStatus() {
     this.statusFilterSubscription = this.requestService.getStatus()
       .subscribe(
-        status => this.adminFilters['Status'] = status,
+        status => this.adminFilters.Status = status,
         error => this.errorMessage = <any>error,
       );
   }
@@ -200,14 +200,14 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    */
   adminFilter(eventData) {
     if (eventData.filterName === 'Primary') {
-      if (eventData.type) {
+      if (eventData.eventType) {
         this.filteredSkills.push(eventData.itemName);
       } else {
         const pos = this.filteredSkills.indexOf(eventData.itemName);
         this.filteredSkills.splice(pos, 1);
       }
     } else if (eventData.filterName === 'Status') {
-      if (eventData.type) {
+      if (eventData.eventType) {
         this.checkedStatuses.push(eventData.itemName);
       } else {
         const pos = this.checkedStatuses.indexOf(eventData.itemName);

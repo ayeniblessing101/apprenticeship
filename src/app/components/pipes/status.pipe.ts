@@ -12,9 +12,7 @@ export class StatusPipe implements PipeTransform {
       if (checkedStatuses.length === 0) {
         return requests;
       }
-      console.log('We in status');
       return requests.filter((request) => {
-        console.log('We are in status filter')
         return checkedStatuses.includes(request.status);
       });
     }
