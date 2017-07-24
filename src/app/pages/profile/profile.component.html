@@ -13,7 +13,7 @@
         <p class="level" *ngIf="cohort">{{ cohort }}</p>
 
         <p class="center-text" *ngIf="!userData.placement"><strong>Client status: </strong>Not Placed</p>
-        <p class="center-text" *ngIf="userData.placement && userData.placement?.status"><strong>Client status: </strong>Not Placed</p>
+        <p class="center-text" *ngIf="userData.placement && userData.placement?.status"><strong>Client status: </strong> {{ userData.placement.status }} </p>
 
         <div class="skills">
           <h5 *ngIf="userData.skills.length">{{ skillsTitle }}</h5>

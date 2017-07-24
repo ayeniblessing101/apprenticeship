@@ -38,7 +38,7 @@
             <div>{{ menteeDetails?.level?.name }}</div>
             <div>
               <p *ngIf="!menteeDetails.placement"><strong>Client status: </strong>Not Placed</p>
-              <p *ngIf="menteeDetails.placement && menteeDetails.placement?.status !== ''"><strong>Client status: </strong>Not Placed</p>
+              <p *ngIf="menteeDetails.placement && menteeDetails.placement?.status !== ''"><strong>Client status: </strong> {{ menteeDetails.placement.status }} </p>
             </div>
             <div>{{ menteeDetails?.cohort?.name }}</div>
             <div>{{ menteeDetails?.location?.name }}</div>
