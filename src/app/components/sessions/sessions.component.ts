@@ -73,8 +73,8 @@ export class SessionsComponent {
     .afterClosed().toPromise()
     .then((result) => {
       if (result) {
-        const session = this.sessions.find(session => session.id === session.id);
-        session.rating_count = 1;
+        const ratedSession = this.sessions.find(loopSession => loopSession.id === session.id);
+        ratedSession.rating_count = 1;
       }
     })
   }
