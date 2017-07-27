@@ -24,6 +24,10 @@
               </div>
             </div>
 
+            <div *ngIf="loading" class="loader">
+              <md-spinner></md-spinner>
+            </div>
+
             <!--Table Row-->
             <div class="and-table-row"
               *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses |

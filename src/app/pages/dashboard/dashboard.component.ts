@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input } from '@angular/core';
 import { MdSnackBar, MdDialog } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
@@ -24,9 +24,10 @@ export class DashboardComponent implements OnInit {
     Status: [],
   };
   slackHandle: string;
-  currentPage: number;
-  itemsPerPage: number;
-  totalItems: number;
+  loading: boolean;
+  @Input() currentPage;
+  @Input() itemsPerPage;
+  @Input() totalItems;
 
   constructor(
     private requestService: RequestService,
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
         duration: 8000,
       });
     }
-    this.currentPage = 1;
+    this.loading = false;
 
     this.getRequests(this.currentPage);
     this.getSkills();
@@ -62,11 +63,13 @@ export class DashboardComponent implements OnInit {
    */
   getRequests(page: number) {
     this.currentPage = page;
+    this.loading = true;
 
     this.requestService.getRequests(20, page)
       .toPromise()
       .then(
         (requests) => {
+          this.loading = false;
           this.requests = requests.data,
           this.itemsPerPage = requests.pagination["pageSize"],
           this.totalItems = requests.pagination["totalCount"]

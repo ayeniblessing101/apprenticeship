@@ -1,3 +1,17 @@
+# V 1.2.0
+
+## Features
+- change request P2P Support to Request Mentor
+- merge Request Details and Mentor Request Details to one Component
+- separate Segment environments for Staging and Production
+- display list of interested Mentors on a Request for Admin view
+- paginate Requests on the Dashboard
+- disable Rate button for rated Sessions
+
+## Fixed Bugs
+- fix Request detail button style display
+- fix Admin Skills and Status filter
+
 # v 1.1.2
 
 ## Features
