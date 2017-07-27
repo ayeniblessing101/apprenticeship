@@ -28,7 +28,9 @@ export class DashboardComponent implements OnInit {
   @Input() currentPage;
   @Input() itemsPerPage;
   @Input() totalItems;
-
+  userId: string;
+  userLevel: string;
+  
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
@@ -55,7 +57,6 @@ export class DashboardComponent implements OnInit {
     this.getStatus();
     this.openModal();
   }
-
   /**
    * Get 20 requests from the Lenken API service
    *

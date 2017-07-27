@@ -4,8 +4,7 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor (private auth: AuthService, private router: Router) { }
 
   private isEmpty(obj) {
     return Object.getOwnPropertyNames(obj).length === 0 ? true : false;
@@ -25,12 +24,10 @@ export class AuthGuard implements CanActivate {
       if (this.auth.userInfo.roles.Guest) {
         this.auth.changeNotice('permission');
         this.router.navigate(['/login']);
-
         return false;
       } else {
         // TODO: check that the user has permission to view route
       }
-
       return true;
     }
 

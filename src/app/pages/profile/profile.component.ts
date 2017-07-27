@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.userId = this.authService.userInfo.id;
   }

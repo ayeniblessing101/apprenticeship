@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { SegmentService }from '../../services/segment.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit{
 
   constructor(
     private authService: AuthService,
+    private segmentService: SegmentService
   ) {
     this.picture = this.authService.userInfo.picture;
     this.firstName = this.authService.userInfo.first_name;

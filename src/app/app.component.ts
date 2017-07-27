@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Angulartics2Segment } from 'angulartics2';
+import { Router, NavigationEnd, Event, NavigationStart } from '@angular/router';
+import { SegmentService } from './services/segment.service';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
-import { SegmentAnalytics } from './services/segment-analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,31 @@ import { SegmentAnalytics } from './services/segment-analytics.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(Angulartics2Segment: Angulartics2Segment, private _segmentAnalytics: SegmentAnalytics) {
-    this._segmentAnalytics.initializeAnalytics;
-  };
+  constructor(
+    router: Router,
+    private segmentService: SegmentService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {
+    if (localStorage.getItem('id_token')) {
+      this.authService.decodeToken();
+      const fellowId  = this.authService.userInfo.id;
+      this.userService.getUserInfo(fellowId)
+        .toPromise()
+        .then((response) => {
+          const userLevel = response.level.name;
+          segmentService.track('LOGGED IN', { fellowLevel: userLevel });
+        })
+        .catch(() => {});
+    }
 
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.segmentService.page(event.url, {
+          type: 'Lenken segment client'
+        });
+      }
+    });
+  }
   title = 'app works!';
 }

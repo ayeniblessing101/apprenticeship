@@ -24,11 +24,10 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     public snackBar: MdSnackBar
   ) {
-        if (window.location.href.includes('logout')) {
-             this.auth.logOut();
-        }
-
-        this.notice = this.auth.notice;
+      if (window.location.href.includes('logout')) {
+            this.auth.logOut();
+      }
+      this.notice = this.auth.notice;
   }
 
   setMessage() {
