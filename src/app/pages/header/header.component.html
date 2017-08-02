@@ -14,6 +14,8 @@
       <md-menu #menu="mdMenu">
         <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: userId }" md-menu-item>
           Profile</a>
+          <a class="profile-menu" routerLink="/settings" md-menu-item>
+          Settings</a>
         <a class="profile-menu" routerLink="/logout" md-menu-item>Logout</a>
       </md-menu>
     </div>

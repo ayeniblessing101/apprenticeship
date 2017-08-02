@@ -57,6 +57,7 @@ import { DialogModalComponent } from './components/dialog-modal/dialog-modal.com
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 import { SlackModalDialogComponent } from './components/slack-modal-dialog/slack-modal-dialog.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { RequestDetailMiniComponent } from './components/request-detail/request-detail.mini-component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
@@ -69,6 +70,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
 import {AngularFireDatabase} from "angularfire2/database";
+import { SettingsNavigationComponent } from './pages/settings/settings-navigation/settings-navigation.component';
+import { NotificationSettingsComponent } from './pages/settings/notification-settings/notification-settings.component';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -89,6 +92,15 @@ const appRoutes: Routes = [
   { path: 'mentee', component: MenteeComponent, canActivate: [AuthGuard] },
   { path: 'mentor', component: MentorComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'notifications', pathMatch: 'full'},
+      { path: 'notifications', component: NotificationSettingsComponent }
+    ]
+  },
   { path: '**', component: PagenotfoundComponent },
 ];
 
@@ -120,6 +132,9 @@ const appRoutes: Routes = [
     RateSessionDialogComponent,
     RatingStarComponent,
     PaginationComponent,
+    SettingsComponent,
+    NotificationSettingsComponent,
+    SettingsNavigationComponent,
 
     // pipes
     SkillsPipe,

@@ -1,0 +1,42 @@
+$grey: #586069;
+$white: white;
+$andela-blue: #3359DF;
+$menu-bg: #f3f5f8;
+$border: #e1e4e8;
+$yellow: solid #F5D97B;
+$border-grey: solid #e1e4e8;
+
+.menu-heading {
+    display: block;
+    padding: 8px 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 20px;
+    color: $grey;
+    background-color: $menu-bg;
+    border-bottom: 1px solid $border;
+}
+
+.menu-item {
+    font-size: 15px;
+    position: relative;
+    display: block;
+    padding: 8px 10px;
+    background-color:$white;
+    border-bottom: 1px $border-grey;
+}
+
+.active {    
+    color:$andela-blue;
+    border-left:2px solid $andela-blue; 
+}
+
+a:hover { 
+    background-color:$border-grey;
+}
+
+a {
+text-decoration:none;
+}
