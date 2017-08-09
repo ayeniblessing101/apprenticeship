@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../../services/session.service';
+import { DateValidator } from './date.validator'
 import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
 
@@ -22,6 +23,7 @@ export class LogSessionDialogComponent implements OnInit {
   constructor(
     public dialogRef: MdDialogRef<LogSessionDialogComponent>,
     private formBuilder: FormBuilder,
+    private dateValidator: DateValidator,
     private sessionService: SessionService,
     @Inject(MD_DIALOG_DATA) private data: any
   ) {
@@ -45,7 +47,7 @@ export class LogSessionDialogComponent implements OnInit {
    */
   createForm(): void {
     this.logSessionForm = this.formBuilder.group({
-      date: ['', Validators.required],
+      date: ['', [Validators.required, this.dateValidator.rangeValidator]],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required]
     });

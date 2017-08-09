@@ -24,6 +24,8 @@
           </md-input-container>
         </div>
       </div>
+      <span class="error" *ngIf="logSessionForm.controls['date'].errors?.dateRange">
+       The date given is either too far behind or in the future</span>
     </md-dialog-content>
     <md-dialog-actions>
       <div class="dialog-actions">

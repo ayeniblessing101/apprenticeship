@@ -72,6 +72,7 @@ import {AngularFireDatabase} from "angularfire2/database";
 import { SettingsNavigationComponent } from './pages/settings/settings-navigation/settings-navigation.component';
 import { NotificationSettingsComponent } from './pages/settings/notification-settings/notification-settings.component';
 
+import { DateValidator } from './components/sessions/dialog/date.validator';
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -175,7 +176,8 @@ const appRoutes: Routes = [
     HelperService,
     UserService,
     SessionService,
-    SegmentService
+    SegmentService,
+    DateValidator
   ],
   entryComponents: [
     DialogModalComponent,
