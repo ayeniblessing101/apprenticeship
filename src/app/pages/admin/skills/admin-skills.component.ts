@@ -57,8 +57,17 @@ export class AdminSkillsComponent implements OnInit, OnDestroy {
   openSkillModal(skill = false) {
     this.dialog.open(SkillDialogComponent, { data: skill })
       .afterClosed().subscribe(
-        (result) => {
-          this.getSkills();
+        (skill) => {
+          let isEditSkillAction = false;
+          for (let i = 0; i < this.skills.length; i++) {
+            if (this.skills[i].id === skill.id) {
+              isEditSkillAction = true;
+              this.skills[i].name = skill.name;
+              break;
+            }
+          }
+
+          if (!isEditSkillAction) this.skills.push(skill);
         });
   }
 

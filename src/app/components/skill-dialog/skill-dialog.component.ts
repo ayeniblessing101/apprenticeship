@@ -92,7 +92,7 @@ export class SkillDialogComponent {
       .open(value.message, 'close', config)
       .afterDismissed()
       .toPromise().then(() => {
-        this.dialogRef.close(true);
+        this.dialogRef.close(value.skill);
       });
   }
 }
