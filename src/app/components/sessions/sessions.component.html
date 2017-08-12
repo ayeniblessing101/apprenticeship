@@ -10,34 +10,34 @@
           </div>
         </div>
       </md-card-header>
-        <md-card-content *ngIf="sessions?.length > 0">
-          <div class="session-list">
-            <div class="session-row" *ngIf="loading.sessionsLoading">
-              <md-spinner></md-spinner>
-            </div>
-            <div class="session-row" *ngFor="let session of sessions">
-              <div class="col-date">
-                {{ session?.date | date : 'fullDate' }}
-                <span class="pairing-time">
+      <md-card-content *ngIf="sessions?.length > 0">
+        <div class="session-list">
+          <div class="session-row" *ngIf="loading.sessionsLoading">
+            <md-spinner></md-spinner>
+          </div>
+          <div class="session-row" *ngFor="let session of sessions">
+            <div class="col-date">
+              {{ session?.date | date : 'fullDate' }}
+              <span class="pairing-time">
                   ({{ '00 ' + session?.start_time | date : 'shortTime' }} - {{ '00 ' + session?.end_time | date : 'shortTime' }})
                 </span>
-              </div>
-              <div class="col-logged" *ngIf="updater === 'mentee'">
-                <button class="chip rate update-btn" [disabled]="session.rating_count" (click)= "openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
-                <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
-                <div class="chip" *ngIf="!session?.mentor_approved">MENTOR PENDING</div>
-                <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
-                <div class="chip update-btn" *ngIf="!session?.mentee_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
-              </div>
-              <div class="col-logged" *ngIf="updater === 'mentor'">
-                <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
-                <div class="chip update-btn" *ngIf="!session?.mentor_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
-                <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
-                <div class="chip" *ngIf="!session?.mentee_approved">MENTEE PENDING</div>
-              </div>
+            </div>
+            <div class="col-logged" *ngIf="updater === 'mentee'">
+              <button class="chip rate update-btn" [disabled]="session.rating_count" (click)="openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
+              <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
+              <div class="chip" *ngIf="!session?.mentor_approved">MENTOR PENDING</div>
+              <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
+              <div class="chip update-btn" *ngIf="!session?.mentee_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
+            </div>
+            <div class="col-logged" *ngIf="updater === 'mentor'">
+              <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
+              <div class="chip update-btn" *ngIf="!session?.mentor_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
+              <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
+              <div class="chip" *ngIf="!session?.mentee_approved">MENTEE PENDING</div>
             </div>
           </div>
-        </md-card-content>
+        </div>
+      </md-card-content>
     </md-card>
   </div>
   <div class="side-info">

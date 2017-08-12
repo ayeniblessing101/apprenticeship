@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import * as moment from 'moment';
 
-import { SessionDetails } from'../../interfaces/session.interface';
+import { SessionDetails } from '../../interfaces/session.interface';
 import { RateSessionDialogComponent } from './sessions-rating/rating-dialog/rate-session-dialog.component'
 
 @Component({
@@ -22,7 +22,7 @@ export class SessionsComponent {
   constructor(
     private dialog: MdDialog,
     private snackbar: MdSnackBar,
-  ) {}
+  ) { }
 
   /**
    * emits logSession event
@@ -69,14 +69,17 @@ export class SessionsComponent {
    * open dialog to rate a logged session
    */
   openRateSessionDialog(session) {
-    this.dialog.open(RateSessionDialogComponent, { data: session })
-    .afterClosed().toPromise()
-    .then((result) => {
-      if (result) {
-        const ratedSession = this.sessions.find(loopSession => loopSession.id === session.id);
-        ratedSession.rating_count = 1;
-      }
-    })
+    if (session.mentee_approved) {
+      this.dialog.open(RateSessionDialogComponent, { data: session })
+        .afterClosed().toPromise()
+        .then((result) => {
+          if (result) {
+            const ratedSession = this.sessions.find(loopSession => loopSession.id === session.id);
+            ratedSession.rating_count = 1;
+          }
+        })
+    } else {
+      this.snackbar.open('Please approve the session first', 'Close', { duration: 3000 });
+    }
   }
-
 }
