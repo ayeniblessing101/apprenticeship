@@ -358,7 +358,10 @@ export class RequestdetailsComponent implements OnInit {
         this.snackBarMsg = 'You have indicated interest in this mentorship request!';
         this.snackBarOpen(true, this.snackBarMsg)
           .afterDismissed()
-          .subscribe(() => this.hasAlreadyIndicatedInterest = true);
+          .toPromise()
+          .then(() => {
+            this.hasAlreadyIndicatedInterest = true
+          })
       })
       .catch((error) => {
         delete this.loading.interested
