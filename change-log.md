@@ -1,3 +1,17 @@
+# V 1.3.0
+
+## Features
+- add link to actual Request on Requests list for Admins for all Requests
+- add Settings page for personalized notifications
+- use separate Firebase Databases for staging and production
+- implement custom Segment Client for tracking
+
+## Fixed Bugs
+- fix alignment of Skills list
+- limit Session ratings to approved Sessions
+- fix edit dialog for Skills
+- restrict date period when logging Sessions
+
 # V 1.2.0
 
 ## Features

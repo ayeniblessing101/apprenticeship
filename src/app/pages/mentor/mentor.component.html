@@ -27,7 +27,7 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills | interestFilter: filteredInterest)" routerLink="/requests/{{ request.id }}/mentor">
+            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills | interestFilter: filteredInterest)" routerLink="/requests/{{ request.id }}">
                 <div class="and-table-content and-table-col-30">
                     <span class="date-created-small-7">Requested <strong>{{ request.created_at | amTimeAgo }}</strong></span>
                     <p>{{ request.title }}</p>
