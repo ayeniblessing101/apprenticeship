@@ -25,7 +25,7 @@ export class UserService {
   getUserInfo(userId: string): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/users/${userId}`)
-      .map(this.extractData)
+      .map(this.extractResponse)
       .catch(this.handleError);
   }
 
@@ -36,7 +36,7 @@ export class UserService {
    addUserSlackHandle(slackHandle: string): Observable<any> {
      return this.http.post(`${this.apiBaseUrl}/messages/slack`, {
        slack_handle: slackHandle})
-       .map(this.extractData)
+       .map(this.extractResponse)
        .catch(this.handleError);
    }
 
@@ -99,12 +99,9 @@ export class UserService {
     *
     * @return Object containing data from Observable
     */
-   extractData(res: Response) {
-    const body = res.json();
-    body.data.request_count = body.request_count;
-    body.data.skills = body.skills;
-
-    return body.data || [];
+   extractResponse(res: Response) {
+    return res.json();
+  		  
    }
 
    /**

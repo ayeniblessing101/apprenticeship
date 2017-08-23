@@ -12,6 +12,7 @@
         <p class="level" *ngIf="userData.level">{{ userData.level.name }}</p>
         <p class="level" *ngIf="cohort">{{ cohort }}</p>
 
+        <p class="center-text">Mentorship Hours Logged: {{ loggedHours }}<span *ngIf="!loggedHours">0</span></p>
         <p class="center-text" *ngIf="!userData.placement"><strong>Client status: </strong>Not Placed</p>
         <p class="center-text" *ngIf="userData.placement && userData.placement?.status"><strong>Client status: </strong> {{ userData.placement.status }} </p>
 

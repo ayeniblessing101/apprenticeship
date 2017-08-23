@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   skillsTitle: string;
   routeParam: string;
   cohort: string;
+  loggedHours: number;
 
   constructor(
     private authService: AuthService,
@@ -52,6 +53,7 @@ export class ProfileComponent implements OnInit {
           this.firstName = requests.first_name;
           this.fullName = requests.name;
           this.cohort = requests.cohort.name;
+          this.loggedHours = requests.logged_hours;
         },
         error => this.errorMessage = <any>error
       );
