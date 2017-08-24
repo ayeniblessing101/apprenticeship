@@ -42,7 +42,7 @@ export class RequestService {
       this.statuses = this.http
         .get(`${this.apiBaseUrl}/status`)
         .map(this.extractData)
-        .publishReplay(1, 30000)
+        .publishReplay(1)
         .refCount()
         .catch(this.handleError);
     }

@@ -23,7 +23,7 @@ export class SkillService {
       this.skills = this.http
         .get(`${this.apiBaseUrl}/skills`)
         .map(this.extractData)
-        .publishReplay(1, 30000)
+        .publishReplay(1)
         .refCount()
         .catch(this.handleError);
     }
