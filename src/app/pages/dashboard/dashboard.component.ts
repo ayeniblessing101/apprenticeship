@@ -6,7 +6,6 @@ import { SkillService } from '../../services/skill.service';
 import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { SlackModalDialogComponent } from '../../components/slack-modal-dialog/slack-modal-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +22,6 @@ export class DashboardComponent implements OnInit {
     Primary: [],
     Status: [],
   };
-  slackHandle: string;
   loading: boolean;
   @Input() currentPage;
   @Input() itemsPerPage;
@@ -55,7 +53,6 @@ export class DashboardComponent implements OnInit {
     this.getRequests(this.currentPage);
     this.getSkills();
     this.getStatus();
-    this.openModal();
   }
   /**
    * Get 20 requests from the Lenken API service
@@ -106,22 +103,6 @@ export class DashboardComponent implements OnInit {
         status => this.dashBoardFilters.Status = status,
         error => this.errorMessage = <any>error,
       );
-   }
-
-   /**
-    *  openModal
-    *
-    *  renders a modal if the user
-    *  has not provided their slack handle
-    *  when they log in
-    */
-   openModal() {
-    this.userService.checkSlackHandleStatus(this.authService.userInfo.id)
-      .subscribe((data) => {
-        if (data.slackHandle == null) {
-          this.dialog.open(SlackModalDialogComponent);
-        }
-      });
    }
 
   /**
