@@ -26,7 +26,7 @@ export class FiltersComponent implements OnInit {
   filteredDate: number;
 
   iconNames = ['expand_more', 'expand_less'];
-  icon1Name = 'expand_more';
+  icon1Name = 'expand_less';
   icon2Name = 'expand_more';
   icon3Name = 'expand_more';
   icon4Name = 'expand_more';

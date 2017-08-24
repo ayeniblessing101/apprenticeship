@@ -14,7 +14,7 @@
     <accordion *ngIf="key==='Status'" [expandAll]="true">
         <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
             <accordion-heading class="accordion-heading">
-                <i class="material-icons">{{ icon2Name }}</i>{{ key }}
+                <i class="material-icons">{{ icon1Name }}</i>{{ key }}
             </accordion-heading>
             <md-checkbox (change)="onChange($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]">{{ item.name }}</md-checkbox><br>
         </accordion-group>
