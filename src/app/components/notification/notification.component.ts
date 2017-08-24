@@ -3,6 +3,7 @@ import { MdIcon } from '@angular/material';
 import { HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notifications.service';
+import { SegmentService } from '../../services/segment.service';
 
 @Component({
   selector: 'app-notification-bar',
@@ -16,7 +17,9 @@ export class NotificationComponent implements OnInit {
   private userId: string;
 
   constructor (
-    private notificationService: NotificationService, private auth: AuthService
+    private notificationService: NotificationService,
+    private auth: AuthService,
+    private segmentService: SegmentService
   ) {
     this.userId = this.auth.userInfo.id;
     this.openNotificationPanel = false;
@@ -96,6 +99,7 @@ export class NotificationComponent implements OnInit {
    * @return {Void}
    */
   toggleNotificationDropdown(): void {
+    this.segmentService.track('OPEN NOTIFICATIONS', { unread: this.getUnreadCount() });
     this.openNotificationPanel ?
       this.openNotificationPanel = false : this.openNotificationPanel = true;
   }

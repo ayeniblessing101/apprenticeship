@@ -11,6 +11,7 @@ import { LogSessionDialogComponent } from '../../components/sessions/dialog/log-
 import { SessionDetails } from '../../interfaces/session.interface';
 import { EditDialogComponent } from '../editrequest/edit-request.component';
 import { NotificationService } from '../../services/notifications.service';
+import { SegmentService } from '../../services/segment.service';
 import { environment } from '../../../environments/environment';
 
 import { Observable } from 'rxjs/Rx';
@@ -51,6 +52,7 @@ export class RequestdetailsComponent implements OnInit {
     private auth: AuthService,
     private sessionService: SessionService,
     private notificationService: NotificationService,
+    private segmentService: SegmentService,
     private requestService: RequestService,
   ) {
     this.requestId = +this.route.snapshot.params['id'];
@@ -104,6 +106,10 @@ export class RequestdetailsComponent implements OnInit {
       .toPromise()
       .then(res => this.fetchRequestDetails(res))
       .then(() => {
+        this.segmentService.track('VIEW REQUEST CLICK', {
+            requestTitle: this.details.title,
+            requiredSkills: this.details.request_skills
+          });
         this.getUserInfo(this.details.mentee_id, 'mentee');
         this.getMentorInfo(this.details.interested, false);
         this.canViewInterested = (this.details.status === 'open' && this.details.interested.length &&
@@ -380,7 +386,7 @@ export class RequestdetailsComponent implements OnInit {
     config.data = {
       requestDetails: this.details,
       userId: this.userId,
-      peer: 'mentor' || 'mentee',
+      peer: this.details.mentor_id === this.userId ? 'mentee' : 'mentor',
     };
     this.loading.sessionLoading = true;
 
@@ -440,6 +446,10 @@ export class RequestdetailsComponent implements OnInit {
     const updatePayload = {
       user_id: this.userId,
     };
+
+    this.segmentService.track('APPROVE SESSION', {
+        approvedBy: this.userId === this.details.mentor_id ? 'mentor' : 'mentee'
+      });
 
     return this.sessionService
       .approveSession(event.sessionId, updatePayload)

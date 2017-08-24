@@ -3,6 +3,8 @@ import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../../services/session.service';
 import { DateValidator } from './date.validator'
+import { SegmentService } from '../../../services/segment.service';
+
 import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
 
@@ -25,6 +27,7 @@ export class LogSessionDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dateValidator: DateValidator,
     private sessionService: SessionService,
+    private segmentService: SegmentService,
     @Inject(MD_DIALOG_DATA) private data: any
   ) {
     this.peer = this.data.peer;
@@ -68,7 +71,8 @@ export class LogSessionDialogComponent implements OnInit {
       request_id: this.details.id,
       user_id: this.userId
     };
-
+    
+    this.segmentService.track('SUBMIT LOG SESSION');
     this.loading = true;
 
     this.sessionService.logSession(sessionPayload)

@@ -2,6 +2,7 @@ import { Component, Optional, Inject, OnInit } from '@angular/core';
 import { MdDialogRef, MdSnackBar, MD_DIALOG_DATA} from '@angular/material';
 
 import { SessionService } from '../../../../services/session.service';
+import { SegmentService } from '../../../../services/segment.service';
 
 @Component({
   selector: 'app-rate-session',
@@ -45,6 +46,7 @@ export class RateSessionDialogComponent {
     private sessionService: SessionService,
     public dialogRef: MdDialogRef<any>,
     private snackBar: MdSnackBar,
+    private segmentService: SegmentService,
     @Optional() @Inject(MD_DIALOG_DATA) public session: any,
   ) {
     this.loading = false;
@@ -59,18 +61,18 @@ export class RateSessionDialogComponent {
     this.loading = true;
     this.sessionService.rateSession(submittedMetric)
     .toPromise()
-    .then(
-      (value) => {
+    .then(({ user_id, ...ratingInformation }) => {
         this.snackBarOpen('Rating submitted successfully.');
         this.loading = false;
+        this.segmentService.track('SUBMIT SESSION RATING');
       },
     )
     .catch(
-        (error) => {
-          this.snackBarOpen(error.message);
-          this.loading = false;
-        },
-      )
+      (error) => {
+        this.snackBarOpen(error.message);
+        this.loading = false;
+      },
+    )
   }
 
   /**

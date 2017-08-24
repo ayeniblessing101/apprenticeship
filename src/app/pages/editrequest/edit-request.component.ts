@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
+import { SegmentService } from '../../services/segment.service';
 import { RequestsComponent } from '../requests/requests.component';
 
 @Component({
@@ -28,13 +29,15 @@ export class EditDialogComponent extends RequestsComponent implements OnInit {
     private editRouter: Router,
     private mdSnackbar: MdSnackBar,
     private editSkillService: SkillService,
+    private segmentAnayticsService: SegmentService,
     @Inject(MD_DIALOG_DATA) private data: any
   ) {
     super(
       editRequestService,
       editRouter,
       mdSnackbar,
-      editSkillService
+      editSkillService,
+      segmentAnayticsService
     );
     this.requestId = this.data.id;
   }

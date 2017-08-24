@@ -4,6 +4,8 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { SegmentService } from '../../services/segment.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-request-detail',
@@ -20,10 +22,21 @@ export class RequestDetailMiniComponent {
   @Input() hasAlreadyIndicatedInterest: Boolean = false;
   @Output() buttonClickEmitter = new EventEmitter();
 
-  constructor() {}
+  constructor(
+    private segmentService: SegmentService,
+    private userService: UserService
+  ) {}
 
   emitClickAction(event) {
     this.buttonClickEmitter.emit(event);
+    this.userService.getUserInfo(this.userId)
+    .subscribe(
+      (request) => {
+        this.segmentService.track('USER INTERESTED', {
+          fellowLevel: request.level.name
+        });
+      }
+    );
   }
 
   /**

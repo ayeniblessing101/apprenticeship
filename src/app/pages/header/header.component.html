@@ -11,13 +11,13 @@
     <app-notification-bar></app-notification-bar>
     <div class="user-options-group">
       <button class="logoutTrigger" md-button [mdMenuTriggerFor]="menu"><span class="profile-name">{{ firstName }}</span><img src="{{ picture }}" alt="avatar" class="avatar"><i class="material-icons right">arrow_drop_down</i></button>
-       <md-menu #menu="mdMenu">
-        <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: userId }" md-menu-item>
+      <md-menu #menu="mdMenu">
+        <a class="profile-menu" routerLink="/profile" [queryParams]="{ id: userId }" md-menu-item (click)="trackClick('profile')">
           Profile</a>
-          <a class="profile-menu" routerLink="/settings" md-menu-item>
+          <a class="profile-menu" routerLink="/settings" md-menu-item (click)="trackClick('settings')">
           Settings</a>
-        <a class="profile-menu" routerLink="/logout" md-menu-item>Logout</a>
-      </md-menu> 
+        <a class="profile-menu" routerLink="/logout" md-menu-item (click)="trackClick('logout')">Logout</a>
+      </md-menu>
     </div>
   </div>
 
@@ -32,7 +32,7 @@
       <a *ngIf="isAdmin" routerLink="/admin/skills" routerLinkActive="active">Skills</a>
     </div>
     <div id="btn-request-container">
-      <button md-raised-button class="md-btn-andela-pink" routerLink='/requests'>Request Mentor</button>
+      <button (click)="requestMentor()" md-raised-button class="md-btn-andela-pink" routerLink='/requests'>Request Mentor</button>
     </div>
   </div>
 </nav>

@@ -28,4 +28,16 @@ export class HeaderComponent implements OnInit{
       this.isAdmin = true;
     }
   }
+
+  /**
+   * trackClick
+   * calls the trackEvent method of SegmentAnalyticsService and
+   * passes information from the elements properties to it
+   * @param {Object} event - event properties of element
+   * @returns {void}
+   * @memberof HeaderComponent
+   */
+  trackClick(event) {
+    this.segmentService.track(`${event.toUpperCase()} CLICK`);
+  }
 }

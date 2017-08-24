@@ -36,7 +36,7 @@ export class SegmentService {
    * @returns {void}
    * @memberof SegmentService
    */
-  track(event, props) {
+  track(event, props?) {
       const payload = { event, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
       this.http.post(`${this.apiBaseUrl}/track`, payload, { headers: this.headers }).subscribe();
   }

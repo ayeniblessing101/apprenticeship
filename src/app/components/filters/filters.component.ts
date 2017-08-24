@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { SkillService } from '../../services/skill.service';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
+import { SegmentService } from '../../services/segment.service';
 import { AccordionModule } from 'ngx-accordion';
 
 @Component({
@@ -39,6 +40,7 @@ export class FiltersComponent implements OnInit {
     private filterService: FilterService,
     private router: Router,
     private authService: AuthService,
+    private segmentService: SegmentService
   ) {
     this.dateRange = {
       'Last day': 1,
@@ -97,6 +99,10 @@ export class FiltersComponent implements OnInit {
   * @param {string} itemName the filter value selected
   */
   onChange(event, item, key) {
+    this.segmentService.track(
+      'FILTER',
+      { filter: key.toUpperCase(), [key]: item.name }
+    );
     const eventData = {
       eventType: event.checked || event.value,
       itemName: item.name,
@@ -104,5 +110,17 @@ export class FiltersComponent implements OnInit {
     };
 
     this.onChecked.emit(eventData);
+  }
+
+  /**
+   * endTyping
+   * 
+   * sends track event to segment when user blurs out
+   * of input field
+   * 
+   * @returns {void}
+   */
+  endTyping() {
+    this.segmentService.track('FILTER', { filter: 'SEARCH SKILLS' });
   }
 }

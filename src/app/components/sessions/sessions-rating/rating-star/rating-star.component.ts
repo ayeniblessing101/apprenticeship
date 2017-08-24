@@ -1,11 +1,16 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { SegmentService } from '../../../../services/segment.service';
+
 @Component({
   selector:'app-rating-star',
   templateUrl:'rating-star.component.html',
   styleUrls:['rating-star.component.scss'],
 })
 export class RatingStarComponent {
+
+  constructor(private segmentService: SegmentService) {}
+
   @Input() ratingMetric: any;
   @Output() updateRatingMetric:EventEmitter<any> = new EventEmitter();
   likertScale: any[]= [{
@@ -32,5 +37,5 @@ export class RatingStarComponent {
   onClick(rating:number):void{
     this.ratingMetric.rating = rating;
     this.updateRatingMetric.emit(this.ratingMetric);
-  }    
+  }
 }

@@ -7,6 +7,8 @@ import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
+import { SegmentService } from '../../services/segment.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit {
     private skillService: SkillService,
     private authService: AuthService,
     private userService: UserService,
+    private segmentService: SegmentService,
     public snackBar: MdSnackBar,
     public helper: Helper,
     private dialog: MdDialog,

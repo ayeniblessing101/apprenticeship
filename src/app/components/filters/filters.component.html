@@ -24,7 +24,7 @@
         <accordion-group (onOpen)="toggleIcon(2)" (onClose)="toggleIcon(2)">
             <div class="row">
                 <md-input-container class="full-width">
-                    <input mdInput placeholder="Search Skill" [(ngModel)]="term" />
+                    <input (blur)="endTyping()" mdInput placeholder="Search Skill" [(ngModel)]="term" />
                 </md-input-container>
             </div>
             <accordion-heading class="accordion-heading">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
+import { SegmentService } from '../../services/segment.service';
 import { SessionDetails } from '../../interfaces/session.interface';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
@@ -42,7 +43,8 @@ export class RequestsComponent implements OnInit {
     private requestService: RequestService,
     private router: Router,
     private snackbar: MdSnackBar,
-    private skillService: SkillService
+    private skillService: SkillService,
+    private segmentService: SegmentService
   ) {
     this.snackBarConfig = { duration: 3000 };
     this.sessionDetails = {
@@ -144,11 +146,10 @@ export class RequestsComponent implements OnInit {
     form.value.selectedDays = form.value.selectedDays
       .map((day, index) => day === true ? this.daysOfAvailability[index] : false)
       .filter(day => day !== false);
-    
-      return this.requestService.requestMentor(data)
-        .toPromise()
-        .then(() => this.snackBarOpen(true))
-        .catch(err => this.snackBarOpen(false));
+    return this.requestService.requestMentor(data)
+      .toPromise()
+      .then(() => this.snackBarOpen(true))
+      .catch(err => this.snackBarOpen(false));
   }
 
   private snackBarOpen(status: Boolean) {
