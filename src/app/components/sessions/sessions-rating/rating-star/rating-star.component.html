@@ -1,9 +1,9 @@
 <fieldset class="rating" >
     <label class="label" for="{{ ratingMetric.id }}">{{ ratingMetric.id }}
-        <md-icon (mouseover)="segmentService.track('RATING METRIC INFO', ratingMetric)" mdTooltip="{{ ratingMetric.desc }}" mdTooltipPosition="above">info_outline</md-icon>
+        <md-icon mdTooltip="{{ ratingMetric.desc }}" mdTooltipPosition="above">info_outline</md-icon>
     </label>
     <ng-container *ngFor="let scale of likertScale">
-        <input type="radio" 
+        <input type="radio"
             [value]="scale.value"
             [checked]="ratingMetric.rating===scale.value" />
         <span mdTooltip="{{ scale.id }}" (click)='onClick(scale.value)'>{{ scale.value}} stars</span>

@@ -9,8 +9,6 @@ import { SegmentService } from '../../../../services/segment.service';
 })
 export class RatingStarComponent {
 
-  constructor(private segmentService: SegmentService) {}
-
   @Input() ratingMetric: any;
   @Output() updateRatingMetric:EventEmitter<any> = new EventEmitter();
   likertScale: any[]= [{
