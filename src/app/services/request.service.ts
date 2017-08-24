@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
 import { environment } from '../../environments/environment';
 import { HelperService as Helper } from './helper.service';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/publishReplay';
 
 @Injectable()
 export class RequestService {

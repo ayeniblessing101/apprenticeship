@@ -1,7 +1,7 @@
 # Lenken
-[![Coverage Status](https://coveralls.io/repos/github/andela/lenken/badge.svg?t=0GlA6W)](https://coveralls.io/github/andela/lenken)
+[![CircleCI](https://circleci.com/gh/andela/lenken.svg?style=svg)](https://circleci.com/gh/andela/lenken)
+[![Test Coverage](https://codeclimate.com/repos/58aaff583de51e3db2001f76/badges/5b62c4058b728e58f3a5/coverage.svg)](https://codeclimate.com/repos/58aaff583de51e3db2001f76/coverage)
 [![Code Climate](https://codeclimate.com/repos/58aaff583de51e3db2001f76/badges/5b62c4058b728e58f3a5/gpa.svg)](https://codeclimate.com/repos/58aaff583de51e3db2001f76/feed)
-
 
 Mentorship matching and perfomance application.
 

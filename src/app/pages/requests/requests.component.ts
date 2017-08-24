@@ -18,6 +18,7 @@ import 'rxjs/add/operator/toPromise';
 })
 
 export class RequestsComponent implements OnInit {
+  title = "Request For A Mentor";
   checked = false;
   indeterminate = false;
   align = 'start';
@@ -28,7 +29,7 @@ export class RequestsComponent implements OnInit {
   timeSlots: Array<string> = [];
   numMonths: Array<any>;
   days: Array<any>;
-  skills: Array<string> = [];
+  skills: Array<any> = [];
   selection: Array<string>;
   sessionDetails: SessionDetails;
   allDays = false;
@@ -60,8 +61,7 @@ export class RequestsComponent implements OnInit {
       timeControlStart: new FormControl('', [Validators.required]),
       timeControlEnd: new FormControl('', [Validators.required]),
       timeZone: new FormControl('', [Validators.required]),
-      selectedDays: new FormArray(this.daysOfAvailability
-        .map(() => new FormControl(false)), this.validateSelectedDays),
+      selectedDays: new FormArray(this.daysOfAvailability.map(() => new FormControl(false)), this.validateSelectedDays),
       description: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required])
     });
@@ -133,45 +133,6 @@ export class RequestsComponent implements OnInit {
     };
   }
 
-  onSingleOpened() {
-    this.logSingle('- opened');
-  }
-
-  onSingleClosed() {
-    this.logSingle('- closed');
-  }
-
-  onSingleSelected(item) {
-    this.logSingle(`- selected (value: ${item.value}, label: ${item.label}`);
-  }
-
-  onSingleDeselected(item) {
-    this.logSingle(`- deselected (value: ${item.value}, label: ${item.label}`);
-  }
-  onMultipleOpened() {
-    this.logMultiple('- opened');
-  }
-
-  onMultipleClosed() {
-    this.logMultiple('- closed');
-  }
-
-  onMultipleSelected(item) {
-    this.logMultiple(`- selected (value: ${item.value}, label: ${item.label}`);
-  }
-
-  onMultipleDeselected(item) {
-    this.logMultiple(`- deselected (value: ${item.value}, label: ${item.label}`);
-  }
-
-  private logMultiple(msg: string) {
-    this.logMultipleString += `${msg} \n`;
-  }
-
-  private logSingle(msg: string) {
-    this.logSingleString += `${msg} \n`;
-  }
-
   /**
    * Takes the form values and makes POST request to the requests endpoint
    * to create a new request.
@@ -183,11 +144,11 @@ export class RequestsComponent implements OnInit {
     form.value.selectedDays = form.value.selectedDays
       .map((day, index) => day === true ? this.daysOfAvailability[index] : false)
       .filter(day => day !== false);
-
-    return this.requestService.requestMentor(data)
-      .toPromise()
-      .then(() => this.snackBarOpen(true))
-      .catch(err => this.snackBarOpen(false));
+    
+      return this.requestService.requestMentor(data)
+        .toPromise()
+        .then(() => this.snackBarOpen(true))
+        .catch(err => this.snackBarOpen(false));
   }
 
   private snackBarOpen(status: Boolean) {

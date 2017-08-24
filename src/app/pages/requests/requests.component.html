@@ -1,80 +1,65 @@
 <app-header>
-  <h2>Request For A Mentor</h2>
+  <h2>{{ title }}</h2>
   <form [formGroup]="form" (ngSubmit)="requestMentor(form)" novalidate>
     <div class="form-section">
       <div layout="row">
         <md-input-container class="full-width">
           <input formControlName="title" mdInput placeholder="Enter a title" class="requestText" />
         </md-input-container>
-
         <span class="error" [hidden]=" form.get('title').valid || form.get('title').untouched">Title required *</span>
       </div>
     </div>
-
     <div class="form-section">
       <div layout="row">
         <md-input-container class="full-width">
-          <textarea formControlName="description" mdInput placeholder="Description" class="requestText"></textarea>
+          <textarea mdInput formControlName="description" mdInput placeholder="Description" class="requestText"></textarea>
         </md-input-container>
-
         <span class="error" [hidden]=" form.get('description').valid || form.get('description').untouched">
             Description required *
         </span>
       </div>
     </div>
-
-    <div class="form-section">
+     <div class="form-section">
       <div>Required Skills</div>
-      <ng-select class="inputHeader" [options]="skills" [multiple]="true" formControlName="requiredSkills" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
-      </ng-select>
-      <span class="error" [hidden]=" form.get('requiredSkills').valid || form.get('requiredSkills').untouched">
-                You need to submit at least one required skill *
-            </span>
+      <md-select style="width: 100%" formControlName="requiredSkills" [multiple]="true">
+        <md-option *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
+      </md-select>
+      <span class="error" [hidden]=" form.get('requiredSkills').valid || form.get('requiredSkills').untouched">You need to submit at least one required skill *</span>
     </div>
-
     <div class="form-section">
       <div>Other Skills</div>
-      <ng-select [options]="skills" [multiple]="true" formControlName="otherSkills" (opened)="onMultipleOpened()" (closed)="onMultipleClosed()" (selected)="onMultipleSelected($event)" (deselected)="onMultipleDeselected($event)">
-      </ng-select>
+      <md-select style="width: 100%" formControlName="otherSkills" [multiple]="true">
+        <md-option *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
+      </md-select>
     </div>
-
     <div class="form-section">
       <div>Length of Mentorship Month(s)</div>
-      <ng-select [options]="numMonths" formControlName="duration" [allowClear]="true" (opened)="onSingleOpened()" (closed)="onSingleClosed()" (selected)="onSingleSelected($event)" (deselected)="onSingleDeselected($event)">
-      </ng-select>
-      <span class="error" [hidden]=" form.get('duration').valid || form.get('duration').untouched">
-                Choose length of mentorship *
-            </span>
+      <md-select style="width: 100%" formControlName="duration" [multiple]="false">
+        <md-option *ngFor="let month of numMonths" [value]="month.value">{{ month.label }}</md-option>
+      </md-select>
+      <span class="error" [hidden]=" form.get('duration').valid || form.get('duration').untouched">Choose length of mentorship *</span>
     </div>
-
     <div class="form-section">
       <div layout="row" class="pairingTime">Pairing Time</div>
-
       <div layout="row" class="mentorship-period">
-
         <div class="time-picker">
-            <md-select formControlName="timeControlStart" class="timePicker" placeholder="Start">
-               <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
-            </md-select>
-
-            <md-select formControlName="timeControlEnd" class="timePicker" placeholder="End">
-               <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
-            </md-select>
-
-            <md-select class="zone" formControlName="timeZone" placeholder="Time Zone">
-                <md-option value="WAT">WAT</md-option>
-                <md-option value="EAT">EAT</md-option>
-            </md-select>
+          <md-select formControlName="timeControlStart" class="timePicker" placeholder="Start">
+            <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
+          </md-select>
+          <md-select formControlName="timeControlEnd" class="timePicker" placeholder="End">
+            <md-option value="{{ time }}" *ngFor="let time of timeSlots">{{ time }}</md-option>
+          </md-select>
+          <md-select class="zone" formControlName="timeZone" placeholder="Time Zone">
+            <md-option value="WAT">WAT</md-option>
+            <md-option value="EAT">EAT</md-option>
+          </md-select>
         </div>
-
         <div class="day-picker" formArrayName="selectedDays">
-            <md-checkbox (change)="toggleAllDays(form)" [checked]="allDays">All days</md-checkbox>
-            <md-checkbox *ngFor="let day of daysOfAvailability; let index = index" formControlName="{{ index }}">{{ daysOfAvailability[index] }}</md-checkbox>
+          <md-checkbox (change)="toggleAllDays(form)" [checked]="allDays">All days</md-checkbox>
+          <md-checkbox *ngFor="let day of daysOfAvailability; let index = index" formControlName="{{ index }}">{{ daysOfAvailability[index] }}</md-checkbox>
         </div>
-
       </div>
     </div>
-
     <div id="btn-request-container">
       <button md-raised-button type="submit" class="submit" [disabled]="!form.valid">Create Request</button>
     </div>
