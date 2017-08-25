@@ -26,6 +26,7 @@ import { HelperService } from './services/helper.service';
 import { UserService } from './services/user.service';
 import { SessionService } from './services/session.service';
 import { SegmentService } from './services/segment.service';
+import { NotificationSettingsService } from './services/notifications-settings.service';
 
 // pipes
 import { SkillsPipe } from './components/pipes/skills.pipe';
@@ -177,7 +178,8 @@ const appRoutes: Routes = [
     UserService,
     SessionService,
     SegmentService,
-    DateValidator
+    DateValidator,
+    NotificationSettingsService
   ],
   entryComponents: [
     DialogModalComponent,

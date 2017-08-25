@@ -5,64 +5,37 @@
   <p>To control which notifications you receive, use the checkboxes below</p>
 
   <!-- TABLE HEADER -->
-  <div class="and-table-head-row">
-    <div class="and-table-heading and-table-col-40">
+  <div class="and-table-head-row and-table-notifications">
+    <div class="and-table-heading and-table-col-60">
       Send a notification when:
     </div>
-    <div class="and-table-heading table-head and-table-col-20">
+    <div class="and-table-heading and-table-col-20">
       Email
     </div>
-    <div class="and-table-heading table-head and-table-col-20">
+    <div class="and-table-heading and-table-col-20">
       Slack
     </div>
   </div>
+  <div class="and-table-row" *ngFor="let setting of userSettings">
+    <div class="and-table-content and-table-col-60" >
+      {{ setting.id.replace(notificationRegex, ' ') | titlecase }}
+    </div>
+    <div class="and-table-content and-table-col-20">
+      <md-checkbox [checked]="setting.email"
+                   #email
+                   (change)="updateUserSettings(
+                   setting.id, {email: email.checked, slack: slack.checked}
+                   )">
 
-  <!-- TABLE BODY -->
-  <div class="and-table-row">
-    <div class="and-table-content and-table-col-40">
-      Someone indicates interest in my request
+      </md-checkbox>
     </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-  </div>
-
-  <div class="and-table-row">
-    <div class="and-table-content and-table-col-40">
-      Someone selects me as mentor
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-  </div>
-
-  <div class="and-table-row">
-    <div class="and-table-content and-table-col-40">
-      Reminder to log session
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-  </div>
-
-  <div class="and-table-row">
-    <div class="and-table-content and-table-col-40">
-      Weekly request report
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
-    </div>
-    <div class="and-table-content and-table-col-20" id="table-content">
-      <md-checkbox></md-checkbox>
+    <div class="and-table-content and-table-col-20">
+      <md-checkbox [checked]="setting.slack"
+                   #slack
+                   (change)="updateUserSettings(
+                   setting.id, {email: email.checked, slack: slack.checked}
+                   )">
+      </md-checkbox>
     </div>
   </div>
    </div>

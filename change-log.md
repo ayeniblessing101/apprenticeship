@@ -1,3 +1,16 @@
+# V 1.4.0
+
+## Features
+- display total logged hours on User's profile page
+- remove Slack modal upon login
+- send more usage data to Segment
+- implement Mentee/Mentor search for Admin in "See All Requests" page
+- implement notification settings page
+
+## Fixed Bugs
+- fix skills cache expiration
+- fix icon directions for status filter
+
 # V 1.3.0
 
 ## Features
