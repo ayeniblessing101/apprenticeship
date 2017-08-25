@@ -73,6 +73,20 @@ export class RequestService {
   }
 
   /**
+   * Return mentorship requests by a specific user
+   *
+   * @param String data search query parameter
+   *
+   * @return Observable containing latest requests
+   */
+  searchRequests(searchTerm: any): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/requests?q=${searchTerm}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Return latest mentorship requests
    *
    * @param String the status parameter to search for

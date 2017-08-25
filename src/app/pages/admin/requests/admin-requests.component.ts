@@ -4,6 +4,7 @@ import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
 import { SkillService } from '../../../services/skill.service';
 import { HelperService as Helper } from '../../../services/helper.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: './admin-requests.component.html',
@@ -19,13 +20,19 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   dateFilters: any;
   dateRangeMap = [];
   limit: number;
+  searchInput: any;
+  showLabel: boolean = false;
+  showSearch: boolean = true;
   filteredSkills: any[] = [];
   checkedStatuses: any[] = [];
+  roles: any[] = [];
   adminFilters: any = {
+    Role: ['mentor', 'mentee'],
     Date: [],
     Primary: [],
-    Status: [],
-  }
+    Status: []
+  };
+  searchTerm: any;
 
   // Filter Subscriptions Refs
   requestSubscription: any;
@@ -87,6 +94,30 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * gets all requests from request service
+   *
+   * @param {Number} limit - number of requests to return
+   * @return {Void}
+   */
+  searchRequests(term:string):void {
+    this.searchTerm = term;
+    this.requestService.searchRequests(this.searchTerm)
+    .toPromise()
+    .then(
+      (requests) => {
+        this.loading = false;
+        this.showLabel = true;
+        this.extractRequest(requests);
+      }
+    )
+    .catch(
+      (error) => {
+        this.errorMessage = <any>error
+      },
+    )
+  }
+
+  /**
    * pushes each request into a request array;
    *
    * @param {Array} requests - Array of requests
@@ -94,6 +125,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    */
   extractRequest(requestsArray) {
     let newRequestIds = [];
+    this.allRequests = [];
     this.allRequestsIds = this.getRequestId(this.allRequests);
     newRequestIds = this.getRequestId(requestsArray);
 
@@ -223,6 +255,13 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
       }
     } else if (eventData.filterName === 'Date') {
       this.dateRange = this.dateFilters[eventData.itemName];
+    } else if (eventData.filterName === 'Role') {
+      if (eventData.eventType) {
+        this.roles.push(eventData.itemName);
+      } else {
+        const pos = this.roles.indexOf(eventData.itemName);
+        this.roles.splice(pos, 1);
+      }
     }
   }
 }

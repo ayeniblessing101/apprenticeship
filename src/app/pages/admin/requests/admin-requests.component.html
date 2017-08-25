@@ -3,14 +3,15 @@
     <div class="app-partial-outlet">
       <div class="and-list-filter-container">
         <div class="and-filter">
-          <app-filters [filtersObject]="adminFilters" (onChecked)="adminFilter($event)"></app-filters>
+          <app-filters (onSearch)='searchRequests($event)' [searchInput]="showSearch" [filtersObject]="adminFilters" (onChecked)="adminFilter($event)"></app-filters>
         </div>
         <div class="and-list">
           <div *ngIf="loading" class="loader">
             <md-spinner></md-spinner>
           </div>
-          <md-card *ngFor="let request of (allRequests | skillsFilter: filteredSkills | statusFilter: checkedStatuses | dateRangeFilter: dateRange)"
-            routerLink="/requests/{{request.id}}">
+          <div *ngIf="(allRequests).length==0 && showLabel"><br><br>Mentee/mentor requests not found...</div>  
+          <md-card  *ngFor="let request of (allRequests | skillsFilter: filteredSkills |
+            statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm )">
             <md-card-header class="card-header">
               <span class="status small-7" [ngClass]="getStatusClass(request.status)">{{ request.status }}</span>
               <span class="date-created small-7">Requested <strong>{{ request.created_at | amTimeAgo }}</strong></span>

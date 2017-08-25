@@ -14,14 +14,17 @@ import { AccordionModule } from 'ngx-accordion';
 })
 export class FiltersComponent implements OnInit {
   @Input() filtersObject;
+  @Input() searchInput: boolean;
   @Input() autoFilterStatus;
   @Output('onChecked') onChecked: EventEmitter<any> = new EventEmitter<any>();
+  @Output('onSearch') onSearch: EventEmitter<any> = new EventEmitter<any>();
 
   userId: string;
   currentPage: string;
   errorMessage: string;
   skills: any;
   status: any;
+  role: any;
   radioChecked: boolean;
   filteredDate: number;
 
@@ -30,6 +33,7 @@ export class FiltersComponent implements OnInit {
   icon2Name = 'expand_more';
   icon3Name = 'expand_more';
   icon4Name = 'expand_more';
+  icon5Name = 'expand_more';
 
   dateRange: any;
   dateRangeMap: any[];
@@ -77,7 +81,9 @@ export class FiltersComponent implements OnInit {
       this.icon3Name = this.icon3Name === 'expand_more' ? 'expand_less' : 'expand_more';
     } else if (itemClickedIndex === 4) {
       this.icon4Name = this.icon4Name === 'expand_more' ? 'expand_less' : 'expand_more';
-    }
+    } else if (itemClickedIndex === 5) {
+      this.icon5Name = this.icon5Name === 'expand_more' ? 'expand_less' : 'expand_more';
+    } 
   }
 
   ngOnInit() {
@@ -122,5 +128,38 @@ export class FiltersComponent implements OnInit {
    */
   endTyping() {
     this.segmentService.track('FILTER', { filter: 'SEARCH SKILLS' });
+  }
+
+  /**
+  * handleRoleClick
+  *
+  * function that uses the event emitter instance and gets the
+  * role selected
+  *
+  * @param {$event} event onChange event can either be a click
+  * from the checkbox or value from a radio button
+  * @param {string} filtername name of the filter array selected
+  * @param {string} itemName the filter value selected
+  */
+  handleRoleClick(event, item, key) {
+    const eventData = {
+      eventType: event.checked || event.value,
+      itemName: item,
+      filterName: key,
+    };
+
+    this.onChecked.emit(eventData);
+  }
+
+  /**
+  * search
+  *
+  * function that uses the event emitter instance and gets the
+  * data in the search input field
+  *
+  * @param {string} searchterm input data from the text field
+  */
+  search(searchterm) {
+    this.onSearch.emit(searchterm)
   }
 }

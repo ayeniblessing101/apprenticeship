@@ -34,6 +34,7 @@ import { ArrayIntersectPipe } from './components/pipes/array-intersect.pipe';
 import { DateRangePipe } from './components/pipes/date-range.pipe';
 import { InterestPipe } from './components/pipes/interest.pipe';
 import { SearchFilterPipe } from './components/pipes/search-filter.pipe';
+import { RolePipe } from './components/pipes/roles.pipe';
 
 // components
 import { AppComponent } from './app.component';
@@ -141,7 +142,8 @@ const appRoutes: Routes = [
     DateRangePipe,
     InterestPipe,
     ProfileComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    RolePipe
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,17 @@
 <ng-content></ng-content>
+<md-input-container *ngIf="searchInput" class="full-width">  
+    <input mdInput placeholder="Search by mentor/mentee" id="search" (change)="search(searchterm)" [(ngModel)]="searchterm"/>
+</md-input-container> 
 <accordion *ngFor="let key of filterKeys">
+    <accordion *ngIf="key==='Role' && searchterm"  [expandAll]="false">
+        <accordion-group (onOpen)="toggleIcon(1)" (onClose)="toggleIcon(1)">
+            <accordion-heading class="accordion-heading">
+                <i  class="material-icons">{{ icon5Name }}</i> Sort by Role
+            </accordion-heading>
+            <md-checkbox (change)="handleRoleClick($event, item, key)" color="primary" *ngFor="let item of filtersObject[key]" >{{ item }}</md-checkbox><br>   
+            </accordion-group>
+    </accordion>
+        
     <accordion *ngIf="key==='Date'">
         <accordion-group (onOpen)="toggleIcon(4)" (onClose)="toggleIcon(4)">
             <accordion-heading class="accordion-heading">
