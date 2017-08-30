@@ -13,6 +13,7 @@ import { HttpService as Http } from '../../services/http.service';
 import { RequestService } from '../../services/request.service';
 import { RequestServiceStub } from '../../stubs/request-stub.service';
 import { HelperService } from '../../services/helper.service';
+import { SegmentService } from '../../services/segment.service';
 import { SkillService } from '../../services/skill.service';
 import { SkillServiceStub } from '../../stubs/skill-stub.service';
 import mockSkills from '../../mocks/skills';
@@ -44,6 +45,7 @@ describe('RequestsComponent', () => {
         MockBackend,
         RequestService,
         HelperService,
+        SegmentService
       ]
     })
     .compileComponents();
