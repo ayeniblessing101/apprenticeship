@@ -18,7 +18,9 @@ export class SkillsPipe implements PipeTransform {
         return requests;
       }
       return requests.filter(request => {
-        const requestSkills = this.helper.extractSkills(request.request_skills);
+        const primarySkills = request.request_skills.filter(skill => skill.type === 'primary');
+        const requestSkills = this.helper.extractSkills(primarySkills);
+        
         return ArrayIntersectPipe.get(requestSkills, filteredSkills).length > 0;
       });
     }

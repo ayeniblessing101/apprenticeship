@@ -6,7 +6,7 @@
         <div class="and-filter">
           <app-filters [filtersObject]="dashBoardFilters" (onChecked)="dashboardFilter($event)"></app-filters>
         </div>
-        <div class="and-list">
+        <div class="and-list" *ngIf="(requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses).length">
           <div class="and-table-container">
             <!--Table Header-->
             <div class="and-table-head-row">
@@ -58,6 +58,7 @@
           </div>
           <app-pagination (pageChange)="getRequests($event)"></app-pagination>
         </div>
+        <div class="no-result" *ngIf="!(requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses).length && requests"><h2>No such request with this primary skill exists</h2></div>
       </div>
     </div>
   </div>

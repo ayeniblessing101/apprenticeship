@@ -22,7 +22,7 @@ export class RequestService {
   /**
    * Return details of a particular request
    *
-   * @param requestId the mentoship request Id
+   * @param requestId the mentorship request Id
    *
    * @return Observable containing details of request
    */
