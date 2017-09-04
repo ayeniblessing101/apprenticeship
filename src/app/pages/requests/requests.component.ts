@@ -211,4 +211,21 @@ export class RequestsComponent implements OnInit {
       });
     }
   }
+
+  /**
+   * Takes the form value to check if allDays has been selected
+   *
+   * @param {Object} form the actual form element
+   * @return {void}
+   */
+  toggleDays(form: any): void {
+    const selectedDays = form.value.selectedDays;
+    let isValid = true;
+    selectedDays.forEach((value) => {
+      if (!value) {
+        isValid = false;
+      }
+    });
+    this.allDays = isValid ? true : false;
+  }
 }

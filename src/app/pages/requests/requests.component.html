@@ -56,7 +56,7 @@
         </div>
         <div class="day-picker" formArrayName="selectedDays">
           <md-checkbox (change)="toggleAllDays(form)" [checked]="allDays">All days</md-checkbox>
-          <md-checkbox *ngFor="let day of daysOfAvailability; let index = index" formControlName="{{ index }}">{{ daysOfAvailability[index] }}</md-checkbox>
+          <md-checkbox (change)="toggleDays(form)" *ngFor="let day of daysOfAvailability; let index = index" formControlName="{{ index }}">{{ daysOfAvailability[index] }}</md-checkbox>
         </div>
       </div>
     </div>
