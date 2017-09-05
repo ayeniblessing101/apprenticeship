@@ -19,11 +19,12 @@ export class AppComponent {
   ) {
     if (localStorage.getItem('id_token')) {
       this.authService.decodeToken();
-      const fellowId  = this.authService.userInfo.id;
-      this.userService.getUserInfo(fellowId)
+      const userId  = this.authService.userInfo.id;
+      this.userService.getUserInfo(userId)
         .toPromise()
         .then((response) => {
           const userLevel = response.level.name;
+          localStorage.setItem('currentUser', JSON.stringify(response));
           segmentService.track('LOGGED IN', { fellowLevel: userLevel });
         })
         .catch(() => {});

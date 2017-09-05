@@ -182,7 +182,7 @@ export class RequestService {
       primary: formValue.requiredSkills,
       secondary: formValue.otherSkills,
       duration: formValue.duration,
-      location: this.helper.getTimeZone(),
+      location: this.helper.getCurrentUser().location,
       pairing: {
         start_time: formValue.timeControlStart,
         end_time: formValue.timeControlEnd,

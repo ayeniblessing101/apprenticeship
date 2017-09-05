@@ -35,13 +35,13 @@ export class HelperService {
     return this.extractSkills(arrayOfSkillsNames, skilltype).join(', ');
   }
 
-  /**
-   * Retrieves the current timezone of the current logged in user
-   */
-  getTimeZone(): string {
-    const today = (new Date()).toString();
-
-    // the timezone is at the end of the "today" string
-    return today.match(/\((.{3})\)$/)[1];
-  }
+    /**
+     * This method retrieves information
+     * for the current user
+     * 
+     * @return {Object} object of user's information
+     */
+    getCurrentUser(): any {
+      return JSON.parse(localStorage.getItem('currentUser'));
+    }
 }
