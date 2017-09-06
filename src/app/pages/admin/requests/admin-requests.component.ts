@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
@@ -33,6 +33,9 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     Status: []
   };
   searchTerm: any;
+  @Input() currentPage;
+  @Input() itemsPerPage;
+  @Input() totalItems;
 
   // Filter Subscriptions Refs
   requestSubscription: any;
@@ -66,7 +69,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getRequests(this.limit);
+    this.getRequests(this.currentPage);
     this.getDate();
     this.getSkills();
     this.getStatus();
@@ -81,15 +84,19 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   /**
    * gets all requests from request service
    *
-   * @param {Number} limit - number of requests to return
+   * @param {Number} page - number of current page been displayed
    * @return {Void}
    */
-  getRequests(limit: number): void {
+  getRequests(page: number): void {
+    this.currentPage = page;
     this.loading = true;
-    this.requestSubscription = this.requestService.getRequests(limit)
+  
+    this.requestSubscription = this.requestService.getRequests(10, page)
       .subscribe((requests) => {
         this.loading = false;
         this.extractRequest(requests.data);
+        this.itemsPerPage = requests.pagination.pageSize;
+        this.totalItems = requests.pagination.totalCount;
       });
   }
 

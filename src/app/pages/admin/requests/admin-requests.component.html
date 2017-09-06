@@ -9,9 +9,11 @@
           <div *ngIf="loading" class="loader">
             <md-spinner></md-spinner>
           </div>
-          <div *ngIf="(allRequests).length==0 && showLabel"><br><br>Mentee/mentor requests not found...</div>  
+          <div *ngIf="(allRequests | skillsFilter: filteredSkills |
+          statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm).length">
           <md-card  *ngFor="let request of (allRequests | skillsFilter: filteredSkills |
-            statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm )">
+            statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm |
+            paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems})">
             <md-card-header class="card-header">
               <span class="status small-7" [ngClass]="getStatusClass(request.status)">{{ request.status }}</span>
               <span class="date-created small-7">Requested <strong>{{ request.created_at | amTimeAgo }}</strong></span>
@@ -29,6 +31,10 @@
               <span class="chip" *ngFor="let skill of helper.extractSkills(request.request_skills, 'primary')">{{ skill }}</span>
             </div>
           </md-card>
+          <app-pagination (pageChange)="getRequests($event)"></app-pagination>
+        </div>
+        <div class="no-result" *ngIf="!(allRequests | skillsFilter: filteredSkills |
+          statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm).length && allRequests.length"><h2>Mentee/mentor requests not found...</h2></div> 
         </div>
       </div>
     </div>
