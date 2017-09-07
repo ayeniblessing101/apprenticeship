@@ -113,14 +113,14 @@ export class RequestdetailsComponent implements OnInit {
         this.getUserInfo(this.details.mentee_id, 'mentee');
         this.getMentorInfo(this.details.interested, false);
         this.canViewInterested = (this.details.status === 'open' && this.details.interested.length &&
-                                  this.details.mentee_id === this.userId) || 
-                                 (this.details.interested.length && 
+                                  this.details.mentee_id === this.userId) ||
+                                 (this.details.interested.length &&
                                   this.auth.userInfo.roles.LENKEN_ADMIN);
 
         if (this.details.mentor_id) {
           this.getUserInfo(this.details.mentor_id, 'mentor');
         }
-        
+
         if (this.details.mentee_id === this.userId) {
           this.updater = 'mentee';
         } else {
@@ -461,5 +461,35 @@ export class RequestdetailsComponent implements OnInit {
         this.snackBarOpen(true, 'Session successfully updated!');
       })
       .catch(error => this.snackBarOpen(false, 'Unable to update session. Please try again!'));
+  }
+
+  /**
+   * Rejects a pending session
+   *
+   * @param {Event} event - event object
+   *
+   * @return {void}
+   */
+  rejectSession(event) {
+    this.segmentService.track('REJECT SESSION', {
+      rejectedBy: this.userId === this.details.mentor_id ? 'mentor' : 'mentee'
+    });
+
+    return this.sessionService
+      .rejectSession(event.sessionId, {user_id: this.userId})
+      .toPromise()
+      .then((res) => {
+        this.sessions.map((session) => {
+        if (session.id === res.id) {
+          if (this.userId === this.details.mentor_id) {
+            session.mentor_approved = false;
+          } else {
+            session.mentee_approved = false;
+          }
+          return session;
+        }
+      });
+    })
+    .catch(error => this.snackBarOpen(false, error));
   }
 }

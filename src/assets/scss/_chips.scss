@@ -16,8 +16,28 @@
   text-transform: uppercase;
 }
 
+.chip-accepted-rejected {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid $grey-light-200;
+  background-color: $grey-light-300;
+  color: #FFF;
+  border-radius: 5%;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: .5rem;
+  min-width: 70px;
+  font-size: 0.7rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .green {
   background: #73D278;
+}
+
+.red {
+  background : #EE5451;
 }
 
 .rounded-chip-open {

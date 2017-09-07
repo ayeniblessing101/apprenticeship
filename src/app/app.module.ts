@@ -62,6 +62,7 @@ import { RequestDetailMiniComponent } from './components/request-detail/request-
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 import { LogSessionDialogComponent } from './components/sessions/dialog/log-session-dialog.component';
+import { RejectSessionDialogComponent } from './components/sessions/reject-session/reject-session-dialog.component'
 import { RateSessionDialogComponent } from './components/sessions/sessions-rating/rating-dialog/rate-session-dialog.component';
 import { RatingStarComponent } from './components/sessions/sessions-rating/rating-star/rating-star.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -129,6 +130,7 @@ const appRoutes: Routes = [
     SessionsComponent,
     SkillDialogComponent,
     LogSessionDialogComponent,
+    RejectSessionDialogComponent,
     RateSessionDialogComponent,
     RatingStarComponent,
     PaginationComponent,
@@ -187,6 +189,7 @@ const appRoutes: Routes = [
     EditDialogComponent,
     SkillDialogComponent,
     LogSessionDialogComponent,
+    RejectSessionDialogComponent,
     RateSessionDialogComponent,
   ],
   bootstrap: [AppComponent],

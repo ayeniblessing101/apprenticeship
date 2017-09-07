@@ -44,11 +44,24 @@ export class SessionService {
    * @param {Number} - requestId
    * @return {Observable} sessions
    */
-  approveSession(sessionId: number, updatePayload: any): Observable<any> {
+  approveSession(sessionId: number, payload: any): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/sessions/${sessionId}/approve`, updatePayload)
+      .patch(`${this.apiBaseUrl}/sessions/${sessionId}/approve`, payload)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  /**
+   * rejects a session
+   *
+   * @param {Number} - requestId
+   * @return {Observable} sessions
+   */
+  rejectSession(sessionId: number, payload: any): Observable<any> {
+    return this.http
+      .patch(`${this.apiBaseUrl}/sessions/${sessionId}/reject`, payload)
+      .map((response) => response.json())
+      .catch((error) => Observable.throw(error.json().message));
   }
 
   /**

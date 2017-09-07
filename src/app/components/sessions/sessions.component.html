@@ -24,16 +24,22 @@
             </div>
             <div class="col-logged" *ngIf="updater === 'mentee'">
               <button class="chip rate update-btn" [disabled]="session.rating_count" (click)="openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
+              <div class="chip update-btn" *ngIf="session?.mentee_approved === null" (click)="emitApproveAction(session.id)">Approve Session</div>
+              <div class="chip reject-btn" *ngIf="session?.mentee_approved === null" (click)="openRejectSessionDialog(session.id)">Reject Session</div>
               <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
-              <div class="chip" *ngIf="!session?.mentor_approved">MENTOR PENDING</div>
+              <div class="chip-accepted-rejected red" *ngIf="session?.mentor_approved === false">MENTOR REJECTED</div>
+              <div class="chip-accepted-rejected red" *ngIf="session?.mentee_approved === false">MENTEE REJECTED</div>
+              <div class="chip" *ngIf="session?.mentor_approved === null">MENTOR PENDING</div>
               <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
-              <div class="chip update-btn" *ngIf="!session?.mentee_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
             </div>
             <div class="col-logged" *ngIf="updater === 'mentor'">
+              <div class="chip update-btn" *ngIf="session?.mentor_approved === null" (click)="emitApproveAction(session.id)">Approve Session</div>
+              <div class="chip reject-btn" *ngIf="session?.mentor_approved === null" (click)="openRejectSessionDialog(session.id)">Reject Session</div>
               <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
-              <div class="chip update-btn" *ngIf="!session?.mentor_approved" (click)="emitApproveAction(session.id)">Approve Session</div>
-              <div class="chip green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
-              <div class="chip" *ngIf="!session?.mentee_approved">MENTEE PENDING</div>
+              <div class="chip-accepted-rejected red" *ngIf="session?.mentee_approved === false">MENTEE REJECTED</div>
+              <div class="chip-accepted-rejected red" *ngIf="session?.mentor_approved === false">MENTOR REJECTED</div>
+              <div class="chip" *ngIf="session?.mentee_approved === null">MENTEE PENDING</div>
+              <div class="chip-accepted-rejected green" *ngIf="session?.mentee_approved">MENTEE LOGGED</div>
             </div>
           </div>
         </div>

@@ -71,6 +71,14 @@
   cursor: default;
 }
 
+.reject-btn {
+  cursor: pointer;
+  background: #e62229;
+  @include border-radius(3px);
+  border: 0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
 /**
  *
  * tablet

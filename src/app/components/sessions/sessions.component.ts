@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { SessionDetails } from '../../interfaces/session.interface';
 import { RateSessionDialogComponent } from './sessions-rating/rating-dialog/rate-session-dialog.component'
+import { RejectSessionDialogComponent } from './reject-session/reject-session-dialog.component'
 
 @Component({
   selector: 'app-sessions',
@@ -18,6 +19,7 @@ export class SessionsComponent {
   @Input() sessionDetails: SessionDetails;
   @Output() logSession: EventEmitter<any> = new EventEmitter();
   @Output() approveSession: EventEmitter<any> = new EventEmitter();
+  @Output() rejectSession: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private dialog: MdDialog,
@@ -42,6 +44,27 @@ export class SessionsComponent {
    */
   emitApproveAction(sessionId: number): void {
     this.approveSession.emit({ sessionId });
+  }
+
+  /**
+   * emits rejectSession event
+   *
+   * @param {Number} sessionId - ID of the session to be rejected
+   *
+   * @return {void}
+   */
+  emitRejectAction(sessionId: number): void {
+    this.rejectSession.emit({ sessionId });
+  }
+
+  /**
+   * open dialog to reject a logged session
+   */
+  openRejectSessionDialog(sessionId: number) {
+    const dialogRef = this.dialog.open(RejectSessionDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.emitRejectAction(sessionId);
+    });
   }
 
   /**
