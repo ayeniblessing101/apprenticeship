@@ -34,7 +34,7 @@
                 <p>{{ helper.joinSkills(request.request_skills, 'primary') }}</p>
               </div>
               <div *ngIf="request.interested" class="and-table-content and-table-col-10">
-                <a routerLink="/requests/{{ request.id }}">{{ request.interested.length }} Interested</a>
+                <p>{{ request.interested.length }} Interested</p>
               </div>
               <div *ngIf="!request.interested" class="and-table-content and-table-col-10">No Interested</div>
               <div class="and-table-content and-table-col-10">
