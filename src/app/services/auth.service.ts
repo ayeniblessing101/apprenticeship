@@ -42,7 +42,7 @@ export class AuthService {
    * Logout
    */
   logOut() {
-    localStorage.removeItem('id_token');
+    localStorage.clear();
     Cookie.delete('jwt-token', '/', '.andela.com');
   }
 

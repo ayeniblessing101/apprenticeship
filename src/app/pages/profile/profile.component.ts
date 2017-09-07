@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,38 +25,30 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private helper: HelperService,
     private route: ActivatedRoute
   ) {
     this.userId = this.authService.userInfo.id;
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.routeParam = params['id'] ? params['id'] : this.userId;
-      this.getUserInfo(this.routeParam);
-    });
+    this.getUserInfo();
   }
 
   /**
-   * Gets a user's information based on their userId
+   * getUserInfo
    *
-   * @param {String} userId - the id of the logged in user
-   * @return {Object}
+   * Gets a user's information from local storage
    */
-  getUserInfo(userId: string): void {
-    this.userService.getUserInfo(userId)
-      .subscribe(
-        (requests) => {
-          this.userData = requests;
-          this.skillsTitle = requests.skills.length > 1 ? 'YOUR SKILLS' : 'YOUR SKILL';
-          this.userId = requests.id;
-          this.picture = requests.picture;
-          this.firstName = requests.first_name;
-          this.fullName = requests.name;
-          this.cohort = requests.cohort.name;
-          this.loggedHours = requests.logged_hours;
-        },
-        error => this.errorMessage = <any>error
-      );
+  getUserInfo() {
+    const currentUser = this.helper.getCurrentUser();
+    this.userData = currentUser;
+    this.userId = currentUser.id;
+    this.picture = currentUser.picture;
+    this.firstName = currentUser.first_name;
+    this.fullName = currentUser.name;
+    this.cohort = currentUser.cohort.name;
+    this.skillsTitle = currentUser.skills.length > 1 ? 'YOUR SKILLS' : 'YOUR SKILL';
+    this.loggedHours = currentUser.logged_hours;
   }
 }
