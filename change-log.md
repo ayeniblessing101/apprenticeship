@@ -1,3 +1,19 @@
+ V 1.4.1
+
+## Features
+- display message if no Requests filtered on Dashboard
+- implement pagination fo "See All Requests" page for Admins
+- implement "Reject Session" functionality
+
+## Fixed Bugs
+- round off hours logged to readable format
+- fix "All Days" selection on Request form
+- fix total Requests Report numbers
+- fix location error because of invalid AIS data
+
+## Tech Debt
+- use localStorage to store current User
+
 # V 1.4.0
 
 ## Features

@@ -23,8 +23,8 @@ export class AppComponent {
       this.userService.getUserInfo(userId)
         .toPromise()
         .then((response) => {
-          const userLevel = response.level.name;
           localStorage.setItem('currentUser', JSON.stringify(response));
+          const userLevel = response.level.name ? response.level.name : '<not available>';
           segmentService.track('LOGGED IN', { fellowLevel: userLevel });
         })
         .catch(() => {});
