@@ -88,12 +88,11 @@ export class SessionsComponent {
     return this.getMentorshipDaysLeft() < 0;
   }
 
-  /**
+ /**
    * open dialog to rate a logged session
    */
   openRateSessionDialog(session) {
-    if (session.mentee_approved) {
-      this.dialog.open(RateSessionDialogComponent, { data: session })
+    this.dialog.open(RateSessionDialogComponent, { data: session })
         .afterClosed().toPromise()
         .then((result) => {
           if (result) {
@@ -101,8 +100,5 @@ export class SessionsComponent {
             ratedSession.rating_count = 1;
           }
         })
-    } else {
-      this.snackbar.open('Please approve the session first', 'Close', { duration: 3000 });
     }
-  }
 }

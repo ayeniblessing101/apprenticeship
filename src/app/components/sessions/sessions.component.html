@@ -23,7 +23,8 @@
                 </span>
             </div>
             <div class="col-logged" *ngIf="updater === 'mentee'">
-              <button class="chip rate update-btn" [disabled]="session.rating_count" (click)="openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
+              <button class="chip rate update-btn" [disabled]="session.rating_count" *ngIf="session.mentor_approved && session.mentee_approved" 
+              (click)="openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
               <div class="chip update-btn" *ngIf="session?.mentee_approved === null" (click)="emitApproveAction(session.id)">Approve Session</div>
               <div class="chip reject-btn" *ngIf="session?.mentee_approved === null" (click)="openRejectSessionDialog(session.id)">Reject Session</div>
               <div class="chip green" *ngIf="session?.mentor_approved">MENTOR LOGGED</div>
