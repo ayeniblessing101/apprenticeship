@@ -5,7 +5,7 @@
         <div class="and-filter">
          <app-filters [filtersObject]="mentorFilters" (onChecked)="mentorFilter($event)"></app-filters>
         </div>
-        <div class="and-list">
+        <div class="and-list" *ngIf="(requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses | interestFilter: filteredInterest).length">
           <div class="and-table-container">
             <!--Table Header-->
             <div class="and-table-head-row">
@@ -19,7 +19,7 @@
                 STATUS
               </div>
               <div class="and-table-heading and-table-col-20">
-                INTERESTED
+                SELECTED
               </div>
               <div class="and-table-heading and-table-col-20">
                 DURATION
@@ -27,9 +27,12 @@
             </div>
 
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills | interestFilter: filteredInterest)" routerLink="/requests/{{ request.id }}">
+            <div class="and-table-row" *ngFor="let request of (requests | statusFilter: checkedStatuses | skillsFilter: filteredSkills | interestFilter: filteredInterest
+              | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems})"
+             routerLink="/requests/{{ request.id }}">
                 <div class="and-table-content and-table-col-30">
                     <span class="date-created-small-7">Requested <strong>{{ request.created_at | amTimeAgo }}</strong></span>
+                    
                     <p>{{ request.title }}</p>
                     <span class="requester-small-7">by <strong>{{ getMenteeName(request.mentee_email) }}</strong></span>
                 </div>
@@ -42,15 +45,19 @@
                     <p>{{ request.status.toUpperCase() }}</p>
                 </div>
                 <div class="and-table-content and-table-col-20">
-                    <p><i class="material-icons" id="done">done</i>
-                        <i class="material-icons" id="clear">clear</i></p>
+                    <p *ngIf="(request.mentor_id === userId && request.status === 'matched')"><i class="material-icons" id="done">done</i></p>
+                    <p *ngIf="(request.mentor_id !== userId && request.status === 'matched')"><i class="material-icons" id="clear">clear</i></p>
+                    <p *ngIf="(request.status === 'open')"><i class="material-icons" id="remove">remove</i></p>
+                    <p *ngIf="(request.status === 'cancelled')"><i class="material-icons" id="cancel">cancel</i></p>
                 </div>
                 <div class="and-table-content and-table-col-20">
                     <p>{{ request.duration }} {{ formatMonth(request.duration) }}</p>
                 </div>
             </div>
+            <app-pagination (pageChange)="getMentorRequests($event)"></app-pagination>
           </div>
         </div>
+        <div class="no-result" *ngIf="!(requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses | interestFilter: filteredInterest ).length && requests"><h2>No request found......</h2></div>
       </div>
     </div>
   </div>

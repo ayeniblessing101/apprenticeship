@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { AuthService } from '../../services/auth.service';
 import { FilterService } from '../../services/filter.service';
@@ -31,6 +31,9 @@ export class MentorComponent implements OnInit, OnDestroy {
     Status: [],
     Interested: [],
   };
+  @Input() totalItems;
+  @Input() currentPage;
+  @Input() itemsPerPage;
 
   constructor(
     private requestService: RequestService,
@@ -46,7 +49,7 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getMentorRequests(this.limit);
+    this.getMentorRequests(this.currentPage);
     this.getUserSkills();
     this.getStatus();
     this.getInterested();
@@ -61,15 +64,17 @@ export class MentorComponent implements OnInit, OnDestroy {
   /**
    * gets all Mentor requests from request service
    *
-   * @param {Number} limit - number of requests to return
+   * @param {Number} page - page number
    * @return {Void}
    */
-  getMentorRequests(limit: number): void {
-    this.requestSubscription = this.requestService.getMentorRequests(limit)
-      .subscribe(
-        requests => this.requests = requests,
-        error => this.errorMessage = <any>error,
-      );
+  getMentorRequests(page: number): void {
+    this.currentPage = page;
+    this.requestSubscription = this.requestService.getMentorRequests(20, page)
+    .subscribe((requests) => {
+      this.requests = requests.data;
+      this.itemsPerPage = requests.pagination.pageSize;
+      this.totalItems = requests.pagination.totalCount;
+    });
   }
 
   /**
@@ -161,8 +166,11 @@ export class MentorComponent implements OnInit, OnDestroy {
         this.checkedStatuses.splice(pos, 1);
       }
     } else if (eventData.filterName === 'Interested') {
-      if (eventData.type) {
+      if (eventData.eventType) {
         this.filteredInterest.push(eventData.itemName);
+      } else {
+        const pos = this.filteredInterest.indexOf(eventData.itemName);
+        this.filteredInterest.splice(pos, 1);
       }
     }
   }
