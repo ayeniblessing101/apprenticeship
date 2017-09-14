@@ -1,6 +1,15 @@
- V 1.4.1
+# V 1.4.2
 
 ## Features
+- show only Requests a Mentor indicated in on "My Interests" page
+
+## Fixed Bugs
+- fix Mentee being able to rate rejected Sessions
+- fix pending status which shows on logged Sessions
+
+# V 1.4.1
+
+## Feature:s
 - display message if no Requests filtered on Dashboard
 - implement pagination fo "See All Requests" page for Admins
 - implement "Reject Session" functionality

@@ -401,6 +401,16 @@ export class RequestdetailsComponent implements OnInit {
         } else if (!res.status) {
           res.date = new Date(res.date);
           this.sessions.push(res);
+          this.sessions.map((session) => {
+            if (session.id === res.id) {
+              if (this.userId === this.details.mentor_id) {
+                session.mentee_approved = null;
+              } else {
+                session.mentor_approved = null;
+              }
+              return session;
+            }            
+          });
           this.snackBarOpen(true, 'Session successfully saved');
         } else {
           this.snackBarOpen(false, 'Failed to save session. Please try again!');
@@ -443,21 +453,24 @@ export class RequestdetailsComponent implements OnInit {
    * @param {Event} event - event object
    */
   approveSession(event) {
-    const updatePayload = {
-      user_id: this.userId,
-    };
-
     this.segmentService.track('APPROVE SESSION', {
         approvedBy: this.userId === this.details.mentor_id ? 'mentor' : 'mentee'
       });
 
     return this.sessionService
-      .approveSession(event.sessionId, updatePayload)
+      .approveSession(event.sessionId, {user_id: this.userId})
       .toPromise()
       .then((res) => {
-        const session = this.sessions.find(eachSession => eachSession.id === res.id);
-        session.mentee_log_at = res.mentee_log_at;
-        this.getSessions(this.details.id, this.include.join(','));
+        this.sessions.map((session) => {
+          if (session.id === res.id) {
+            if (this.userId === this.details.mentor_id) {
+              session.mentor_approved = true;
+            } else {
+              session.mentee_approved = true;
+            }
+            return session;
+          }
+        });
         this.snackBarOpen(true, 'Session successfully updated!');
       })
       .catch(error => this.snackBarOpen(false, 'Unable to update session. Please try again!'));
