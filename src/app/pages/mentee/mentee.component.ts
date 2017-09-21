@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { SkillService } from '../../services/skill.service';
@@ -14,39 +14,56 @@ export class MenteeComponent implements OnInit {
   private limit: number;
 
   requests: any;
-  filteredSkills: any[] = [];
-  checkedStatuses: any[] = [];
+  selectedSkillsId: any[] = [];
+  selectedStatusesId: any[] = [];
   menteeFilters: any = {
     Primary: [],
     Status: [],
   };
 
+  loading: boolean;
+  @Input() currentPage;
+  @Input() itemsPerPage;
+  @Input() totalItems;
+
   constructor(
     private requestService: RequestService,
-    private filterService: FilterService,
     private skillService: SkillService,
     public helper: Helper,
-  ) {
-    this.limit = 20;
-  }
+  ) {}
 
   ngOnInit() {
-    this.getMenteeRequests();
+    this.getMenteeRequests(this.currentPage);
     this.getSkills();
     this.getStatus();
+    this.loading = false;
   }
 
   /**
-   * gets 20 requests belonging to a particular mentee from the Lenken API service
+   * Gets 20 requests belonging to a particular mentee from the Lenken API service
    *
-   * @return {Null}
+   * @param {Number} page - the page number to view.
    */
-  getMenteeRequests() {
-    this.requestService.getMenteeRequests(this.limit)
-      .subscribe(
-        requests => this.requests = requests,
-        error => this.errorMessage = <any>error,
-      );
+  getMenteeRequests(page: number) {
+    this.currentPage = page;
+    this.loading = true;
+    let params = {
+      skills:this.selectedSkillsId,
+      status:this.selectedStatusesId,
+      mentee: true,
+    };
+
+    this.requestService.getRequests(20, page, params)
+      .toPromise()
+      .then(
+        (response) => {
+          this.loading = false;
+          this.requests = response.requests,
+          this.itemsPerPage = response.pagination['pageSize'],
+          this.totalItems = response.pagination['totalCount']
+        },
+      )
+      .catch(error => this.errorMessage = error);
   }
 
   /**
@@ -87,19 +104,21 @@ export class MenteeComponent implements OnInit {
     if (eventData.filterName === 'Primary') {
       // toggle clicked primary skill
       if (eventData.eventType) {
-        this.filteredSkills.push(eventData.itemName);
+        this.selectedSkillsId.push(eventData.itemId);
       } else {
-        const pos = this.filteredSkills.indexOf(eventData.itemName);
-        this.filteredSkills.splice(pos, 1);
+        const pos = this.selectedSkillsId.indexOf(eventData.itemId);
+        this.selectedSkillsId.splice(pos, 1);
       }
     } else if (eventData.filterName === 'Status') {
       // toggle clicked status
       if (eventData.eventType) {
-        this.checkedStatuses.push(eventData.itemName);
+        this.selectedStatusesId.push(eventData.itemId);
       } else {
-        const pos = this.checkedStatuses.indexOf(eventData.itemName);
-        this.checkedStatuses.splice(pos, 1);
+        const pos = this.selectedStatusesId.indexOf(eventData.itemId);
+        this.selectedStatusesId.splice(pos, 1);
       }
     }
+
+    this.getMenteeRequests(1);
   }
 }

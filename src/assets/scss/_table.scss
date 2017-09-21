@@ -104,3 +104,9 @@
 
   &:not(:last-child) {margin-right: 10px;}
 }
+
+.no-result {
+  padding-top: 100px;
+  padding-left: 400px;
+  color: $filter-top-level;
+}

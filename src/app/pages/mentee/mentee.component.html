@@ -6,7 +6,7 @@
         <div class="and-filter">
           <app-filters [filtersObject]="menteeFilters" (onChecked)="menteeFilter($event)"></app-filters>
         </div>
-        <div class="and-list">
+        <div class="and-list" *ngIf="requests?.length > 0">
           <div class="and-table-container">
             <!--Table Header-->
             <div class="and-table-head-row">
@@ -24,9 +24,13 @@
               </div>
             </div>
 
+            <div *ngIf="loading" class="loader">
+              <md-spinner></md-spinner>
+            </div>
+
             <!--Table Row-->
-            <div class="and-table-row" *ngFor="let request of (requests | skillsFilter: filteredSkills | statusFilter: checkedStatuses)"
-              routerLink="/requests/{{ request.id }}">
+            <div class="and-table-row" *ngFor="let request of (requests | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage,
+             totalItems: totalItems })" routerLink="/requests/{{request.id}}">
               <div class="and-table-content and-table-col-40">
                 <p>{{ request.title }}</p>
               </div>
@@ -42,9 +46,13 @@
               </div>
             </div>
           </div>
+          <app-pagination (pageChange)="getMenteeRequests($event)"></app-pagination>
+        </div>
+        <div class="no-result" *ngIf="requests?.length == 0">
+          <h2>There are no requests for this option</h2>
         </div>
       </div>
     </div>
   </div>
-  
+
 </app-header>
