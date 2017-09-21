@@ -13,27 +13,25 @@ import { HelperService as Helper } from '../../services/helper.service';
 export class MentorComponent implements OnInit, OnDestroy {
   private limit: number;
   errorMessage: string;
-  interested: any[] = [];
   requests: any;
   userId: string;
 
-  filteredSkills: any[] = [];
-  checkedStatuses: any[] = [];
-  filteredInterest: any[] = [];
+  selectedSkillsId: any[] = [];
+  selectedStatusesId: any[] = [];
 
-  requestSubscription: any;
   skillFilterSubscription: any;
   statusFilterSubscription: any;
 
   autoFilterStatus: boolean;
   mentorFilters: any = {
     Primary: [],
-    Status: [],
-    Interested: [],
+    Status: []
   };
-  @Input() totalItems;
+
+  loading: boolean;
   @Input() currentPage;
   @Input() itemsPerPage;
+  @Input() totalItems;
 
   constructor(
     private requestService: RequestService,
@@ -45,36 +43,44 @@ export class MentorComponent implements OnInit, OnDestroy {
     this.limit = 10;
     this.autoFilterStatus = true;
     this.userId = this.authService.userInfo.id;
-    this.interested.push({ name: 'Yes' });
   }
 
   ngOnInit() {
     this.getMentorRequests(this.currentPage);
     this.getUserSkills();
     this.getStatus();
-    this.getInterested();
   }
 
   ngOnDestroy() {
-    this.requestSubscription.unsubscribe();
     this.skillFilterSubscription.unsubscribe();
     this.statusFilterSubscription.unsubscribe();
   }
 
   /**
-   * gets all Mentor requests from request service
+   * Get 20 requests from the Lenken API service
    *
-   * @param {Number} page - page number
-   * @return {Void}
+   * @param {Number} page - the page number to view.
    */
-  getMentorRequests(page: number): void {
+  getMentorRequests(page: number) {
     this.currentPage = page;
-    this.requestSubscription = this.requestService.getMentorRequests(20, page)
-    .subscribe((response) => {
-      this.requests = response.requests;
-      this.itemsPerPage = response.pagination.pageSize;
-      this.totalItems = response.pagination.totalCount;
-    });
+    this.loading = true;
+    let params = {
+      skills: this.selectedSkillsId,
+      status: this.selectedStatusesId,
+      mentor: true
+    };
+
+    this.requestService.getRequests(20, page, params)
+      .toPromise()
+      .then(
+        (response) => {
+          this.loading = false;
+          this.requests = response.requests,
+            this.itemsPerPage = response.pagination['pageSize'],
+            this.totalItems = response.pagination['totalCount']
+        },
+      )
+      .catch(error => this.errorMessage = error);
   }
 
   /**
@@ -122,15 +128,6 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * getInterested
-   *
-   * gets statuses from the Lenken API service
-   */
-  getInterested() {
-    this.mentorFilters['Interested'] = this.interested;
-  }
-
-  /**
   * This singularizes or pluralarizes the months on the duration column
   *
   * @param {number} numOfMonths
@@ -152,26 +149,22 @@ export class MentorComponent implements OnInit, OnDestroy {
     if (eventData.filterName === 'Primary') {
       // toggle clicked primary skill
       if (eventData.eventType) {
-        this.filteredSkills.push(eventData.itemName);
+        this.selectedSkillsId.push(eventData.itemId);
       } else {
-        const pos = this.filteredSkills.indexOf(eventData.itemName);
-        this.filteredSkills.splice(pos, 1);
+        const pos = this.selectedSkillsId.indexOf(eventData.itemId);
+        this.selectedSkillsId.splice(pos, 1);
       }
+
     } else if (eventData.filterName === 'Status') {
       // toggle clicked status
       if (eventData.eventType) {
-        this.checkedStatuses.push(eventData.itemName);
+        this.selectedStatusesId.push(eventData.itemId);
       } else {
-        const pos = this.checkedStatuses.indexOf(eventData.itemName);
-        this.checkedStatuses.splice(pos, 1);
-      }
-    } else if (eventData.filterName === 'Interested') {
-      if (eventData.eventType) {
-        this.filteredInterest.push(eventData.itemName);
-      } else {
-        const pos = this.filteredInterest.indexOf(eventData.itemName);
-        this.filteredInterest.splice(pos, 1);
+        const pos = this.selectedStatusesId.indexOf(eventData.itemId);
+        this.selectedStatusesId.splice(pos, 1);
       }
     }
+
+    this.getMentorRequests(1);
   }
 }
