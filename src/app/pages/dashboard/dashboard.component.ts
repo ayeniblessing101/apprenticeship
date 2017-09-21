@@ -17,8 +17,8 @@ import { SegmentService } from '../../services/segment.service';
 export class DashboardComponent implements OnInit {
   errorMessage: string;
   requests: any;
-  filteredSkills: any[] = [];
-  checkedStatuses: any[] = [];
+  selectedSkillsId: any[] = [];
+  selectedStatusesId: any[] = [];
   autoFilterStatus: boolean;
   dashBoardFilters: any = {
     Primary: [],
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   @Input() totalItems;
   userId: string;
   userLevel: string;
-  
+
   constructor(
     private requestService: RequestService,
     private filterService: FilterService,
@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
     this.getSkills();
     this.getStatus();
   }
+
   /**
    * Get 20 requests from the Lenken API service
    *
@@ -65,20 +66,22 @@ export class DashboardComponent implements OnInit {
   getRequests(page: number) {
     this.currentPage = page;
     this.loading = true;
+    let params = {
+      skills: this.selectedSkillsId,
+      status: this.selectedStatusesId,
+    };
 
-    this.requestService.getRequests(20, page)
+    this.requestService.getRequests(20, page, params)
       .toPromise()
       .then(
-        (requests) => {
+        (response) => {
           this.loading = false;
-          this.requests = requests.data,
-          this.itemsPerPage = requests.pagination["pageSize"],
-          this.totalItems = requests.pagination["totalCount"]
+          this.requests = response.requests,
+          this.itemsPerPage = response.pagination['pageSize'],
+          this.totalItems = response.pagination['totalCount']
         },
       )
-      .catch(
-        error => this.errorMessage = error
-      );
+      .catch(error => this.errorMessage = error);
   }
 
    /**
@@ -120,19 +123,22 @@ export class DashboardComponent implements OnInit {
     if (eventData.filterName === 'Primary') {
       // toggle clicked primary skill
       if (eventData.eventType) {
-        this.filteredSkills.push(eventData.itemName);
+        this.selectedSkillsId.push(eventData.itemId);
       } else {
-        const pos = this.filteredSkills.indexOf(eventData.itemName);
-        this.filteredSkills.splice(pos, 1);
+        const pos = this.selectedSkillsId.indexOf(eventData.itemId);
+        this.selectedSkillsId.splice(pos, 1);
       }
+
     } else if (eventData.filterName === 'Status') {
       // toggle clicked status
       if (eventData.eventType) {
-        this.checkedStatuses.push(eventData.itemName);
+        this.selectedStatusesId.push(eventData.itemId);
       } else {
-        const pos = this.checkedStatuses.indexOf(eventData.itemName);
-        this.checkedStatuses.splice(pos, 1);
+        const pos = this.selectedStatusesId.indexOf(eventData.itemId);
+        this.selectedStatusesId.splice(pos, 1);
       }
     }
+
+    this.getRequests(1);
   }
 }

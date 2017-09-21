@@ -92,11 +92,11 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     this.loading = true;
   
     this.requestSubscription = this.requestService.getRequests(10, page)
-      .subscribe((requests) => {
+      .subscribe((response) => {
         this.loading = false;
-        this.extractRequest(requests.data);
-        this.itemsPerPage = requests.pagination.pageSize;
-        this.totalItems = requests.pagination.totalCount;
+        this.extractRequest(response.requests);
+        this.itemsPerPage = response.pagination.pageSize;
+        this.totalItems = response.pagination.totalCount;
       });
   }
 

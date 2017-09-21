@@ -54,22 +54,32 @@ export class RequestService {
    * Return latest mentorship requests
    *
    * @param Number Limit number of requests to return
+   * @param Number Page current pagination page
+   * @param Object Params get parameters
    *
    * @return Observable containing latest requests
    */
-  getRequests(limit: number, page?: number): Observable<any> {
+  getRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?limit=${limit}&page=${page}`)
-      .map(
-        (res: Response) => {
-          return res.json();
-        }
-      )
-      .catch(
-        (error) => {
-          return Observable.throw(error.json());
-        }
+      .get(`${this.apiBaseUrl}/requests?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()),
       );
+  }
+
+  /**
+   * Return encoded GET querystring
+   *
+   * @param Object data parameters
+   *
+   * @return String
+   */
+  getEncodedParameters(params){
+    let paramValues = new URLSearchParams();
+    for(let key in params){
+      paramValues.set(key, params[key])
+    }
+    return paramValues.toString();
   }
 
   /**

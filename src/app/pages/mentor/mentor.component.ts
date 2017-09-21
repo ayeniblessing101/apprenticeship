@@ -70,10 +70,10 @@ export class MentorComponent implements OnInit, OnDestroy {
   getMentorRequests(page: number): void {
     this.currentPage = page;
     this.requestSubscription = this.requestService.getMentorRequests(20, page)
-    .subscribe((requests) => {
-      this.requests = requests.data;
-      this.itemsPerPage = requests.pagination.pageSize;
-      this.totalItems = requests.pagination.totalCount;
+    .subscribe((response) => {
+      this.requests = response.requests;
+      this.itemsPerPage = response.pagination.pageSize;
+      this.totalItems = response.pagination.totalCount;
     });
   }
 

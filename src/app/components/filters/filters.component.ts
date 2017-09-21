@@ -83,7 +83,7 @@ export class FiltersComponent implements OnInit {
       this.icon4Name = this.icon4Name === 'expand_more' ? 'expand_less' : 'expand_more';
     } else if (itemClickedIndex === 5) {
       this.icon5Name = this.icon5Name === 'expand_more' ? 'expand_less' : 'expand_more';
-    } 
+    }
   }
 
   ngOnInit() {
@@ -111,7 +111,7 @@ export class FiltersComponent implements OnInit {
     );
     const eventData = {
       eventType: event.checked || event.value,
-      itemName: item.name,
+      itemId:item.id,
       filterName: key,
     };
 
@@ -120,10 +120,10 @@ export class FiltersComponent implements OnInit {
 
   /**
    * endTyping
-   * 
+   *
    * sends track event to segment when user blurs out
    * of input field
-   * 
+   *
    * @returns {void}
    */
   endTyping() {
