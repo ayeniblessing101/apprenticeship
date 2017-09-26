@@ -91,8 +91,8 @@ const appRoutes: Routes = [
   { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
   { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
-  { path: 'mentee', component: MenteeComponent, canActivate: [AuthGuard] },
-  { path: 'mentor', component: MentorComponent, canActivate: [AuthGuard] },
+  { path: 'my-requests', component: MenteeComponent, canActivate: [AuthGuard] },
+  { path: 'my-interests', component: MentorComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {
     path: 'settings',
