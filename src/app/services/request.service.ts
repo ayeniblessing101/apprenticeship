@@ -92,7 +92,7 @@ export class RequestService {
   searchRequests(searchTerm: any): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/requests?q=${searchTerm}`)
-      .map(this.extractData)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 

@@ -12,8 +12,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AdminRequestsComponent implements OnInit, OnDestroy {
   private errorMessage: string;
-  allRequests: any= [];
-  allRequestsIds: any[] =  [];
+  requests: any= [];
+  requestsIds: any[] =  [];
   requestedBy: string;
   loading: boolean;
   dateRange: number;
@@ -21,6 +21,8 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   dateRangeMap = [];
   limit: number;
   searchInput: any;
+  selectedSkillsId: any[] = [];
+  selectedStatusesId: any[] = [];
   showLabel: boolean = false;
   showSearch: boolean = true;
   filteredSkills: any[] = [];
@@ -41,6 +43,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   requestSubscription: any;
   statusFilterSubscription: any;
   skillsFilterSubscription: any;
+  params: any= {};
 
   constructor(
     private requestService: RequestService,
@@ -90,8 +93,10 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   getRequests(page: number): void {
     this.currentPage = page;
     this.loading = true;
-  
-    this.requestSubscription = this.requestService.getRequests(10, page)
+    this.params['skills'] = this.selectedSkillsId;
+    this.params['status'] = this.selectedStatusesId;
+    this.params['period']= this.dateRange;
+    this.requestSubscription = this.requestService.getRequests(20, page, this.params)
       .subscribe((response) => {
         this.loading = false;
         this.extractRequest(response.requests);
@@ -107,21 +112,16 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    * @return {Void}
    */
   searchRequests(term:string):void {
+    this.currentPage = 1;
     this.searchTerm = term;
-    this.requestService.searchRequests(this.searchTerm)
-    .toPromise()
-    .then(
-      (requests) => {
-        this.loading = false;
-        this.showLabel = true;
-        this.extractRequest(requests);
-      }
-    )
-    .catch(
-      (error) => {
-        this.errorMessage = <any>error
-      },
-    )
+    this.params['q'] = this.searchTerm;
+    this.requestSubscription = this.requestService.getRequests(20, this.currentPage, this.params)
+      .subscribe((response) => {
+        this.loading = false;        
+        this.extractRequest(response.requests);
+        this.itemsPerPage = response.pagination.pageSize;
+        this.totalItems = response.pagination.totalCount;
+      });
   }
 
   /**
@@ -132,18 +132,17 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    */
   extractRequest(requestsArray) {
     let newRequestIds = [];
-    this.allRequests = [];
-    this.allRequestsIds = this.getRequestId(this.allRequests);
+    this.requests = [];
+    this.requestsIds = this.getRequestId(this.requests);
     newRequestIds = this.getRequestId(requestsArray);
-
     newRequestIds.forEach((id) => {
-      if (!this.allRequestsIds.includes(id)) {
+      if (!this.requestsIds.includes(id)) {
         const newResult = requestsArray.filter((result) => {
           return result.id === id;
         });
 
-        this.allRequests.push(newResult[0]);
-        this.allRequestsIds.push(id);
+        this.requests.push(newResult[0]);
+        this.requestsIds.push(id);
       }
     });
   }
@@ -248,27 +247,28 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   adminFilter(eventData) {
     if (eventData.filterName === 'Primary') {
       if (eventData.eventType) {
-        this.filteredSkills.push(eventData.itemName);
+        this.selectedSkillsId.push(eventData.itemId);
       } else {
-        const pos = this.filteredSkills.indexOf(eventData.itemName);
-        this.filteredSkills.splice(pos, 1);
+        const pos = this.selectedSkillsId.indexOf(eventData.itemId);
+        this.selectedSkillsId.splice(pos, 1);
       }
     } else if (eventData.filterName === 'Status') {
       if (eventData.eventType) {
-        this.checkedStatuses.push(eventData.itemName);
+        this.selectedStatusesId.push(eventData.itemId);
       } else {
-        const pos = this.checkedStatuses.indexOf(eventData.itemName);
-        this.checkedStatuses.splice(pos, 1);
+        const pos = this.selectedStatusesId.indexOf(eventData.itemId);
+        this.selectedStatusesId.splice(pos, 1);
       }
     } else if (eventData.filterName === 'Date') {
-      this.dateRange = this.dateFilters[eventData.itemName];
+      this.dateRange = this.dateFilters[eventData.itemValue];
     } else if (eventData.filterName === 'Role') {
       if (eventData.eventType) {
-        this.roles.push(eventData.itemName);
+        this.roles.push(eventData.itemId);
       } else {
-        const pos = this.roles.indexOf(eventData.itemName);
+        const pos = this.roles.indexOf(eventData.itemId);
         this.roles.splice(pos, 1);
       }
     }
+    this.getRequests(1);
   }
 }

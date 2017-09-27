@@ -9,10 +9,8 @@
           <div *ngIf="loading" class="loader">
             <md-spinner></md-spinner>
           </div>
-          <div *ngIf="(allRequests | skillsFilter: filteredSkills |
-          statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm).length">
-          <md-card  *ngFor="let request of (allRequests | skillsFilter: filteredSkills |
-            statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm |
+          <div *ngIf="requests.length">
+          <md-card  *ngFor="let request of (requests |
             paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems})">
             <md-card-header class="card-header">
               <span class="status small-7" [ngClass]="getStatusClass(request.status)">{{ request.status }}</span>
@@ -33,8 +31,7 @@
           </md-card>
           <app-pagination (pageChange)="getRequests($event)"></app-pagination>
         </div>
-        <div class="no-result" *ngIf="!(allRequests | skillsFilter: filteredSkills |
-          statusFilter: checkedStatuses | dateRangeFilter: dateRange | roleFilter: roles: searchTerm).length && allRequests.length"><h2>Mentee/mentor requests not found...</h2></div> 
+        <div class="no-result" *ngIf="!requests.length && !loading"><h2>Mentee/mentor requests not found...</h2></div> 
         </div>
       </div>
     </div>

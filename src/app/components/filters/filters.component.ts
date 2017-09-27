@@ -111,7 +111,8 @@ export class FiltersComponent implements OnInit {
     );
     const eventData = {
       eventType: event.checked || event.value,
-      itemId:item.id,
+      itemId: item.id,
+      itemValue: item.name,
       filterName: key,
     };
 
