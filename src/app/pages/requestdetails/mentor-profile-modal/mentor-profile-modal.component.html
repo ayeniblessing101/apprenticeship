@@ -1,0 +1,32 @@
+<md-dialog-content>
+    <div class="mentor-modal">
+        <div class="image-container">
+            <div class="top">
+                <div class="md-btn-close-position">
+                    <button md-raised-button class="md-btn-close" (click)="dialogRef.close()">X</button>
+                </div>
+            </div>
+            <div class="profile-image" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
+        </div>
+
+    <md-card-footer class="md-footer" *ngIf="mentor">
+        <h4 class="username">{{ fullName }}</h4>
+
+        <p class="center-text">Mentorship Hours Logged: {{ loggedHours | number:'1.0-2' }}<span *ngIf="!loggedHours">0</span></p>
+        <div class="skills">
+            <h5 *ngIf="mentor.skills.length">{{ skillsTitle }}</h5>
+            <span *ngFor="let skill of mentor.skills" class="chip">{{ skill.name }}</span>
+        </div>
+    </md-card-footer>
+    </div>
+</md-dialog-content>
+
+<div class="md-select-button">
+    <app-select-mentor-button
+            [details]="request.requestDetails"
+            [mentor]="request.mentorDetails"
+            [loading]="loading"
+            [userId]="userId"
+            >
+    </app-select-mentor-button>
+</div>

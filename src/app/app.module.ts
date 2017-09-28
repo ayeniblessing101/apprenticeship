@@ -66,6 +66,8 @@ import { RejectSessionDialogComponent } from './components/sessions/reject-sessi
 import { RateSessionDialogComponent } from './components/sessions/sessions-rating/rating-dialog/rate-session-dialog.component';
 import { RatingStarComponent } from './components/sessions/sessions-rating/rating-star/rating-star.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { SelectMentorButtonComponent } from './pages/requestdetails/select-mentor-button/select-mentor-button.component';
+import { MentorProfileModalComponent } from './pages/requestdetails/mentor-profile-modal/mentor-profile-modal.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -137,6 +139,8 @@ const appRoutes: Routes = [
     SettingsComponent,
     NotificationSettingsComponent,
     SettingsNavigationComponent,
+    SelectMentorButtonComponent,
+    MentorProfileModalComponent,
 
     // pipes
     SkillsPipe,
@@ -191,6 +195,7 @@ const appRoutes: Routes = [
     LogSessionDialogComponent,
     RejectSessionDialogComponent,
     RateSessionDialogComponent,
+    MentorProfileModalComponent,
   ],
   bootstrap: [AppComponent],
 })

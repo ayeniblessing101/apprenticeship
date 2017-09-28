@@ -8,6 +8,7 @@ import { SessionService } from '../../services/session.service';
 import { CancelRequestDialogComponent } from '../cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from '../../components/dialog-modal/dialog-modal.component';
 import { LogSessionDialogComponent } from '../../components/sessions/dialog/log-session-dialog.component';
+import { MentorProfileModalComponent } from './mentor-profile-modal/mentor-profile-modal.component';
 import { SessionDetails } from '../../interfaces/session.interface';
 import { EditDialogComponent } from '../editrequest/edit-request.component';
 import { NotificationService } from '../../services/notifications.service';
@@ -27,7 +28,6 @@ export class RequestdetailsComponent implements OnInit {
   requestId: number;
   interestedMentors: Array<Object>;
   msg: string;
-  currentMentorButton: string = '';
   matchedMentor: {};
   sessions: any[];
   sessionDetails: SessionDetails;
@@ -177,54 +177,20 @@ export class RequestdetailsComponent implements OnInit {
   }
 
   /**
-   * opens dialog modal and triggers selectMentor()
-   *
-   * @param {Object} mentorDetail - mentor detail object
+   * Opens mentor profile modal
+   * 
+   * @param {Object} mentor - object containing mentor details
+   * 
    * @return {Null}
    */
-  openModal(mentorDetail: Object) {
-    const dialogRef = this.dialog.open(DialogModalComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) this.selectMentor(result, mentorDetail);
+  openMentorProfile(mentor: any): void {
+    this.dialog.open(MentorProfileModalComponent, {
+      data: {
+        mentorDetails: mentor,
+        requestDetails: this.details,
+      }
     });
-  }
-
-  /**
-   * matches a mentor to a mentee via request service
-   *
-   * @param {Event} status
-   * @param {Object} mentorDetail
-   * @return {Null}
-   */
-  selectMentor(status: boolean, mentorDetail: any): void {
-    if (!status) return;
-    const currentDate = Math.ceil(Date.now() / 1000);
-    this.loading.selectMentor = true;
-    this.currentMentorButton = mentorDetail.name;
-    const requestUpdate = {
-      mentor_id: mentorDetail.id,
-      mentee_name: this.auth.userInfo.name,
-      match_date: currentDate
-    };
-
-    this.requestService.matchMenteeRequest(this.requestId, requestUpdate)
-      .toPromise()
-      .then((res) => {
-        delete this.loading.selectMentor;
-        this.matchedMentor = mentorDetail;
-        this.msg = `Thank you. You have been matched with ${mentorDetail['name']}!`;
-        this.snackBarOpen(true, this.msg)
-          .afterDismissed()
-          .subscribe(() => {
-            this.router.navigate(['/dashboard'], { queryParams: { refresh: 'dashboard'}});
-          });
-      })
-      .catch((error) => {
-        delete this.loading.selectMentor;
-        this.msg = 'Failed to Match Request! Try again.';
-        this.snackBarOpen(false, this.msg);
-      });
-  }
+}
 
   /**
    * fetches the request details returned by the request service
@@ -409,7 +375,7 @@ export class RequestdetailsComponent implements OnInit {
                 session.mentor_approved = null;
               }
               return session;
-            }            
+            }
           });
           this.snackBarOpen(true, 'Session successfully saved');
         } else {

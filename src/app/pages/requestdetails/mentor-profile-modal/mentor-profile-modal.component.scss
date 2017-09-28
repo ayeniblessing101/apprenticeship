@@ -1,0 +1,20 @@
+@import '../../../../assets/scss/buttons';
+
+.mentor-modal{
+max-width: 700px;
+}
+
+.md-btn-close {
+background-color: $andela-blue;
+min-width: initial;
+color: white;
+}
+
+.md-btn-close-position {
+position: fixed;
+margin-left: 51.5%
+}
+
+.md-select-button {
+text-align: center;
+}
