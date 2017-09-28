@@ -195,6 +195,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     switch (status.toLowerCase()) {
       case 'open': statusClass = 'rounded-chip-open'; break;
       case 'closed': statusClass = 'rounded-chip-closed'; break;
+      case 'cancelled': statusClass = 'rounded-chip-cancelled'; break;
       default: statusClass = 'rounded-chip-matched';
     }
 
