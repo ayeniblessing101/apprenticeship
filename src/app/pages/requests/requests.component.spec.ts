@@ -109,6 +109,17 @@ describe('RequestsComponent', () => {
     expect(component.skills.length).toEqual(3);
   }));
 
+  it('should change text of button when button is clicked', fakeAsync(() => {
+    submitBtn.click();
+    fixture.whenStable()
+       .then(() => {
+         expect(component.buttonText).toEqual('Creating Request...');
+       }).catch(err => {
+         expect(component.buttonText).toEqual('Creating Request');
+         expect(component.snackBarConfig.duration).toEqual(3000);
+       });
+    }));
+
   it('should call requestMentor() method on form submit', fakeAsync(() => {
     let requestMentorSpy = spyOn(component, 'requestMentor');
 

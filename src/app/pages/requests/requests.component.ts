@@ -34,6 +34,7 @@ export class RequestsComponent implements OnInit {
   selection: Array<string>;
   sessionDetails: SessionDetails;
   allDays = false;
+  buttonText: string;
 
   logSingleString = '';
   logMultipleString = '';
@@ -53,6 +54,7 @@ export class RequestsComponent implements OnInit {
       totalSessionsPending: 0,
       totalSessionsUnlogged: 0
     };
+    this.buttonText = 'Create Request';
   }
 
   ngOnInit() {
@@ -142,6 +144,7 @@ export class RequestsComponent implements OnInit {
    * @return {void}
    */
   requestMentor(form) {
+    this.buttonText = 'Creating Request...';
     const data = form.value;
     form.value.selectedDays = form.value.selectedDays
       .map((day, index) => day === true ? this.daysOfAvailability[index] : false)
@@ -149,7 +152,10 @@ export class RequestsComponent implements OnInit {
     return this.requestService.requestMentor(data)
       .toPromise()
       .then(() => this.snackBarOpen(true))
-      .catch(err => this.snackBarOpen(false));
+      .catch(err => {
+        this.buttonText = 'Create Request';
+        return this.snackBarOpen(false);
+      });
   }
 
   private snackBarOpen(status: Boolean) {

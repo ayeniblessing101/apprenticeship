@@ -61,7 +61,7 @@
       </div>
     </div>
     <div id="btn-request-container">
-      <button md-raised-button type="submit" class="submit" [disabled]="!form.valid">Create Request</button>
+      <button md-raised-button type="submit" class="submit" [disabled]="!form.valid || buttonText === 'Creating Request...'">{{buttonText}} </button>
     </div>
   </form>
 </app-header>
