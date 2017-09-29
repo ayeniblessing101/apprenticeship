@@ -20,16 +20,16 @@
       </div>
     </div>
      <div class="form-section">
-      <div>Required Skills</div>
-      <md-select style="width: 100%" formControlName="requiredSkills" [multiple]="true">
-        <md-option *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
+      <div>Required Skills (up to 3)</div>
+      <md-select style="width: 100%" formControlName="requiredSkills" [multiple]="true" (change)="validateSkillCount('required')">
+        <md-option #required *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
       </md-select>
       <span class="error" [hidden]=" form.get('requiredSkills').valid || form.get('requiredSkills').untouched">You need to submit at least one required skill *</span>
     </div>
     <div class="form-section">
-      <div>Other Skills</div>
-      <md-select style="width: 100%" formControlName="otherSkills" [multiple]="true">
-        <md-option *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
+      <div>Other Skills (up to 3)</div>
+      <md-select style="width: 100%" formControlName="otherSkills" [multiple]="true" (change)="validateSkillCount('other')">
+        <md-option #other *ngFor="let skill of skills" [value]="skill?.value">{{ skill?.label }}</md-option>
       </md-select>
     </div>
     <div class="form-section">

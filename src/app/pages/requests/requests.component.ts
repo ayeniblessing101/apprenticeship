@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
@@ -35,10 +35,11 @@ export class RequestsComponent implements OnInit {
   sessionDetails: SessionDetails;
   allDays = false;
   buttonText: string;
-
   logSingleString = '';
   logMultipleString = '';
   snackBarConfig: any;
+  @ViewChildren('required') requiredOptions: QueryList<any>;
+  @ViewChildren('other') otherOptions: QueryList<any>;
 
   constructor(
     private requestService: RequestService,
@@ -233,5 +234,38 @@ export class RequestsComponent implements OnInit {
       }
     });
     this.allDays = isValid ? true : false;
+  }
+
+  /**
+   * Limits the maximum skills selected for Required Skills
+   * and Other Skills to 3
+   * 
+   * @param {string} type the name of the select element 
+   * @return {void}
+   */
+  validateSkillCount(type) {
+    if(type === 'required')
+    {
+    if(this.form.get('requiredSkills').value.length >= 3) {
+      this.requiredOptions.forEach((item) => {
+      item.disabled = !item.selected;
+      });
+    } else {
+      this.requiredOptions.forEach((item) => { 
+        item.disabled = false;
+      });
+    }
+  }
+    else {
+      if(this.form.get('otherSkills').value.length >= 3) {
+        this.otherOptions.forEach((item) => {
+        item.disabled = !item.selected;
+            });
+      } else {
+          this.otherOptions.forEach((item) => { 
+          item.disabled = false;
+          });
+        }
+    }
   }
 }
