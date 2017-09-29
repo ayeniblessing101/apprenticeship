@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
+import { ChartModule } from 'angular2-chartjs';
 
 @Component({
   selector: 'app-report',
@@ -25,7 +26,7 @@ export class AdminReportComponent implements OnInit {
   constructor(
     private requestService: RequestService,
   ) {
-    this.skills = [{}];
+    this.skills = [];
     this.totalSkillCount = 0;
     this.totalRequests = 0;
     this.totalRequestsMatched = 0;
@@ -54,7 +55,6 @@ export class AdminReportComponent implements OnInit {
     this.loading = false;
     this.lineDelimiter = '\r\n';
   }
-
   ngOnInit() {
     this.getReports(this.selectedPeriod, this.selectedLocation, this.include.join());
   }
@@ -105,6 +105,7 @@ export class AdminReportComponent implements OnInit {
    * @return {Void}
    */
   reloadReport(event): void {
+    this.skills=[];
     if (this.locations.hasOwnProperty(event.value)) {
       this.selectedLocation = this.locations[event.value];
     } else {

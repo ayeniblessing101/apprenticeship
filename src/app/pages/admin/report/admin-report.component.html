@@ -13,36 +13,24 @@
           <md-option value="{{ period }}" *ngFor="let period of getDropdownOptions('periods')">{{ period
             }}</md-option>
         </md-select>
+        <div class="chart">
+          <md-card *ngIf="loading">
+            <md-spinner></md-spinner>
+          </md-card>
+          <md-card *ngIf="!loading">		
+            <md-card-content *ngIf="!skills.length">		
+                No requests made within this period		
+            </md-card-content>
+              <md-card-content>
+                <app-graph *ngIf="skills.length>0" [skills]="skills"></app-graph>
+              </md-card-content>
+            </md-card>
+        </div>
       </span>
     </div>
     <div class="right">
       <span class="download" (click)="downloadReport()">Download Report <md-icon>get_app</md-icon></span>
-    </div>
   </div>
-  <div class="report-body">
-    <div class="main">
-      <md-card *ngIf="loading" class="spinner">
-        <md-spinner></md-spinner>
-      </md-card>
-      <md-card *ngIf="!loading">
-        <md-card-content *ngIf="!skills.length">
-          No requests made within this period
-        </md-card-content>
-        <md-card-content *ngIf="skills.length">
-          <div *ngFor="let skill of skills" class="skill-row">
-              <div class="skill-name">{{ skill.name }}</div>
-              <div class="skill-progress">
-                <md-progress-bar
-                  class="progress-bar mat-progress-bar-buffer"
-                  [mode]="mode"
-                  value="{{ skill.percentage }}">
-                </md-progress-bar>
-              </div>
-              <div class="skill-percent">{{ skill.percentage | number: '1.1-1' }}%</div>
-          </div>
-        </md-card-content>
-      </md-card>
-    </div>
     <div class="side-info">
       <md-card>
         <md-card-content>

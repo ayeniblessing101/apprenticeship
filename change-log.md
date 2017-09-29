@@ -1,3 +1,15 @@
+# V 1.4.3
+
+## Features
+- modify routes for requests and interests
+- implement wait state for Request form
+- display Mentor profile in modal on Request details page
+- limit Primary and Secondary Skills to 3 each
+- implement bar graph for top 10 Skills in Report page
+
+## Fixed Bugs
+- fix pagination and filters across board
+
 # V 1.4.2
 
 ## Features

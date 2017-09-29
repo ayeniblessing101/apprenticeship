@@ -12,6 +12,7 @@ import { AccordionModule } from 'ngx-accordion';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartModule } from 'angular2-chartjs';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -68,6 +69,7 @@ import { RatingStarComponent } from './components/sessions/sessions-rating/ratin
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { SelectMentorButtonComponent } from './pages/requestdetails/select-mentor-button/select-mentor-button.component';
 import { MentorProfileModalComponent } from './pages/requestdetails/mentor-profile-modal/mentor-profile-modal.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -141,6 +143,7 @@ const appRoutes: Routes = [
     SettingsNavigationComponent,
     SelectMentorButtonComponent,
     MentorProfileModalComponent,
+    GraphComponent,
 
     // pipes
     SkillsPipe,
@@ -164,7 +167,8 @@ const appRoutes: Routes = [
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MomentModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartModule
   ],
   providers: [
     {
