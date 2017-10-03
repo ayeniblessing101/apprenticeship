@@ -12,7 +12,8 @@
     <md-card-footer class="md-footer" *ngIf="mentor">
         <h4 class="username">{{ fullName }}</h4>
 
-        <p class="center-text">Mentorship Hours Logged: {{ loggedHours | number:'1.0-2' }}<span *ngIf="!loggedHours">0</span></p>
+        <p class="center-text">Mentorship Hours Logged: {{ loggedHours | number:'1.0-2' }}</p>
+        <p class="center-text">User Rating: {{ rating }} out of 5</p>
         <div class="skills">
             <h5 *ngIf="mentor.skills.length">{{ skillsTitle }}</h5>
             <span *ngFor="let skill of mentor.skills" class="chip">{{ skill.name }}</span>

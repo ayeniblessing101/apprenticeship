@@ -18,6 +18,7 @@ export class MentorProfileModalComponent {
   mentor: any;
   requestDetails: any;
   loading: any;
+  rating: number;
 
   constructor(
     private authService: AuthService,
@@ -32,5 +33,6 @@ export class MentorProfileModalComponent {
     this.fullName = this.mentor.name;
     this.skillsTitle = this.mentor.skills.length > 1 ? 'MENTOR SKILLS' : 'MENTOR SKILL';
     this.loggedHours = this.mentor.logged_hours;
+    this.rating = this.mentor.rating;
   }
 }
