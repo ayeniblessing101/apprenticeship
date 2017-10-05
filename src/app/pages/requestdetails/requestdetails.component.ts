@@ -98,6 +98,7 @@ export class RequestdetailsComponent implements OnInit {
   ngOnInit() {
     this.userId = this.auth.userInfo.id;
     this.requestId = this.route.snapshot.params['id'];
+    this.getReferralData();
 
     /**
      * Gets the request details and thereafter gets the details of the mentee
@@ -129,6 +130,23 @@ export class RequestdetailsComponent implements OnInit {
 
         this.getSessions(this.details.id, this.include.join(','))
       });
+  }
+
+  /**
+   * Check parameter added to referral link
+   * Redirect after tracking to prevent tracking after reload
+   */
+  getReferralData() {
+    if (window.location.href.split("referrer=")[1] == "email") {
+      this.segmentService.track("MATCHING SKILLS REFERRAL", {
+        "Link name": window.location.href.split("referrer=")[1]
+      });
+    }
+    if (window.location.href.split("referrer=")[1] == "slack") {
+      this.segmentService.track("MATCHING SKILLS REFERRAL", {
+        "Link name": window.location.href.split("referrer=")[1]
+      });
+    }
   }
 
   /**
@@ -178,9 +196,9 @@ export class RequestdetailsComponent implements OnInit {
 
   /**
    * Opens mentor profile modal
-   * 
+   *
    * @param {Object} mentor - object containing mentor details
-   * 
+   *
    * @return {Null}
    */
   openMentorProfile(mentor: any): void {

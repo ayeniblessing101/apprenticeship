@@ -16,7 +16,7 @@ export class SegmentService {
   /**
    * page
    * send current page information to segment page API
-   * 
+   *
    * @param {string} url - current page route
    * @param {object} props - properties to send to segment
    * @returns {void}
@@ -25,12 +25,12 @@ export class SegmentService {
   page(url, props) {
       const payload = { name: url, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
       this.http.post(`${this.apiBaseUrl}/page`, payload, { headers: this.headers }).subscribe();
-       
+
   }
   /**
    * track
    * send current event to segment track API
-   * 
+   *
    * @param {string} event - event to track
    * @param {object} props - properties to send to segment
    * @returns {void}
