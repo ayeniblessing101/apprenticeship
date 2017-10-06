@@ -1,3 +1,10 @@
+# V 1.4.4
+
+## Features
+- add average Ratings to User's profile
+- enable User's to extend Mentorship duration
+- track referral usage data for new Requests (email/slack)
+
 # V 1.4.3
 
 ## Features

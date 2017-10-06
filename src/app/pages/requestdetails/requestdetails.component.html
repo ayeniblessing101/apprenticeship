@@ -1,5 +1,31 @@
 <app-header>
   <div class="container" id="app-container">
+    <div class="extension" *ngIf="details.mentee_id === userId && isExtensionPending">
+      <p class="extension-content">
+        Your request for extension of mentorship period is yet to be reviewed by your mentor
+      </p>
+    </div>
+    <div class="extension" *ngIf="details.mentee_id === userId && isMentorshipEnding && !isExtensionPending">
+      <p class="extension-content">
+        Your mentorship period will end on {{ mentorshipEndDate.toDateString() }}
+      </p>
+      <button md-raised-button class="md-btn-andela-pink" (click)="requestExtension()">
+        Request 2 weeks Extension
+      </button>
+    </div>
+    <div class="extension" *ngIf="details.mentor_id === userId && isExtensionPending">
+      <p class="extension-content">
+        Your mentee has requested extension of mentorship period by 2 weeks
+      </p>
+      <div>
+      <button md-raised-button class="md-btn-andela-pink" (click)="approveExtension()">
+        Approve
+      </button>
+      <button md-raised-button class="md-btn-andela-pink" (click)="rejectExtension()">
+        Reject
+      </button>
+      </div>
+    </div>
     <div>
       <app-request-detail
         [details]="details"

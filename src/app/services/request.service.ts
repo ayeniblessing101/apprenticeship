@@ -297,4 +297,49 @@ export class RequestService {
         return this.getRequestsByStatus(value);
     }
   }
+
+  /**
+   * Request the extension of a mentorship period
+   *
+   * @param {number} requestId the request id
+   *
+   * @return Object containing response
+   */
+  requestExtension(requestId: number) {
+    return this.http.put(
+      `${this.apiBaseUrl}/requests/${requestId}/extend-mentorship`,
+      {})
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
+  /**
+   * Send request to approve mentorship extension request
+   *
+   * @param {number} requestId the request id
+   *
+   * @return Object containing response
+   */
+  approveExtensionRequest(requestId: number) {
+    return this.http.patch(
+      `${this.apiBaseUrl}/requests/${requestId}/approve-extension`,
+      {})
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
+  /**
+   * Send request to reject mentorship extension request
+   *
+   * @param {number} requestId the request id
+   *
+   * @return Object containing response
+   */
+  rejectExtensionRequest(requestId: number) {
+    return this.http.patch(
+      `${this.apiBaseUrl}/requests/${requestId}/reject-extension`,
+      {})
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
 }

@@ -98,3 +98,20 @@
     width: 100%;
   }
 }
+
+.extension {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 0.125rem;
+  background-color: #fefefe;
+  box-shadow: 0 0.0625rem 0.0625rem 0.0625rem rgba(0, 0, 0, 0.2);
+  padding: 5px 30px;
+  margin-bottom: 10px;
+}
+
+.extension-content {
+  padding-top: 5px;
+  margin: 0;
+}

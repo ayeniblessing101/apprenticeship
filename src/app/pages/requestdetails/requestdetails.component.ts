@@ -24,6 +24,7 @@ import 'rxjs/add/operator/toPromise';
   styleUrls: ['./requestdetails.component.scss'],
 })
 export class RequestdetailsComponent implements OnInit {
+  static readonly matchedStatusId = 2;
   details: any;
   requestId: number;
   interestedMentors: Array<Object>;
@@ -42,6 +43,9 @@ export class RequestdetailsComponent implements OnInit {
   updater: string;
   include: string[];
   canViewInterested: boolean;
+  isMentorshipEnding: boolean;
+  mentorshipEndDate: Date;
+  isExtensionPending: boolean;
 
   constructor(
     private userService: UserService,
@@ -93,6 +97,8 @@ export class RequestdetailsComponent implements OnInit {
       totalSessionsPending: 0,
       totalSessionsUnlogged: 0,
     };
+    this.isMentorshipEnding = false;
+    this.isExtensionPending = false;
   }
 
   ngOnInit() {
@@ -129,7 +135,9 @@ export class RequestdetailsComponent implements OnInit {
         }
 
         this.getSessions(this.details.id, this.include.join(','))
-      });
+      })
+      .then(() => this.isMentorshipPeriodEnding())
+      .then(() => this.isExtensionRequestPending());
   }
 
   /**
@@ -488,5 +496,110 @@ export class RequestdetailsComponent implements OnInit {
       });
     })
     .catch(error => this.snackBarOpen(false, error));
+  }
+
+  /**
+   * Set isMentorshipEnding flag to true if the mentorship period
+   * is about to end in the next two weeks
+   */
+  isMentorshipPeriodEnding() {
+    if (this.details.status_id === RequestdetailsComponent.matchedStatusId) {
+      const duration = this.details.duration * 30;
+      const matchDate = new Date(this.details.match_date.split(' ')[0]);
+      const currentDate = new Date();
+      const oneDay = 1000 * 60 * 60 * 24;
+      const difference
+        = Math.ceil(
+        (currentDate.getTime() - matchDate.getTime()) / oneDay
+      );
+      this.mentorshipEndDate = new Date(duration * oneDay + matchDate.getTime());
+      this.isMentorshipEnding = (this.mentorshipEndDate > currentDate
+        && typeof this.details.extension === 'undefined'
+        && (duration - difference) < 15);
+    }
+  }
+
+  /**
+   * Set isExtensionPending flag to true if there is a pending extension request
+   */
+  isExtensionRequestPending() {
+    this.isExtensionPending
+      = (this.details.status_id === RequestdetailsComponent.matchedStatusId
+      && this.mentorshipEndDate > new Date()
+      && typeof this.details.extension !== 'undefined'
+      && this.details.extension.approved === null);
+  }
+
+  /**
+   * Send request to create mentorship period
+   * extension request
+   */
+  requestExtension() {
+    this.requestService.requestExtension(this.details.id)
+      .toPromise()
+      .then((response) => {
+        this.isExtensionPending = true;
+        const successMessage = response.message;
+        this.snackbar.open(
+          successMessage,
+          'Close', {
+            duration: 4000,
+          });
+      })
+      .catch((error) => {
+        this.snackbar.open(
+          'An error occurred, try again',
+          'Close', {
+            duration: 4000,
+          });
+      });
+  }
+
+  /**
+   * Approve mentorship extension request
+   */
+  approveExtension() {
+    this.requestService
+      .approveExtensionRequest(this.requestId).toPromise()
+      .then((response) => {
+        this.isExtensionPending = false;
+        const successMessage = response.message;
+        this.snackbar.open(
+          successMessage,
+          'Close', {
+            duration: 4000,
+          });
+      })
+      .catch((error) => {
+        this.snackbar.open(
+          'An error occurred, try again',
+          'Close', {
+            duration: 4000,
+          });
+      });
+  }
+
+  /**
+   * Reject mentorship extension request
+   */
+  rejectExtension() {
+    this.requestService
+      .rejectExtensionRequest(this.requestId).toPromise()
+      .then((response) => {
+        this.isExtensionPending = false;
+        const successMessage = response.message;
+        this.snackbar.open(
+          successMessage,
+          'Close', {
+            duration: 4000,
+          });
+      })
+      .catch((error) => {
+        this.snackbar.open(
+          'An error occurred, try again',
+          'Close', {
+            duration: 4000,
+          });
+      });
   }
 }
