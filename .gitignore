@@ -43,3 +43,8 @@ Thumbs.db
 
 #ignore env file
 .env
+
+# ignore css and scss compiler files
+*.map
+*.sass-cache
+templates/assets/css/
