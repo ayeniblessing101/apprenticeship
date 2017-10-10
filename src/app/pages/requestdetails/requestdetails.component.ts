@@ -423,7 +423,7 @@ export class RequestdetailsComponent implements OnInit {
         (res) => {
           delete this.loading.sessionLoading;
           this.sessions = res.sessions.map((session) => {
-            return session.date = (new Date(session.date)).toDateString();
+            return session.date;
           });
           this.sessions = res.sessions.reverse();
           this.sessionDetails = {

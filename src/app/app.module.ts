@@ -37,6 +37,7 @@ import { DateRangePipe } from './components/pipes/date-range.pipe';
 import { InterestPipe } from './components/pipes/interest.pipe';
 import { SearchFilterPipe } from './components/pipes/search-filter.pipe';
 import { RolePipe } from './components/pipes/roles.pipe';
+import { SessionDatePipe } from './components/pipes/session-date.pipe';
 
 // components
 import { AppComponent } from './app.component';
@@ -153,7 +154,8 @@ const appRoutes: Routes = [
     InterestPipe,
     ProfileComponent,
     SearchFilterPipe,
-    RolePipe
+    RolePipe,
+    SessionDatePipe
   ],
   imports: [
     BrowserModule,

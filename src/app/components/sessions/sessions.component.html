@@ -17,13 +17,13 @@
           </div>
           <div class="session-row" *ngFor="let session of sessions">
             <div class="col-date">
-              {{ session?.date | date : 'fullDate' }}
+              {{ session?.date | sessionDate : 'YYYY-MM-DD' : 'dddd, MMMM Do, YYYY' }}
               <span class="pairing-time">
-                  ({{ '00 ' + session?.start_time | date : 'shortTime' }} - {{ '00 ' + session?.end_time | date : 'shortTime' }})
+                  ({{ session?.start_time  | sessionDate : 'hh:mm' : 'h:mm A'}} - {{ session?.end_time | sessionDate : 'hh:mm' : 'h:mm A'}})
                 </span>
             </div>
             <div class="col-logged" *ngIf="updater === 'mentee'">
-              <button class="chip rate update-btn" [disabled]="session.rating_count" *ngIf="session.mentor_approved && session.mentee_approved" 
+              <button class="chip rate update-btn" [disabled]="session.rating_count" *ngIf="session.mentor_approved && session.mentee_approved"
               (click)="openRateSessionDialog(session)">{{ session.rating_count ? "RATED" : "RATE" }}</button>
               <div class="chip update-btn" *ngIf="session?.mentee_approved === null" (click)="emitApproveAction(session.id)">Approve Session</div>
               <div class="chip reject-btn" *ngIf="session?.mentee_approved === null" (click)="openRejectSessionDialog(session.id)">Reject Session</div>
