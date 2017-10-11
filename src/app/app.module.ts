@@ -40,6 +40,7 @@ import { RolePipe } from './components/pipes/roles.pipe';
 import { SessionDatePipe } from './components/pipes/session-date.pipe';
 
 // components
+import { AppRoutesModule } from './app-routes.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -75,7 +76,7 @@ import { GraphComponent } from './components/graph/graph.component';
 // environment
 import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
-import {AngularFireDatabase} from "angularfire2/database";
+import { AngularFireDatabase } from 'angularfire2/database';
 import { SettingsNavigationComponent } from './pages/settings/settings-navigation/settings-navigation.component';
 import { NotificationSettingsComponent } from './pages/settings/notification-settings/notification-settings.component';
 
@@ -84,32 +85,6 @@ const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
 }
-
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'admin/requests', component: AdminRequestsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'admin/report', component: AdminReportComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'admin/skills', component: AdminSkillsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
-  { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
-  { path: 'requests/:id', component: RequestdetailsComponent, canActivate: [AuthGuard] },
-  { path: 'my-requests', component: MenteeComponent, canActivate: [AuthGuard] },
-  { path: 'my-interests', component: MentorComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  {
-    path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'notifications', pathMatch: 'full'},
-      { path: 'notifications', component: NotificationSettingsComponent }
-    ]
-  },
-  { path: '**', component: PagenotfoundComponent },
-];
 
 @NgModule({
   declarations: [
@@ -155,22 +130,22 @@ const appRoutes: Routes = [
     ProfileComponent,
     SearchFilterPipe,
     RolePipe,
-    SessionDatePipe
+    SessionDatePipe,
   ],
   imports: [
+    AppRoutesModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
     MaterialModule, // TODO: Refactor, MaterialModule has been been deprecated
     SelectModule,
     AccordionModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MomentModule,
     NgxPaginationModule,
-    ChartModule
+    ChartModule,
   ],
   providers: [
     {
@@ -191,7 +166,7 @@ const appRoutes: Routes = [
     SessionService,
     SegmentService,
     DateValidator,
-    NotificationSettingsService
+    NotificationSettingsService,
   ],
   entryComponents: [
     DialogModalComponent,
