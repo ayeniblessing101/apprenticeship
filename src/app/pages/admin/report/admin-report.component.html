@@ -17,12 +17,12 @@
           <md-card *ngIf="loading">
             <md-spinner></md-spinner>
           </md-card>
-          <md-card *ngIf="!loading">		
-            <md-card-content *ngIf="!skills.length">		
-                No requests made within this period		
+          <md-card *ngIf="!loading">
+            <md-card-content *ngIf="!skillsPercentage.length">
+                No requests made within this period
             </md-card-content>
               <md-card-content>
-                <app-graph *ngIf="skills.length>0" [skills]="skills"></app-graph>
+                <app-multiple-bar-chart *ngIf="skillsPercentage.length>0" [skills]="skillsPercentage" [status]="allStatuses"></app-multiple-bar-chart>
               </md-card-content>
             </md-card>
         </div>

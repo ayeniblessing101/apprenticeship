@@ -5,14 +5,15 @@ import { ChartModule } from 'angular2-chartjs';
 @Component({
   selector: 'app-report',
   templateUrl: './admin-report.component.html',
-  styleUrls: ['./admin-report.component.scss']
+  styleUrls: ['./admin-report.component.scss'],
 })
 export class AdminReportComponent implements OnInit {
   mode = 'determinate';
   periods: {};
   locations: {};
   skills: any[];
-  totalSkillCount: number;
+  skillsPercentage: any[];
+  allStatuses: any[];
   totalRequests: number;
   totalRequestsMatched: number;
   sessionsCompleted: number;
@@ -27,22 +28,23 @@ export class AdminReportComponent implements OnInit {
     private requestService: RequestService,
   ) {
     this.skills = [];
-    this.totalSkillCount = 0;
+    this.skillsPercentage = [];
+    this.allStatuses = [];
     this.totalRequests = 0;
     this.totalRequestsMatched = 0;
     this.sessionsCompleted = 0;
     this.averageTimeToMatch = '0';
     this.locations = {
-      'All': '',
-      'Lagos': 'Lagos',
-      'Nairobi': 'Nairobi'
+      All: '',
+      Lagos: 'Lagos',
+      Nairobi: 'Nairobi',
     };
     this.periods = {
       'All time': '',
       'Last 1 week': '1',
       'Last 2 weeks': '2',
       'Last 3 weeks': '3',
-      'Last month': '4'
+      'Last month': '4',
     };
     this.selectedPeriod = '';
     this.selectedLocation = '';
@@ -50,7 +52,7 @@ export class AdminReportComponent implements OnInit {
       'totalRequests',
       'totalRequestsMatched',
       'sessionsCompleted',
-      'averageTimeToMatch'
+      'averageTimeToMatch',
     ];
     this.loading = false;
     this.lineDelimiter = '\r\n';
@@ -70,7 +72,7 @@ export class AdminReportComponent implements OnInit {
   }
 
   /**
-   * gets all reports from request service
+   * Gets all reports from request service
    *
    * @param {String} period
    * @param {String} location
@@ -81,7 +83,7 @@ export class AdminReportComponent implements OnInit {
     const options = {
       period,
       location,
-      include
+      include,
     };
 
     this.loading = true;
@@ -93,19 +95,19 @@ export class AdminReportComponent implements OnInit {
         this.totalRequestsMatched = report.totalRequestsMatched;
         this.sessionsCompleted = report.sessionsCompleted;
         this.averageTimeToMatch = report.averageTimeToMatch;
-        this.totalSkillCount = this.getTotalSkillCount(report.skills_count);
-        this.skills = this.calculatePercentage(report.skills_count);
+        this.allStatuses = this.getStatus(report.skillsCount);
+        this.skillsPercentage = this.calculatePercentage(report.skillsCount);
       });
   }
 
   /**
-   * fetches new report when location or period changes
+   * Fetches new report when location or period changes
    *
    * @param {Event} event - change event
    * @return {Void}
    */
   reloadReport(event): void {
-    this.skills=[];
+    this.skills = [];
     if (this.locations.hasOwnProperty(event.value)) {
       this.selectedLocation = this.locations[event.value];
     } else {
@@ -114,36 +116,70 @@ export class AdminReportComponent implements OnInit {
     this.getReports(this.selectedPeriod, this.selectedLocation, this.include.join());
   }
 
-  /**
-   * calculates the skill percentage occurence
+    /**
+   * Calculates the skill percentage occurrence
    *
-   * @param {Array} skills - total occurence of each skill
-   * @return {Array} - percentage occurence
+   * @param {Array} skills - total occurrence of each skill
+   * @return {Array} - percentage occurrence
    */
   calculatePercentage(skills: any[]): any[] {
-    const unsorted =  skills.map((skill) => {
-      skill.percentage = ((skill.count / this.totalSkillCount) * 100).toFixed(2);
-      return skill;
+    const sortedSkills = this.getTopSkills(skills);
+    sortedSkills.forEach((skill) => {
+      const skillCount = skill.count;
+      skill.percentage = {};
+
+      Object.keys(skillCount).forEach((status) => {
+        const statusPercentage = skillCount[status] / skill.totalCount * 100;
+        skill.percentage[status] = Math.round(statusPercentage);
+      });
     });
-    return unsorted.sort((skill, nextSkill) => {
-      return nextSkill.percentage - skill.percentage;
-    });
+
+    return sortedSkills;
   }
 
-  /**
-   * calculates the total number of skills per report
+   /**
+   * Sorts skills to get top ten skills
    *
-   * @param {Array} skills - array of skill objects
-   * @return {Number} total skill count
+   * @param {Array} skills - total occurrence of each skill
+   * @return {Array} - percentage occurrence
    */
-  getTotalSkillCount(skills: any[]): number {
-    return skills.reduce((total, skill) => {
-      return total + skill.count;
-    }, 0);
+  getTopSkills(skills: any[], limit: number = 10): any[] {
+    const sum = skills.map(({ count, name }) => {
+      let totalCount = 0;
+      for (const status in count) {
+        if (count.hasOwnProperty(status)) {
+          totalCount += count[status];
+        }
+      }
+      return { totalCount, count, name };
+    });
+
+    const sortedSum = sum.sort((a, b) => b.totalCount - a.totalCount);
+
+    return sortedSum.slice(0, limit);
   }
 
   /**
-   * triggers the download of report
+   * Gets all status from the response object
+   *
+   * @param {Array} skills - total occurrence of each skill
+   * @return {Array} - all status
+   */
+  getStatus(skills: any[]): any[] {
+    const allStatuses = [];
+    skills.forEach(({ count }) => {
+      for (const status in count) {
+        if (!allStatuses.includes(status)) {
+          allStatuses.push(status);
+        }
+      }
+    });
+    return allStatuses;
+  }
+
+
+  /**
+   * Triggers the download of report
    *
    * @return {Void}
    */
@@ -160,7 +196,7 @@ export class AdminReportComponent implements OnInit {
   }
 
   /**
-   * writes skills data to csv
+   * Writes skills data to csv
    *
    * @param {Array} skillsData - array of skill objects
    * @return {String} report
@@ -193,7 +229,7 @@ export class AdminReportComponent implements OnInit {
   }
 
   /**
-   * composes the report summary
+   * Composes the report summary
    *
    * @return {String} - report summary
    */

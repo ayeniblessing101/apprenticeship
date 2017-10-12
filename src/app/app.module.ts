@@ -71,7 +71,7 @@ import { RatingStarComponent } from './components/sessions/sessions-rating/ratin
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { SelectMentorButtonComponent } from './pages/requestdetails/select-mentor-button/select-mentor-button.component';
 import { MentorProfileModalComponent } from './pages/requestdetails/mentor-profile-modal/mentor-profile-modal.component';
-import { GraphComponent } from './components/graph/graph.component';
+import { MultipleBarChartComponent } from './components/chart/multiple-bar-chart/multiple-bar-chart.component';
 
 // environment
 import { environment } from '../environments/environment';
@@ -119,7 +119,7 @@ if (authToken) {
     SettingsNavigationComponent,
     SelectMentorButtonComponent,
     MentorProfileModalComponent,
-    GraphComponent,
+    MultipleBarChartComponent,
 
     // pipes
     SkillsPipe,

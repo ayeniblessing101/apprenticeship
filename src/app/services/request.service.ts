@@ -244,7 +244,7 @@ export class RequestService {
 
     return this.http
       .get(`${this.apiBaseUrl}/reports?${params.toString()}`)
-      .map(this.extractData)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
