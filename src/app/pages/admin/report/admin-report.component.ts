@@ -15,7 +15,10 @@ export class AdminReportComponent implements OnInit {
   skillsPercentage: any[];
   allStatuses: any[];
   totalRequests: number;
-  totalRequestsMatched: number;
+  totalMatchedRequests: number;
+  totalCompletedRequests: number;
+  totalOpenRequests: number;
+  totalCancelledRequests: number;
   sessionsCompleted: number;
   averageTimeToMatch: string;
   selectedPeriod: string;
@@ -31,7 +34,10 @@ export class AdminReportComponent implements OnInit {
     this.skillsPercentage = [];
     this.allStatuses = [];
     this.totalRequests = 0;
-    this.totalRequestsMatched = 0;
+    this.totalMatchedRequests = 0;
+    this.totalCompletedRequests = 0;
+    this.totalOpenRequests = 0;
+    this.totalCancelledRequests = 0;
     this.sessionsCompleted = 0;
     this.averageTimeToMatch = '0';
     this.locations = {
@@ -48,11 +54,14 @@ export class AdminReportComponent implements OnInit {
     };
     this.selectedPeriod = '';
     this.selectedLocation = '';
-    this.include = [
-      'totalRequests',
-      'totalRequestsMatched',
-      'sessionsCompleted',
-      'averageTimeToMatch',
+    this.include = [		
+      'totalRequests',		
+      'totalMatchedRequests',
+      'totalCancelledRequests',	
+      'totalOpenRequests',	
+      'totalCompletedRequests',	
+      'sessionsCompleted',		
+      'averageTimeToMatch',		
     ];
     this.loading = false;
     this.lineDelimiter = '\r\n';
@@ -92,7 +101,10 @@ export class AdminReportComponent implements OnInit {
       .subscribe((report) => {
         this.loading = false;
         this.totalRequests = report.totalRequests;
-        this.totalRequestsMatched = report.totalRequestsMatched;
+        this.totalMatchedRequests = report.totalMatchedRequests;
+        this.totalOpenRequests = report.totalOpenRequests;
+        this.totalCancelledRequests = report.totalCancelledRequests;
+        this.totalCompletedRequests = report.totalCompletedRequests;
         this.sessionsCompleted = report.sessionsCompleted;
         this.averageTimeToMatch = report.averageTimeToMatch;
         this.allStatuses = this.getStatus(report.skillsCount);
@@ -242,10 +254,13 @@ export class AdminReportComponent implements OnInit {
       ? `Period,All${this.lineDelimiter}`
       : `Period,Last ${this.selectedPeriod} week(s)${this.lineDelimiter}`;
 
-    const totalRequestMade = `Total Requests,${this.totalRequests}${this.lineDelimiter}`;
-    const requestMatched = `Total Requests Matched,${this.totalRequestsMatched}${this.lineDelimiter}`;
+    const totalRequestsMade = `Total Requests,${this.totalRequests}${this.lineDelimiter}`;
+    const matchedRequests = `Total Matched Requests,${this.totalMatchedRequests}${this.lineDelimiter}`;
+    const cancelledRequests = `Total Cancelled Requests,${this.totalCancelledRequests}${this.lineDelimiter}`;
+    const OpenRequests = `Total Open Requests,${this.totalOpenRequests}${this.lineDelimiter}`;
+    const closedRequests = `Total Closed Requests,${this.totalCompletedRequests}${this.lineDelimiter}`;
     const averageTime = `Average Time to Match,${this.averageTimeToMatch}${this.lineDelimiter}`;
 
-    return `SUMMARY${this.lineDelimiter}${location}${period}${totalRequestMade}${requestMatched}${averageTime}`;
+    return `SUMMARY${this.lineDelimiter}${location}${period}${totalRequestsMade}${matchedRequests}${averageTime}${cancelledRequests}${OpenRequests}${closedRequests}`;
   }
 }

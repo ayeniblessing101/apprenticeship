@@ -30,7 +30,7 @@
     </div>
     <div class="right">
       <span class="download" (click)="downloadReport()">Download Report <md-icon>get_app</md-icon></span>
-  </div>
+</div>
     <div class="side-info">
       <md-card>
         <md-card-content>
@@ -42,17 +42,17 @@
       </md-card>
       <md-card>
         <md-card-content>
-          <span class="title">Matches</span>
+          <span class="title">Completed Requests</span>
           <span class="content">
-            {{ totalRequestsMatched }} / {{ totalRequests }}
+            {{ totalCompletedRequests }}
           </span>
         </md-card-content>
       </md-card>
       <md-card>
         <md-card-content>
-          <span class="title">Sessions Completed</span>
+          <span class="title">Open Requests</span>
           <span class="content">
-            {{ sessionsCompleted }}
+            {{ totalOpenRequests }}
           </span>
         </md-card-content>
       </md-card>
@@ -61,6 +61,32 @@
           <span class="title">Atm</span>
           <span class="content">
             {{ averageTimeToMatch }}
+          </span>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div class="side-info">
+      <md-card>
+        <md-card-content>
+          <span class="title">Matched Requests</span>
+          <span class="content">
+            {{ totalMatchedRequests }}
+          </span>
+        </md-card-content>
+      </md-card>
+      <md-card>
+        <md-card-content>
+          <span class="title">Cancelled Requests</span>
+          <span class="content">
+            {{ totalCancelledRequests }}
+          </span>
+        </md-card-content>
+      </md-card>
+      <md-card>
+        <md-card-content>
+          <span class="title">Sessions Completed</span>
+          <span class="content">
+            {{ sessionsCompleted }}
           </span>
         </md-card-content>
       </md-card>
