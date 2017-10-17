@@ -117,6 +117,7 @@ export class RequestdetailsComponent implements OnInit {
             requestTitle: this.details.title,
             requiredSkills: this.details.request_skills
           });
+
         this.getUserInfo(this.details.mentee_id, 'mentee');
         this.getMentorInfo(this.details.interested, false);
         this.canViewInterested = (this.details.status === 'open' && this.details.interested.length &&
@@ -137,7 +138,7 @@ export class RequestdetailsComponent implements OnInit {
         this.getSessions(this.details.id, this.include.join(','))
       })
       .then(() => this.isMentorshipPeriodEnding())
-      .then(() => this.isExtensionRequestPending());
+      .then(() => this.isExtensionRequestPending())
   }
 
   /**
@@ -261,7 +262,7 @@ export class RequestdetailsComponent implements OnInit {
       switch (status) {
         case 'open': statusClass = 'rounded-chip-open'; break;
         case 'matched': statusClass = 'rounded-chip-matched'; break;
-        case 'closed': statusClass = 'rounded-chip-closed'; break;
+        case 'completed': statusClass = 'rounded-chip-completed'; break;
         default: statusClass = 'rounded-chip-cancelled';
       }
 

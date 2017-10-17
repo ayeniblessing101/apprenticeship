@@ -33,7 +33,7 @@ export class RequestService {
   }
 
   /**
-   * Return status of request e.g Open, Canceled, Closed
+   * Return status of request e.g Open, Canceled, Completed
    *
    * @return Observable containing collection of possible statuses
    */
@@ -285,7 +285,7 @@ export class RequestService {
   /**
    * Retrieves mentorship requests with different possible filters
    * e.g if we choose to filter by status, the value can either be
-   * open, closed, cancelled, matched
+   * open, completed, cancelled, matched
    *
    * @param {String} type what filter to use to sieve mentorship requests
    * @param {String} value actual value of filter

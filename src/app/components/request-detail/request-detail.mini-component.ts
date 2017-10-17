@@ -52,7 +52,7 @@ export class RequestDetailMiniComponent {
       switch (matchStatus.toLowerCase()) {
         case 'open': className = 'rounded-chip-open'; break;
         case 'matched': className = 'rounded-chip-matched'; break;
-        case 'closed': className = 'rounded-chip-closed'; break;
+        case 'completed': className = 'rounded-chip-completed'; break;
         default: className = 'rounded-chip-cancelled';
       }
     }

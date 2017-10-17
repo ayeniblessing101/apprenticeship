@@ -24,10 +24,10 @@ export class SessionsComponent {
   constructor(
     private dialog: MdDialog,
     private snackbar: MdSnackBar,
-  ) { }
+  ) {}
 
   /**
-   * emits logSession event
+   * Emits logSession event
    *
    * @param {Event} event - log action
    * @return {Null}
@@ -37,7 +37,7 @@ export class SessionsComponent {
   }
 
   /**
-   * emits approveSession event
+   * Emits approveSession event
    *
    * @param {Event} event - update action
    * @return {Null}
@@ -47,7 +47,7 @@ export class SessionsComponent {
   }
 
   /**
-   * emits rejectSession event
+   * Emits rejectSession event
    *
    * @param {Number} sessionId - ID of the session to be rejected
    *
@@ -58,7 +58,7 @@ export class SessionsComponent {
   }
 
   /**
-   * open dialog to reject a logged session
+   * Open dialog to reject a logged session
    */
   openRejectSessionDialog(sessionId: number) {
     const dialogRef = this.dialog.open(RejectSessionDialogComponent);
@@ -68,28 +68,16 @@ export class SessionsComponent {
   }
 
   /**
-   * returns the mentorship days left
-   *
-   * @return {Number}
-   */
-  getMentorshipDaysLeft(): number {
-    const mentorshipEndDate = moment(this.details.match_date).add('months', this.details.duration);
-    const daysLeft = Math.floor(mentorshipEndDate.diff(moment(), 'days', true));
-
-    return daysLeft;
-  }
-
-  /**
-   * checks if mentorship period is over
+   * Checks if mentorship period is over
    *
    * @return {Boolean}
    */
   isMentorshipComplete(): boolean {
-    return this.getMentorshipDaysLeft() < 0;
+    return this.details.status_id === 3 ? true : false;
   }
 
  /**
-   * open dialog to rate a logged session
+   * Open dialog to rate a logged session
    */
   openRateSessionDialog(session) {
     this.dialog.open(RateSessionDialogComponent, { data: session })
