@@ -1,0 +1,66 @@
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/mixins';
+@import '../../../../assets/scss/loaders';
+@import '../../../../assets/scss/side-info';
+
+.in-page-submenu {
+  width:100%;
+  margin:0 0 35px;
+  a {
+    text-decoration: none;
+    color: #555;
+    padding: 10px;
+    background-color: #ccc;
+    border-right:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    font-size: 12px;
+    &:hover, &.active {
+      background-color: #eee;
+      border-bottom:3px solid $andela-blue;
+    }
+  }
+}
+
+/**
+ *
+ * tablet
+ *
+ */
+@media screen and (min-width: 769px) {
+  .report-header {
+    display: flex;
+    flex-direction: row;
+  }
+  .left {
+    width: 80%;
+    span {
+      text-align: left;
+    }
+    span.title {
+      padding: 0;
+    }
+    span.dropdown {
+      padding: 1.5rem 0 1.5rem 0;
+    }
+  }
+  .right {
+    width: 20%;
+    text-align: right;
+    span.download {
+      text-align: right;
+    }
+  }
+  .report-body {
+    display: flex;
+    flex-direction: row;
+    .main {
+      width: 78%;
+      margin-right: 2%;
+      overflow-y: auto;
+      height: 600px;
+    }
+    .side-info {
+      width: 20%;
+    }
+  }
+}

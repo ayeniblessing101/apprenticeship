@@ -1,0 +1,170 @@
+@import '../../../../../assets/scss/colors';
+@import '../../../../../assets/scss/mixins';
+@import '../../../../../assets/scss/loaders';
+@import '../../../../../assets/scss/side-info';
+
+/* global styles */
+md-select {
+  margin-right: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.spinner {
+  text-align: center;
+}
+
+md-spinner {
+  float: none;
+  margin: 0 auto;
+}
+
+/* end: global styles */
+
+.report-header {
+  width: 100%;
+}
+.left{
+  width: 100%;
+}
+
+.left {
+  span {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 1rem 0 1rem 0;
+    @include box-sizing();
+  }
+  span.title {
+    font-size: 1.5rem;
+  }
+  span.dropdown {
+    font-size: 0.9rem;
+  }
+}
+
+.report-body {
+  width: 100%;
+  padding:0;
+  margin:0;
+  md-card{
+    width: 100%;
+  }
+}
+
+.badge-value {
+  color: $andela-secondary;
+}
+
+.content-loading {
+  padding: 30px;
+}
+
+.content-not-found {
+  p {
+    padding:30px;
+    text-align: center;
+    font-size: 15px;
+    color: #6d6d6d;
+  }
+}
+
+.unmatched-requests {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 2em;
+  padding:0;
+  thead {
+    background-color: #225be2;
+    th {
+      border: 1px solid #eee;
+      text-align: left;
+      padding: 10px 5px;
+      color: #fff;
+    }
+  }
+  tbody{
+    tr {
+      border-top: 1px solid #ddd;
+    }
+    td {
+      border: 1px solid #eee;
+      text-align: left;
+      padding: 10px 5px;
+    }
+    a {
+      color: #225be2;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0 .5em 0 0;
+      &:hover, &:active, &:focus {
+        color: darken(#225be2, 10%);
+        border: none;
+      }
+    }
+    img {
+      align-self: center;
+      width: 40px;
+      height:40px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.skills {
+  font-size: 12px;
+  color: #FFF;
+  background-color: #ccc;
+  display: inline-block;
+  padding:2px;
+  margin: 2px;
+  border: 1px solid #f7f7f7;
+}
+
+.view-request {
+  cursor: pointer;
+  background-color: #eee;
+  display: inline-block;
+  padding:2px;
+  margin: 2px;
+  border-right:1px solid #ccc;
+  border-bottom:1px solid #ccc;
+}
+
+/**
+ *
+ * tablet
+ *
+ */
+@media screen and (min-width: 769px) {
+  .report-header {
+    display: flex;
+    flex-direction: row;
+  }
+  .left {
+    width: 80%;
+    span {
+      text-align: left;
+    }
+    span.title {
+      padding: 0;
+    }
+    span.dropdown {
+      padding: 1.5rem 0 1.5rem 0;
+    }
+  }
+  .report-body {
+    display: flex;
+    flex-direction: row;
+    .main {
+      width: 78%;
+      margin-right: 2%;
+      overflow-y: auto;
+      height: 600px;
+    }
+    .side-info {
+      width: 20%;
+    }
+  }
+}

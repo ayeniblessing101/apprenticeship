@@ -4,7 +4,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.component';
-import { AdminReportComponent } from './pages/admin/report/admin-report.component';
 import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.component';
 import { RequestdetailsComponent } from './pages/requestdetails/requestdetails.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -15,6 +14,9 @@ import { AdminGuard } from './services/admin-guard.service';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { NotificationSettingsComponent } from './pages/settings/notification-settings/notification-settings.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { ReportComponent } from './pages/admin/report/report.component';
+import { RequestSkillsReportComponent } from './pages/admin/report/request-skills/request-skills.component';
+import { UnmatchedRequestsReportComponent } from './pages/admin/report/unmatched-requests/unmatched-requests.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +24,6 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'admin/requests', component: AdminRequestsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'admin/report', component: AdminReportComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/skills', component: AdminSkillsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin', redirectTo: 'admin/requests', pathMatch: 'full' },
   { path: 'requests', component: RequestsComponent, canActivate: [AuthGuard] },
@@ -30,6 +31,16 @@ const appRoutes: Routes = [
   { path: 'my-requests', component: MenteeComponent, canActivate: [AuthGuard] },
   { path: 'my-interests', component: MentorComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'reports',
+    component: ReportComponent,
+    canActivate: [AuthGuard, AdminGuard] ,
+    children:[
+      { path: '', redirectTo: 'request-skills', pathMatch:'full' },
+      { path: 'request-skills', component: RequestSkillsReportComponent },
+      { path: 'unmatched-requests', component: UnmatchedRequestsReportComponent },
+    ],
+  },
   {
     path: 'settings',
     component: SettingsComponent,

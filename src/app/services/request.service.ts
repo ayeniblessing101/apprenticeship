@@ -82,19 +82,6 @@ export class RequestService {
     return paramValues.toString();
   }
 
-  /**
-   * Return mentorship requests by a specific user
-   *
-   * @param String data search query parameter
-   *
-   * @return Observable containing latest requests
-   */
-  searchRequests(searchTerm: any): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/requests?q=${searchTerm}`)
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
-  }
 
   /**
    * Return latest mentorship requests
@@ -110,19 +97,7 @@ export class RequestService {
       .catch(this.handleError);
   }
 
-  /**
-   * Return mentorship requests for the logged in user
-   *
-   * @param {Number} limit number of requests to return
-   *
-   * @return {Observable} containing the mentee requests
-   */
-  getMenteeRequests(limit: number): Observable<any> {
-    return this.http
-      .get(`${this.apiBaseUrl}/requests?self=true&limit=${limit}`)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+
 
   /**
    * Create a new mentorship request
@@ -136,20 +111,6 @@ export class RequestService {
     return this.http.post(`${this.apiBaseUrl}/requests`, formattedData)
       .map(this.extractData)
       .catch(this.handleError);
-  }
-
-  /**
-   * Return all open mentorship requests
-   *
-   * @param {Number} limit number of requests to return
-   *
-   * @return {Observable} containing all open requests
-   */
-  getMentorRequests(limit, page?: number): Observable<any> {
-    return this.http
-    .get(`${this.apiBaseUrl}/requests?mentor=true&limit=${limit}&page=${page}`)
-    .map(res => res.json())
-    .catch(error => Observable.throw(error.json()));
   }
 
   /**
@@ -177,7 +138,6 @@ export class RequestService {
   updateMentorRequestInterested(id: number, data): Observable<any> {
     return this.http.patch(`${this.apiBaseUrl}/requests/${id}/update-interested`, data);
   }
-
 
   /**
    * Format Request Form data
@@ -233,17 +193,31 @@ export class RequestService {
   /**
    * Get report requests
    *
-   * @param period {String | Number}, location {String}
+   * @param {Object} options key value pairs for additional query
    * @return Observable containing reports by location and period
    */
   getReports(options: {}): Observable<any> {
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     for (let key in options) {
-        params.set(key, options[key]);
+      params.set(key, options[key]);
     }
 
     return this.http
       .get(`${this.apiBaseUrl}/reports?${params.toString()}`)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  /**
+   * Get unmatched requests
+   *
+   * @param {Object} options key value pairs for additional query
+   * @return Observable containing unmatched requests by location and period
+   */
+  getUnmatchedRequests(options: {}): Observable<any> {
+    const params = this.getEncodedParameters(options);
+    return this.http
+      .get(`${this.apiBaseUrl}/reports/unmatched-requests?${params}`)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

@@ -28,7 +28,7 @@
       <a routerLink="/my-interests" routerLinkActive="active">My Interests</a>
       <a routerLink="/my-requests" routerLinkActive="active">My Requests</a>
       <a *ngIf="isAdmin" routerLink="/admin/requests" routerLinkActive="active">See all Requests</a>
-      <a *ngIf="isAdmin" routerLink="/admin/report" routerLinkActive="active">Report</a>
+      <a *ngIf="isAdmin" routerLinkActive="active" routerLink="/reports" >Report</a>
       <a *ngIf="isAdmin" routerLink="/admin/skills" routerLinkActive="active">Skills</a>
     </div>
     <div id="btn-request-container">
@@ -36,6 +36,7 @@
     </div>
   </div>
 </nav>
+
 <div id="container">
   <ng-content></ng-content>
 </div>

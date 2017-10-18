@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AngularFireModule } from 'angularfire2';
-import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { SelectModule } from 'ng-select';
 import { AccordionModule } from 'ngx-accordion';
@@ -54,7 +53,8 @@ import { NotificationItemComponent } from './components/notification/notificatio
 import { MenteeComponent } from './pages/mentee/mentee.component';
 import { MentorComponent } from './pages/mentor/mentor.component';
 import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.component';
-import { AdminReportComponent } from './pages/admin/report/admin-report.component';
+import { RequestSkillsReportComponent } from './pages/admin/report/request-skills/request-skills.component';
+import { UnmatchedRequestsReportComponent } from './pages/admin/report/unmatched-requests/unmatched-requests.component';
 import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.component';
 import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
@@ -81,6 +81,7 @@ import { SettingsNavigationComponent } from './pages/settings/settings-navigatio
 import { NotificationSettingsComponent } from './pages/settings/notification-settings/notification-settings.component';
 
 import { DateValidator } from './components/sessions/dialog/date.validator';
+import { ReportComponent } from './pages/admin/report/report.component';
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -88,8 +89,10 @@ if (authToken) {
 
 @NgModule({
   declarations: [
+    ReportComponent,
     AdminRequestsComponent,
-    AdminReportComponent,
+    RequestSkillsReportComponent,
+    UnmatchedRequestsReportComponent,
     AdminSkillsComponent,
     AppComponent,
     DashboardComponent,

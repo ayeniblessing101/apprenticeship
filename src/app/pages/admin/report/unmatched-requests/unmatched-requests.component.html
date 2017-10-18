@@ -1,0 +1,53 @@
+<div class="report-header">
+    <div class="left">
+      <span class="title">Unmatched Requests</span>
+      <span class="dropdown">
+        <md-select class="timePicker" placeholder="All Location" (change)="reloadReport($event)">
+          <md-option value="{{ location }}" *ngFor="let location of getDropdownOptions('locations')">{{ location
+            }}</md-option>
+        </md-select>
+      </span>
+    </div>
+</div>
+<div class="report-body">
+  <md-card class="content-loading" *ngIf="loading">
+    <md-spinner></md-spinner>
+  </md-card>
+  <md-card *ngIf="!loading">
+    <md-card-content class="content-not-found" *ngIf="!unmatchedRequests?.length" >
+      There are no unmatched requests
+    </md-card-content>
+    <md-card-content *ngIf="unmatchedRequests?.length">
+      <table class="unmatched-requests">
+        <thead>
+        <tr>
+          <th>Avatar</th>
+          <th>Mentee</th>
+          <th>Title</th>
+          <th>Skills</th>
+          <th>Partner</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let request of (unmatchedRequests |
+            paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems})">
+          <td><img src="{{ request.mentee.avatar }}"/> </td>
+          <td>{{ request.mentee.name }}</td>
+          <td>{{ request.title }}</td>
+          <td>
+              <span class="skills" *ngFor="let skill of request.skills">
+                {{ skill.name }}
+              </span>
+          </td>
+          <td>{{ request.mentee.client }}</td>
+          <td>{{ request.createdAt.date | date:'yMMMd' }}</td>
+          <td><span  class="view-request" routerLink="/requests/{{request.id}}">View Request</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </md-card-content>
+  </md-card>
+</div>
+<app-pagination *ngIf="!loading && unmatchedRequests?.length" (pageChange)="getReports($event)"></app-pagination>

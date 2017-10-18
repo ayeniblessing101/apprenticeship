@@ -1,8 +1,7 @@
-<app-header>
-  <div class="report-header">
+<div class="report-header">
     <div class="left">
       <span class="title">
-        Mentorship Report
+        Request Skills Report
       </span>
       <span class="dropdown">
         <md-select class="timePicker" placeholder="All Locations" (change)="reloadReport($event)">
@@ -19,7 +18,7 @@
           </md-card>
           <md-card *ngIf="!loading">
             <md-card-content *ngIf="!skillsPercentage.length">
-                No requests made within this period
+              <p class="content-not-found">No requests made within this period</p>
             </md-card-content>
               <md-card-content>
                 <app-multiple-bar-chart *ngIf="skillsPercentage.length>0" [skills]="skillsPercentage" [status]="allStatuses"></app-multiple-bar-chart>
@@ -30,8 +29,8 @@
     </div>
     <div class="right">
       <span class="download" (click)="downloadReport()">Download Report <md-icon>get_app</md-icon></span>
-</div>
-    <div class="side-info">
+    </div>
+<div class="side-info">
       <md-card>
         <md-card-content>
           <span class="title">Requests Made</span>
@@ -92,4 +91,3 @@
       </md-card>
     </div>
   </div>
-</app-header>

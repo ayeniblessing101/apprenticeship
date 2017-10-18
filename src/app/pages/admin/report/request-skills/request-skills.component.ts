@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../../services/request.service';
-import { ChartModule } from 'angular2-chartjs';
+import { RequestService } from '../../../../services/request.service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './admin-report.component.html',
-  styleUrls: ['./admin-report.component.scss'],
+  selector: 'app-request-skills-report',
+  templateUrl: './request-skills.component.html',
+  styleUrls: ['./request-skills.component.scss'],
 })
-export class AdminReportComponent implements OnInit {
-  mode = 'determinate';
+export class RequestSkillsReportComponent implements OnInit {
   periods: {};
   locations: {};
   skills: any[];
@@ -54,20 +52,21 @@ export class AdminReportComponent implements OnInit {
     };
     this.selectedPeriod = '';
     this.selectedLocation = '';
-    this.include = [		
-      'totalRequests',		
+    this.include = [
+      'totalRequests',
       'totalMatchedRequests',
-      'totalCancelledRequests',	
-      'totalOpenRequests',	
-      'totalCompletedRequests',	
-      'sessionsCompleted',		
-      'averageTimeToMatch',		
+      'totalCancelledRequests',
+      'totalOpenRequests',
+      'totalCompletedRequests',
+      'sessionsCompleted',
+      'averageTimeToMatch',
     ];
     this.loading = false;
     this.lineDelimiter = '\r\n';
   }
   ngOnInit() {
     this.getReports(this.selectedPeriod, this.selectedLocation, this.include.join());
+
   }
 
   /**
