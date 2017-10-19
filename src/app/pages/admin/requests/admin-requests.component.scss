@@ -59,6 +59,17 @@ md-card {
   margin-top: 10px;
 }
 
+.cancel-request {
+  background-color: red;
+  border-right: 1px solid #500;
+  border-bottom: 1px solid #500;
+  padding: 5px;
+  color: #fff;
+  font-size: 12px;
+  float:right;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1441px) {
   .skill-list {
     margin-top: 5px;

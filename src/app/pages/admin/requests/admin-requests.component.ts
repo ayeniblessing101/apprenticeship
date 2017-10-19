@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
 import { SkillService } from '../../../services/skill.service';
 import { HelperService as Helper } from '../../../services/helper.service';
-import { Observable } from 'rxjs/Observable';
+import { CancelRequestDialogComponent } from '../../../components/cancel-request/cancel-request.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  selector: 'app-admin-requests',
   templateUrl: './admin-requests.component.html',
   styleUrls: ['./admin-requests.component.scss'],
 })
@@ -20,19 +22,15 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   dateFilters: any;
   dateRangeMap = [];
   limit: number;
-  searchInput: any;
   selectedSkillsId: any[] = [];
   selectedStatusesId: any[] = [];
-  showLabel: boolean = false;
-  showSearch: boolean = true;
-  filteredSkills: any[] = [];
-  checkedStatuses: any[] = [];
+  showSearch: true;
   roles: any[] = [];
   adminFilters: any = {
     Role: ['mentor', 'mentee'],
     Date: [],
     Primary: [],
-    Status: []
+    Status: [],
   };
   searchTerm: any;
   @Input() currentPage;
@@ -49,7 +47,11 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private filterService: FilterService,
     private skillService: SkillService,
+    private snackbar: MdSnackBar,
     public helper: Helper,
+    private route: ActivatedRoute,
+    private dialog: MdDialog,
+
   ) {
     filterService.statusResult.subscribe((response) => {
       this.extractRequest(response)
@@ -95,7 +97,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.params['skills'] = this.selectedSkillsId;
     this.params['status'] = this.selectedStatusesId;
-    this.params['period']= this.dateRange;
+    this.params['period'] = this.dateRange;
     this.requestSubscription = this.requestService.getRequests(20, page, this.params)
       .subscribe((response) => {
         this.loading = false;
@@ -111,13 +113,13 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
    * @param {Number} limit - number of requests to return
    * @return {Void}
    */
-  searchRequests(term:string):void {
+  searchRequests(term: string): void {
     this.currentPage = 1;
     this.searchTerm = term;
     this.params['q'] = this.searchTerm;
     this.requestSubscription = this.requestService.getRequests(20, this.currentPage, this.params)
       .subscribe((response) => {
-        this.loading = false;        
+        this.loading = false;
         this.extractRequest(response.requests);
         this.itemsPerPage = response.pagination.pageSize;
         this.totalItems = response.pagination.totalCount;
@@ -171,17 +173,18 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     // remove the '@' email suffix to get the user's full name
     let userName = email.match(/(.+)@/);
     userName = userName[1].split('.');
-    
-    return userName.join(' ').replace(/\w\S*/g, (txt => txt[0].toUpperCase() + txt.substr(1).toLowerCase() ));;
+
+    return userName.join(' ').replace(/\w\S*/g, (txt => txt[0]
+      .toUpperCase() + txt.substr(1).toLowerCase()));
   }
-  
+
 /**
    * Retrieves the full name of mentor from the mentor's id
    *
    * @param {String} email
    * @return {String} username
    */
-  
+
 
   /**
    * returns a css class for chips based on request status
@@ -271,5 +274,38 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
       }
     }
     this.getRequests(1);
+  }
+
+  /**
+   * Cancels a request
+   *
+   * @param {Number} requestId ID of the request to cancel
+   *
+   * @return {Null}
+   */
+  cancelRequest(requestId: number): void {
+    const snackBarConfig = new MdSnackBarConfig();
+    snackBarConfig.duration = 3000;
+
+    const dialogRef = this.dialog.open(CancelRequestDialogComponent);
+    dialogRef.afterClosed().toPromise().then((result) => {
+      if (result.action) {
+        this.requestService.cancelRequest(requestId, result.reason)
+          .toPromise().then(() => {
+            this.getRequests(this.currentPage);
+
+            this.snackbar.open(
+              'Request cancelled',
+              'close',
+              snackBarConfig);
+          })
+          .catch((error) => {
+            this.snackbar.open(
+              error,
+              'close',
+              snackBarConfig);
+          });
+      }
+    });
   }
 }

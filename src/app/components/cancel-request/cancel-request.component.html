@@ -1,0 +1,13 @@
+<div>
+    <md-dialog-content>
+      <p class="message">{{ message }}</p>
+      <p class="reasons">
+        <span>Reason for cancelling</span><br />
+        <input matInput [(ngModel)]="cancellationReason" placeholder="" />
+      </p>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-raised-button class="action-button" (click)=" closeDialog(false)">{{ abort }}</button>
+        <button md-raised-button class="md-btn-andela-pink" (click)="closeDialog(true)">{{ ok }}</button>
+    </md-dialog-actions>
+</div>

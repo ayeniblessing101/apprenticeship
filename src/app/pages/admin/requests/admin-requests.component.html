@@ -27,11 +27,14 @@
             </md-card-content>
             <div class="skill-list">
               <span class="chip" *ngFor="let skill of helper.extractSkills(request.request_skills, 'primary')">{{ skill }}</span>
+              <span *ngIf="request.status.indexOf('open') !== -1" class="cancel-request" (click)="cancelRequest(request.id)">
+                Cancel Request
+              </span>
             </div>
           </md-card>
           <app-pagination (pageChange)="getRequests($event)"></app-pagination>
         </div>
-        <div class="no-result" *ngIf="!requests.length && !loading"><h2>Mentee/mentor requests not found...</h2></div> 
+        <div class="no-result" *ngIf="!requests.length && !loading"><h2>Mentee/mentor requests not found...</h2></div>
         </div>
       </div>
     </div>

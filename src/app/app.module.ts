@@ -56,7 +56,7 @@ import { AdminRequestsComponent } from './pages/admin/requests/admin-requests.co
 import { RequestSkillsReportComponent } from './pages/admin/report/request-skills/request-skills.component';
 import { UnmatchedRequestsReportComponent } from './pages/admin/report/unmatched-requests/unmatched-requests.component';
 import { AdminSkillsComponent } from './pages/admin/skills/admin-skills.component';
-import { CancelRequestDialogComponent } from './pages/cancelrequest/cancelrequest.component';
+import { CancelRequestDialogComponent } from './components/cancel-request/cancel-request.component';
 import { DialogModalComponent } from './components/dialog-modal/dialog-modal.component';
 import { EditDialogComponent } from './pages/editrequest/edit-request.component';
 import { ProfileComponent } from './pages/profile/profile.component';

@@ -3,7 +3,7 @@ import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { SkillService } from '../../../services/skill.service';
 import { SkillDialogComponent } from '../../../components/skill-dialog/skill-dialog.component';
-import { CancelRequestDialogComponent } from '../../cancelrequest/cancelrequest.component';
+import { CancelRequestDialogComponent } from '../../../components/cancel-request/cancel-request.component';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

@@ -1,0 +1,36 @@
+@import '../../../assets/scss/buttons';
+
+div {
+    width: 450px;
+}
+
+md-dialog-actions {
+    position: relative;
+    margin: 0 auto;
+    width: 50%;
+}
+
+button {
+  margin-right: 10px;
+  width: 100px;
+}
+
+.message{
+  width: 400px;
+  text-align: center;
+  margin: 0.6em auto 3em auto;
+  color: $andela-blue;
+}
+
+.reasons{
+  padding:5px;
+  background-color: #cecece;
+  span{
+    text-align: left;
+    font-size: 13px;
+  }
+  input{
+    background-color: #fff;
+    padding:5px 0;
+  }
+}
