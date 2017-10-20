@@ -1,3 +1,22 @@
+# V 1.5.0
+
+## Features
+- show Request Skills report by status
+- add reporting for all Request statuses
+- change "Closed" status to "Completed"
+- add report for Unmatched Requests
+- allow Admins cancel Requests
+
+- create V2 Auth Landing Page
+- create V2 Request Pool Page
+
+## Bug Fix
+- fix time sessions time display across browsers
+- fix page redirect 404 error after Request cancellation
+
+## Tech Debt
+- round up User Ratings to two decimal places
+
 # V 1.4.4
 
 ## Features

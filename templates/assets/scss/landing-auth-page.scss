@@ -1,0 +1,65 @@
+@import "fonts";
+@import "colors";
+
+html {
+  background: url('../images/landing-page//bg.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.logo {
+  position: absolute;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  top: 23%;
+  left: 50%;
+
+  .text {
+    width: 107px;
+    height: 41px;
+    font-family: $font-family-1;
+    font-size: 32px;
+    font-weight: 500;
+    color: $white;
+    float: left;
+    margin-top: 10px;
+  }
+
+  img {
+    margin-right: 15px;
+  }
+
+}
+
+.page-intro {
+  position: absolute;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  top: 41%;
+  left: 50%;
+
+  .tagline {
+    width: 462px;
+    font-family: $font-family-2;
+    font-size: 48px;
+    font-weight: 300;
+    text-align: center;
+    color: $white;
+    line-height: 60px;
+  }
+}
+
+.signin-button {
+  width: 340px;
+  height: 60px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  margin-top: 8%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

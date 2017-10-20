@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'DINRegular';
+    src: url('../fonts/DIN/din-regular-webfont.eot');
+    src: url('../fonts/DIN/din-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DIN/din-regular-webfont.woff') format('woff'), url('../fonts/DIN/din-regular-webfont.ttf') format('truetype'), url('../fonts/DIN/din-regular-webfont.svg#DINRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'DINLight';
+    src: url('../fonts/DIN/din-light-webfont.eot');
+    src: url('../fonts/DIN/din-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/DIN/din-light-webfont.woff') format('woff'), url('../fonts/DIN/din-light-webfont.ttf') format('truetype'), url('../fonts/DIN/din-light-webfont.svg#DINLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  $font-family-1: DINRegular;
+  $font-family-2: DINLight;
