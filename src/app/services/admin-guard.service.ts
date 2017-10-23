@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
   canActivate() {
     if (!this.auth.userInfo.roles.LENKEN_ADMIN) {
       this.auth.changeNotice('unauthorized');
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/request-pool']);
 
       return false;
     }

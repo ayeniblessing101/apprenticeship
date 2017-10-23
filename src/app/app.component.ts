@@ -8,14 +8,16 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  title = 'app works!';
+
   constructor(
     router: Router,
     private segmentService: SegmentService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     if (localStorage.getItem('id_token')) {
       this.authService.decodeToken();
@@ -30,13 +32,12 @@ export class AppComponent {
         .catch(() => {});
     }
 
-    router.events.subscribe(event => {
+    router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.segmentService.page(event.url, {
-          type: 'Lenken segment client'
+          type: 'Lenken segment client',
         });
       }
     });
   }
-  title = 'app works!';
 }
