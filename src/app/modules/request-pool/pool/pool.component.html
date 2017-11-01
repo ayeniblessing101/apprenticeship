@@ -11,128 +11,30 @@
           <div>Location</div>
         </div>
       </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
+      <div
+      *ngFor="let request of requests"
+      class="body">
+      <div class="row">
+          <div>{{ request.title }}</div>
+          <div>{{ request.primarySkills }}</div>
+          <div>{{ request.secondarySkills }}</div>
+          <div>{{ request.duration }}</div>
+          <div>{{ request.date }}</div>
+          <div>{{ request.location }}</div>
         </div>
-      </div>
       <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div class="body">
-        <div class="row">
-          <div>Java Mentor</div>
-          <div>Java, Common Sense</div>
-          <div>Programming Skills</div>
-          <div>3 Months</div>
-          <div>May 25, 2017</div>
-          <div>Nairobi</div>
-        </div>
-      </div>
     </div>
+    </div>
+    <div
+		infiniteScroll
+		[infiniteScrollDistance]="2"
+		[infiniteScrollThrottle]="3000"
+		(scrolled)="onScroll()"
+	>	
+	</div>
+
+	<div class="loader" *ngIf="!loadingRequests">
+	</div>
   </section>
   <aside id="side-grid">
     <div class="side-contents">
