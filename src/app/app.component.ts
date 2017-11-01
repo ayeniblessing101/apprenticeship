@@ -12,7 +12,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'app works!';
-
+  showNavAndHeader = true;
   constructor(
     router: Router,
     private segmentService: SegmentService,
@@ -37,6 +37,9 @@ export class AppComponent {
         this.segmentService.page(event.url, {
           type: 'Lenken segment client',
         });
+        if (event.url === '/login') {
+          this.showNavAndHeader = false;
+        }
       }
     });
   }

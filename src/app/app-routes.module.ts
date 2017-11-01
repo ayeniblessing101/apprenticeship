@@ -7,10 +7,17 @@ import { PoolComponent } from './modules/request-pool/pool/pool.component';
 import { SharedModule } from './modules/shared/shared.module';
 
 const appRoutes: Routes = [
+
+  { path: '', redirectTo: 'request-pool', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
+
   { path: 'logout', component: LoginComponent },
+
   { path: 'request-pool', component: PoolComponent, canActivate: [AuthGuard] },
+
   { path: '**', component: PageNotFoundComponent },
+
 ];
 
 @NgModule({

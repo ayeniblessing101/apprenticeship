@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { MdSnackBar } from '@angular/material';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
-    public snackBar: MdSnackBar,
   ) {
     if (window.location.href.includes('logout')) {
       this.auth.logOut();
