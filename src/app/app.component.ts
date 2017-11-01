@@ -37,7 +37,7 @@ export class AppComponent {
         this.segmentService.page(event.url, {
           type: 'Lenken segment client',
         });
-        if (event.url === '/login') {
+        if (event.url === '/login'|| event.url === '/logout') {
           this.showNavAndHeader = false;
         }
       }
