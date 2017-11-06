@@ -44,6 +44,8 @@ body {
   width: 75%;
   padding: 35px 0 35px 35px;
   float: left;
+  margin-left: 4em;
+  margin-top: 4em;
 }
 
 section {
@@ -103,6 +105,9 @@ section {
   min-height: 91.35vh;
   float: right;
   padding: 2%;
+  right: 0;
+  position: fixed;
+  top: 5em;
   color: $primary-text-color;
   background-color: $primary-background-color;
   border-left: 1px solid #d1d1d1;

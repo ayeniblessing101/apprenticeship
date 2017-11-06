@@ -4,9 +4,10 @@
 .header-grid {
   width: 100vw;
   height: 4em;
-  background-color: white;
+  background-color: #f7f8f7;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: fixed;
+  padding-bottom: 10px;
   ul {
     display: flex;
     justify-content: flex-end;
