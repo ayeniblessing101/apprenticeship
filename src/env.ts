@@ -19,7 +19,7 @@ const firebaseConfigObject: Firebase = {
 export const environment = {
   production: false,
   firebaseConfig: firebaseConfigObject,
-  apiBaseUrl: 'https://lenken-api-staging.herokuapp.com/api/v1',
+  apiBaseUrl: 'https://lenken-api-staging.herokuapp.com/api',
   lenkenBaseUrl: 'http://lenken-dev.andela.com:4200',
   apiGateway: 'https://api-staging.andela.com',
   segmentAPIKey: 'WmVlgctp4KY8XpgNBMveGUtimL9TW8ke',

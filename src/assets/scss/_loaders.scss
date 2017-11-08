@@ -1,24 +1,28 @@
 .loader {
-  height: 50px;
-  width: 50px;
-  margin: 0 auto;
+  border: 6px solid #c5d1f9;
+  border-radius: 50%;
+  border-top: 6px solid #3359DF;
+  width: 40px;
+  height: 40px;
+  margin: 40px auto;
+  -webkit-animation: spin 5s linear infinite;
+  animation: spin 1s linear infinite;
+}
 
-  md-spinner {
-    height: 50px;
-    width: 50px;
-    color: #3359DF;
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
   }
-
-  img {
-    height: 100%;
-    width: 100%;
+  100% {
+    -webkit-transform: rotate(360deg);
   }
 }
 
-md-spinner {
-  float: right;
-  width: 24px;
-  height: 24px;
-  color: #fff;
-  margin: 6px 0 0 5px;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -61,7 +61,7 @@ export class RequestService {
    */
   getRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
+      .get(`${this.apiBaseUrl}/v2/requests/pool?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()),
       );

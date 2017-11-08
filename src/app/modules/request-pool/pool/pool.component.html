@@ -11,9 +11,7 @@
           <div>Location</div>
         </div>
       </div>
-      <div
-      *ngFor="let request of requests"
-      class="body">
+      <div *ngFor="let request of requests" class="body">
       <div class="row">
           <div>{{ request.title }}</div>
           <div>{{ request.primarySkills }}</div>
@@ -26,85 +24,13 @@
     </div>
     </div>
     <div
-		infiniteScroll
-		[infiniteScrollDistance]="2"
-		[infiniteScrollThrottle]="3000"
-		(scrolled)="onScroll()"
-	>	
-	</div>
-
-	<div class="loader" *ngIf="!loadingRequests">
-	</div>
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="3000"
+      (scrolled)="onScroll()"
+	  >
+	  </div>
+	  <div *ngIf="loadingRequests" class="loader"> </div>
   </section>
-  <aside id="side-grid">
-    <div class="side-contents">
-      <h4>Requests</h4>
-      <label class="input-container" for="">
-        <input type="checkbox" >
-        <span class="checkmark"></span>
-        All Requests
-      </label>
-      <label class="input-container" for="">
-        <input type="checkbox" checked="checked">
-        <span class="checkmark"></span>
-        Recommended for me
-      </label>
-    </div>
-    <div class="side-contents">
-      <h4>Type</h4>
-      <label class="input-container" for="">
-        <input type="checkbox" >
-        <span class="checkmark"></span>
-        Seekeing Mentor
-      </label>
-      <label class="input-container" for="">
-        <input type="checkbox" >
-        <span class="checkmark"></span>
-        Seekeing Mentor
-      </label>
-    </div>
-    <div class="side-contents">
-      <h4>Sorting</h4>
-      <p>User's Rating</p>
-      <select name="" id="">
-        <option value="" disabled selected>Select</option>
-        <option value="mentor">Mentor</option>
-        <option value="mentee">Mentee</option>
-      </select>
-      <p>Location</p>
-      <select name="" id="">
-        <option value="" disabled selected>Select</option>
-        <option value="mentor">Mentor</option>
-        <option value="mentee">Mentee</option>
-      </select>
-      <p>Length</p>
-      <select name="" id="">
-        <option value="" disabled selected>Select</option>
-        <option value="mentor">Mentor</option>
-        <option value="mentee">Mentee</option>
-      </select>
-      <p>Skill set</p>
-      <select name="" id="">
-        <option value="" disabled selected>Select skill</option>
-        <option value="mentor">Mentor</option>
-        <option value="mentee">Mentee</option>
-      </select>
-    </div>
-    <div class="side-contents">
-      <h4>Saved Filters</h4>
-
-      <label class="input-filter" for="">
-        <input type="checkbox">
-        <span class="filter-checkmark"></span>
-        Mentor Seeker
-        <span class="delete"><i class="fa fa-trash" aria-hidden="true"></i></span>
-      </label>
-      <label class="input-filter" for="">
-        <input type="checkbox">
-        <span class="filter-checkmark"></span>
-        Saved to Doe
-        <span class="delete"><i class="fa fa-trash" aria-hidden="true"></i></span>
-      </label>
-    </div>
-  </aside>
+  <app-pool-filters (applyFilters)="applyFilters($event)"></app-pool-filters>
 </div>

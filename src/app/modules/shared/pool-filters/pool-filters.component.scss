@@ -1,0 +1,37 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+#side-grid {
+  width: 16%;
+  min-height: 91.35vh;
+  display: inline-block;
+  padding: 90px 0 5px 20px;
+  color: $primary-text-color;
+  background-color: $primary-background-color;
+  .side-contents {
+    margin-bottom: 1.5em;
+    text-align: left;
+    color: #747474;
+    h4{
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      color: #747474;
+    }
+    md-radio-button, md-checkbox{
+      margin:3px 0;
+    }
+  }
+  h4 {
+    font-size: 16px;
+    margin-bottom: 1em;
+    margin-top: 0;
+  }
+  span.delete {
+    float: right;
+  }
+}
+
+app-pool-filters{
+  height: 100vh;
+}

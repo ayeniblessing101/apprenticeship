@@ -1,5 +1,6 @@
 @import '../../../../assets/scss/fonts';
 @import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/loaders';
 
 * {
   box-sizing: border-box;
@@ -23,9 +24,9 @@ body {
 
 /* Structure */
 .wrapper {
-  width: 93%;
+  width: 100%;
   margin: auto;
-  height: 100vh;
+  background: $primary-background-color;
 }
 
 .wrapper::after {
@@ -41,11 +42,13 @@ body {
 ********************************************************************************************************************************/
 
 #section-grid {
-  width: 75%;
-  padding: 35px 0 35px 35px;
+  width: 74%;
+  min-height: 91.35vh;
+  padding: 35px 30px 5px;
   float: left;
   margin-left: 4em;
   margin-top: 4em;
+  border-right: 1px solid #d1d1d1;
 }
 
 section {
@@ -93,138 +96,4 @@ section {
   .space {
     height: 10px;
   }
-}
-
-/*******************************************************************************************************************************
-
-                                             ASIDE / SIDE BAR
-
-********************************************************************************************************************************/
-#side-grid {
-  width: 19%;
-  min-height: 91.35vh;
-  float: right;
-  padding: 2%;
-  right: 0;
-  position: fixed;
-  top: 5em;
-  color: $primary-text-color;
-  background-color: $primary-background-color;
-  border-left: 1px solid #d1d1d1;
-  .side-contents {
-    margin-bottom: 1.5em;
-    P {
-      color: #aeaeae;
-      letter-spacing: 0.4px;
-      font-size: 14px;
-    }
-    select {
-      padding: .5em 0 .5em 0;
-      margin-bottom: .5em;
-      width: 140px;
-      -webkit-appearance: none;
-      border-radius: 0;
-      border-style: none;
-      border-bottom: 1px solid #dedede;
-      background-color: $primary-background-color;
-      font-family: $font-family-1;
-      font-size: 18px;
-      color: $primary-text-color;
-      background: transparent url(../../../../assets/images/icon.png) no-repeat 90% 50%;
-    }
-  }
-  h4 {
-    font-size: 16px;
-    margin-bottom: 1em;
-    margin-top: 0;
-  }
-  span.delete {
-    float: right;
-  }
-}
-
-.input-container, .input-filter {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 18px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  input[type=checkbox] {
-    position: absolute;
-    opacity: 0;
-  }
-}
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 22px;
-  width: 22px;
-  border: 2px solid $header-text-color;
-  border-radius: 2px;
-  &::after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-}
-
-.filter-checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  border: 2px solid $header-text-color;
-  border-radius: 50%;
-}
-
-/* When the checkbox is checked, add a background */
-.input-container input[type=checkbox]:checked ~ .checkmark {
-  background-color: $header-text-color;
-}
-
-.loader {
-  border: 6px solid #c5d1f9;
-  border-radius: 50%;
-  border-top: 6px solid #3359DF;
-  width: 40px;
-  height: 40px;
-  margin: auto;
-  margin-top: 40px;
-  -webkit-animation: spin 5s linear infinite;
-  animation: spin 1s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Show the checkmark when checked */
-.input-container input[type=checkbox]:checked ~ .checkmark:after {
-  display: block;
-}
-
-.input-container .checkmark:after {
-  left: 5px;
-  top: 2px;
-  width: 5px;
-  height: 10px;
-  border: solid $white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
 }

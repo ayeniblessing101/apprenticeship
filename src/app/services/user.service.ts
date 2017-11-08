@@ -24,31 +24,31 @@ export class UserService {
    */
   getUserInfo(userId: string): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/users/${userId}`)
+      .get(`${this.apiBaseUrl}/v1/users/${userId}`)
       .map(this.extractResponse)
       .catch(this.handleError);
   }
 
-   /**
-    * Return data as JSON
-    *
-    * @param Response res an Observable
-    *
-    * @return Object containing data from Observable
-    */
-   extractResponse(res: Response) {
+  /**
+   * Return data as JSON
+   *
+   * @param Response res an Observable
+   *
+   * @return Object containing data from Observable
+   */
+  extractResponse(res: Response) {
     return res.json();
-  		  
-   }
 
-   /**
-    * Handle errors
-    *
-    * @param Response http error
-    *
-    * @return ErrorObservable
-    */
-   handleError(error: Response | any) {
+  }
+
+  /**
+   * Handle errors
+   *
+   * @param Response http error
+   *
+   * @return ErrorObservable
+   */
+  handleError(error: Response | any) {
     let errMsg: string;
 
     if (error instanceof Response) {
