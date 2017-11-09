@@ -3,6 +3,7 @@
 @import '/assets/scss/ng-select';
 @import '/assets/scss/colors';
 @import '/assets/scss/loaders';
+@import '/assets/scss/fonts';
 
 html,body {
   background: $grey-light-200;
@@ -10,14 +11,14 @@ html,body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: Roboto;
+  font-family: $font-family-1;
 }
 
 #app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: Roboto;
+  font-family: $font-family-1;
 
   .app-partial-outlet {
     display: flex;
