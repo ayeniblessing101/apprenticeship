@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <section id="section-grid">
+    <div *ngIf="loading" class="loader"></div>  
+    <div *ngIf="requests?.length > 0" class="table" >
+      <div class="header">
+        <div class="row">
+          <div>Request</div>
+          <div>Primary Skill</div>
+          <div>Date Added</div>
+          <div>Date Ended</div>
+          <div>Duration</div>
+          <div>Role</div>
+          <div>Rating</div>
+        </div>
+      </div>
+      <div class="space"></div>
+        <div *ngFor="let request of requests" class="body">
+          <div class="row">
+             <div>{{ request.title }}</div>
+             <div>{{ request.skills }}</div>
+             <div>{{ request.createdAt }}</div>
+             <div>{{ request.endDate }}</div>
+             <div>{{ request.duration + " Month(s)" }}</div>
+             <div>{{ request.role }}</div>
+             <div><star-rating-comp [staticColor]="'default'"
+              [size]="'medium'"
+              [starType]="'svg'"
+              [showHalfStars]="true"
+              [readOnly]="true"
+              [rating]="request.rating"
+              disabled>
+            </star-rating-comp>
+             </div>
+          </div>
+          <div class="space"></div>
+        </div>
+    </div>
+    <div *ngIf="requests?.length === 0">
+        <h2>You currently do not have any completed requests</h2> 
+    </div>
+  </section>
+</div>

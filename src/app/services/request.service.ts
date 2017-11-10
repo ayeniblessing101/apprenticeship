@@ -27,7 +27,7 @@ export class RequestService {
    * @return Observable containing details of request
    */
   getRequestDetails(requestId: number) {
-    return this.http.get(`${this.apiBaseUrl}/requests/${requestId}`)
+    return this.http.get(`${this.apiBaseUrl}/v1/requests/${requestId}`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -40,7 +40,7 @@ export class RequestService {
   getStatus(): Observable<any> {
     if (!this.statuses) {
       this.statuses = this.http
-        .get(`${this.apiBaseUrl}/status`)
+        .get(`${this.apiBaseUrl}/v1/status`)
         .map(this.extractData)
         .publishReplay(1)
         .refCount()
@@ -92,7 +92,7 @@ export class RequestService {
    */
   getRequestsByStatus(status): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/requests?status=${status}`)
+      .get(`${this.apiBaseUrl}/v1/requests?status=${status}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -108,7 +108,7 @@ export class RequestService {
    */
   requestMentor(data) {
     const formattedData = this.formatRequestForm(data);
-    return this.http.post(`${this.apiBaseUrl}/requests`, formattedData)
+    return this.http.post(`${this.apiBaseUrl}/v1/requests`, formattedData)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -122,7 +122,7 @@ export class RequestService {
    */
   matchMenteeRequest(requestId: Number, requestUpdate: Object): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/requests/${requestId}/update-mentor`, requestUpdate)
+      .patch(`${this.apiBaseUrl}/requests/${requestId}/v1/update-mentor`, requestUpdate)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -136,7 +136,7 @@ export class RequestService {
    * @return Observable containing the updated request
    */
   updateMentorRequestInterested(id: number, data): Observable<any> {
-    return this.http.patch(`${this.apiBaseUrl}/requests/${id}/update-interested`, data);
+    return this.http.patch(`${this.apiBaseUrl}/v1/requests/${id}/update-interested`, data);
   }
 
   /**
@@ -172,7 +172,7 @@ export class RequestService {
    * @param {Object} data the update data
    */
   updateRequestStatus(id, data) {
-    return this.http.put(`${this.apiBaseUrl}/requests/${id}`, data)
+    return this.http.put(`${this.apiBaseUrl}/v1/requests/${id}`, data)
       .map(res => res.json())
       .catch(this.handleError);
   }
@@ -185,7 +185,7 @@ export class RequestService {
    */
   cancelRequest(id: number, reason = '') {
     return this.http.patch(
-      `${this.apiBaseUrl}/requests/${id}/cancel-request`, { reason })
+      `${this.apiBaseUrl}/v1/requests/${id}/cancel-request`, { reason })
       .map(res => res.json())
       .catch(error => Observable.throw(error.json().message));
   }
@@ -203,7 +203,7 @@ export class RequestService {
     }
 
     return this.http
-      .get(`${this.apiBaseUrl}/reports?${params.toString()}`)
+      .get(`${this.apiBaseUrl}/v1/reports?${params.toString()}`)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -217,7 +217,7 @@ export class RequestService {
   getUnmatchedRequests(options: {}): Observable<any> {
     const params = this.getEncodedParameters(options);
     return this.http
-      .get(`${this.apiBaseUrl}/reports/unmatched-requests?${params}`)
+      .get(`${this.apiBaseUrl}/v1/reports/unmatched-requests?${params}`)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -281,7 +281,7 @@ export class RequestService {
    */
   requestExtension(requestId: number) {
     return this.http.put(
-      `${this.apiBaseUrl}/requests/${requestId}/extend-mentorship`,
+      `${this.apiBaseUrl}/v1/requests/${requestId}/extend-mentorship`,
       {})
       .map((response: Response) => response.json())
       .catch(this.handleError);
@@ -296,7 +296,7 @@ export class RequestService {
    */
   approveExtensionRequest(requestId: number) {
     return this.http.patch(
-      `${this.apiBaseUrl}/requests/${requestId}/approve-extension`,
+      `${this.apiBaseUrl}/v1/requests/${requestId}/approve-extension`,
       {})
       .map((response: Response) => response.json())
       .catch(this.handleError);
@@ -311,9 +311,22 @@ export class RequestService {
    */
   rejectExtensionRequest(requestId: number) {
     return this.http.patch(
-      `${this.apiBaseUrl}/requests/${requestId}/reject-extension`,
+      `${this.apiBaseUrl}/v1/requests/${requestId}/reject-extension`,
       {})
       .map((response: Response) => response.json())
       .catch(this.handleError);
+  }
+
+  /**
+   * Returns a users completed requests
+   *
+   * @return Observable containing completed requests
+   */
+  getUserHistory(): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/requests/history?&`)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()),
+      );
   }
 }

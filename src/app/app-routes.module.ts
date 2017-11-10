@@ -4,6 +4,7 @@ import { LoginComponent } from './modules/shared/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { PageNotFoundComponent } from './modules/shared/page-not-found/page-not-found.component';
 import { PoolComponent } from './modules/request-pool/pool/pool.component';
+import { HistoryComponent } from './modules/request-pool/history/history.component';
 import { SharedModule } from './modules/shared/shared.module';
 
 const appRoutes: Routes = [
@@ -15,6 +16,8 @@ const appRoutes: Routes = [
   { path: 'logout', component: LoginComponent },
 
   { path: 'request-pool', component: PoolComponent, canActivate: [AuthGuard] },
+
+  { path: 'request-pool/history', component: HistoryComponent, canActivate: [AuthGuard] },
 
   { path: '**', component: PageNotFoundComponent },
 
