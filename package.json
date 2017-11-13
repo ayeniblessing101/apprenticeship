@@ -52,6 +52,7 @@
     "ngx-infinite-scroll": "^0.6.1",
     "ngx-pagination": "^3.0.1",
     "rxjs": "^5.1.0",
+    "tslint-config-airbnb": "^5.3.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
