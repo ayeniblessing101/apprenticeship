@@ -69,6 +69,13 @@
 
 }
 
+%active {
+  border-left-style: solid;
+  border-left-width: 5.2px;
+  border-left-color: $andela-blue;
+  color: $andela-blue;
+}
+
 /* End placeholder selectors */
 #pool {
   @extend %nav-icons;
@@ -109,6 +116,10 @@ li#pool.nav-icons.section-img.active {
   background-image: url('../images/ic-domain-24-px.png');
   &:hover {
     @extend %nav-hover;
+    background-image: url('../images/ic-domain-24-px.png');
+  }
+  &.active {
+    @extend %active;
     background-image: url('../images/ic-domain-24-px.png');
   }
 }

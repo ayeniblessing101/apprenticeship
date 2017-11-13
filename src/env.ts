@@ -23,5 +23,5 @@ export const environment = {
   lenkenBaseUrl: 'http://lenken-dev.andela.com:4200',
   apiGateway: 'https://api-staging.andela.com',
   segmentAPIKey: 'WmVlgctp4KY8XpgNBMveGUtimL9TW8ke',
-  segmentAPIBaseUrl: 'https://api.segment.io/v1',
+  segmentAPIBaseUrl: 'https://api.segment.io/v1'
 };

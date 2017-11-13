@@ -17,21 +17,23 @@
   li {
     color: #747474;
     border: 5.2px solid transparent;
-    p {
-      margin: 0;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   }
 
   .nav-icons {
-    padding-bottom: 20px;
-    padding-top: 20px;
-    height: 64px;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    height: 50px;
   }
 
   .nav-home-icon {
-    padding: 40px 0 100px 0;
+    padding: 40px 0 60px 0;
   }
+
   ul {
     margin: 0;
     padding: 0;
@@ -66,57 +68,66 @@
 
 }
 
+%active {
+  border-left-style: solid;
+  border-left-width: 5.2px;
+  border-left-color: $andela-blue;
+  color: $andela-blue;
+}
+
 /* End placeholder selectors */
-#pool {
+li#pool {
   @extend %nav-icons;
   background-image: url('../../../../assets/images/arrow-in-down-384.svg');
   background-size: 40px;
   &:hover {
     @extend %nav-hover;
     background-image: url('../../../../assets/images/arrow-in-down-384.png');
-    color: $andela-blue;
+  }
+  &.active {
+    @extend %active;
+    background-image: url('../../../../assets/images/arrow-in-down-384.png');
   }
 }
 
-li#pool.nav-icons.section-img.active {
-  height: 40px;
-  background-image: url('../../../../assets/images/arrow-in-down-384.png');
-  background-size: 40px;
-  border-left-style: solid;
-  border-left-width: 5.2px;
-  border-left-color: $andela-blue;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
-  color: $andela-blue;
-}
-
-#pending {
+li#pending {
   @extend %nav-icons;
   background-image: url('../../../../assets/images/ic-access-time-48-px.png');
+  background-size: 40px;
   &:hover {
     @extend %nav-hover;
     background-image: url('../../../../assets/images/clock-icon.svg');
-    background-size: 40px;
+  }
+  &.active {
+    @extend %active;
+    background-image: url('../../../../assets/images/clock-icon.svg');
   }
 }
 
-#progress {
+li#progress {
   @extend %nav-icons;
   background-image: url('../../../../assets/images/ic-domain-24-px.png');
+  background-size: 40px;
   &:hover {
     @extend %nav-hover;
-    background-image: url('../../../../assets/images/ic-domain-24-px.png');
+    background-image: url('../../../../assets/images/ic-domain-24-px.svg');
+  }
+  &.active {
+    @extend %active;
+    background-image: url('../../../../assets/images/ic-domain-24-px.svg');
   }
 }
 
-#history {
+li#history {
   @extend %nav-icons;
   background-image: url('../../../../assets/images/grey-history-clock.svg');
   background-size: 40px;
   &:hover {
     @extend %nav-hover;
     background-image: url('../../../../assets/images/history-clock.svg');
-    background-size: 40px;
+  }
+  &.active {
+    @extend %active;
+    background-image: url('../../../../assets/images/history-clock.svg');
   }
 }

@@ -329,4 +329,19 @@ export class RequestService {
       .catch(error => Observable.throw(error.json()),
       );
   }
+
+  /**
+   * Return latest in progress mentorship requests for v2
+   *
+   * @param {void}
+   *
+   * @return Observable containing latest requests
+   */
+  getInProgressRequests(): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/requests/in-progress`)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()),
+      );
+    }
 }
