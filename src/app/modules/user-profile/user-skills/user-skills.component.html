@@ -1,0 +1,23 @@
+<div class="profile-skills">
+  <div class="skills-container">
+    <p class="profile-heading">
+      2. Skills
+    </p>
+    <span class="skill-header">Add your skills</span>
+    <input type="text" placeholder="Start Typing" class="skill-input" 
+      ng2-auto-complete [source]="skills" [formControl]="skillControl"
+      [list-formatter]="autocompleListFormatter" value-property-name="id" 
+      display-property-name="name" autocomplete="true"
+      max-num-list="25" 
+      />
+    <button type="submit" class="submit-button" (click)="saveSkill()" 
+      [disabled]="isObject(skillControl.value) == false || skillControl.value == null">
+      <span class="add">+</span>
+    </button>
+    <div class="skills" *ngIf="currentUser.skills.length">
+      <span class="chip" *ngFor="let skill of currentUser.skills">{{ skill.name }}
+        <span class="close" (click)="deleteUserSkill(skill.id)">&times;</span>
+      </span>
+    </div>
+  </div>
+</div>

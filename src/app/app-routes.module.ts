@@ -22,6 +22,8 @@ const appRoutes: Routes = [
 
   { path: 'request-pool/in-progress', component: InProgressComponent, canActivate: [AuthGuard] },
 
+  { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
+
   { path: '**', component: PageNotFoundComponent },
 
 ];

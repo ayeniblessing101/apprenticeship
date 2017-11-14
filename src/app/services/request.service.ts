@@ -122,7 +122,7 @@ export class RequestService {
    */
   matchMenteeRequest(requestId: Number, requestUpdate: Object): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/requests/${requestId}/v1/update-mentor`, requestUpdate)
+      .patch(`${this.apiBaseUrl}/v1/requests/${requestId}/update-mentor`, requestUpdate)
       .map(this.extractData)
       .catch(this.handleError);
   }

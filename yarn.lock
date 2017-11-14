@@ -3255,6 +3255,10 @@ ng-select@^1.0.0-beta.4:
   version "1.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/ng-select/-/ng-select-1.0.0-beta.6.tgz#6f835247c1093bb380572b2705df75ff390c2f4d"
 
+ng2-auto-complete@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/ng2-auto-complete/-/ng2-auto-complete-0.12.0.tgz#9a78c39c5012404e7bc8365c03815ab7f68cea3d"
+
 ng2-cookies@^1.0.6:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/ng2-cookies/-/ng2-cookies-1.0.12.tgz#3f3e613e0137b0649b705c678074b4bd08149ccc"

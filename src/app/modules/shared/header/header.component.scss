@@ -1,6 +1,5 @@
 @import '../../../../assets/scss/colors';
 @import '../../../../assets/scss/fonts';
-
 .header-grid {
   width: 100vw;
   height: 4em;
@@ -27,17 +26,18 @@
       top: 35%;
     }
     .user-icon {
-      top: 30%;
+      top: 5%;
+      margin-right: 4%;
     }
     .caret-spacing {
       top: 35%;
-      margin-left: -15px;
+      margin-left: 5px;
     }
   }
 }
 
 .spacer {
-  margin-top: 20px;
+  margin-top: -10px;
 }
 
 .arrow-down {
@@ -91,4 +91,57 @@
   &:focus {
     outline: none;
   }
+}
+
+.drop-btn {
+  padding: 15px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  .dropdown-content {
+    margin-top: 25px;
+    margin-right: -30px;    
+    display: none;
+    position: absolute;
+    font-size: 14px;  
+    background-color: #f9f9f9;
+    min-width: 140px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+    a {
+      color: #444444;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+  }
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .arrow-down {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #E4DEDE;
+  border-top: none;
+  position: absolute;
+  margin-top: -10px;
+}
+.sign-out {
+  opacity: 0.6;
+}
+.arrow-spacing {
+  width: 100%;
+  margin-left: 140%;
 }

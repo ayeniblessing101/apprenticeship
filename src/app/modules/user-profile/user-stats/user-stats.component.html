@@ -1,0 +1,19 @@
+<div class="profile-stats">
+  <div class="stats-container">
+    <p class="profile-heading"> 1. Stats </p>
+    <div class="blue-box"></div>
+    <p><span style="float:left">User Rating:</span>
+      <star-rating-comp [size]="'medium'" [staticColor]="'default'" [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+        [rating]="currentUser.rating" style="float:left" disabled></star-rating-comp>
+      <span class="rating-count"> ({{ currentUser.total_ratings }} rating(s)) </span>
+    </p>
+    <div class="blue-box"></div>
+    <p>Total Requests: {{ currentUser.request_count }}</p>
+    <div class="blue-box"></div>
+    <p>Mentorship Sessions: {{ currentUser.total_sessions}} </p>
+    <div class="blue-box"></div>
+    <p>Mentorship Hours Logged: {{ currentUser.logged_hours | number:'1.0-2' }}</p>
+    <div>
+      <div class="blue-box"></div> Client status: {{ (!currentUser.placement) ? "Not Placed" : currentUser.placement.status }}
+    </div>
+</div>

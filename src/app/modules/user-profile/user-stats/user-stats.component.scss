@@ -1,0 +1,35 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+.profile-stats {
+  width: 90%;
+  font-size: 16px;
+  min-height: 300px;
+  padding: 5%;
+  background-color: #f1f2f3;
+}
+
+.profile-heading {
+  margin-left: 44%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3359db;
+}
+
+.stats-container {
+  padding: 1%;
+  width: 55%;
+  margin: 0 auto;
+}
+
+.blue-box {
+  margin-right: 1%;
+  width: 5px;
+  height: 20px;
+  float: left;
+  background-color: #3359db;
+}
+
+.rating-count {
+   color: #888888;
+}

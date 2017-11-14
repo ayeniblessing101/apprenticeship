@@ -21,7 +21,7 @@ export class SkillService {
   getSkills(): Observable<any> {
     if (!this.skills) {
       this.skills = this.http
-        .get(`${this.apiBaseUrl}/skills`)
+        .get(`${this.apiBaseUrl}/v1/skills`)
         .map(this.extractData)
         .publishReplay(1)
         .refCount()
@@ -40,7 +40,7 @@ export class SkillService {
    */
   getUserSkills(id): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/skills?id=${id}`)
+      .get(`${this.apiBaseUrl}/v1/skills?id=${id}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -52,7 +52,7 @@ export class SkillService {
    * @return Observable of the newly created skill
    */
   createSkill(data: Object): Observable<any> {
-    return this.http.post(`${this.apiBaseUrl}/skills`, data)
+    return this.http.post(`${this.apiBaseUrl}/v1/skills`, data)
       .map(this.extractData)
       .catch(
         error => Observable.throw(error.json()),
@@ -69,7 +69,7 @@ export class SkillService {
    */
   editSkill(id: number, data): Observable<any> {
     return this.http
-      .put(`${this.apiBaseUrl}/skills/${id}`, data)
+      .put(`${this.apiBaseUrl}/v1/skills/${id}`, data)
       .map(this.extractData)
       .catch(
         error => Observable.throw(error.json()),
@@ -84,7 +84,7 @@ export class SkillService {
    */
   deleteSkill(id) {
     return this.http
-      .delete(`${this.apiBaseUrl}/skills/${id}`)
+      .delete(`${this.apiBaseUrl}/v1/skills/${id}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -92,6 +92,34 @@ export class SkillService {
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};
+  }
+
+   /**
+   * Deletes an existing user skill
+   *
+   * @param {integer} id - id of the user skill to be deleted
+   * @return Observable object
+   */
+  deleteUserSkill(userId, skillId) {
+    return this.http
+      .delete(`${this.apiBaseUrl}/v2/users/${userId}/skills/${skillId}`)
+      .catch(
+        error => Observable.throw(error.json()),
+      );
+  }
+
+   /**
+   * Add a new skill to user skills
+   *
+   * @param {Object} skillId - the id of the skill to be added
+   * @return Observable of the newly added user skill
+   */
+  addUserSkill(userId, skillId): Observable<any> {
+    return this.http.post(`${this.apiBaseUrl}/v2/users/${userId}/skills`,
+      { skill_id: skillId })
+      .catch(
+      error => Observable.throw(error.json()),
+    );
   }
 
   /**

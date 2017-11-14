@@ -21,7 +21,7 @@ export class NotificationSettingsService {
    */
   getUserSettings(userId: string): Observable<any> {
     return this.http.get(
-      `${this.apiBaseUrl}/user/${userId}/settings`
+      `${this.apiBaseUrl}/v1/user/${userId}/settings`
     )
       .map(this.extractResponse)
       .catch(this.handleError);
@@ -38,7 +38,7 @@ export class NotificationSettingsService {
    */
   updateUserSettings(userId, settingId, values): Observable<any> {
     return this.http.put(
-      `${this.apiBaseUrl}/user/${userId}/settings/${settingId}`,
+      `${this.apiBaseUrl}/v1/user/${userId}/settings/${settingId}`,
       values
     )
       .map(this.extractResponse)

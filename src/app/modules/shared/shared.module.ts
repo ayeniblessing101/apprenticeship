@@ -9,6 +9,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from '../../modules/shared/alert/alert.component';
+import { AlertService } from '../../services/alert.service';
+
 import {
   MdCardModule,
   MdCheckboxModule,
@@ -36,6 +39,7 @@ import {
     LoginComponent,
     PageNotFoundComponent,
     PoolFiltersComponent,
+    AlertComponent,
   ],
   exports: [
     HeaderComponent,
@@ -43,7 +47,10 @@ import {
     LoginComponent,
     PoolFiltersComponent,
     PageNotFoundComponent,
+    AlertComponent,
   ],
-  providers: [],
+  providers: [
+    AlertService,
+  ],
 })
 export class SharedModule { }

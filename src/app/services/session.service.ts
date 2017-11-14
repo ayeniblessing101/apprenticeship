@@ -21,7 +21,7 @@ export class SessionService {
    */
   logSession(data: Session): Observable<any> {
     return this.http
-      .post(`${this.apiBaseUrl}/sessions`, data)
+      .post(`${this.apiBaseUrl}/v1/sessions`, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -33,7 +33,7 @@ export class SessionService {
    * @return {Observable} sessions
    */
   getSessions(requestId: number, include: string): Observable<any> {
-    return this.http.get(`${this.apiBaseUrl}/sessions/${requestId}?include=${include}`)
+    return this.http.get(`${this.apiBaseUrl}/v1/sessions/${requestId}?include=${include}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -46,7 +46,7 @@ export class SessionService {
    */
   approveSession(sessionId: number, payload: any): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/sessions/${sessionId}/approve`, payload)
+      .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/approve`, payload)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -59,7 +59,7 @@ export class SessionService {
    */
   rejectSession(sessionId: number, payload: any): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/sessions/${sessionId}/reject`, payload)
+      .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/reject`, payload)
       .map((response) => response.json())
       .catch((error) => Observable.throw(error.json().message));
   }
@@ -72,7 +72,7 @@ export class SessionService {
    */
   rateSession(ratings): Observable<any> {
     return this.http
-      .post(`${this.apiBaseUrl}/ratings`, ratings)
+      .post(`${this.apiBaseUrl}/v1/ratings`, ratings)
       .map((res) => {
         return res.json().rating;
       })

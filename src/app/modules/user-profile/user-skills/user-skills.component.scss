@@ -1,0 +1,115 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+.profile-skills {
+  width: 100%;
+  font-size: 16px;
+  padding: 1%;
+  min-height: 500px;
+  background-color: #ffffff;
+}
+
+.skills-container {
+  padding: 1%;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.skills {
+  padding: 5%;
+  margin-top: 3%;
+  width: 85%;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  clear: left;
+}
+
+.profile-heading {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3359db;
+}
+
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #303030;
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chip .close {
+  cursor: pointer;
+  font-size: 10px;
+  color: #ffffff;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  padding: 4px;
+  background-color: #ffaf30
+}
+
+.skill-input {
+  width: 60%;
+  height: 25px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #e9eff4;
+  float: left;
+  margin-bottom: 2%;
+}
+
+.submit-button {
+  padding: 10px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  color: #ffffff;  
+  border-radius: 4px;
+  position: absolute;
+  background-color: #ffaf30;
+  cursor: pointer;
+  margin-left: 42%;
+  clear: left;
+  &:disabled {
+    padding: 10px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    color: #ffffff;  
+    border-radius: 4px;
+    position: absolute;
+    background-color: #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.skill-header {
+  float: left;
+  margin-top: 3%;
+  margin-right: 2%
+}
+
+:host /deep/ .ng2-auto-complete {
+  min-width: 100%;
+  margin-left: 29% !important;
+}
+
+:host /deep/ .ng2-auto-complete .item {
+  padding: 15px;
+}
+
+.add {
+  font-size: 20px;
+}
