@@ -12,6 +12,7 @@ import { HelperService } from './../../../services/helper.service';
 
 export class InProgressComponent implements OnInit {
   errorMessage: string;
+  loading: boolean;
   requests: any[];
   user;
 
@@ -29,9 +30,11 @@ export class InProgressComponent implements OnInit {
    *
    */
   getInProgressRequests(): void {
+    this.loading = true;
     this.requestService.getInProgressRequests()
       .toPromise()
       .then((response) => {
+        this.loading = false;
         this.requests = this.formatInProgressRequests(response);
       })
       .catch(error => this.errorMessage = error);

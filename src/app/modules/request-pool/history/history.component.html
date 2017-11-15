@@ -1,7 +1,6 @@
 <div class="wrapper">
   <section id="section-grid">
-    <div *ngIf="loading" class="loader"></div>  
-    <div *ngIf="requests?.length > 0" class="table" >
+    <div class="table" >
       <div class="header">
         <div class="row">
           <div>Request</div>
@@ -35,6 +34,7 @@
           <div class="space"></div>
         </div>
     </div>
+    <div *ngIf="loading" class="loader"></div>  
     <div *ngIf="requests?.length === 0">
         <h2>You currently do not have any completed requests</h2> 
     </div>

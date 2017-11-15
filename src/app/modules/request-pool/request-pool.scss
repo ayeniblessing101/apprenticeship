@@ -1,0 +1,100 @@
+@import '../../../assets/scss/fonts';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/loaders';
+
+/* Custom Variable for table width */
+$table-width: 964px;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Structure */
+.wrapper {
+  width: 100%;
+  margin: auto;
+  background: $primary-background-color;
+}
+
+.wrapper::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+/*******************************************************************************************************************************
+                                             SECTION
+********************************************************************************************************************************/
+
+#section-grid {
+  min-height: 91.35vh;
+  padding: 35px 30px 5px;
+  float: left;
+  margin-left: 6em;
+  margin-top: 4em;
+}
+
+/* Table and Header Styles */
+.table {
+  z-index: -1; 
+  table-layout:fixed;
+  display: table;
+  width: $table-width;
+  border-collapse: collapse;
+  .header {
+    color: $header-text-color;
+    font-size: 14px;
+    display: table-header-group;
+    .row {
+      display: table-row;
+      border-bottom: 1px;
+      border-bottom-color: #e0e0e0;
+      div {
+        border-bottom: 1px solid #e0e0e0;
+        display: table-cell;
+        padding-left: 2%;
+        padding-bottom: 15px;
+        width: 16.67%;
+        font-size: 14px;
+        letter-spacing: 0.4px;
+        text-align: left;
+        color: #91979f;
+        height: 18px;
+      }
+    }
+  }
+
+  /* Table Body Styles */
+  .body {
+    display: table-row-group;
+    color: $primary-text-color;
+    font-size: 13px;
+    .row {
+      display: table-row;
+      height: 48px;
+      border-radius: 2px;
+      background-color: #f8f8f8;
+      border: solid 1px #dddddd;
+      div {
+        border-radius: 2px;
+        padding-left: 2%;
+        width: 16.67%;
+        vertical-align: middle;
+        display: table-cell;
+        height: 22px;
+        font-size: 15px;
+        line-height: 1.47;
+        text-align: left;
+        color: #2f2f2f;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .space {
+    height: 8px;
+  }
+}

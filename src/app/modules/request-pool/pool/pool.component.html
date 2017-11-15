@@ -6,11 +6,12 @@
           <div>Request</div>
           <div >Primary Skill</div>
           <div >Secondary Skill</div>
-          <div >Preffered Duration</div>
+          <div >Preferred Duration</div>
           <div >Date Added</div>
           <div>Location</div>
         </div>
       </div>
+      <div class="space"></div>
       <div *ngFor="let request of requests" class="body">
       <div class="row">
           <div>{{ request.title }}</div>
@@ -32,5 +33,6 @@
 	  </div>
 	  <div *ngIf="loadingRequests" class="loader"> </div>
   </section>
+  <div class="line"></div>
   <app-pool-filters (applyFilters)="applyFilters($event)"></app-pool-filters>
 </div>
