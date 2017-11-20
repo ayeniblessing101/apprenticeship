@@ -7,6 +7,14 @@
         </form>
       </div>
     </li>
+      <li *ngIf="isAdmin" class="dropdown">
+        <button id="admin-button">DASHBOARD</button>
+        <div class="admin-content common-dropdown-styles">
+          <a [routerLink]="['admin/requests']">REQUESTS</a>
+          <a [routerLink]="['admin/skills']">SKILLS</a>
+          <a [routerLink]="['admin/reports']">REPORTS</a>
+        </div>
+      </li>
     <li class="select-style">
       <select name="" id="">
         <option value="">REQUEST FOR</option>
@@ -32,7 +40,7 @@
             </div>
           </li>
         </div>
-        <div class="dropdown-content">
+        <div class="dropdown-content common-dropdown-styles">
           <a href="/profile">VIEW PROFILE</a>
           <a href="#">SETTINGS</a>
           <a href="#" class="sign-out">SIGN OUT</a>

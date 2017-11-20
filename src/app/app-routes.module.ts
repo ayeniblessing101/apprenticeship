@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './modules/shared/login/login.component';
-import { AuthGuard } from './services/auth-guard.service';
 import { PageNotFoundComponent } from './modules/shared/page-not-found/page-not-found.component';
 import { PoolComponent } from './modules/request-pool/pool/pool.component';
 import { HistoryComponent } from './modules/request-pool/history/history.component';
 import { InProgressComponent } from './modules/request-pool/in-progress/in-progress.component';
 import { SharedModule } from './modules/shared/shared.module';
+
+import { AuthGuard } from './services/auth-guard.service';
+import { AdminGuard } from './services/admin-guard.service';
 
 const appRoutes: Routes = [
 
@@ -23,6 +26,13 @@ const appRoutes: Routes = [
   { path: 'request-pool/in-progress', component: InProgressComponent, canActivate: [AuthGuard] },
 
   { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
+
+  { path: 'admin/requests', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+
+  { path: 'admin/skills', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+
+  { path: 'admin/reports', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+
 
   { path: '**', component: PageNotFoundComponent },
 
