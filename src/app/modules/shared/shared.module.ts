@@ -19,6 +19,7 @@ import {
   MdRadioModule,
   MdSliderModule,
 } from '@angular/material';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {
     PageNotFoundComponent,
     PoolFiltersComponent,
     AlertComponent,
+    NotificationsComponent,
   ],
   exports: [
     HeaderComponent,
@@ -51,6 +53,7 @@ import {
   ],
   providers: [
     AlertService,
+    NotificationsComponent,
   ],
 })
 export class SharedModule { }

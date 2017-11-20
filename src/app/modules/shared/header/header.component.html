@@ -14,7 +14,8 @@
         <option value="">something</option>
       </select>
     </li>
-    <a href="">
+    <app-notifications [state]="displayNotifications" (onClose)="closeNotifications($event)"></app-notifications>
+    <a (click)="openNotifications()">
       <li class="notification">
         <img src="../../assets/images/notification.png" alt="">
       </li>

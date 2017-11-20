@@ -1,0 +1,135 @@
+.notifications-modal {
+  float: right;
+  width: 264px;
+  height: 826px;
+  background-color: #f5f5f5;
+  position: absolute;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.3), 0 0 16px 0 rgba(0, 0, 0, 0.3);
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.modal-content {
+  padding: 16px;
+}
+
+.notifications-header {
+  margin-bottom: 28px;
+  margin-top: 19px;
+}
+
+.notifications-title {
+  width: 79px;
+  height: 18px;
+  font-family: DINPro;
+  font-size: 14px;
+  text-align: left;
+  color: #000000;
+  vertical-align: text-top;
+}
+
+.notifications-card-background {
+  width: 232px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.notifications-day {
+  width: 34px;
+  height: 15px;
+  font-family: DINPro;
+  font-size: 12px;
+  text-align: left;
+  color: #757575;
+}
+
+.card {
+  &-header {
+    padding-left: 8px;
+  }
+
+  &-title {
+    width: 49px;
+    height: 17px;
+    font-family: DINPro;
+    font-size: 13px;
+    text-align: left;
+    color: #424242;
+    vertical-align: text-top;
+  }
+
+  &-skill {
+    width: 232px;
+    height: 33px;
+    border-radius: 2px;
+    background-color: #ffffff;
+  }
+
+  &-body {
+    width: 216px;
+    height: auto;
+    font-family: DINPro;
+    font-size: 12px;
+    line-height: 1.17;
+    text-align: left;
+    color: #616161;
+    margin-top: 5px;
+    padding: 0px 8px 8px 8px;
+    a {
+      color: #0223c8;
+    }
+  }
+
+  &-time {
+    width: 42px;
+    height: 12px;
+    font-family: DINPro;
+    font-size: 10px;
+    text-align: right;
+    color: #757575;
+    float: right;
+    margin-right: 8px;
+    padding-top: 8px;
+  }
+}
+
+.tiny.material-icons {
+  width: 16px;
+  height: 16px;
+  font-size: small;
+  padding-top: 8px;
+
+  &.message {
+    color: #0223c8;
+  }
+
+  &.help {
+    color: #ff9800;
+  }
+
+  &.person {
+    color: #9c27b0;
+  }
+
+  &.skill {
+    color: #009688;
+  }
+
+  &.feedback {
+    color: #e91e63;
+  }
+
+  &.close {
+  cursor: default;
+  }
+
+  &.clear {
+    padding-top: 2px;
+    color: #000000;
+    float: right;
+    cursor: default;
+  }
+}

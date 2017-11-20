@@ -1,0 +1,77 @@
+<div class="notifications-modal" [@notificationsState]="state">
+  <div class="modal-content">
+    <div class="notifications-header">
+      <i class="tiny material-icons close" (click)="closeNotifications()">close</i>
+      <label class="notifications-title">Notifications</label>
+    </div>
+    <div>
+      <div>
+        <label class="notifications-day">Today</label>
+        <i class="tiny material-icons clear">clear_all</i>
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons message">message</i>
+          <label class="card-title">Support</label>
+          <label class="card-time">03:14AM</label>
+        </div>
+        <p class="card-body">Hi,from support!We are trying to verify the latest skill you added to your profile please be patient
+        </p>
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons help">help_outline</i>
+          <label class="card-title">Help</label>
+          <label class="card-time">10:17PM</label>
+        </div>
+        <p class="card-body">Remember you can always add skills you're confident in & would like to mentor on your profile page
+        </p>
+      </div>
+    </div>
+    <div>
+      <div>
+        <label class="notifications-day">Monday</label>
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons skill">call_made</i>
+          <label class="card-title"> New skill added!</label>
+          <label class="card-time">03:17AM</label>
+        </div>
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons message">message</i>
+          <label class="card-title" style="vertical-align: text-top">Support</label>
+          <label class="card-time">02:33PM</label>
+        </div>
+        <p class="card-body">Hi!We've verified your "HTML" skill
+        </p>
+      </div>
+    </div>
+    <div>
+      <div>
+<label class="notifications-day">7 days Ago</label>
+
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons feedback">receipt</i>
+          <label class="card-title">Feedback & Ratings</label>
+          <label class="card-time">10:17PM</label>
+        </div>
+        <p class="card-body"> Did your "HTML & CSS" session hold today? Don't forget to give feedback & rate the session
+        </p>
+      </div>
+      <div class="notifications-card-background">
+        <div class="card-header">
+          <i class="tiny material-icons person">person</i>
+          <label class="card-title">New Mentor Request</label>
+          <label class="card-time">10:17PM</label>
+        </div>
+        <p class="card-body">Someone has offered to mentor you on "HTML & CSS". Respond to requests on your pending tab or click <a href="">here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
