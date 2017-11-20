@@ -6,9 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from '../../modules/shared/alert/alert.component';
 import { AlertService } from '../../services/alert.service';
 
@@ -26,20 +24,13 @@ import { NotificationsComponent } from './notifications/notifications.component'
     CommonModule,
     RouterModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     MdCardModule,
-    MdCheckboxModule,
-    MdSelectModule,
-    MdRadioModule,
-    MdSliderModule,
   ],
   declarations: [
     HeaderComponent,
     NavBarComponent,
     LoginComponent,
     PageNotFoundComponent,
-    PoolFiltersComponent,
     AlertComponent,
     NotificationsComponent,
   ],
@@ -47,7 +38,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
     HeaderComponent,
     NavBarComponent,
     LoginComponent,
-    PoolFiltersComponent,
     PageNotFoundComponent,
     AlertComponent,
   ],

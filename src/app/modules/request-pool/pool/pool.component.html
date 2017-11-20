@@ -13,7 +13,7 @@
       </div>
       <div class="space"></div>
       <div *ngFor="let request of requests" class="body">
-      <div class="row">
+        <div class="row">
           <div>{{ request.title }}</div>
           <div>{{ request.primarySkills }}</div>
           <div>{{ request.secondarySkills }}</div>
@@ -21,8 +21,10 @@
           <div>{{ request.date }}</div>
           <div>{{ request.location }}</div>
         </div>
-      <div class="space"></div>
+        <div class="space"></div>
+      </div>
     </div>
+    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="3000" (scrolled)="onScroll()">
     </div>
     <div
       infiniteScroll
@@ -34,5 +36,15 @@
 	  <div *ngIf="loadingRequests" class="loader"> </div>
   </section>
   <div class="line"></div>
-  <app-pool-filters (applyFilters)="applyFilters($event)"></app-pool-filters>
+  <app-pool-filters
+   (openSaveFiltersModal)="openSaveFiltersModal()"     
+  (applyFilters)="applyFilters($event)" 
+  [savedFiltersNames]="savedFiltersNames">
+</app-pool-filters>
+
+  <app-save-filters-modal 
+  (updateSavedFiltersNames)="updateSavedFiltersNames($event)"
+   [filters]="filterParams" 
+   (close)="closeSaveFiltersModal()"
+    *ngIf="isSaveFiltersModalOpened"></app-save-filters-modal>
 </div>

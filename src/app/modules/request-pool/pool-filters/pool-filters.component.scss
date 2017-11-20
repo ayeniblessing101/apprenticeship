@@ -1,0 +1,100 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+#side-grid {
+  width: 16%;
+  min-height: 91.35vh;
+  display: inline-block;
+  padding: 90px 0 5px 20px;
+  color: $primary-text-color;
+  background-color: $primary-background-color;
+  .side-contents {
+    width: inherit;
+    margin-bottom: 1.5em;
+    text-align: left;
+    color: #747474;
+    h4{
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      color: #747474;
+      margin-bottom: 10px;
+    }
+    md-radio-button, md-checkbox{
+      margin:3px 0;
+    }
+    md-select{
+      padding:10px 0 0;
+      margin-bottom: 10px;
+      width: 90%;
+    }
+  }
+  h4 {
+    font-size: 16px;
+    margin-bottom: 1em;
+    margin-top: 0;
+  }
+
+  input[type="button"] {
+    all: unset;
+    display: inline-block;
+    width: 48%;
+    height: 44px;
+    border: solid 1px #3359db;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-align: center;
+    color: #3359db;
+    background-color: #ffffffff;
+    
+  }
+  .btn-success {
+     all: unset;
+     width: 49%px;
+     height: 44px;
+     border: solid 1px #3359db;
+     background-color: #3359db !important;
+     font-size: 12px;
+     font-weight: 500;
+     letter-spacing: 0.3px;
+     text-align: center;
+     color: #ffffff !important;
+    }
+
+    .btn-wrapper {
+     background-color: #3359db 
+    }
+
+    .inline-block{
+      display: inline-block !important;
+
+    }
+    .btn-delete-filter {
+      background: url('../../../../assets/images/ic-delete-24-px@2x.png')  no-repeat !important;
+      background-size: contain !important;
+      background-position: center bottom;
+      width: 12px !important;
+      height: 16px !important;
+      border: 0 !important;
+      margin-top: auto !important;
+    }
+    .saved-filters {
+      position: relative;
+      height: 10em;
+      overflow-y: scroll;
+      border-color: #747474;
+      border-style: solid;
+      border-width: 0 0 1px;
+    }    
+    .saved-filter {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100% !important;
+    }
+}
+
+:host /deep/ .mat-select-placeholder {
+  margin:2em 0 1.5em;
+}

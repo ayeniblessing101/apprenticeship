@@ -12,15 +12,56 @@ export class PoolComponent implements OnInit {
   limit = 20;
   loading: boolean;
   loadingRequests: boolean;
+  isSaveFiltersModalOpened: boolean
   requests = [];
   filterParams: any = {};
+  savedFiltersNames: string[];
 
   constructor(private requestService: RequestService) {
     this.filterParams['category'] = 'recommended';
   }
 
   ngOnInit() {
+    this.isSaveFiltersModalOpened = false;
+    const savedFilters = JSON.parse(localStorage.getItem('savedFilters'));
+    this.savedFiltersNames = savedFilters ? Object
+      .keys(savedFilters) : [];
     this.getRequests(this.currentPage);
+  }
+
+  /**
+   * Closes filter save filter modal
+   *
+   * @param {boolean}  event event emmited when Dismiss button 
+   * of  save filter modal is clicked
+   *
+   * @return {void}
+   */
+  closeSaveFiltersModal() {
+    this.isSaveFiltersModalOpened = false;
+  }
+
+  /**
+   * Opens save filter modal
+   *
+   * @param {boolean} event Event fired when
+   * save Filters is clicked
+   *
+   * @returns {void}
+   */
+  openSaveFiltersModal() {
+    this.isSaveFiltersModalOpened = true;
+  }
+
+  /**
+   * Updates names of all saved filers each time a new filter is saved
+   *
+   * @param {string[]} event fired after a filter is saved
+   *
+   * @returns {void}
+   */
+  updateSavedFiltersNames(event) {
+    this.savedFiltersNames = event;
   }
 
   /**
@@ -43,7 +84,7 @@ export class PoolComponent implements OnInit {
         ];
         this.loadingRequests = false;
       },
-        )
+    )
   }
 
   /**
@@ -67,7 +108,7 @@ export class PoolComponent implements OnInit {
     const requestData = requests.map((request) => {
       const primarySkills = [];
       const secondarySkills = [];
-      request.request_skills.forEach(({type, name}) => {
+      request.request_skills.forEach(({ type, name }) => {
         switch (type) {
           case 'primary':
             primarySkills.push(name);
