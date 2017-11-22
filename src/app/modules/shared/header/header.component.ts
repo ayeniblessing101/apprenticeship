@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { HelperService } from '../../../services/helper.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,11 @@ import { AuthService } from '../../../services/auth.service';
 export class HeaderComponent implements OnInit {
   displayNotifications: boolean;
   isAdmin = false;
+  currentUser: any;
 
   constructor(
     private authService: AuthService,
+    private helperService: HelperService
   ) {}
 
   ngOnInit() {
@@ -19,6 +22,7 @@ export class HeaderComponent implements OnInit {
     if (this.authService.userInfo.roles.LENKEN_ADMIN) {
       this.isAdmin = true;
     }
+    this.currentUser = this.helperService.getCurrentUser();
   }
 
   /**

@@ -5,6 +5,7 @@ import { HeaderComponent } from './header.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { AuthService } from '../../../services/auth.service';
 import { RouterLinkStubDirective } from '../../../stubs/router-stubs';
+import { HelperService } from '../../../services/helper.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -24,6 +25,7 @@ describe('HeaderComponent', () => {
           },
         },
         },
+        HelperService
       ],
     })
     .compileComponents();
