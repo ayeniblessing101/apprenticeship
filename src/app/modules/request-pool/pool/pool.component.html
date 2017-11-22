@@ -1,4 +1,6 @@
 <div class="wrapper">
+  <app-request-details *ngIf="showRequest" [selectedRequest]="selectedRequest" (close)="closeRequest()">
+  </app-request-details>
   <section id="section-grid">
     <div class="table">
       <div class="header">
@@ -13,7 +15,7 @@
       </div>
       <div class="space"></div>
       <div *ngFor="let request of requests" class="body">
-        <div class="row">
+        <div class="row" (click)="showRequestDetails(request)">
           <div>{{ request.title }}</div>
           <div>{{ request.primarySkills }}</div>
           <div>{{ request.secondarySkills }}</div>

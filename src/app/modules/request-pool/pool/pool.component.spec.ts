@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
 
+import { RequestDetailsComponent } from '../request-details/request-details.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -33,14 +35,20 @@ describe('PoolComponent', () => {
         FormsModule,
         MdSelectModule,
         MdCheckboxModule,
+        StarRatingModule,
       ],
-      declarations: [PoolComponent, PoolFiltersComponent, SaveFiltersModalComponent],
+      declarations: [
+        PoolComponent,
+        PoolFiltersComponent,
+        SaveFiltersModalComponent,
+        RequestDetailsComponent,
+      ],
       providers: [
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         FilterService,
-        HelperService
+        HelperService,
       ],
     })
     .compileComponents();

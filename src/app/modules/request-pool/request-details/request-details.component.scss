@@ -1,0 +1,158 @@
+@import '../../../../assets/scss/fonts';
+
+@mixin fit-content-height {
+  height: fit-content;
+  height: -moz-fit-content;
+}
+
+@mixin fit-content-width {
+  width: fit-content;
+  width: -moz-fit-content;
+}
+
+.request-modal {
+  font-family: $font-family-1;  
+  box-sizing: content-box;
+  position: fixed;
+  z-index: 1000;
+  top: 20%;
+  left: 15%;
+  border-radius: 4px;
+  width: 60%;
+  height: 50%;
+  background-color: white;
+  box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+  padding: 4%;
+  overflow-y: auto;
+  .request-body {
+    .request-content {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: left;
+      color: #303030;
+      line-height: 15px;
+      margin-left: 0;
+      span {
+        font-weight: normal;
+        color: #747474;
+      }
+    }
+    .request-description {
+      margin-top: 0;
+      text-align: left;
+    }
+  }
+
+ &::-webkit-scrollbar { 
+    width: 0 !important 
+  }
+}
+
+.modal-heading {
+  @include fit-content-width;
+  font-family: $font-family-1;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  color: #3359db;
+}
+
+.underline {
+  width: 70px;
+  height: 6px;
+  border-radius: 100px;
+  background-color: #3359db;
+  margin: 15px 0 30px 0;
+  border: none;
+}
+
+.modal-footer {
+  display: inline-block;
+  margin-top: 4%;
+  margin-left: 65%;
+  @include fit-content-height;
+  .button-group {
+    @include fit-content-width;
+    @include fit-content-height;
+    cursor: pointer;
+    input[type="button"] {
+      all: unset;
+      width: 120px;
+      height: 44px;
+      border: solid 1px #3359db;
+      font-family: DINPro;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      text-align: center;
+      color: #3359db;
+      margin-right: 10px;
+    }
+    input[type="submit"] {
+      all: unset;
+      width: 150px;
+      height: 44px;
+      border: solid 1px #3359db;    
+      background-color: #3359db;
+      font-family: DINPro;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      text-align: center;
+      color: #ffffff;
+      margin-right: 10px;
+    }
+  }
+}
+
+ .button-container {
+    position: absolute;
+    height: 45px;
+    width: 24px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color:  rgba(244, 247, 249, 0.4);
+    border: solid 1px #e9eff4;
+    margin-left: 94px;
+    margin-top: -45px;
+    text-align: center;
+    overflow-x: auto;
+    &:first-child {
+      border-bottom: solid 1px #e9eff4;
+      padding-bottom: 3px;
+    }
+  }
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 900
+}
+
+star-rating-comp {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 1242px) {
+  .modal-footer {
+    margin-left: 55%;
+  }
+}
+
+@media only screen and (max-width: 1115px) {
+  .modal-footer {
+    margin-left: 50%;
+  }
+}
+
+@media only screen and (max-width: 995px) {
+  .modal-footer {
+    margin-left: 45%;
+  }
+}

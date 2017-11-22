@@ -24,7 +24,7 @@ export class UserService {
    */
   getUserInfo(userId: string): Observable<any> {
     return this.http
-      .get(`${this.apiBaseUrl}/v1/users/${userId}`)
+      .get(`${this.apiBaseUrl}/v2/users/${userId}`)
       .map(this.extractResponse)
       .catch(this.handleError);
   }

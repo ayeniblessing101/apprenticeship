@@ -72,7 +72,6 @@ md-checkbox.mat-primary.mat-checkbox {
   height: 2px;
   background-color: #d0d0d0 !important;
 }
-
 .rating.color-default .star-container .star {
   svg {
     fill: #3359db;
@@ -81,6 +80,12 @@ md-checkbox.mat-primary.mat-checkbox {
     color: #3359db;
   }
 }
+.rating.color-negative .star-container .star svg {
+    fill: #3359db;
+}
 .star-container {
   z-index: 0;
+}
+.rating.color-ok .star-container .star svg {
+    fill: #3359db;
 }

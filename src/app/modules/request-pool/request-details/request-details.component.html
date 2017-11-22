@@ -1,0 +1,32 @@
+<div #requestModal class="request-modal">
+  <div class="modal-heading">
+    {{ selectedRequest.primarySkills.toUpperCase() }} MENTOR
+    <hr class="underline">
+  </div>
+  <div class="request-body">
+    <p class="request-description">{{ selectedRequest.title }}</p>
+    <p class="request-content">Requested by -
+      <span> {{ userInfo ? userInfo.name : null }}  </span>
+      <star-rating-comp [starType]="'svg'" [rating]="rating"></star-rating-comp>
+    </p>
+    <p class="request-content">Primary Skills -
+      <span> {{ selectedRequest.primarySkills }} </span>
+    </p>
+    <p class="request-content">Secondary Skills -
+      <span> {{ selectedRequest.secondarySkills }} </span>
+    </p>
+    <p class="request-content">Preffered Location -
+      <span> {{ selectedRequest.location }} </span>
+    </p>
+    <p class="request-content">Proposed Duration -
+      <span> {{ selectedRequest.duration }} </span>
+    </p>
+    <div class="modal-footer">
+      <div class="button-group">
+        <input type="button"  value="BACK" (click)="closeRequestModal()">
+        <input type="submit" value="I'M INTERESTED" id="btn-interested">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-background"></div>

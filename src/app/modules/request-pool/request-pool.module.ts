@@ -17,6 +17,7 @@ import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { SharedModule } from '../shared/shared.module';
 import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
+import { RequestDetailsComponent } from './request-details/request-details.component';
 import { RequestService } from '../../services/request.service';
 
 
@@ -40,6 +41,7 @@ import { RequestService } from '../../services/request.service';
     InProgressComponent,
     PoolFiltersComponent,
     HistoryComponent,
+    RequestDetailsComponent,
   ],
   exports: [
     PoolComponent,
