@@ -139,6 +139,12 @@ star-rating-comp {
   display: inline-block;
 }
 
+@media only screen and (max-width: 1280px) {
+  .modal-footer {
+    margin-left: 61%;
+  }
+}
+
 @media only screen and (max-width: 1242px) {
   .modal-footer {
     margin-left: 55%;
