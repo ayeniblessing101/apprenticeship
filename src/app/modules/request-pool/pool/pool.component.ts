@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
+import { HelperService } from '../../../services/helper.service';
+
 import * as moment from 'moment';
 
 @Component({
@@ -13,14 +15,14 @@ export class PoolComponent implements OnInit {
   limit = 20;
   loading: boolean;
   loadingRequests: boolean;
-  isSaveFiltersModalOpened: boolean
+  isSaveFiltersModalOpened: boolean;
   selectedRequest: object;
   requests = [];
   filterParams: any = {};
   savedFiltersNames: string[];
 
-  constructor(private requestService: RequestService) {
-    this.filterParams['category'] = 'recommended';
+  constructor(private requestService: RequestService,
+              private helperService: HelperService) {
   }
 
   ngOnInit() {
@@ -28,7 +30,8 @@ export class PoolComponent implements OnInit {
     const savedFilters = JSON.parse(localStorage.getItem('savedFilters'));
     this.savedFiltersNames = savedFilters ? Object
       .keys(savedFilters) : [];
-    this.getRequests(this.currentPage);
+    this.filterParams = this.helperService.getFilters();
+    this.getRequests();
   }
 
   /**
@@ -92,21 +95,15 @@ export class PoolComponent implements OnInit {
   /**
    * Get requests from the Lenken API service
    *
-   * @param {Number} page - the page number of requests to fetch.
-   *
    * @return {void}
    */
-  getRequests(page: number): void {
+  getRequests(): void {
     this.loadingRequests = true;
-
-    this.requestService.getRequests(this.limit, page, this.filterParams)
+    this.currentPage = 1;
+    this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
       .toPromise()
       .then((response) => {
-        // concatenate new request data with previous data
-        this.requests = [
-          ...this.requests,
-          ...this.formatRequestData(response.requests),
-        ];
+        this.requests = this.formatRequestData(response.requests);
         this.loadingRequests = false;
       },
     )
@@ -118,8 +115,18 @@ export class PoolComponent implements OnInit {
    * @return {void}
    */
   onScroll(): void {
+    this.loadingRequests = true;
     this.currentPage += 1;
-    this.getRequests(this.currentPage);
+    this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
+      .toPromise()
+      .then((response) => {
+        // concatenate new request data with previous data
+        this.requests = [
+          ...this.requests,
+          ...this.formatRequestData(response.requests),
+        ];
+        this.loadingRequests = false;
+      });
   }
 
   /**
@@ -169,7 +176,6 @@ export class PoolComponent implements OnInit {
     if (!event) {
       return;
     }
-
     this.filterParams['category'] = event.category;
     if (event.ratings) {
       this.filterParams['ratings'] = event.ratings;
@@ -195,8 +201,7 @@ export class PoolComponent implements OnInit {
       }
       this.filterParams['type'].push('mentee');
     }
-    this.currentPage = 1;
-    this.requests = [];
-    this.getRequests(this.currentPage);
+    this.helperService.setFilters(event);
+    this.getRequests();
   }
 }

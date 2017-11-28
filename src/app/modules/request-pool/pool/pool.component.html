@@ -26,8 +26,6 @@
         <div class="space"></div>
       </div>
     </div>
-    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="3000" (scrolled)="onScroll()">
-    </div>
     <div
       infiniteScroll
       [infiniteScrollDistance]="2"
@@ -39,14 +37,15 @@
   </section>
   <div class="line"></div>
   <app-pool-filters
-   (openSaveFiltersModal)="openSaveFiltersModal()"     
-  (applyFilters)="applyFilters($event)" 
-  [savedFiltersNames]="savedFiltersNames">
+   (openSaveFiltersModal)="openSaveFiltersModal()"
+  (applyFilters)="applyFilters($event)"
+  [savedFiltersNames]="savedFiltersNames"
+  >
 </app-pool-filters>
 
-  <app-save-filters-modal 
+  <app-save-filters-modal
   (updateSavedFiltersNames)="updateSavedFiltersNames($event)"
-   [filters]="filterParams" 
+   [filters]="filterParams"
    (close)="closeSaveFiltersModal()"
     *ngIf="isSaveFiltersModalOpened"></app-save-filters-modal>
 </div>

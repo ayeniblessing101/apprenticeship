@@ -2,8 +2,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class HelperService {
+  filters = {
+    category: ['recommended'],
+    type: [],
+    ratings: [],
+    locations: [],
+    skills: [],
+    lengths: [],
+  };
 
-  constructor() { }
+  constructor() {}
 
   /**
    *  extracts the names of skills from an array of skill objects
@@ -35,13 +43,32 @@ export class HelperService {
     return this.extractSkills(arrayOfSkillsNames, skilltype).join(', ');
   }
 
-    /**
-     * This method retrieves information
-     * for the current user
-     * 
-     * @return {Object} object of user's information
-     */
-    getCurrentUser(): any {
-      return JSON.parse(localStorage.getItem('currentUser'));
-    }
+  /**
+   * This method retrieves information
+   * for the current user
+   *
+   * @return {Object} object of user's information
+   */
+  getCurrentUser(): any {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  /**
+   * This method updates the filters object
+   *
+   * @param {Object} filters - Object containing filter data
+   * @return {void}
+   */
+  setFilters(filters): void  {
+    this.filters = filters;
+  }
+
+  /**
+   * This method returns the currently active filters.
+   *
+   * @return {Object} filter data
+   */
+  getFilters() {
+    return this.filters;
+  }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { FilterService } from 'app/services/filter.service';
 import { localStorage } from 'app/globals';
+import { HelperService } from '../../../services/helper.service';
 
 @Component({
   selector: 'app-pool-filters',
@@ -13,16 +14,17 @@ export class PoolFiltersComponent implements OnInit {
   @Output() applyFilters = new EventEmitter<any>();
   @Output() openSaveFiltersModal = new EventEmitter();
   @Input() savedFiltersNames: string[];
-  defaultFilters: object;
   form: FormGroup;
   appliedFilters: any;
   skills: any = [];
   ratings: any = [];
   locations: any = [];
   lengths: any = [];
+  defaultFilters: object;
 
   constructor(private formBuilder: FormBuilder,
-              private filterService: FilterService) {
+              private filterService: FilterService,
+              private helperService: HelperService) {
     this.defaultFilters = {
       category: ['recommended'],
       type: [],
@@ -34,17 +36,18 @@ export class PoolFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeFilters();
+    const filters = this.helperService.getFilters();
+    this.initializeFilters(filters);
     this.form = this.formBuilder.group({
-      category: ['recommended'],
+      category: filters.category,
       type: new FormArray([
         new FormControl(false),
         new FormControl(false),
       ]),
-      ratings: [],
-      locations: [],
-      skills: [],
-      lengths: [],
+      ratings: [filters.ratings],
+      locations: [filters.locations],
+      skills: [filters.skills],
+      lengths: [filters.lengths],
     });
     this.onChanges();
   }
@@ -93,7 +96,7 @@ export class PoolFiltersComponent implements OnInit {
   }
 
   /**
-   * Deletes a saved filte
+   * Deletes a saved filter
    *
    * @param {event} event standard js event.
    * This is fired when the delete button on a saved filter
@@ -106,8 +109,7 @@ export class PoolFiltersComponent implements OnInit {
       .parse(localStorage.getItem('savedFilters'));
     delete savedFilters[event.target.id];
     localStorage
-      .setItem('savedFilters',
-               JSON.stringify(savedFilters));
+      .setItem('savedFilters', JSON.stringify(savedFilters));
     this.savedFiltersNames = Object.keys(savedFilters)
   }
 
@@ -120,7 +122,6 @@ export class PoolFiltersComponent implements OnInit {
   openFiltersSaveModal() {
     this.openSaveFiltersModal.emit();
   }
-
   /**
    * Get a list of skills with requests
    *
@@ -139,7 +140,7 @@ export class PoolFiltersComponent implements OnInit {
    *
    * @return {void}
    */
-  initializeFilters(): void {
+  initializeFilters(filters): void {
     this.getSkillsWithRequests();
 
     this.locations = [
@@ -157,8 +158,7 @@ export class PoolFiltersComponent implements OnInit {
     [2, 3, 4, 5].forEach((length) => {
       this.lengths.push({ label: `${length} Months`, value: length })
     });
-
-    this.appliedFilters = this.defaultFilters;
+    this.appliedFilters = filters;
   }
 }
 
