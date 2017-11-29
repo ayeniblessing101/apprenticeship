@@ -1,0 +1,77 @@
+<div class="modal-container">
+    <div #pendingModal class="modal">
+        <div class="holder">
+            <div class="modal-heading">
+                <h4 class="title"> {{ request.title }} MENTOR</h4>
+                <div class="underline"></div>
+                <button *ngIf="type==='myRequests'"  class="button delete">DELETE</button>
+            </div>
+            <div class="modal-content">
+                <div class="request-description">
+                    <p>{{ request.description }}</p>
+                </div>
+                <div class="request-details">
+                    <ul>
+                        <li>
+                            <strong>Request by</strong> -
+                            <span>{{ mentee ? mentee.name : null }}
+                                <span class="rating-stars">
+                                    <star-rating-comp
+                                        [starType]="'svg'"
+                                        [rating]="mentee ? mentee.rating : 0"
+                                        [staticColor]="'default'"
+                                        [readOnly]="true"></star-rating-comp>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <strong>Primary Skills</strong> -
+                            <span>{{ request.primarySkills }}</span>
+                        </li>
+                        <li>
+                            <strong>Secondary Skills</strong> -
+                            <span>{{ request.secondarySkills }}</span>
+                        </li>
+                        <li>
+                            <strong>Preferred Location</strong> -
+                            <span>{{ mentee ? mentee.location : null }}</span>
+                        </li>
+                        <li>
+                            <strong>Proposed Duration</strong> -
+                            <span>{{ request.duration }} ({{ request.pairingDays }})</span>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="type==='myRequests'" class="interested">
+                    <div *ngIf="mentors" class="table">
+                        <div *ngFor="let mentor of mentors" class="body">
+                            <div class="row">
+                                <div> {{ mentor.name }}
+                                    <span class="rating-stars">
+                                        <star-rating-comp
+                                            [staticColor]="'default'"
+                                            [starType]="'svg'"
+                                            [rating]="mentor.rating"
+                                            [readOnly]="true">
+                                        </star-rating-comp>
+                                    </span>
+                                </div>
+                                <div>{{ mentor.skills }}</div>
+                                <div class="choice">Accept
+                                    <span class="icon accept-icon">&#10004;</span>
+                                </div>
+                                <div class="choice">Reject
+                                    <span class="icon reject-icon">&#10005;</span>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="type==='myInterests'" class="cancel">
+                    <button class="button cancel">CANCEL REQUEST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

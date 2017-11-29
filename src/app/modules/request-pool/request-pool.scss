@@ -16,6 +16,7 @@ $table-width: 100%;
   width: 100%;
   margin: auto;
   background: $primary-background-color;
+  overflow: hidden;
 }
 
 .wrapper::after {
@@ -100,6 +101,130 @@ $table-width: 100%;
     height: 8px;
   }
 }
+
+/*******************************************************************************************************************************
+                                             TITLE
+********************************************************************************************************************************/
+
+.title {
+  color: $andela-blue;
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: 10px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.title:after {
+  content: "";
+  margin-top: 15px;
+  float: left;
+  background: $andela-blue;
+  width: 50%;
+  max-width: 70px;
+  height: 6px;
+  border-radius: 3px;
+}
+
+/*******************************************************************************************************************************
+                                             MODAL
+********************************************************************************************************************************/
+
+.modal-container {
+  display: block;
+  position: fixed;
+  z-index: 12;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-left: 20vw;
+  padding-top: 20vh;
+
+  .modal {
+    margin: 0 auto;
+    font-family: $font-family-1;
+    box-sizing: content-box;
+    position: fixed;
+    z-index: 2;
+    width: 60%;
+    min-height: 40%;
+    max-height: 60%;
+    height: auto;
+    top: 13%;
+    left: 15%;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    overflow-y: auto;
+  
+    .modal-heading {
+      font-family: $font-family-1;
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: left;
+      color: #3359db;
+    }
+
+    .modal-content {
+      margin-top: 30px;
+      line-height: 25px;
+  }
+    
+   &::-webkit-scrollbar {
+      width: 0 !important
+    }
+  }
+}
+
+/*******************************************************************************************************************************
+                                             BUTTON
+********************************************************************************************************************************/
+
+.button {
+    border-radius: 0;
+    height: 35px;
+    width: auto;
+    background: none;
+    color: $andela-blue;
+    border: 1px solid $andela-blue;
+    font-size: 1em;
+    padding: 5px 30px 5px 30px;
+    outline: none;
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+/*******************************************************************************************************************************
+                                             RATING
+********************************************************************************************************************************/
+
+
+.rating.color-default .star-container .star {
+  svg {
+    fill: #3359db;
+  }
+  i {
+    color: #3359db;
+  }
+}
+.star-container {
+  z-index: 0;
+}
+
+.rating.color-ok .star-container .star svg {
+  fill: #3259db;
+}
+
+.rating.color-negative .star-container .star svg {
+  fill: #3259db;
+}
+
+
 @media only screen and (max-width: 1210px) {
   #section-grid {
     width: 70%;

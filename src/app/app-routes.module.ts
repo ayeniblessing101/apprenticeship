@@ -7,6 +7,7 @@ import { PoolComponent } from './modules/request-pool/pool/pool.component';
 import { HistoryComponent } from './modules/request-pool/history/history.component';
 import { InProgressComponent } from './modules/request-pool/in-progress/in-progress.component';
 import { SharedModule } from './modules/shared/shared.module';
+import { PendingComponent } from 'app/modules/request-pool/pending/pending.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
@@ -24,6 +25,8 @@ const appRoutes: Routes = [
   { path: 'request-pool/history', component: HistoryComponent, canActivate: [AuthGuard] },
 
   { path: 'request-pool/in-progress', component: InProgressComponent, canActivate: [AuthGuard] },
+
+  { path: 'request-pool/pending', component: PendingComponent, canActivate: [AuthGuard] },
 
   { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
 

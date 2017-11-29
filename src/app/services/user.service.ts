@@ -30,6 +30,20 @@ export class UserService {
   }
 
   /**
+   * Query api for multiple user info
+   *
+   * @param {Array} userIds multiple user ids
+   *
+   * @return Observable containing the users' info
+   */
+  getUsersByIds(userIds: string[]): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/users?ids=${userIds}`)
+      .map(this.extractResponse)
+      .catch(this.handleError);
+  }
+
+  /**
    * Return data as JSON
    *
    * @param Response res an Observable

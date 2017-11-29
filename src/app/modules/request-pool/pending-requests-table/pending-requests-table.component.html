@@ -1,0 +1,41 @@
+<div class="title-container">
+  <h4 class="title">{{ title }}</h4>
+</div>
+<div class="content-container">
+  <div *ngIf="requests?.length > 0" class="table">
+    <div class="header">
+      <div class="row">
+        <div>Request</div>
+        <div>Primary Skill</div>
+        <div>Secondary Skill</div>
+        <div>Preffered Duration</div>
+        <div>Date Added</div>
+        <div>Location</div>
+        <div>Applications</div>
+      </div>
+    </div>
+    <div class="space"></div>
+    <div *ngFor="let request of requests" class="body">
+      <div class="row" (click)="openPendingModal(request)">
+        <div>{{ request.title }}</div>
+        <div>{{ request.primarySkills }}</div>
+        <div>{{ request.secondarySkills }}</div>
+        <div>{{ request.duration }}</div>
+        <div>{{ request.created_at }}</div>
+        <div>{{ request.location }}</div>
+        <div>{{ request.interested?.length || '0' }}</div>
+      </div>
+      <div class="space"></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="requests?.length === 0" class="no-requests">
+  You do not have any requests.
+</div>
+<div *ngIf="!requests" class="loader"></div>
+
+<app-pending-modal *ngIf="openModal" #pendingModal
+  [request]="modalRequest" [type]="modalType"
+  (close)="closePendingModal($event)">
+</app-pending-modal>

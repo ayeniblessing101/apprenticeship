@@ -343,5 +343,18 @@ export class RequestService {
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()),
       );
-    }
+  }
+
+  /**
+   * Get pending mentorship reqeusts
+   *
+   * @return Observable with pending requests
+   */
+  getPendingRequests() {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/requests/pending`)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()),
+    );
+  }
 }
