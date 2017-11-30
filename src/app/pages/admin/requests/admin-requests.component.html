@@ -26,7 +26,7 @@
               <p>{{ request.description }}</p>
             </md-card-content>
             <div class="skill-list">
-              <span class="chip" *ngFor="let skill of helper.extractSkills(request.request_skills, 'primary')">{{ skill }}</span>
+              <span class="chip" *ngFor="let skill of skillService.extractSkills(request.request_skills, 'primary')">{{ skill }}</span>
               <span *ngIf="request.status.indexOf('open') !== -1" class="cancel-request" (click)="cancelRequest(request.id)">
                 Cancel Request
               </span>

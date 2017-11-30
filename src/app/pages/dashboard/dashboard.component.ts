@@ -3,7 +3,6 @@ import { MdSnackBar, MdDialog } from '@angular/material';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { SkillService } from '../../services/skill.service';
-import { HelperService as Helper } from '../../services/helper.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
@@ -39,7 +38,6 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private segmentService: SegmentService,
     public snackBar: MdSnackBar,
-    public helper: Helper,
     private dialog: MdDialog,
   ) {
     this.autoFilterStatus = true;

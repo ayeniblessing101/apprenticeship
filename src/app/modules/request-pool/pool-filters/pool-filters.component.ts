@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { FilterService } from 'app/services/filter.service';
 import { localStorage } from 'app/globals';
-import { HelperService } from '../../../services/helper.service';
 
 @Component({
   selector: 'app-pool-filters',
@@ -23,8 +22,7 @@ export class PoolFiltersComponent implements OnInit {
   defaultFilters: object;
 
   constructor(private formBuilder: FormBuilder,
-              private filterService: FilterService,
-              private helperService: HelperService) {
+              private filterService: FilterService) {
     this.defaultFilters = {
       category: ['recommended'],
       type: [],
@@ -36,7 +34,7 @@ export class PoolFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    const filters = this.helperService.getFilters();
+    const filters = this.filterService.getFilters();
     this.initializeFilters(filters);
     this.form = this.formBuilder.group({
       category: filters.category,

@@ -11,7 +11,6 @@ export class UserService {
 
   constructor(
     private http: Http,
-    private database: AngularFireDatabase,
   ) {
   }
 
@@ -75,5 +74,15 @@ export class UserService {
     }
 
     return Observable.throw(errMsg);
+  }
+
+  /**
+   * This method retrieves information
+   * for the current user
+   *
+   * @return {Object} object of user's information
+   */
+  getCurrentUser(): any {
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 }

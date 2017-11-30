@@ -3,7 +3,6 @@ import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
 import { SkillService } from '../../../services/skill.service';
-import { HelperService as Helper } from '../../../services/helper.service';
 import { CancelRequestDialogComponent } from '../../../components/cancel-request/cancel-request.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -48,7 +47,6 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
     private filterService: FilterService,
     private skillService: SkillService,
     private snackbar: MdSnackBar,
-    public helper: Helper,
     private route: ActivatedRoute,
     private dialog: MdDialog,
 

@@ -15,7 +15,6 @@ import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
 import { FilterService } from './services/filter.service';
 import { HttpService } from './services/http.service';
-import { HelperService } from './services/helper.service';
 import { UserService } from './services/user.service';
 import { SegmentService } from './services/segment.service';
 
@@ -63,7 +62,6 @@ if (authToken) {
     AuthGuard,
     AdminGuard,
     FilterService,
-    HelperService,
     UserService,
     SegmentService,
   ],

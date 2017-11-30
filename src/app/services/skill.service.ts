@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,6 +13,7 @@ import 'rxjs/add/operator/publishReplay';
 export class SkillService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
   private skills: any;
+
   constructor(private http: Http) { }
 
   /**
@@ -142,5 +145,35 @@ export class SkillService {
     }
 
     return Observable.throw(errMsg);
+  }
+
+  /**
+   *  extracts the names of skills from an array of skill objects
+   *
+   *  @param {Array} arrayOfSkills
+   *  @param {String} skilltype
+   *
+   *  @return an array of names of skills filtered by skill type
+   */
+  extractSkills(arrayOfSkills: any[], skilltype?: string): string[] {
+    if (skilltype !== undefined) {
+      arrayOfSkills = arrayOfSkills.filter((skillObj) => {
+        return skillObj.type === skilltype;
+      });
+    }
+
+    return arrayOfSkills.map(skill => skill.name);
+  }
+
+  /**
+   * This takes an array of skills then joins them using a comma
+   *
+   * @param {Array} arrayOfSkillsNames
+   * @param {String} skilltype
+   *
+   * @return {String} formatted string of skills joined from an array
+   */
+  joinSkills(arrayOfSkillsNames: any[], skilltype: string): string {
+    return this.extractSkills(arrayOfSkillsNames, skilltype).join(', ');
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
-import { HelperService } from '../../../services/helper.service';
+import { FilterService } from '../../../services/filter.service';
 
 import * as moment from 'moment';
 
@@ -22,7 +22,7 @@ export class PoolComponent implements OnInit {
   savedFiltersNames: string[];
 
   constructor(private requestService: RequestService,
-              private helperService: HelperService) {
+              private filterService: FilterService) {
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class PoolComponent implements OnInit {
     const savedFilters = JSON.parse(localStorage.getItem('savedFilters'));
     this.savedFiltersNames = savedFilters ? Object
       .keys(savedFilters) : [];
-    this.filterParams = this.helperService.getFilters();
+    this.filterParams = this.filterService.getFilters();
     this.getRequests();
   }
 
@@ -201,7 +201,7 @@ export class PoolComponent implements OnInit {
       }
       this.filterParams['type'].push('mentee');
     }
-    this.helperService.setFilters(event);
+    this.filterService.setFilters(event);
     this.getRequests();
   }
 }

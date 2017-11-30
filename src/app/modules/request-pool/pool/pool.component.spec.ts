@@ -6,9 +6,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 import { SharedModule } from '../../shared/shared.module';
 import { FilterService } from '../../../services/filter.service';
+import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +49,8 @@ describe('PoolComponent', () => {
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         FilterService,
-        HelperService,
+        UserService,
+        SkillService,
       ],
     })
     .compileComponents();

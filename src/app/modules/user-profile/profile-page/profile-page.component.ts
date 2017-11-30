@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,7 +11,7 @@ export class ProfilePageComponent implements OnInit {
   currentUser: Object;
 
   constructor(
-    private helperService: HelperService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -24,6 +24,6 @@ export class ProfilePageComponent implements OnInit {
    * @return {Object} current user details
    */
   getCurrentUser() {
-    return this.helperService.getCurrentUser();
+    return this.userService.getCurrentUser();
   }
 }

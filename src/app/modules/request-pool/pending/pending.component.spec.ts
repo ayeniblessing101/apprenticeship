@@ -7,7 +7,6 @@ import { PendingComponent } from './pending.component';
 import { PendingModalComponent } from './../pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './../pending-requests-table/pending-requests-table.component';
 import { StarRatingModule } from 'angular-star-rating';
-import { HelperService } from 'app/services/helper.service';
 import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service';
 
@@ -27,7 +26,6 @@ describe('PendingComponent', () => {
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
-        HelperService,
       ],
     })
     .compileComponents();

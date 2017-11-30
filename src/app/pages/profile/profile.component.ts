@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   errorMessage: string;
@@ -26,8 +25,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private helper: HelperService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.userId = this.authService.userInfo.id;
   }
@@ -42,7 +40,7 @@ export class ProfileComponent implements OnInit {
    * Gets a user's information from local storage
    */
   getUserInfo() {
-    const currentUser = this.helper.getCurrentUser();
+    const currentUser = this.userService.getCurrentUser();
     this.userData = currentUser;
     this.userId = currentUser.id;
     this.picture = currentUser.picture;

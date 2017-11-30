@@ -6,7 +6,6 @@ import { PendingRequestsTableComponent } from './pending-requests-table.componen
 import { PendingModalComponent } from './../pending-modal/pending-modal.component';
 
 import { HttpService as Http } from './../../../services/http.service';
-import { HelperService } from 'app/services/helper.service';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from './../../../stubs/request-stub.service';
 import { UserService } from './../../../services/user.service';
@@ -30,7 +29,6 @@ describe('PendingRequestsTableComponent', () => {
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
-        HelperService,
       ],
     })
     .compileComponents();

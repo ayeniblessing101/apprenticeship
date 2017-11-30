@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
 
 import { RequestService } from './../../../services/request.service';
-import { HelperService } from './../../../services/helper.service';
+import { UserService } from './../../../services/user.service';
 
 @Component({
   selector: 'app-in-progress',
@@ -18,7 +18,7 @@ export class InProgressComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
-    private helperService: HelperService
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -42,14 +42,14 @@ export class InProgressComponent implements OnInit {
 
   /**
    * Formats the in-progress requests
-   * 
+   *
    * @param {Array} requests - the array of requests.
    *
    * @return {Array} inProgressRequests - the array of in progress requests
    */
   formatInProgressRequests(requests): any {
-    const requestsInProgress = requests.map(request => {
-      this.user = this.helperService.getCurrentUser();
+    const requestsInProgress = requests.map((request) => {
+      this.user = this.userService.getCurrentUser();
       const primarySkills = [];
 
       request.request_skills.forEach(({ type, name }) => {
@@ -62,9 +62,9 @@ export class InProgressComponent implements OnInit {
       request.dateStarted = moment(request.created_at).format('MMMM DD, YYYY');
       request.duration = request.duration > 1 ? `${request.duration} months` : `${request.duration} month`;
 
-      if(request.mentor_id === this.user.id) {
+      if (request.mentor_id === this.user.id) {
         request.role = 'Mentor'
-      } else if(request.mentee_id === this.user.id) {
+      } else if (request.mentee_id === this.user.id) {
         request.role = 'Mentee'
       }
 

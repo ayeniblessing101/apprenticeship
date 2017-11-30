@@ -46,7 +46,7 @@ export class AuthService {
     Cookie.delete('jwt-token', '/', '.andela.com');
   }
 
-  /**
+ /**
   *  decodeToken
   *
   *  decodes the id_token in the localStorage and stores the user information

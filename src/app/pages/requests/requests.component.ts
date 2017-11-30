@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

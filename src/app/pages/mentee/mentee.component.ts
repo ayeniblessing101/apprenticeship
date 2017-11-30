@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FilterService } from '../../services/filter.service';
 import { SkillService } from '../../services/skill.service';
-import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   selector: 'app-mentee',
@@ -29,7 +28,6 @@ export class MenteeComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private skillService: SkillService,
-    public helper: Helper,
   ) {}
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private helperService: HelperService
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     if (this.authService.userInfo.roles.LENKEN_ADMIN) {
       this.isAdmin = true;
     }
-    this.currentUser = this.helperService.getCurrentUser();
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   /**

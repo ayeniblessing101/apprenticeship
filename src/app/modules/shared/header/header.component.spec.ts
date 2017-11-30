@@ -1,11 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule, XHRBackend } from '@angular/http';
 
 import { HeaderComponent } from './header.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { AuthService } from '../../../services/auth.service';
 import { RouterLinkStubDirective } from '../../../stubs/router-stubs';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
+import { HttpService as Http } from '../../../services/http.service';
+
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -15,8 +18,9 @@ describe('HeaderComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [HeaderComponent, NotificationsComponent, RouterLinkStubDirective],
-      imports: [BrowserAnimationsModule],
+      imports: [BrowserAnimationsModule, HttpModule],
       providers: [
+        Http,
         { provide: AuthService, useValue: {
           userInfo : {
             roles: {
@@ -25,7 +29,7 @@ describe('HeaderComponent', () => {
           },
         },
         },
-        HelperService
+        UserService,
       ],
     })
     .compileComponents();

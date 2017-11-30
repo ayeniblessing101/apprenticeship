@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { RequestService } from '../../../services/request.service';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-history',
@@ -15,7 +15,7 @@ export class HistoryComponent implements OnInit {
   requests: any[];
   constructor(
     private requestService: RequestService,
-    private helperService: HelperService,
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class HistoryComponent implements OnInit {
       request.createdAt = moment(request.created_at).format('MMMM D, YY');
       delete request.created_at;
 
-      request.role = request.mentee_id === this.helperService.getCurrentUser().id ? 'Mentee' : 'Mentor';
+      request.role = request.mentee_id === this.userService.getCurrentUser().id ? 'Mentee' : 'Mentor';
 
       const primarySkills = [];
       request.request_skills.forEach(({ type, name }) => {

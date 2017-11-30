@@ -3,7 +3,7 @@ import { HttpService as Http } from './http.service';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { HelperService as Helper } from './helper.service';
+import { UserService } from './user.service';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ export class RequestService {
   private statuses: any;
   constructor(
     private http: Http,
-    private helper: Helper,
+    private userService: UserService,
   ) { }
 
   /**
@@ -153,7 +153,7 @@ export class RequestService {
       primary: formValue.requiredSkills,
       secondary: formValue.otherSkills,
       duration: formValue.duration,
-      location: this.helper.getCurrentUser().location,
+      location: this.userService.getCurrentUser().location,
       pairing: {
         start_time: formValue.timeControlStart,
         end_time: formValue.timeControlEnd,

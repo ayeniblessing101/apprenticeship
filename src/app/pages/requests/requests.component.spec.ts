@@ -12,9 +12,9 @@ import { RequestsComponent } from './requests.component';
 import { HttpService as Http } from '../../services/http.service';
 import { RequestService } from '../../services/request.service';
 import { RequestServiceStub } from '../../stubs/request-stub.service';
-import { HelperService } from '../../services/helper.service';
 import { SegmentService } from '../../services/segment.service';
 import { SkillService } from '../../services/skill.service';
+import { UserService } from '../../services/user.service';
 import { SkillServiceStub } from '../../stubs/skill-stub.service';
 import mockSkills from '../../mocks/skills';
 
@@ -27,16 +27,16 @@ describe('RequestsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RequestsComponent ],
+      declarations: [RequestsComponent],
       imports: [
         MaterialModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
         RouterTestingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         Http,
         { provide: XHRBackend, useClass: MockBackend },
@@ -44,9 +44,9 @@ describe('RequestsComponent', () => {
         { provide: RequestService, useClass: RequestServiceStub },
         MockBackend,
         RequestService,
-        HelperService,
-        SegmentService
-      ]
+        SegmentService,
+        UserService,
+      ],
     })
     .compileComponents();
   }));
@@ -114,14 +114,14 @@ describe('RequestsComponent', () => {
     fixture.whenStable()
        .then(() => {
          expect(component.buttonText).toEqual('Creating Request...');
-       }).catch(err => {
+       }).catch((err) => {
          expect(component.buttonText).toEqual('Creating Request');
          expect(component.snackBarConfig.duration).toEqual(3000);
        });
-    }));
+  }));
 
   it('should call requestMentor() method on form submit', fakeAsync(() => {
-    let requestMentorSpy = spyOn(component, 'requestMentor');
+    const requestMentorSpy = spyOn(component, 'requestMentor');
 
     submitBtn.click();
     fixture.whenStable()

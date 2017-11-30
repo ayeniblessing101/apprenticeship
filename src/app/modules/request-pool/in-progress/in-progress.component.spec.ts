@@ -6,7 +6,7 @@ import { InProgressComponent } from './in-progress.component';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
-import { HelperService } from '../../../services/helper.service';
+import { UserService } from '../../../services/user.service';
 
 describe('InProgressComponent', () => {
   let component: InProgressComponent;
@@ -22,8 +22,8 @@ describe('InProgressComponent', () => {
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
-        HelperService
-      ]
+        UserService,
+      ],
     })
     .compileComponents();
   }));

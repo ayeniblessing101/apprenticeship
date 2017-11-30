@@ -3,7 +3,6 @@ import { RequestService } from '../../services/request.service';
 import { AuthService } from '../../services/auth.service';
 import { FilterService } from '../../services/filter.service';
 import { SkillService } from '../../services/skill.service';
-import { HelperService as Helper } from '../../services/helper.service';
 
 @Component({
   selector: 'app-mentor',
@@ -25,7 +24,7 @@ export class MentorComponent implements OnInit, OnDestroy {
   autoFilterStatus: boolean;
   mentorFilters: any = {
     Primary: [],
-    Status: []
+    Status: [],
   };
 
   loading: boolean;
@@ -38,7 +37,6 @@ export class MentorComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private filterService: FilterService,
     private skillService: SkillService,
-    public helper: Helper,
   ) {
     this.limit = 10;
     this.autoFilterStatus = true;
@@ -64,10 +62,10 @@ export class MentorComponent implements OnInit, OnDestroy {
   getMentorRequests(page: number) {
     this.currentPage = page;
     this.loading = true;
-    let params = {
+    const params = {
       skills: this.selectedSkillsId,
       status: this.selectedStatusesId,
-      mentor: true
+      mentor: true,
     };
 
     this.requestService.getRequests(20, page, params)
