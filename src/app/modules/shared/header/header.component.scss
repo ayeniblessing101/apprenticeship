@@ -54,30 +54,6 @@
   border-radius: 50%;
 }
 
-.select-style {
-   border: none;
-   width: 160px;
-   overflow: hidden;
-   background: $andela-blue url(../../../../assets/images/caret.svg) no-repeat 90% 50%;
-   background-size: 18px;
-   height: 60%;
-   text-align: center;
-   select {
-     padding-left: 10%;
-     padding-top: 7%;
-     font-size: 15px;
-     width: 130%;
-     color: white;
-     border: none;
-     box-shadow: none;
-     background: transparent;
-     -webkit-appearance: none;
-     &:focus {
-       outline: none;
-     }
-   }
- }
-
 #admin-button {
   font-size: 15px;
   font-weight: 500;
@@ -85,6 +61,20 @@
   text-align: left;
   color:  $andela-blue;
   background: white url(../../../../assets/images/caret-blue.svg) no-repeat 90% 50%;
+  background-size: 18px;
+  border: solid 1px $andela-blue;
+  width: 160px;
+  height: 38px;
+  border-radius: 1px;
+}
+
+#request-for-dropdown {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: left;
+  color: white;
+  background: $andela-blue url(../../../../assets/images/caret.svg) no-repeat 90% 50%;
   background-size: 18px;
   border: solid 1px $andela-blue;
   width: 160px;
@@ -125,6 +115,10 @@
   }
 }
 
+.request-for-content {
+  margin-top: 10px;
+}
+
 .common-dropdown-styles {
   display: none;
   position: absolute;
@@ -155,7 +149,15 @@
   background-color: #f1f1f1
 }
 
+.request-for-content a:hover {
+  background-color: #f1f1f1
+}
+
 .dropdown:hover .admin-content {
+  display: block;
+}
+
+.dropdown:hover .request-for-content {
   display: block;
 }
 
