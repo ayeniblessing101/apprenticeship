@@ -2,30 +2,34 @@
   <app-request-details *ngIf="showRequest" [selectedRequest]="selectedRequest" (close)="closeRequest()">
   </app-request-details>
   <section id="section-grid">
-    <div class="table">
-      <div class="header">
-        <div class="row">
-          <div>Request</div>
-          <div >Primary Skill</div>
-          <div >Secondary Skill</div>
-          <div >Preferred Duration</div>
-          <div >Date Added</div>
-          <div>Location</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div *ngFor="let request of requests" class="body">
-        <div class="row" (click)="showRequestDetails(request)">
-          <div>{{ request.title }}</div>
-          <div>{{ request.primarySkills }}</div>
-          <div>{{ request.secondarySkills }}</div>
-          <div>{{ request.duration }}</div>
-          <div>{{ request.date }}</div>
-          <div>{{ request.location }}</div>
+      <div class="table" *ngIf="requests.length > 0; else noRequest">
+        <div class="header">
+          <div class="row">
+            <div>Request</div>
+            <div >Primary Skill</div>
+            <div >Secondary Skill</div>
+            <div >Preferred Duration</div>
+            <div >Date Added</div>
+            <div>Location</div>
+          </div>
         </div>
         <div class="space"></div>
+        <div *ngFor="let request of requests" class="body">
+          <div class="row">
+            <div>{{ request.title }}</div>
+            <div>{{ request.primarySkills }}</div>
+            <div>{{ request.secondarySkills }}</div>
+            <div>{{ request.duration }}</div>
+            <div>{{ request.date }}</div>
+            <div>{{ request.location }}</div>
+          </div>
+          <div class="space"></div>
+        </div>
       </div>
-    </div>
+    <ng-template #noRequest>
+      <app-no-search-result></app-no-search-result>
+    </ng-template>
+    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="3000" (scrolled)="onScroll()"></div>
     <div
       infiniteScroll
       [infiniteScrollDistance]="2"
@@ -38,14 +42,13 @@
   <div class="line"></div>
   <app-pool-filters
    (openSaveFiltersModal)="openSaveFiltersModal()"
-  (applyFilters)="applyFilters($event)"
-  [savedFiltersNames]="savedFiltersNames"
-  >
+   (applyFilters)="applyFilters($event)"
+   [savedFiltersNames]="savedFiltersNames">
 </app-pool-filters>
 
   <app-save-filters-modal
-  (updateSavedFiltersNames)="updateSavedFiltersNames($event)"
+   (updateSavedFiltersNames)="updateSavedFiltersNames($event)"
    [filters]="filterParams"
    (close)="closeSaveFiltersModal()"
-    *ngIf="isSaveFiltersModalOpened"></app-save-filters-modal>
+   *ngIf="isSaveFiltersModalOpened"></app-save-filters-modal>
 </div>

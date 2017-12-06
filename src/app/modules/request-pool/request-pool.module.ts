@@ -21,6 +21,7 @@ import { InProgressComponent } from './in-progress/in-progress.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
+import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
 
 import { RequestService } from '../../services/request.service';
 
@@ -45,6 +46,7 @@ import { RequestService } from '../../services/request.service';
     PoolFiltersComponent,
     HistoryComponent,
     PendingComponent,
+    NoSearchResultComponent,
     RequestDetailsComponent,
     PendingModalComponent,
     PendingRequestsTableComponent,

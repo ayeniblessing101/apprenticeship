@@ -1,16 +1,16 @@
 <div class="wrapper">
   <section id="section-grid">
-    <div class="container">
-      <app-pending-requests-table
-        [requests]="requests.awaitingYou"
-        [title]="'AWAITING YOU'">
-      </app-pending-requests-table>
-    </div>
-    <div class="container">
-      <app-pending-requests-table
-        [requests]="requests.awaitingResponse"
-        [title]="'AWAITING RESPONSE'">
-      </app-pending-requests-table>
-    </div>
+      <div class="container">
+        <app-pending-requests-table
+          [requests]="requests.awaitingYou"
+          [title]="'AWAITING YOU'">
+        </app-pending-requests-table>
+      </div>
+      <div class="container">
+        <app-pending-requests-table
+          [requests]="requests.awaitingResponse"
+          [title]="'AWAITING RESPONSE'">
+        </app-pending-requests-table>
+      </div>
   </section>
 </div>

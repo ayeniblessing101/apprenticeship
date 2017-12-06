@@ -1,29 +1,32 @@
 <div class="wrapper">
   <section id="section-grid">
-    <div class="table">
-      <div class="header">
-        <div class="row">
-          <div>Request</div>
-          <div>Primary Skill</div>
-          <div>Preferred Duration</div>
-          <div>Date Started</div>
-          <div>Location</div>
-          <div>Role</div>
-        </div>
-      </div>
-      <div class="space"></div>
-      <div *ngFor="let request of requests" class="body">
-        <div class="row">
-          <div>{{ request.title }}</div>
-          <div>{{ request.primarySkills }}</div>
-          <div>{{ request.duration }}</div>
-          <div>{{ request.dateStarted }}</div>
-          <div>{{ request.location }}</div>
-          <div>{{ request.role }}</div>
+      <div class="table" *ngIf="requests?.length > 0; else noRequest">
+        <div class="header">
+          <div class="row">
+            <div>Request</div>
+            <div>Primary Skill</div>
+            <div>Preferred Duration</div>
+            <div>Date Started</div>
+            <div>Location</div>
+            <div>Role</div>
+          </div>
         </div>
         <div class="space"></div>
+        <div *ngFor="let request of requests" class="body">
+          <div class="row">
+            <div>{{ request.title }}</div>
+            <div>{{ request.primarySkills }}</div>
+            <div>{{ request.duration }}</div>
+            <div>{{ request.dateStarted }}</div>
+            <div>{{ request.location }}</div>
+            <div>{{ request.role }}</div>
+          </div>
+          <div class="space"></div>
+        </div>
       </div>
-    </div>
-    <div *ngIf="loading" class="loader"> </div>
+      <div *ngIf="loading" class="loader"> </div>
+    <ng-template #noRequest>
+      <app-no-search-result></app-no-search-result>
+    </ng-template>
   </section>
 </div>

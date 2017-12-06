@@ -18,6 +18,7 @@ import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/materi
 
 import { RequestDetailsComponent } from '../request-details/request-details.component';
 import { StarRatingModule } from 'angular-star-rating';
+import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -43,6 +44,7 @@ describe('PoolComponent', () => {
         PoolFiltersComponent,
         SaveFiltersModalComponent,
         RequestDetailsComponent,
+        NoSearchResultComponent,
       ],
       providers: [
         Http,

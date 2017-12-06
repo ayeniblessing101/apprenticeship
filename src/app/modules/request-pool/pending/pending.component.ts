@@ -29,6 +29,7 @@ export class PendingComponent implements OnInit {
    * @return {void}
    */
   getPendingRequests() {
+    this.loading = true;
     this.requestService.getPendingRequests()
       .toPromise()
       .then(

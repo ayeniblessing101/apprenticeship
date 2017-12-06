@@ -1,0 +1,37 @@
+@import '../../../../assets/scss/fonts';
+
+.error-header {
+  height: 43px;
+  font-family: $font-family-1;
+  font-size: 18px;
+  margin-top: 14px;
+  text-align: center;
+  color: #303030;
+}
+
+.error-tag-line {
+  width: 697px;
+  height: 26px;
+  font-family: $font-family-1;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  color: #91979f;
+}
+
+.error-notification-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 40px;
+  line-height: 50px;
+  text-align: center;
+  background: #6a97e0;
+  left:45%;
+  position:relative;
+}
+.arrow_up_svg {
+  left:68%;
+  top:11%;
+  position:absolute;
+}

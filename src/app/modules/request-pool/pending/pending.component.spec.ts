@@ -9,6 +9,7 @@ import { PendingRequestsTableComponent } from './../pending-requests-table/pendi
 import { StarRatingModule } from 'angular-star-rating';
 import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service';
+import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 
 describe('PendingComponent', () => {
   let component: PendingComponent;
@@ -20,7 +21,12 @@ describe('PendingComponent', () => {
         HttpModule,
         StarRatingModule,
       ],
-      declarations: [PendingComponent, PendingModalComponent, PendingRequestsTableComponent],
+      declarations: [
+        PendingComponent,
+        PendingModalComponent,
+        PendingRequestsTableComponent,
+        NoSearchResultComponent,
+      ],
       providers: [
         UserService,
         Http,
