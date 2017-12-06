@@ -1,0 +1,37 @@
+@import '../alert/alert.component';
+
+.blue-button {
+  position: inline-block;
+  height: 44px;    
+  border-radius: 0;
+  width: 40%;
+  border: none;
+  color: white;
+  padding: 10px;
+  background-color: #3359db;
+  margin: 0 2%;
+  cursor: pointer;
+}
+
+.button-container {
+  width: 50%;
+  display: flex;
+  align-content: flex-end !important;
+  float: right;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.deactivator {
+  width: fit-content;
+  margin-left: 12%;
+  font-family: DINPro;
+  font-size: 13px;
+  text-align: left;
+  color: #636b7a;
+}
+.deactivator input {
+  cursor: pointer;
+}

@@ -23,6 +23,7 @@
 }
 
 .modal-footer {
+  cursor: pointer;
   width: inherit;
   height: fit-content;
   height: -moz-fit-content;
@@ -59,6 +60,7 @@ label {
 }
 
 input[type="button"] {
+  cursor: pointer;
   all: unset;
   width: 130px;
   height: 44px;
@@ -72,6 +74,7 @@ input[type="button"] {
 }
 
 input[type="submit"] {
+  cursor: pointer;
    all: unset;
    width: 130px;
    height: 44px;

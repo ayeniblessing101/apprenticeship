@@ -1,11 +1,13 @@
-<div [ngClass]="{'closed': !isOpen}">
-  <div class="alert-overlay" (click)="close()"></div>
-  <div class="alert">
-    <div class="body">
-      {{ message }}
-    </div>
-    <div class="footer">
-    <button class="close-button" (click)="close()">CLOSE</button>
-    </div>
-  </div>
+<div>
+  <app-message-alert (onClose)="closeMessageAlert()" [message]="message" *ngIf="isMessage"></app-message-alert>
+
+  <app-confirmation-alert 
+  (onClose)="closeConfirmationAlert()"
+  *ngIf="isConfirmation"
+  [config]="confirmationAlertConfig"
+  [invokingComponent]="confirmationAlertInvoker"
+  [message]="message"
+  [isDeactivated]="isConfirmDeactivated"
+  [alertInstanceId]="alertInstanceId">
+  </app-confirmation-alert>
 </div>

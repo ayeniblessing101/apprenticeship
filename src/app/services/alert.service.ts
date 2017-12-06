@@ -1,43 +1,52 @@
 import { Injectable } from '@angular/core';
-import { AlertComponent } from '../modules/shared/alert/alert.component';
+import { ConfirmationAlertConfiguration } from '../interfaces/confirmation-alert-configuration.interface';
+import { AlertComponent } from 'app/modules/shared/alert/alert.component';
+
 
 @Injectable()
 export class AlertService {
+  alertInstanceId: string;
   private alert;
-
-  constructor() {}
 
   /**
    * Register an alert
    *
    * @param {AlertComponent} newAlert
-   * @memberof AlertService
+   *
    */
   registerAlert(newAlert: AlertComponent): void {
     this.alert = newAlert;
   }
 
   /**
-   * Open an alert
+   * Confirms an action being either by executing the action
+   * or popping up a modal that allows a user to decide to
+   * either abort or execute an action
    *
    * @param {string} message message to display in the alert
-   * @memberof AlertService
-   */
-  open(message: string): void {
-    if (this.alert) {
-      this.alert.message = message;
-      this.alert.isOpen = true;
-    }
-  }
-
-  /**
-   * Close an alert
+   *
+   * @param {object} injectedComponent any Angular component instance
+   *
+   * @param {object} alertConfig Optional parameter for configuring the alert.
    *
    * @returns {void}
    */
-  close(): void {
-    if (this.alert) {
-      this.alert.isOpen = false;
-    }
+  confirm(
+    message: string,
+    injectedComponent: object,
+    alertConfig?: ConfirmationAlertConfiguration): void {
+    this.alert.confirmAction(message, injectedComponent, alertConfig);
+
+  }
+
+  /**
+   * Opens a message alert
+   *
+   * @param {string} message message to display in the alert
+   *
+   * @returns {void}
+   */
+  showMessage(message: string) {
+    this.alert.showMessage(message);
   }
 }

@@ -58,7 +58,7 @@ export class UserSkillsComponent implements OnInit {
       )
         .catch((error) => {
           this.skillControl.reset()
-          return this.alertService.open(error.message);
+          return this.alertService.showMessage(error.message);
         });
     }
   }
@@ -77,6 +77,7 @@ export class UserSkillsComponent implements OnInit {
    * @param {number} id id of the skill
    */
   deleteUserSkill(skillId) {
+
     this.skillService.deleteUserSkill(this.currentUser.id, skillId)
       .toPromise()
       .then(() => {
@@ -86,7 +87,7 @@ export class UserSkillsComponent implements OnInit {
       },
     )
       .catch((error) => {
-        return this.alertService.open(error.message);
+        return this.alertService.showMessage(error.message);
       });
   }
 

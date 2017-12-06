@@ -47,7 +47,7 @@
     text-align: center;
     color: #3359db;
     background-color: #ffffffff;
-    
+    cursor: pointer;
   }
   .btn-success {
      all: unset;
@@ -60,6 +60,7 @@
      letter-spacing: 0.3px;
      text-align: center;
      color: #ffffff !important;
+     cursor: pointer;
     }
 
     .btn-wrapper {
@@ -78,8 +79,10 @@
       height: 16px !important;
       border: 0 !important;
       margin-top: auto !important;
+      cursor: pointer;
     }
     .saved-filters {
+      cursor: pointer;
       position: relative;
       height: 10em;
       overflow-y: scroll;

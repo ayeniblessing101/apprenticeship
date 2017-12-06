@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-save-filters-modal',
@@ -16,7 +17,7 @@ export class SaveFiltersModalComponent implements OnInit {
 
   ngOnInit() {
     this.savedFilters = JSON
-    .parse(localStorage.getItem('savedFilters'));
+      .parse(localStorage.getItem('savedFilters'));
   }
 
   /**
@@ -40,10 +41,10 @@ export class SaveFiltersModalComponent implements OnInit {
    */
   save(event) {
     this.filtersName = this.filtersName.trim();
+
     if (!this.filtersName) {
       return;
     }
-
     if (!this.savedFilters) {
       this.savedFilters = {
         [this.filtersName]: this.filters,
@@ -54,7 +55,9 @@ export class SaveFiltersModalComponent implements OnInit {
 
     localStorage.
       setItem('savedFilters', JSON.stringify(this.savedFilters));
+    const savedFilterNames = Object.keys(this.savedFilters).reverse();
     this.updateSavedFiltersNames
-      .emit(Object.keys(this.savedFilters).reverse());
+      .emit(savedFilterNames);
+    this.close.emit();
   }
 }

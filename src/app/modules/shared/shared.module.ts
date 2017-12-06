@@ -9,6 +9,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertComponent } from '../../modules/shared/alert/alert.component';
 import { AlertService } from '../../services/alert.service';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { ConfirmationAlertComponent } from './confimation-alert/confirmation-alert.component';
+import { MessageAlertComponent } from './message-alert/message-alert.component'
+
 
 import {
   MdCardModule,
@@ -17,7 +21,6 @@ import {
   MdRadioModule,
   MdSliderModule,
 } from '@angular/material';
-import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   imports: [
@@ -32,7 +35,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
     LoginComponent,
     PageNotFoundComponent,
     AlertComponent,
+    ConfirmationAlertComponent,
     NotificationsComponent,
+    MessageAlertComponent,
   ],
   exports: [
     HeaderComponent,
@@ -40,6 +45,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     LoginComponent,
     PageNotFoundComponent,
     AlertComponent,
+    ConfirmationAlertComponent,
+    MessageAlertComponent,
   ],
   providers: [
     AlertService,

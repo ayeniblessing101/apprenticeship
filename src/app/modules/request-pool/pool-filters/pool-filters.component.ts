@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { FilterService } from 'app/services/filter.service';
 import { localStorage } from 'app/globals';
+import { AlertService } from 'app/services/alert.service';
 
 @Component({
   selector: 'app-pool-filters',
@@ -13,16 +14,21 @@ export class PoolFiltersComponent implements OnInit {
   @Output() applyFilters = new EventEmitter<any>();
   @Output() openSaveFiltersModal = new EventEmitter();
   @Input() savedFiltersNames: string[];
+
+  defaultFilters: object;
+  filterToDelete: string;
+  isDeleteConfirmationDisabled: boolean;
+
   form: FormGroup;
   appliedFilters: any;
   skills: any = [];
   ratings: any = [];
   locations: any = [];
   lengths: any = [];
-  defaultFilters: object;
 
   constructor(private formBuilder: FormBuilder,
-              private filterService: FilterService) {
+              private filterService: FilterService,
+              private alertService: AlertService) {
     this.defaultFilters = {
       category: ['recommended'],
       type: [],
@@ -31,6 +37,7 @@ export class PoolFiltersComponent implements OnInit {
       skills: [],
       lengths: [],
     };
+    this.deleteSavedFilters = this.deleteSavedFilters.bind(this);
   }
 
   ngOnInit() {
@@ -93,19 +100,36 @@ export class PoolFiltersComponent implements OnInit {
     this.form.setValue(this.defaultFilters);
   }
 
+
+  /**
+   * It carries out a filter delete action through
+   * a modal service which allows your to confirm
+   * or abort an action
+   *
+   * @param {Event} event the name of the filter to delete
+   */
+  confirmFiltersDelete(event) {
+    this.filterToDelete = event.target.id;
+    const message =
+      `Are you sure you want to delete the saved filter '${this.filterToDelete}'?`
+    const alertServiceConfig = {
+      abortActionText: 'CLOSE',
+      confirmActionText: 'DELETE',
+      confirmAction: this.deleteSavedFilters,
+      canDisable: true,
+    }
+    this.alertService.confirm(message, this, alertServiceConfig);
+  }
+
   /**
    * Deletes a saved filter
    *
-   * @param {event} event standard js event.
-   * This is fired when the delete button on a saved filter
-   * is clicked
-   *
    * @returns {void}
    */
-  deleteSavedFilters(event) {
+  deleteSavedFilters() {
     const savedFilters = JSON
       .parse(localStorage.getItem('savedFilters'));
-    delete savedFilters[event.target.id];
+    delete savedFilters[this.filterToDelete];
     localStorage
       .setItem('savedFilters', JSON.stringify(savedFilters));
     this.savedFiltersNames = Object.keys(savedFilters)
@@ -159,4 +183,3 @@ export class PoolFiltersComponent implements OnInit {
     this.appliedFilters = filters;
   }
 }
-
