@@ -1,17 +1,16 @@
 @import '../../../../assets/scss/fonts';
-
+.error-notification {
+  padding-top: 1%;
+  padding-right: 3%;
+}
 .error-header {
-  height: 43px;
   font-family: $font-family-1;
   font-size: 18px;
-  margin-top: 14px;
   text-align: center;
   color: #303030;
 }
 
 .error-tag-line {
-  width: 697px;
-  height: 26px;
   font-family: $font-family-1;
   font-size: 20px;
   font-weight: 300;
@@ -20,18 +19,21 @@
 }
 
 .error-notification-circle {
+  display: block;
   width: 50px;
   height: 50px;
+  font-weight: bold;
   border-radius: 50%;
-  font-size: 40px;
-  line-height: 50px;
+  font-size: 35px;
+  line-height: 55px;
+  color: #0459e4;
   text-align: center;
-  background: #6a97e0;
+  background: rgba(4, 89, 228, 0.2);
   left:45%;
-  position:relative;
+  margin: 0 auto 30px;
 }
 .arrow_up_svg {
-  left:68%;
+  left:71%;
   top:11%;
   position:absolute;
 }
