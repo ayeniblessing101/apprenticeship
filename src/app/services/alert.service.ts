@@ -24,9 +24,7 @@ export class AlertService {
    * either abort or execute an action
    *
    * @param {string} message message to display in the alert
-   *
    * @param {object} injectedComponent any Angular component instance
-   *
    * @param {object} alertConfig Optional parameter for configuring the alert.
    *
    * @returns {void}
@@ -34,9 +32,8 @@ export class AlertService {
   confirm(
     message: string,
     injectedComponent: object,
-    alertConfig?: ConfirmationAlertConfiguration): void {
+    alertConfig?: ConfirmationAlertConfiguration) {
     this.alert.confirmAction(message, injectedComponent, alertConfig);
-
   }
 
   /**
@@ -46,7 +43,7 @@ export class AlertService {
    *
    * @returns {void}
    */
-  showMessage(message: string) {
-    this.alert.showMessage(message);
+  showMessage(message: string, afterClose?: Function): void {
+    this.alert.showMessage(message, afterClose);
   }
 }

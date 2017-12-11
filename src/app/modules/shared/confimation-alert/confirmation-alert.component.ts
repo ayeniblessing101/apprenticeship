@@ -60,5 +60,8 @@ export class ConfirmationAlertComponent {
   confirm() {
     this.config.confirmAction();
     this.close();
+    if (this.config.afterClose) {
+      this.config.afterClose();
+    }
   };
 }

@@ -4,7 +4,7 @@
   <div class="alert">
     <div class="body">
       <!-- variable message is inherited from AlertComponenent -->
-      {{ message }}
+      <span class="message">{{ message }}</span>
     </div>
     <div *ngIf="config.canDisable" class="deactivator">
       <input type="checkbox" (change)="toggleActivatedState()">Please do not show this in the future"

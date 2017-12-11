@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output,  Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { AlertService } from '../../../services/alert.service';
 
 @Component({
@@ -9,7 +9,6 @@ import { AlertService } from '../../../services/alert.service';
 export class MessageAlertComponent {
   @Input() message: string;
   @Output() onClose = new EventEmitter<null>();
-
 
   /**
    * Close the alert

@@ -17,6 +17,7 @@ export class AlertComponent implements OnInit {
     confirmAction: null,
     canDisable: false,
   };
+  afterMessageClose: Function;
 
   confirmationAlertInvoker: object;
   isMessage = false;
@@ -36,11 +37,14 @@ export class AlertComponent implements OnInit {
    * Shows a message alert
    *
    * @param {string} message a that will show on the alert
+   *
+   * @return {void}
    */
-  showMessage(message: string) {
+  showMessage(message: string, afterClose?: Function) {
     this.isMessage = true;
     this.isConfirmation = false;
     this.message = message;
+    this.afterMessageClose = afterClose;
   }
 
   /**
@@ -50,6 +54,9 @@ export class AlertComponent implements OnInit {
    */
   closeMessageAlert() {
     this.isMessage = false;
+    if (this.afterMessageClose) {
+      this.afterMessageClose()
+    }
   }
 
   /**
@@ -58,9 +65,7 @@ export class AlertComponent implements OnInit {
    * either abort or execute an action
    *
    * @param {string} message message to display in the alert
-   *
    * @param {object} invokingComponent any Angular component instance
-   *
    * @param {object} confirmAlertConfig Optional parameter for configuring the alert.
    *
    * @returns {void}
@@ -72,7 +77,7 @@ export class AlertComponent implements OnInit {
     this.initializeDeactivatedConfirmationAlerts();
     this.alertInstanceId = this.generateConfirmationAlertId(invokingComponent);
     this.isConfirmDeactivated = this
-      .isAlertInstanceDeactivated();
+        .isAlertInstanceDeactivated();
 
     if (this.isConfirmDeactivated) {
       this.confirmationAlertConfig.confirmAction();

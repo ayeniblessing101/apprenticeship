@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-save-filters-modal',
@@ -14,6 +15,9 @@ export class SaveFiltersModalComponent implements OnInit {
 
   savedFilters: object;
   filtersName: string;
+  isError: boolean;
+
+  constructor(private alertService: AlertService) { }
 
   ngOnInit() {
     this.savedFilters = JSON
@@ -37,27 +41,58 @@ export class SaveFiltersModalComponent implements OnInit {
   /**
    * Save filters to local storage as savedFilters
    *
-   * @param {void}
+   * @param {Event} event DOM submit event
+   *
+   * @returns {void}
    */
-  save(event) {
-    this.filtersName = this.filtersName.trim();
-
-    if (!this.filtersName) {
+  save(event): void {
+    event.preventDefault();
+    let message;
+    if (!this.filtersName || this.filtersName.length > 20) {
+      message = 'Please enter a valid name to save your filter'
+      this.isError = true;
+      this.alertService.showMessage(
+        message,
+        () => this.isError = false,
+      );
       return;
     }
+
+    this.filtersName = this.filtersName.trim();
+
     if (!this.savedFilters) {
       this.savedFilters = {
         [this.filtersName]: this.filters,
       }
+    } else if (this.savedFilters[this.filtersName]) {
+      message =
+        `Saving this filter as ${this.filtersName} will overwrite ${this.filtersName}`;
+      this.isError = true;
+      this.alertService
+        .confirm(message, this, {
+          confirmActionText: 'OVERWRITE',
+          abortActionText: 'CANCEL',
+          confirmAction: this.updateSavedFilters.bind(this),
+          afterClose: () => this.isError = false,
+        })
     } else {
-      this.savedFilters[this.filtersName] = this.filters;
+      this.updateSavedFilters();
     }
+  }
 
+  /**
+   * Contains logic for saving filters to local storage
+   *
+   * @returns {void}
+   */
+  updateSavedFilters(): void {
+    this.savedFilters[this.filtersName] = this.filters;
     localStorage.
       setItem('savedFilters', JSON.stringify(this.savedFilters));
     const savedFilterNames = Object.keys(this.savedFilters).reverse();
     this.updateSavedFiltersNames
       .emit(savedFilterNames);
+    this.isError = false;
     this.close.emit();
   }
 }

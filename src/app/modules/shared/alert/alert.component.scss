@@ -20,20 +20,23 @@
 .alert {
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .22), 0 17px 20px 0 rgba(0, 0, 0, .12);
   background-color: white;
+  border-radius: 4px;
   left: calc(50% - 300px);
   max-height: calc(100% - 20em);  
   overflow-y: auto;
   position: fixed;
-  top: 5em;
+  top: 35% !important;
   width: 600px;
   z-index: 1100;
 
   .body {
-    text-align: center;
     padding: 4%;
     margin-top: 6%;
   }
 
+  .message {
+    margin-left: 9%;
+  }
   .footer {
     padding: 4%;
     margin-bottom: 8%
