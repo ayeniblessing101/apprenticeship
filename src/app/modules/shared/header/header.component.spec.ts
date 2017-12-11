@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth.service';
 import { RouterLinkStubDirective } from '../../../stubs/router-stubs';
 import { UserService } from '../../../services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('HeaderComponent', () => {
@@ -18,7 +19,7 @@ describe('HeaderComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [HeaderComponent, NotificationsComponent, RouterLinkStubDirective],
-      imports: [BrowserAnimationsModule, HttpModule],
+      imports: [BrowserAnimationsModule, HttpModule, RouterTestingModule],
       providers: [
         Http,
         { provide: AuthService, useValue: {

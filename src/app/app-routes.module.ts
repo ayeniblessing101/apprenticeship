@@ -11,6 +11,7 @@ import { PendingComponent } from 'app/modules/request-pool/pending/pending.compo
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
+import { HeaderComponent } from './modules/shared/header/header.component';
 
 const appRoutes: Routes = [
 
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'logout', component: LoginComponent },
+  { path: 'logout', component: HeaderComponent },
 
   { path: 'request-pool', component: PoolComponent, canActivate: [AuthGuard] },
 

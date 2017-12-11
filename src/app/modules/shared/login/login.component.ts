@@ -22,9 +22,6 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
   ) {
-    if (window.location.href.includes('logout')) {
-      this.auth.logOut();
-    }
     this.notice = this.auth.notice;
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -43,5 +45,13 @@ export class HeaderComponent implements OnInit {
    */
   closeNotifications() {
     this.displayNotifications = false;
+  }
+
+  /**
+   * log out the user from the session
+   */
+  logoutUser() {
+    this.authService.logOut();
+    this.router.navigate(['/login']);
   }
 }
