@@ -11,8 +11,8 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'app works!';
   showNavAndHeader = true;
+  currentUser: any;
   constructor(
     router: Router,
     private segmentService: SegmentService,
@@ -26,6 +26,7 @@ export class AppComponent {
         .toPromise()
         .then((response) => {
           localStorage.setItem('currentUser', JSON.stringify(response));
+          this.currentUser = response;
           const userLevel = response.level.name ? response.level.name : '<not available>';
           segmentService.track('LOGGED IN', { fellowLevel: userLevel });
         })

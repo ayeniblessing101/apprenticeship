@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { UserService } from '../../../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +9,10 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   displayNotifications: boolean;
   isAdmin = false;
-  currentUser: any;
+  @Input() currentUser: any;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
-    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -24,7 +20,6 @@ export class HeaderComponent implements OnInit {
     if (this.authService.userInfo.roles.LENKEN_ADMIN) {
       this.isAdmin = true;
     }
-    this.currentUser = this.userService.getCurrentUser();
   }
 
   /**
@@ -52,6 +47,5 @@ export class HeaderComponent implements OnInit {
    */
   logoutUser() {
     this.authService.logOut();
-    this.router.navigate(['/login']);
   }
 }
