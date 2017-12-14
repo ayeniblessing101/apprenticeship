@@ -177,6 +177,7 @@ export class PoolComponent implements OnInit {
       return;
     }
     this.filterParams['category'] = event.category;
+    this.filterParams['status'] = 1;
     if (event.ratings) {
       this.filterParams['ratings'] = event.ratings;
     }
