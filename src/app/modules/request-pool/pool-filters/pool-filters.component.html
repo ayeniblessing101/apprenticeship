@@ -1,6 +1,7 @@
 <div id="side-grid">
   <form [formGroup]="form">
     <div class="side-contents">
+      <input type="hidden" [value]="appliedFilters.status" formControlName="status">
       <h4>Requests</h4>
       <md-radio-group ngDefaultControl formControlName="category">
         <md-radio-button value="all">All Requests</md-radio-button>

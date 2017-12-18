@@ -30,6 +30,7 @@ export class PoolFiltersComponent implements OnInit {
               private filterService: FilterService,
               private alertService: AlertService) {
     this.defaultFilters = {
+      status: 1,
       category: ['recommended'],
       type: [],
       ratings: [],
@@ -44,6 +45,7 @@ export class PoolFiltersComponent implements OnInit {
     const filters = this.filterService.getFilters();
     this.initializeFilters(filters);
     this.form = this.formBuilder.group({
+      status: 1,
       category: filters.category,
       type: new FormArray([
         new FormControl(false),

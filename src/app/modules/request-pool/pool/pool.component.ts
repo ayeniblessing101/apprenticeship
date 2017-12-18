@@ -100,6 +100,7 @@ export class PoolComponent implements OnInit {
   getRequests(): void {
     this.loadingRequests = true;
     this.currentPage = 1;
+    this.filterParams['status'] = 1;
     this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
       .toPromise()
       .then((response) => {
@@ -177,7 +178,6 @@ export class PoolComponent implements OnInit {
       return;
     }
     this.filterParams['category'] = event.category;
-    this.filterParams['status'] = 1;
     if (event.ratings) {
       this.filterParams['ratings'] = event.ratings;
     }
