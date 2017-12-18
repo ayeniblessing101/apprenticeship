@@ -36,9 +36,9 @@ export class PendingComponent implements OnInit {
         (response) => {
           this.loading = false;
           this.requests.awaitingYou =
-            this.formatRequestData(response.requestsWithInterests);
+            this.formatRequestData(response.awaitingYou);
           this.requests.awaitingResponse =
-            this.formatRequestData(response.requestsInterestedIn);
+            this.formatRequestData(response.awaitingResponse);
         },
       );
   }
