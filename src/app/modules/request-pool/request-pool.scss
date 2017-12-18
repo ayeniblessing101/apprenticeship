@@ -94,6 +94,7 @@ section {
         height: 48px;
         vertical-align: middle;
         display: table-cell;
+        cursor: pointer;
       }
     }
   }
@@ -160,7 +161,7 @@ section {
     box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
     padding: 5%;
     overflow-y: auto;
-  
+
     .modal-heading {
       font-family: $font-family-1;
       font-weight: 500;
@@ -173,7 +174,7 @@ section {
       margin-top: 30px;
       line-height: 25px;
   }
-    
+
    &::-webkit-scrollbar {
       width: 0 !important
     }
