@@ -30,6 +30,7 @@
   font-size: 18px;
   font-weight: bold;
   color: #3359db;
+  margin-bottom: 4%;
 }
 
 .chip {
@@ -57,38 +58,24 @@
   background-color: #ffaf30
 }
 
-.skill-input {
-  width: 60%;
-  height: 25px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-  background-color: #ffffff;
-  border: solid 1px #e9eff4;
-  float: left;
-  margin-bottom: 2%;
-}
 
 .submit-button {
   padding: 10px;
   width: 45px;
   height: 45px;
   border: none;
-  color: #ffffff;  
+  color: #ffffff;
   border-radius: 4px;
-  position: absolute;
   background-color: #ffaf30;
   cursor: pointer;
-  margin-left: 42%;
-  clear: left;
+  margin-left: auto;
   &:disabled {
     padding: 10px;
     width: 45px;
     height: 45px;
     border: none;
-    color: #ffffff;  
+    color: #ffffff;
     border-radius: 4px;
-    position: absolute;
     background-color: #cccccc;
     cursor: not-allowed;
     pointer-events: none;
@@ -96,20 +83,41 @@
 }
 
 .skill-header {
-  float: left;
-  margin-top: 3%;
-  margin-right: 2%
+  margin-right: 2%;
 }
 
 :host /deep/ .ng2-auto-complete {
   min-width: 100%;
-  margin-left: 29% !important;
+  max-height: 242px;
+  overflow-y: auto;
+
 }
 
 :host /deep/ .ng2-auto-complete .item {
   padding: 15px;
+
 }
 
 .add {
   font-size: 20px;
+}
+.auto-complete-input-wrapper {
+  width: 60%;
+
+  .ng2-auto-complete, input {
+    height: 25px;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #e9eff4;
+  }
+
+}
+
+.add-skill-form {
+  display: flex;
+  align-items: center;
 }
