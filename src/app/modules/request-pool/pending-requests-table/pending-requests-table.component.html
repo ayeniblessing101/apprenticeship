@@ -36,6 +36,6 @@
 <div *ngIf="!requests" class="loader"></div>
 
 <app-pending-modal *ngIf="openModal" #pendingModal
-  [request]="modalRequest" [type]="modalType"
+  [request]="modalRequest" [type]="requestType"
   (close)="closePendingModal($event)">
 </app-pending-modal>

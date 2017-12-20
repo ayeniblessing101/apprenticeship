@@ -85,7 +85,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * gets all requests from request service
+   * gets all create-request from request service
    *
    * @param {Number} page - number of current page been displayed
    * @return {Void}
@@ -106,9 +106,9 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * gets all requests from request service
+   * gets all create-request from request service
    *
-   * @param {Number} limit - number of requests to return
+   * @param {Number} limit - number of create-request to return
    * @return {Void}
    */
   searchRequests(term: string): void {
@@ -127,7 +127,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   /**
    * pushes each request into a request array;
    *
-   * @param {Array} requests - Array of requests
+   * @param {Array} create-request - Array of create-request
    * @return {Void}
    */
   extractRequest(requestsArray) {
@@ -148,7 +148,7 @@ export class AdminRequestsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Retrieves the id of incoming requests and stores in an array
+   * Retrieves the id of incoming create-request and stores in an array
    *
    * @param {Array} requests
    * @return {Array} result

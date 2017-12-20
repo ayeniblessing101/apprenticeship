@@ -11,7 +11,6 @@ import {
   MdSliderModule,
   MdCardModule,
 } from '@angular/material';
-
 import { SaveFiltersModalComponent } from './save-filters-modal/save-filters-modal.component';
 import { PoolComponent } from './pool/pool.component';
 import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
@@ -19,11 +18,11 @@ import { PendingComponent } from './pending/pending.component';
 import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
+import { RequestService } from '../../services/request.service';
+import { SkillService } from '../../services/skill.service';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
-
-import { RequestService } from '../../services/request.service';
 
 @NgModule({
   imports: [
@@ -59,6 +58,7 @@ import { RequestService } from '../../services/request.service';
   providers: [
     SaveFiltersModalComponent,
     RequestService,
+    SkillService,
   ],
 })
 export class RequestPoolModule { }

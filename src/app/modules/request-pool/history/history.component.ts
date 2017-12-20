@@ -23,7 +23,7 @@ export class HistoryComponent implements OnInit {
   }
 
   /**
-   * Gets completed requests belonging to the current user
+   * Gets completed create-request belonging to the current user
    *
    * @return {Void}
    */
@@ -43,7 +43,7 @@ export class HistoryComponent implements OnInit {
    * Formats the data from the api to caluculate the mentorship end date,
    * get the primary skills and to check the role of the user per request
    * @param {Object} usersRequests
-   * @return {Object} requests
+   * @return {Object} create-request
    */
   formatRequests(usersRequests) {
     const requests = usersRequests.map((request) => {

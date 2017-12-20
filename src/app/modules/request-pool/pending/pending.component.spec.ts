@@ -34,7 +34,7 @@ describe('PendingComponent', () => {
         RequestService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

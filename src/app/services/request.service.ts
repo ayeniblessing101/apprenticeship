@@ -51,13 +51,13 @@ export class RequestService {
   }
 
   /**
-   * Return latest mentorship requests
+   * Return latest mentorship create-request
    *
-   * @param Number Limit number of requests to return
+   * @param Number Limit number of create-request to return
    * @param Number Page current pagination page
    * @param Object Params get parameters
    *
-   * @return Observable containing latest requests
+   * @return Observable containing latest create-request
    */
   getRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
@@ -84,11 +84,11 @@ export class RequestService {
 
 
   /**
-   * Return latest mentorship requests
+   * Return latest mentorship create-request
    *
    * @param String the status parameter to search for
    *
-   * @return Observable containing matching requests
+   * @return Observable containing matching create-request
    */
   getRequestsByStatus(status): Observable<any> {
     return this.http
@@ -114,11 +114,24 @@ export class RequestService {
   }
 
   /**
+   * Create a mentorship request initiated by mentor
+   *
+   * @param mentorshipDetails Data containing details of mentorship request
+   *
+   * @return {Reponse} object containing the created request
+   */
+  createRequest(mentorshipDetails) {
+    return this.http.post(`${this.apiBaseUrl}/v2/requests`, mentorshipDetails)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Match a mentee with a mentor
    *
    * @param {Number} requestId
    *
-   * @return {Observable} containing all open requests
+   * @return {Observable} containing all open create-request
    */
   matchMenteeRequest(requestId: Number, requestUpdate: Object): Observable<any> {
     return this.http
@@ -191,7 +204,7 @@ export class RequestService {
   }
 
   /**
-   * Get report requests
+   * Get report create-request
    *
    * @param {Object} options key value pairs for additional query
    * @return Observable containing reports by location and period
@@ -209,10 +222,10 @@ export class RequestService {
   }
 
   /**
-   * Get unmatched requests
+   * Get unmatched create-request
    *
    * @param {Object} options key value pairs for additional query
-   * @return Observable containing unmatched requests by location and period
+   * @return Observable containing unmatched create-request by location and period
    */
   getUnmatchedRequests(options: {}): Observable<any> {
     const params = this.getEncodedParameters(options);
@@ -257,11 +270,11 @@ export class RequestService {
   }
 
   /**
-   * Retrieves mentorship requests with different possible filters
+   * Retrieves mentorship create-request with different possible filters
    * e.g if we choose to filter by status, the value can either be
    * open, completed, cancelled, matched
    *
-   * @param {String} type what filter to use to sieve mentorship requests
+   * @param {String} type what filter to use to sieve mentorship create-request
    * @param {String} value actual value of filter
    */
   getRequestsByFilter(type, value): Observable<any> {
@@ -318,9 +331,9 @@ export class RequestService {
   }
 
   /**
-   * Returns a users completed requests
+   * Returns a users completed create-request
    *
-   * @return Observable containing completed requests
+   * @return Observable containing completed create-request
    */
   getUserHistory(): Observable<any> {
     return this.http
@@ -331,11 +344,11 @@ export class RequestService {
   }
 
   /**
-   * Return latest in progress mentorship requests for v2
+   * Return latest in progress mentorship create-request for v2
    *
    * @param {void}
    *
-   * @return Observable containing latest requests
+   * @return Observable containing latest create-request
    */
   getInProgressRequests(): Observable<any> {
     return this.http
@@ -348,7 +361,7 @@ export class RequestService {
   /**
    * Get pending mentorship reqeusts
    *
-   * @return Observable with pending requests
+   * @return Observable with pending create-request
    */
   getPendingRequests() {
     return this.http

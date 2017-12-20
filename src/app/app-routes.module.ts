@@ -31,7 +31,7 @@ const appRoutes: Routes = [
 
   { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
 
-  { path: 'admin/requests', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/create-request', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
 
   { path: 'admin/skills', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
 

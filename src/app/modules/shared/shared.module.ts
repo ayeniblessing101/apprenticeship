@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { CreateRequestComponent } from './create-request/create-request.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -13,14 +13,10 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ConfirmationAlertComponent } from './confimation-alert/confirmation-alert.component';
 import { MessageAlertComponent } from './message-alert/message-alert.component'
 
+import { FormsModule } from '@angular/forms';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
-import {
-  MdCardModule,
-  MdCheckboxModule,
-  MdSelectModule,
-  MdRadioModule,
-  MdSliderModule,
-} from '@angular/material';
+import { MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -28,6 +24,8 @@ import {
     RouterModule,
     BrowserAnimationsModule,
     MdCardModule,
+    FormsModule,
+    Ng2AutoCompleteModule,
   ],
   declarations: [
     HeaderComponent,
@@ -38,6 +36,7 @@ import {
     ConfirmationAlertComponent,
     NotificationsComponent,
     MessageAlertComponent,
+    CreateRequestComponent,
   ],
   exports: [
     HeaderComponent,

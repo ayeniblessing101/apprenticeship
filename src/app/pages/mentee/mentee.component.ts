@@ -38,7 +38,7 @@ export class MenteeComponent implements OnInit {
   }
 
   /**
-   * Gets 20 requests belonging to a particular mentee from the Lenken API service
+   * Gets 20 create-request belonging to a particular mentee from the Lenken API service
    *
    * @param {Number} page - the page number to view.
    */

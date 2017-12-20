@@ -24,7 +24,7 @@ export class PendingComponent implements OnInit {
   }
 
   /**
-   * Get pending requests from Lenken Api service
+   * Get pending create-request from Lenken Api service
    *
    * @return {void}
    */
@@ -46,9 +46,9 @@ export class PendingComponent implements OnInit {
   /**
    * Formats request data to be displayed
    *
-   * @param {Array} requests - contains an array of requests.
+   * @param {Array} requests - contains an array of create-request.
    *
-   * @return {Array} requestData - formatted requests
+   * @return {Array} requestData - formatted create-request
    */
   formatRequestData(requests): any {
     const requestData = requests.map((request) => {

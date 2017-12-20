@@ -12,7 +12,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'app-requests',
+  selector: 'app-create-request',
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss'],
 })
@@ -138,7 +138,7 @@ export class RequestsComponent implements OnInit {
   }
 
   /**
-   * Takes the form values and makes POST request to the requests endpoint
+   * Takes the form values and makes POST request to the create-request endpoint
    * to create a new request.
    * @param form
    * @return {void}
@@ -238,8 +238,8 @@ export class RequestsComponent implements OnInit {
   /**
    * Limits the maximum skills selected for Required Skills
    * and Other Skills to 3
-   * 
-   * @param {string} type the name of the select element 
+   *
+   * @param {string} type the name of the select element
    * @return {void}
    */
   validateSkillCount(type) {
@@ -250,7 +250,7 @@ export class RequestsComponent implements OnInit {
       item.disabled = !item.selected;
       });
     } else {
-      this.requiredOptions.forEach((item) => { 
+      this.requiredOptions.forEach((item) => {
         item.disabled = false;
       });
     }
@@ -261,7 +261,7 @@ export class RequestsComponent implements OnInit {
         item.disabled = !item.selected;
             });
       } else {
-          this.otherOptions.forEach((item) => { 
+          this.otherOptions.forEach((item) => {
           item.disabled = false;
           });
         }

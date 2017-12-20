@@ -1,0 +1,138 @@
+<div class="modal-container">
+  <div class="mentor-request-modal">
+    <div class="modal-content" #createRequestModal>
+
+      <div class="modal-heading">
+        REQUEST {{ title | uppercase }}
+        <hr class="underline"/>
+      </div>
+
+      <form (ngSubmit)="onSubmit(mentorshipForm)" class="mentorship-form" #mentorshipForm="ngForm">
+
+        <div class="form-group">
+          <label for="needed-skill">Enter the skill you want to acquire</label>
+          <input ngModel class="needed-skill required-field" placeholder="e.g Swift"
+                 id="needed-skill" name="neededSkill" required/>
+          <label class="inline info additional-info">Displayed as; Swift Mentor</label>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input ngModel class="description" placeholder="Enter a short description of what you plan to achieve"
+                 id="description" name="description" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="basic-skills">Basic Skills</label>
+            <input #basicSkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MUST have"
+                   ng2-auto-complete [source]="skills" [list-formatter]="autocompleListFormatter"
+                   id="basic-skills" display-property-name="name" (valueChanged)="saveSkills('basic', basicSkill.value);
+                    basicSkill.value = ''" [disabled]="basicSkills.length === 3" required/>
+
+          <div class="skill-list" *ngIf="basicSkills.length">
+            <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill.name }}
+              <span (click)="deleteBasicSkill(skill.name, 'basic', position)" class="close">&times;</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="complementary-skills">Complementary Skills</label>
+          <input #complementarySkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MAY have"
+                 ng2-auto-complete [source]="skills"
+                 (valueChanged)="saveSkills('complementary', complementarySkill.value); complementarySkill.value=''"
+                 [list-formatter]="autocompleListFormatter"
+                 id="complementary-skills" display-property-name="name"
+                 [disabled]="complementarySkills.length === 3" required/>
+
+          <div class="skill-list" *ngIf="complementarySkills.length">
+            <span class="chip" *ngFor="let skill of complementarySkills; let position = index">{{ skill.name }}
+              <span (click)="deleteBasicSkill(skill.name, 'complementary', position)" class="close">&times;</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group duration">
+          <div class="duration">
+            <span>
+                <label for="period" class="block duration-label">Duration</label>
+                <span class="mentor-dropdown">
+                    <select [(ngModel)]="numberOfMonths" class="required-field" id="period" name="period" required>
+                        <option *ngFor="let month of lengthOfMentorship" value="{{ month }}">{{ month }} Months</option>
+                    </select>
+                </span>
+            </span>
+
+            <span class="inline-block">
+                <label class="block days-label">Days</label>
+                <span class="inline-block checkbox-group">
+                    <span (click)="checkAllDays(allDays.value)" class="checkbox-wrapper">
+                      <input ngModel name="all-days" type="checkbox" #allDays class="regular-checkbox" id="all-days">
+                      <label class="checkbox-label" for="all-days"></label>
+                      All days</span>
+                    <span *ngFor="let day of daysOfAvailability" class="checkbox-wrapper">
+                      <input [(ngModel)]="day.checked" type="checkbox" name="daysSelected"
+                             value="{{ day.value }}" class="regular-checkbox" id="{{ day.value }}">
+                      <label class="checkbox-label" for="{{ day.value }}"></label>
+                      {{ day.name }}
+                    </span>
+                </span>
+            </span>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <div class="time-select inline-block">
+
+            <label for="start-time" class="block">Pairing Time</label>
+            <span class="mentor-dropdown">
+                  <select [(ngModel)]="timeSelected" class="required-field" name="startTime" id="start-time" required>
+                      <option *ngFor="let timeSlot of timeSlots" value="{{ timeSlot }}">{{ timeSlot }}</option>
+                  </select>
+            </span>
+          </div>
+
+          <div class="time-select inline-block">
+            <label for="timezone" class="block">Time Zone</label>
+            <span class="mentor-dropdown" id="timezone">
+                <select ngModel class="required-field" name="timeZone" required>
+                    <option>WAT</option>
+                    <option>EAT</option>
+                    <option>CAT</option>
+                </select>
+            </span>
+          </div>
+
+          <div class="time-select inline-block">
+            <label class="block">Session Duration</label>
+            <input [(ngModel)]="duration" type="text"  id="session-duration" class="duration" name="duration" readonly required #timeSpan>
+            <div class="inline-block button-container">
+              <span (click)="changeTime(timeSpan.value, 'add')" type="button" id="add-button" class="block time-buttons" value="+">+</span>
+              <span (click)="changeTime(timeSpan.value, 'subtract')" type="button" class="block time-buttons" value="-" >-</span>
+            </div>
+          </div>
+
+        </div>
+        <div *ngIf="getSelectedDays().length || timeSelected || numberOfMonths" class="info"><span class="bullet"></span>
+          This event will take place
+          <span *ngIf="getSelectedDays().length"> on
+            <span class="capitalize" *ngFor="let day of getSelectedDays()"> {{ day }}, </span>
+          </span>
+          <span *ngIf="timeSelected">at {{ timeSelected }} hours </span>
+          <span *ngIf="numberOfMonths">for {{ numberOfMonths }} months</span>
+        </div>
+
+        <div class="modal-footer form-group">
+          <div class="button-group">
+            <input (click)="closeMentorshipRequestModal()" type="button" class="inline-block btn-modal-close" id="btn-close" value="DISCARD">
+            <input type="submit" value="REQUEST {{ title | uppercase }}" class="inline-block" id="btn-request">
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>

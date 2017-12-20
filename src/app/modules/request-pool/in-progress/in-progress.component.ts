@@ -26,7 +26,7 @@ export class InProgressComponent implements OnInit {
   }
 
   /**
-   * Gets in progress requests belonging to the current user
+   * Gets in progress create-request belonging to the current user
    *
    */
   getInProgressRequests(): void {
@@ -41,11 +41,11 @@ export class InProgressComponent implements OnInit {
   }
 
   /**
-   * Formats the in-progress requests
+   * Formats the in-progress create-request
    *
-   * @param {Array} requests - the array of requests.
+   * @param {Array} requests - the array of create-request.
    *
-   * @return {Array} inProgressRequests - the array of in progress requests
+   * @return {Array} inProgressRequests - the array of in progress create-request
    */
   formatInProgressRequests(requests): any {
     const requestsInProgress = requests.map((request) => {

@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Get 20 requests from the Lenken API service
+   * Get 20 create-request from the Lenken API service
    *
    * @param {Number} page - the page number to view.
    */

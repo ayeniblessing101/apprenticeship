@@ -1,14 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { CreateRequestComponent } from '../create-request/create-request.component';
 import { AuthService } from '../../../services/auth.service';
 import { RouterLinkStubDirective } from '../../../stubs/router-stubs';
 import { UserService } from '../../../services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 
 describe('HeaderComponent', () => {
@@ -18,22 +21,23 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent, NotificationsComponent, RouterLinkStubDirective],
-      imports: [BrowserAnimationsModule, HttpModule, RouterTestingModule],
+      declarations: [HeaderComponent, NotificationsComponent, CreateRequestComponent, RouterLinkStubDirective],
+      imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule],
       providers: [
         Http,
-        { provide: AuthService, useValue: {
-          userInfo : {
-            roles: {
-              LENKEN_ADMIN: 'ewrbgve',
+        {
+          provide: AuthService, useValue: {
+            userInfo: {
+              roles: {
+                LENKEN_ADMIN: 'ewrbgve',
+              },
             },
           },
-        },
         },
         UserService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

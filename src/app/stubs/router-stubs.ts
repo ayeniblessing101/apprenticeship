@@ -9,7 +9,7 @@ import { Directive, Input } from "@angular/core";
   export class RouterLinkStubDirective {
     @Input('routerLink') linkParams: any;
     navigatedTo: any = null;
-  
+
     onClick() {
       this.navigatedTo = this.linkParams;
     }

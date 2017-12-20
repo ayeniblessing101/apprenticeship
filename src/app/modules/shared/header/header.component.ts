@@ -6,20 +6,42 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
+
 export class HeaderComponent implements OnInit {
-  displayNotifications: boolean;
+  displayNotifications = false;
   isAdmin = false;
   @Input() currentUser: any;
+  displayCreateRequestModal = false
+  requestType: string;
 
   constructor(
     private authService: AuthService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.displayNotifications = false;
     if (this.authService.userInfo.roles.LENKEN_ADMIN) {
       this.isAdmin = true;
     }
+  }
+
+  /**
+   * Opens mentorship request modal
+   *
+   * @return {void}
+   */
+  showCreateRequestModal(requestType: string) {
+    this.requestType = requestType;
+
+    this.displayCreateRequestModal = true;
+  }
+
+  /**
+   * Closes mentorship request modal
+   *
+   * @return {void}
+   */
+  closeMentorshipRequestModal() {
+    this.displayCreateRequestModal = false;
   }
 
   /**

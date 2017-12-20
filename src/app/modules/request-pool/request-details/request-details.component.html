@@ -6,9 +6,8 @@
   <div class="request-body">
     <p class="request-description">{{ selectedRequest.title }}</p>
     <p class="request-content">Requested by -
-      <span> {{ userInfo ? userInfo.name : null }}  </span>
-      <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true">
-      </star-rating-comp>
+      <span> {{ userInfo ? userInfo.name : null }} </span>
+      <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"></star-rating-comp>
     </p>
     <p class="request-content">Primary Skills -
       <span> {{ selectedRequest.primarySkills }} </span>
@@ -24,7 +23,7 @@
     </p>
     <div class="modal-footer">
       <div class="button-group">
-        <input type="button"  value="BACK" (click)="closeRequestModal()">
+        <input type="button" value="BACK" (click)="closeRequestModal()">
         <input type="submit" value="I'M INTERESTED" id="btn-interested">
       </div>
     </div>

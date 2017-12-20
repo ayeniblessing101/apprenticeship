@@ -147,7 +147,7 @@ export class PoolFiltersComponent implements OnInit {
     this.openSaveFiltersModal.emit();
   }
   /**
-   * Get a list of skills with requests
+   * Get a list of skills with create-request
    *
    * @return {void}
    */

@@ -11,7 +11,7 @@
 }
 
 .request-modal {
-  font-family: $font-family-1;  
+  font-family: $font-family-1;
   box-sizing: content-box;
   position: fixed;
   z-index: 1000;
@@ -43,8 +43,8 @@
     }
   }
 
- &::-webkit-scrollbar { 
-    width: 0 !important 
+ &::-webkit-scrollbar {
+    width: 0 !important
   }
 }
 
@@ -93,7 +93,7 @@
       all: unset;
       width: 150px;
       height: 44px;
-      border: solid 1px #3359db;    
+      border: solid 1px #3359db;
       background-color: #3359db;
       font-family: DINPro;
       font-size: 15px;

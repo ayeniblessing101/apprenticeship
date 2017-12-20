@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { SkillServiceStub } from '../../stubs/skill-stub.service';
 import mockSkills from '../../mocks/skills';
 
-describe('RequestsComponent', () => {
+describe('CreateRequestComponent', () => {
   let component: RequestsComponent;
   let fixture: ComponentFixture<RequestsComponent>;
   let debug: DebugElement;

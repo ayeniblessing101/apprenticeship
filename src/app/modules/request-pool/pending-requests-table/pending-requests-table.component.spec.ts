@@ -31,7 +31,7 @@ describe('PendingRequestsTableComponent', () => {
         RequestService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

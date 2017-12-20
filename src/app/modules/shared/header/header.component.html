@@ -8,21 +8,20 @@
       </div>
     </li>
       <li *ngIf="isAdmin" class="dropdown">
-        <button id="admin-button">DASHBOARD</button>
+        <button class="request-option" id="admin-button">DASHBOARD</button>
         <div class="admin-content common-dropdown-styles">
           <a [routerLink]="['admin/requests']">REQUESTS</a>
           <a [routerLink]="['admin/skills']">SKILLS</a>
           <a [routerLink]="['admin/reports']">REPORTS</a>
         </div>
       </li>
-      <li class="dropdown">
-        <button id="request-for-dropdown">REQUEST FOR</button>
-        <div class="request-for-content common-dropdown-styles">
-          <a>something</a>
-          <a>something</a>
-          <a>something</a>
-        </div>
-      </li>
+    <li class="dropdown">
+      <button class="request-option" id="request-button"> REQUEST FOR</button>
+      <div class="admin-content common-dropdown-styles">
+        <a (click)="showCreateRequestModal('mentor')">MENTOR</a>
+        <a (click)="showCreateRequestModal('mentee')">MENTEE</a>
+      </div>
+    </li>
     <app-notifications [state]="displayNotifications" (onClose)="closeNotifications($event)"></app-notifications>
     <a (click)="openNotifications()">
       <li class="notification">
@@ -50,3 +49,4 @@
     </a>
   </ul>
 </header>
+<app-create-request *ngIf="displayCreateRequestModal" [requestType]="requestType" (closeMentorshipModal)="closeMentorshipRequestModal()"></app-create-request>

@@ -24,7 +24,7 @@ export class FilterService {
   constructor(private http: Http) {}
 
   /**
-   * Return a unique list of all skills that have requests
+   * Return a unique list of all skills that have create-request
    *
    * @return Observable collection of skills
    */

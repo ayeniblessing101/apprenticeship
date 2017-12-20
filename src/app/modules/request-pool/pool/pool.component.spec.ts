@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-
 import { PoolComponent } from './pool.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from './../../../services/request.service';
@@ -55,7 +54,7 @@ describe('PoolComponent', () => {
         SkillService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

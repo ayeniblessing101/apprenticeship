@@ -22,7 +22,7 @@ export class PoolComponent implements OnInit {
   savedFiltersNames: string[];
 
   constructor(private requestService: RequestService,
-              private filterService: FilterService) {
+    private filterService: FilterService) {
   }
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class PoolComponent implements OnInit {
   }
 
   /**
-   * Get requests from the Lenken API service
+   * Get create-request from the Lenken API service
    *
    * @return {void}
    */
@@ -133,7 +133,7 @@ export class PoolComponent implements OnInit {
   /**
    * Formats request data to be displayed
    *
-   * @param {Array} requests - contains an array of requests.
+   * @param {Array} requests - contains an array of create-request.
    *
    * @return {Array} formatted request data
    */

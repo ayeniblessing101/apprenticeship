@@ -287,7 +287,7 @@ export class RequestdetailsComponent implements OnInit {
             .afterDismissed()
             .toPromise()
             .then(()=> {
-              this.router.navigate(['/my-requests']);
+              this.router.navigate(['/my-create-request']);
             });
           });
       }

@@ -55,7 +55,7 @@ export class MentorComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Get 20 requests from the Lenken API service
+   * Get 20 create-request from the Lenken API service
    *
    * @param {Number} page - the page number to view.
    */
