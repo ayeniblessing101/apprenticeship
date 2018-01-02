@@ -22,7 +22,7 @@
         <a (click)="showCreateRequestModal('mentee')">MENTEE</a>
       </div>
     </li>
-    <app-notifications [state]="displayNotifications" (onClose)="closeNotifications($event)"></app-notifications>
+    <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>
     <a (click)="openNotifications()">
       <li class="notification">
         <img src="../../assets/images/notification.png" alt="">

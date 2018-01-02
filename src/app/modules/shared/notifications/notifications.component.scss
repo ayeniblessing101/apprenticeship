@@ -1,4 +1,11 @@
+.overlay {
+  width: 100vw !important;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.0);
+}
+
 .notifications-modal {
+  font-family: DINRegular;
   float: right;
   width: 264px;
   height: 826px;
@@ -22,7 +29,6 @@
 .notifications-title {
   width: 79px;
   height: 18px;
-  font-family: DINPro;
   font-size: 14px;
   text-align: left;
   color: #000000;
@@ -40,7 +46,6 @@
 .notifications-day {
   width: 34px;
   height: 15px;
-  font-family: DINPro;
   font-size: 12px;
   text-align: left;
   color: #757575;
@@ -54,11 +59,11 @@
   &-title {
     width: 49px;
     height: 17px;
-    font-family: DINPro;
     font-size: 13px;
     text-align: left;
     color: #424242;
     vertical-align: text-top;
+    font-family: DINLight;
   }
 
   &-skill {
@@ -71,7 +76,6 @@
   &-body {
     width: 216px;
     height: auto;
-    font-family: DINPro;
     font-size: 12px;
     line-height: 1.17;
     text-align: left;
@@ -86,7 +90,6 @@
   &-time {
     width: 42px;
     height: 12px;
-    font-family: DINPro;
     font-size: 10px;
     text-align: right;
     color: #757575;
@@ -123,7 +126,9 @@
   }
 
   &.close {
-  cursor: default;
+   cursor: pointer;
+   font-size: large;
+   margin-right: 10px;
   }
 
   &.clear {

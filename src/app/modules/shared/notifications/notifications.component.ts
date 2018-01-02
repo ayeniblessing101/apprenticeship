@@ -16,7 +16,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ])],
 })
 export class NotificationsComponent implements OnInit {
-  @Output() onClose: EventEmitter<boolean> = new EventEmitter();
+  @Output() close: EventEmitter<null> = new EventEmitter();
   @Input() state = false;
   constructor() { }
 
@@ -26,9 +26,14 @@ export class NotificationsComponent implements OnInit {
   /**
    * closes the notifications component
    *
+   * @param {Event} event Native DOM event
+   *
    * @return {void}
    */
-  closeNotifications() {
-    this.onClose.emit(false);
+  closeNotifications(event) {
+    event.preventDefault();
+    if (event.target.id === 'notification-overlay' || event.target.id === 'notification-close-x') {
+      this.close.emit(null);
+    }
   }
 }

@@ -1,7 +1,7 @@
 <div class="notifications-modal" [@notificationsState]="state">
   <div class="modal-content">
     <div class="notifications-header">
-      <i class="tiny material-icons close" (click)="closeNotifications()">close</i>
+      <i class="tiny material-icons close" id="notification-close-x" (click)="closeNotifications($event)">close</i>
       <label class="notifications-title">Notifications</label>
     </div>
     <div>
@@ -75,3 +75,4 @@
     </div>
   </div>
 </div>
+<div class="overlay" id="notification-overlay" *ngIf="state" (click)="closeNotifications($event)"></div>
