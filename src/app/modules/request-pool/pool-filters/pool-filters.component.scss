@@ -2,17 +2,23 @@
 @import '../../../../assets/scss/colors';
 
 #side-grid {
-  width: 16%;
+  position: absolute;
+  width: 24.5%;
+  right: 0px;
+  overflow-y: scroll;
   min-height: 91.35vh;
   display: inline-block;
-  padding: 90px 0 5px 20px;
+  padding: 90px 0 5px 0px;
   color: $primary-text-color;
-  background-color: $primary-background-color;
+  border-left: 1px solid #d1d1d1;
+
   .side-contents {
     width: inherit;
     margin-bottom: 1.5em;
+    margin-left: 10px;
     text-align: left;
     color: #747474;
+
     h4{
       font-size: 16px;
       font-weight: 500;
@@ -20,15 +26,22 @@
       color: #747474;
       margin-bottom: 10px;
     }
+
     md-radio-button, md-checkbox{
       margin:3px 0;
     }
+
     md-select{
       padding:10px 0 0;
       margin-bottom: 10px;
       width: 90%;
     }
   }
+
+  .seeking-mentor {
+    display: grid;
+  }
+
   h4 {
     font-size: 16px;
     margin-bottom: 1em;
@@ -49,6 +62,7 @@
     background-color: #ffffffff;
     cursor: pointer;
   }
+
   .btn-success {
      all: unset;
      width: 49%px;
@@ -64,38 +78,48 @@
     }
 
     .btn-wrapper {
-     background-color: #3359db 
+     background-color: #3359db;
+     position: fixed;
+     bottom: 0px;
+     width: 25%;
+     margin-left: 0px;
+     display: flex;
     }
 
     .inline-block{
       display: inline-block !important;
-
     }
+
     .btn-delete-filter {
       background: url('../../../../assets/images/ic-delete-24-px@2x.png')  no-repeat !important;
       background-size: contain !important;
       background-position: center bottom;
-      width: 12px !important;
+      width: 30px !important;
       height: 16px !important;
       border: 0 !important;
       margin-top: auto !important;
       cursor: pointer;
     }
+
     .saved-filters {
       cursor: pointer;
-      position: relative;
-      height: 10em;
+      height: 5em;
       overflow-y: scroll;
       border-color: #747474;
-      border-style: solid;
+      border-style: none;
       border-width: 0 0 1px;
-    }    
+    }
+
     .saved-filter {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       width: 100% !important;
     }
+
+  form {
+    position: absolute;
+  }
 }
 
 :host /deep/ .mat-select-placeholder {

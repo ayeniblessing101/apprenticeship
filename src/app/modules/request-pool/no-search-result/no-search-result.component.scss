@@ -32,8 +32,18 @@
   left:45%;
   margin: 0 auto 30px;
 }
+
 .arrow_up_svg {
-  left:71%;
+  left:65%;
   top:11%;
   position:absolute;
 }
+
+@media only screen and (max-width: 1210px) {
+  .arrow_up_svg {
+    left:63%;
+    top:16%;
+    position:absolute;
+  }
+}
+

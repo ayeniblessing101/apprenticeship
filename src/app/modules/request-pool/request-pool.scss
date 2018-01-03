@@ -44,11 +44,11 @@ body {
 #section-grid {
   width: 74%;
   min-height: 91.35vh;
+  overflow-y: scroll;
   padding: 35px 30px 5px;
   float: left;
   margin-left: 6em;
   margin-top: 4em;
-  border-right: 1px solid #d1d1d1;
 }
 
 section {
@@ -56,19 +56,20 @@ section {
   overflow: hidden;
 }
 
-
-
 .table {
   display: table;
   width: 100%;
+
   .header {
     color: $header-text-color;
     font-size: 14px;
     display: table-header-group;
+
     .row {
       display: table-row;
       color: $primary-text-color;
       border: 1px solid #e0e0e0;
+
       div {
         border-bottom: 1px solid #e0e0e0;
         display: table-cell;
@@ -78,14 +79,17 @@ section {
       }
     }
   }
+
   .body {
     display: table-row-group;
     color: $primary-text-color;
     font-size: 13px;
     border: 1px solid #e0e0e0;
+
     .row {
       display: table-row;
       color: #2f2f2f;
+
       div {
         background-color: #f9f9f9;
         border-radius: 2px;
@@ -98,6 +102,7 @@ section {
       }
     }
   }
+
   .space {
     height: 10px;
   }
@@ -206,13 +211,16 @@ section {
 
 
 .rating.color-default .star-container .star {
+
   svg {
     fill: #3359db;
   }
+
   i {
     color: #3359db;
   }
 }
+
 .star-container {
   z-index: 0;
 }

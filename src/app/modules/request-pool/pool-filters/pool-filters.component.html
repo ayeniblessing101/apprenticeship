@@ -4,11 +4,11 @@
       <input type="hidden" [value]="appliedFilters.status" formControlName="status">
       <h4>Requests</h4>
       <md-radio-group ngDefaultControl formControlName="category">
-        <md-radio-button value="all">All Requests</md-radio-button>
+        <md-radio-button value="all">All Requests</md-radio-button> <br />
         <md-radio-button value="recommended">Recommended for me</md-radio-button>
       </md-radio-group>
     </div>
-    <div class="side-contents">
+    <div class="side-contents seeking-mentor">
       <h4>Type</h4>
       <md-checkbox disabled="true" [formControl]="form.controls['type'].controls[0]">Seeking Mentor</md-checkbox>
       <md-checkbox disabled="true" [formControl]="form.controls['type'].controls[1]">Seeking Mentee</md-checkbox>

@@ -8,24 +8,30 @@
   position: fixed;
   padding-bottom: 10px;
   z-index: 2;
+
   ul {
     display: flex;
     justify-content: flex-end;
     width: 98%;
     height: 100%;
+    margin-top: 5px;
     list-style-type: none;
+
     a {
       margin-right: 2%;
     }
+
     li {
       position: relative;
       top: 20%;
       margin-right: 2%;
     }
+
     .notification {
       top: 35%;
       cursor: pointer;
     }
+
     .user-icon {
       top: 5%;
       margin-right: 4%;
@@ -53,6 +59,7 @@
   background-size: cover;
   display: block;
   border-radius: 50%;
+  background-color: cornflowerblue;
 }
 
 .request-option {
@@ -121,6 +128,7 @@
     margin-top: 25px;
     margin-right: -30px;
   }
+
   .admin-content {
     margin-top: 10px;
   }
@@ -140,6 +148,7 @@
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 0;
+
   a {
     color: #444444;
     padding: 12px 16px;
@@ -181,10 +190,13 @@
   position: absolute;
   margin-top: -10px;
 }
+
 .sign-out {
   opacity: 1;
 }
+
 .arrow-spacing {
   width: 100%;
   margin-left: 140%;
 }
+
