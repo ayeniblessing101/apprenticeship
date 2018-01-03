@@ -99,6 +99,10 @@ section {
         vertical-align: middle;
         display: table-cell;
         cursor: pointer;
+        max-width: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
