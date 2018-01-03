@@ -1,0 +1,17 @@
+export interface User {
+  id: string,
+  name: string,
+  email: string,
+  location: string,
+  picture?: string,
+  firstName?: string,
+  cohort?: string,
+  placement?: string,
+  level?: string,
+  skills?: object[] | string,
+  requestCount?: number,
+  loggedHours?: number,
+  totalSessions?: number,
+  rating?: string,
+  totalRatings?: number,
+}

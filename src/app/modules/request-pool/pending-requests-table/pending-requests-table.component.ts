@@ -9,6 +9,7 @@ export class PendingRequestsTableComponent implements OnInit {
 
   @Input() requests;
   @Input() title: string;
+  @Output() reload: EventEmitter<boolean> = new EventEmitter();
   openModal: boolean;
   modalRequest: any[];
   modalType: string;
@@ -34,5 +35,12 @@ export class PendingRequestsTableComponent implements OnInit {
    */
   closePendingModal() {
     this.openModal = false;
+  }
+
+  /**
+   * Reloads pending pool
+   */
+  reloadPendingPool() {
+    this.reload.emit();
   }
 }

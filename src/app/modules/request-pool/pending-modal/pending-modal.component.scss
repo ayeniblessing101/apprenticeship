@@ -3,56 +3,54 @@
 $table-width: 100%;
 
 .request-details {
+  margin-top: 30px;
+  margin-bottom: 40px;
   ul {
-      display: inline-block;
-      padding-left: 0;
-      li {
-          list-style-type: none;
-          span {
-              color: #747474;
-          }
-      }
-  }
-}
-
-.modal-content {
-  .table {
-    width: $table-width;
-    .body .row {
-      div {
-        width: auto;
-      }
-      .choice {
-        cursor: pointer;
-        width: 100px;
-        overflow: hidden;
-        .icon {
-          display: inline-block;
-          border-radius: 50%;
-          margin-left: 5%;
-          color: white;
-          width: 15px;
-          height: 15px;
-          padding: 1px;
-          text-align: center;
-          font-size: 12px;
-        }
-        .accept-icon {
-          background-color: $andela-blue;
-        }
-        .reject-icon {
-          background-color: orange;
-        }
-      
-        &:hover {
-          background-color: #eaeaea !important;
-        }
+    display: inline-block;
+    padding-left: 0;
+    li {
+      list-style-type: none;
+      span {
+        color: #747474;
       }
     }
   }
-  .request-details {
-    margin-top: 30px;
-    margin-bottom: 40px;
+}
+
+.table {
+  width: $table-width;
+  .body .row {
+    div {
+      width: auto;
+    }
+    .choice {
+      cursor: pointer;
+      width: 100px;
+      overflow: hidden;
+
+      .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        background-size: cover;
+
+        &.accept-icon{
+          background: url('./../../../../assets/images/tick-circle-icon.svg');
+          width: 20px;
+          height: 20px;
+        }
+
+        &.reject-icon{
+          background: url('./../../../../assets/images/close-circle-icon.svg');
+          width: 20px;
+          height: 20px;
+        }
+      }
+      &:hover {
+        background-color: #eaeaea !important;
+      }
+    }
   }
 }
 

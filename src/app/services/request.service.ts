@@ -370,4 +370,34 @@ export class RequestService {
       .catch(error => Observable.throw(error.json()),
     );
   }
+
+  /**
+   * Send request to accept an interested mentor
+   *
+   * @param {number} requestId - a mentorship request id
+   * @param {Object} data - json object containing mentor name and id
+   *
+   * @return {Observable} response object
+   */
+  acceptInterestedMentor(requestId, data) {
+    return this.http
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/accept-mentor`, data)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()));
+  }
+
+  /**
+   * Send request to reject an interested mentor
+   *
+   * @param {number} requestId - a mentorship request id
+   * @param {Object} data - json object containing mentor name and id
+   *
+   * @return {Observable} response object
+   */
+  rejectInterestedMentor(requestId, data) {
+    return this.http
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/reject-mentor`, data)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()));
+  }
 }

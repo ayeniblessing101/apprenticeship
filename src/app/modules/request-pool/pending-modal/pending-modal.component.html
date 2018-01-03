@@ -57,11 +57,11 @@
                                     </span>
                                 </div>
                                 <div>{{ mentor.skills }}</div>
-                                <div class="choice">Accept
-                                    <span class="icon accept-icon">&#10004;</span>
+                                <div (click)="confirmAcceptMentor(mentor)" class="choice">Accept
+                                    <span class="icon accept-icon"></span>
                                 </div>
-                                <div class="choice">Reject
-                                    <span class="icon reject-icon">&#10005;</span>
+                                <div (click)="confirmRejectMentor(mentor)" class="choice">Reject
+                                    <span class="icon reject-icon"></span>
                                 </div>
                             </div>
                             <div class="space"></div>

@@ -3,7 +3,8 @@
       <div class="container">
         <app-pending-requests-table
           [requests]="requests.awaitingYou"
-          [title]="'AWAITING YOU'">
+          [title]="'AWAITING YOU'"
+          (reload)="getPendingRequests()">
         </app-pending-requests-table>
       </div>
       <div class="container">
