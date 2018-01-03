@@ -1,0 +1,5 @@
+<div class="wrapper">
+    <app-request-statistics (applyFilters)="applyFilters($event)"></app-request-statistics>
+    <app-pool [showFilters]="false" [showOpenRequests]="false"></app-pool>
+    <div *ngIf="loadingRequests" class="loader"> </div>
+</div>

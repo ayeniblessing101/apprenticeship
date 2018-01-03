@@ -13,6 +13,7 @@ import {
 } from '@angular/material';
 import { SaveFiltersModalComponent } from './save-filters-modal/save-filters-modal.component';
 import { PoolComponent } from './pool/pool.component';
+import { PoolRecordsComponent } from './pool-records/pool-records.component';
 import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { PendingComponent } from './pending/pending.component';
 import { HistoryComponent } from './history/history.component';
@@ -49,11 +50,13 @@ import { NoSearchResultComponent } from './no-search-result/no-search-result.com
     RequestDetailsComponent,
     PendingModalComponent,
     PendingRequestsTableComponent,
+    PoolRecordsComponent,
   ],
   exports: [
     PoolComponent,
     PoolFiltersComponent,
     SaveFiltersModalComponent,
+    PoolRecordsComponent,
   ],
   providers: [
     SaveFiltersModalComponent,

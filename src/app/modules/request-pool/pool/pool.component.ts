@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
 
@@ -10,19 +10,22 @@ import * as moment from 'moment';
   styleUrls: ['./pool.component.scss'],
 })
 export class PoolComponent implements OnInit {
-  showRequest = false;
+  @Input() showFilters = true;
+  @Input() showOpenRequests = true;
   currentPage = 1;
   limit = 20;
   loading: boolean;
   loadingRequests: boolean;
   isSaveFiltersModalOpened: boolean;
-  selectedRequest: object;
   requests = [];
   filterParams: any = {};
+  sectionGridWidth = '68%';
   savedFiltersNames: string[];
 
-  constructor(private requestService: RequestService,
-    private filterService: FilterService) {
+  constructor(
+    private requestService: RequestService,
+    private filterService: FilterService,
+  ) {
   }
 
   ngOnInit() {
@@ -32,6 +35,9 @@ export class PoolComponent implements OnInit {
       .keys(savedFilters) : [];
     this.filterParams = this.filterService.getFilters();
     this.getRequests();
+    if (!this.showFilters) {
+      this.sectionGridWidth = '85%';
+    }
   }
 
   /**
@@ -69,29 +75,6 @@ export class PoolComponent implements OnInit {
     this.savedFiltersNames = event;
   }
 
-  /** Get details of the request clicked by the user
-   * in the request pool. Changes showRequest to true
-   * making the modal pop up
-   *
-   * @param {Object} request - the clicked request details
-   *
-   * @return {void}
-   */
-  showRequestDetails(request) {
-    this.selectedRequest = request;
-    this.showRequest = true;
-  }
-
-  /**
-   * Changes showRequest to false and closes
-   * the modal
-   *
-   * @return {void}
-   */
-  closeRequest() {
-    this.showRequest = false;
-  }
-
   /**
    * Get create-request from the Lenken API service
    *
@@ -100,7 +83,9 @@ export class PoolComponent implements OnInit {
   getRequests(): void {
     this.loadingRequests = true;
     this.currentPage = 1;
-    this.filterParams['status'] = 1;
+    if (this.showOpenRequests) {
+      this.filterParams['status'] = 1;
+    }
     this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
       .toPromise()
       .then((response) => {
@@ -177,6 +162,8 @@ export class PoolComponent implements OnInit {
     if (!event) {
       return;
     }
+
+    this.filterParams = {}
     this.filterParams['category'] = event.category;
     if (event.ratings) {
       this.filterParams['ratings'] = event.ratings;
@@ -189,6 +176,9 @@ export class PoolComponent implements OnInit {
     }
     if (event.locations) {
       this.filterParams['locations'] = event.locations;
+    }
+    if (event.status) {
+      this.filterParams['status'] = event.status;
     }
     if (event.type[0]) {
       if (!this.filterParams['type']) {
@@ -205,4 +195,5 @@ export class PoolComponent implements OnInit {
     this.filterService.setFilters(event);
     this.getRequests();
   }
+
 }

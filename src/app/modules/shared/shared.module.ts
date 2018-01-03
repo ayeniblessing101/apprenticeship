@@ -6,7 +6,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertComponent } from '../../modules/shared/alert/alert.component';
 import { AlertService } from '../../services/alert.service';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -22,7 +21,6 @@ import { MdCardModule } from '@angular/material';
   imports: [
     CommonModule,
     RouterModule,
-    BrowserAnimationsModule,
     MdCardModule,
     FormsModule,
     Ng2AutoCompleteModule,

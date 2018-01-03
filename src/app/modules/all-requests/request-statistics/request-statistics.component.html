@@ -1,0 +1,20 @@
+<section id="section">
+  <h4 class="title">All Requests</h4>
+  <div class="checkbox-container">
+    <label *ngFor="let location of getOptions('locations')" title="All" class="filter">
+      <input type="checkbox" name="location" value="{{ location }}" (change)="reloadRequestsOnLocationChange($event)" [checked]="activeLocations[location]"/>
+      <div class="img"></div>
+      {{ location }}
+    </label>
+  </div>
+  <div class="card-container">
+    <div *ngFor="let request of getOptions('requests')" class="card" (click)="reloadRequestsOnStatusChange(request)" [ngClass]="{'active' : request === selectedStatus}">
+      <div class="content"> 
+        <span>{{ request }}</span>
+        <div class="statistics">
+          <span>{{ requests[request] }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

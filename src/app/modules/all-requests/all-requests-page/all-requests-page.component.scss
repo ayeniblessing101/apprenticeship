@@ -1,0 +1,15 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+.wrapper {
+  width: 100%;
+  margin: auto;
+  background: $primary-background-color;
+}
+
+.wrapper::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+

@@ -400,4 +400,18 @@ export class RequestService {
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()));
   }
+
+  /**
+   * Get statistics of the different request based on status
+   *
+   * @param  {{object}} params the different statuses
+   *
+   * @return Observable with the requests based on status
+   */
+  getRequestStatistics(params: {}): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/requests/status-statistics?${this.getEncodedParameters(params)}`)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
 }

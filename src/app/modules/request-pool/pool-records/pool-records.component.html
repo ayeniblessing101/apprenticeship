@@ -1,0 +1,30 @@
+<div class="table" *ngIf="requests.length > 0; else noRequest">
+  <div class="header">
+    <div class="row">
+      <div>Request</div>
+      <div>Primary Skill</div>
+      <div>Secondary Skill</div>
+      <div>Preferred Duration</div>
+      <div>Date Added</div>
+      <div>Location</div>
+    </div>
+  </div>
+  <div class="space"></div>
+  <div *ngFor="let request of requests" class="body">
+    <div class="row" (click)="showRequestDetails(request)">
+      <div>{{ request.title }}</div>
+      <div>{{ request.primarySkills }}</div>
+      <div>{{ request.secondarySkills }}</div>
+      <div>{{ request.duration }}</div>
+      <div>{{ request.date }}</div>
+      <div>{{ request.location }}</div>
+    </div>
+    <div class="space"></div>
+  </div>
+</div>
+<div class="line"></div>
+<app-request-details *ngIf="showRequest" [selectedRequest]="selectedRequest" (close)="closeRequest()">
+</app-request-details>
+<ng-template #noRequest>
+  <app-no-search-result></app-no-search-result>
+</ng-template>

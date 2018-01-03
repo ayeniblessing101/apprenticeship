@@ -1,0 +1,125 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  width: 100%;
+  margin: auto;
+  background: $primary-background-color;
+}
+
+.wrapper::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+#section {
+  min-height: 25.35vh;
+  padding: 10px 30px 5px;
+  float: left;
+  margin-left: 6em;
+  margin-top: 6em;
+}
+
+.card-container {
+  display: flex;
+  position: relative;
+}
+
+.card {
+  position: relative;
+  border-radius: 10px;
+  margin: 6px;
+  width: 280px;
+  height: 113px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  display: flex;
+  border: 5px solid #ffffff;
+  &.active{
+    &:nth-last-child(4){
+      border-bottom-color: #ffaf30;
+    }
+    &:nth-last-child(3){
+      border-bottom-color: #3359db;
+    }
+    &:nth-last-child(2){
+      border-bottom-color: #4fab00;
+    }
+    &:nth-last-child(1){
+      border-bottom-color: #ff3535;
+    }
+  }
+  .content {
+    width: 260px;
+    height: 100px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: #323c47;
+    margin: 20px;
+    .statistics {
+      width: 200px;
+      font-size: 48px;
+      line-height: 0.58;
+      text-align: right;
+      margin: 22px;
+    }
+  }
+}
+
+.title {
+  display: inline-block;
+  color: $andela-blue;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 1000;
+  line-height: 1.4;
+  text-align: left;
+  &:after {
+    content: "";
+    margin-top: 15px;
+    float: left;
+    background: $andela-blue;
+    width: 50%;
+    max-width: 70px;
+    height: 6px;
+    border-radius: 3px;
+  }
+}
+
+.checkbox-container {
+  display: inline-block;
+  float: right;
+  margin-top: 5px;
+}
+
+
+.filter > input {
+  visibility: hidden;
+}
+
+.filter > .img {
+  display: inline-block;
+  height:20px;
+  width:20px;
+  background-image: url("../../../../assets/images/checkbox.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px 20px;
+  vertical-align: bottom;
+}
+
+.filter > input:checked + .img {
+  background-image: url("../../../../assets/images/checked-checkbox.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px 20px;
+}

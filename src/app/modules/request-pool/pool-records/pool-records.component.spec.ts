@@ -1,36 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { StarRatingModule } from 'angular-star-rating';
 
-import { PoolComponent } from './pool.component';
+import { PoolRecordsComponent } from './pool-records.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
-import { UserService } from '../../../services/user.service';
-import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
-import { PoolRecordsComponent } from 'app/modules/request-pool/pool-records/pool-records.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FilterService } from '../../../services/filter.service';
-import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
-
-
-import { RequestDetailsComponent } from '../request-details/request-details.component';
-import { StarRatingModule } from 'angular-star-rating';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
+import { RequestDetailsComponent } from 'app/modules/request-pool/request-details/request-details.component';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 
-describe('PoolComponent', () => {
-  let component: PoolComponent;
-  let fixture: ComponentFixture<PoolComponent>;
+
+describe('PoolRecordsComponent', () => {
+  let component: PoolRecordsComponent;
+  let fixture: ComponentFixture<PoolRecordsComponent>;
   let pageTitle: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         InfiniteScrollModule,
+        SharedModule,
         HttpModule,
         ReactiveFormsModule,
         MdRadioModule,
@@ -38,37 +33,31 @@ describe('PoolComponent', () => {
         MdSelectModule,
         MdCheckboxModule,
         StarRatingModule,
-        SharedModule,
-        BrowserAnimationsModule,
       ],
       declarations: [
-        PoolComponent,
-        PoolFiltersComponent,
+        PoolRecordsComponent,
         SaveFiltersModalComponent,
         RequestDetailsComponent,
         NoSearchResultComponent,
-        PoolRecordsComponent,
       ],
       providers: [
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         FilterService,
-        UserService,
-        SkillService,
       ],
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PoolComponent);
+    fixture = TestBed.createComponent(PoolRecordsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create a Pool Component', () => {
+  it('should create a component Pool Records', () => {
     expect(component).toBeTruthy();
   });
-});
 
+});
