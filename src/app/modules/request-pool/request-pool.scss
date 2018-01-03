@@ -59,7 +59,7 @@ section {
 .table {
   display: table;
   width: 100%;
-
+  border-collapse: collapse;
   .header {
     color: $header-text-color;
     font-size: 14px;
@@ -68,8 +68,6 @@ section {
     .row {
       display: table-row;
       color: $primary-text-color;
-      border: 1px solid #e0e0e0;
-
       div {
         border-bottom: 1px solid #e0e0e0;
         display: table-cell;
@@ -84,12 +82,10 @@ section {
     display: table-row-group;
     color: $primary-text-color;
     font-size: 13px;
-    border: 1px solid #e0e0e0;
-
     .row {
       display: table-row;
       color: #2f2f2f;
-
+      border: solid 1px #dddddd;
       div {
         background-color: #f9f9f9;
         border-radius: 2px;
