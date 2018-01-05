@@ -66,31 +66,30 @@
   height: 100vh;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-left: 20vw;
   padding-top: 20vh;
-}
 
-.mentor-request-modal {
-  font-family: $font-family-1;
-  box-sizing: content-box;
-  display: block;
-  position: fixed;
-  z-index: 20;
-  top: 1%;
-  border-radius: 4px;
-  width: 50%;
-  height: 80%;
-  background-color: white;
-  box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
-  padding: 5%;
-  overflow-y: auto;
+  .mentor-request-modal {
+    font-family: $font-family-1;
+    box-sizing: content-box;
+    display: block;
+    position: fixed;
+    z-index: 20;
+    top: 1%;
+    right: 1%;
+    bottom: 1%;
+    left: 1%;
+    border-radius: 4px;
+    width: 50%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    overflow-y: auto;
+    margin: 0 auto;
 
-  .underline {
-    border: none;
-  }
-
-  &::-webkit-scrollbar {
-    width: 0 !important
+    &::-webkit-scrollbar {
+      width: 0 !important
+    }
   }
 }
 
@@ -485,9 +484,18 @@
   }
 }
 
+@media only screen and (max-width: 1440px) {
+  .mentor-request-modal {
+    min-width: 43.750em;
+    #description, #basic-skills, #complementary-skills {
+      width: 540px;
+    }
+  }
+}
+
 @media only screen and (max-width: 908px) {
   .mentor-request-modal {
-    width: 454px;
+    min-width: 43.750em;
     overflow-x: scroll;
   }
 }
