@@ -85,6 +85,10 @@
   padding: 5%;
   overflow-y: auto;
 
+  .underline {
+    border: none;
+  }
+
   &::-webkit-scrollbar {
     width: 0 !important
   }
