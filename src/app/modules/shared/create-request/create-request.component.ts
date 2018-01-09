@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output, HostListener, ViewChild, ElementRef} from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { SkillService } from '../../../services/skill.service';
 import { RequestService } from '../../../services/request.service';
 import { AlertService } from '../../../services/alert.service';
@@ -23,6 +23,7 @@ export class CreateRequestComponent implements OnInit {
   skills: any[] = [];
   basicSkills: Skill[] = [];
   complementarySkills: Skill[] = [];
+  requestSkills: string[] = [];
 
   timeSlots: string[] = [];
   selectedDays: string[];
@@ -193,14 +194,20 @@ export class CreateRequestComponent implements OnInit {
       }
     }
 
+    if (this.requestSkills.includes(selectedSkill)) {
+      return;
+    }
+
     if (type === 'basic') {
       if (selectedSkill) {
+        this.requestSkills.push(selectedSkill)
         this.basicSkills.push(selectedSkill);
       }
     }
 
     if (type === 'complementary') {
       if (selectedSkill) {
+        this.requestSkills.push(selectedSkill);
         this.complementarySkills.push(selectedSkill);
       }
     }
@@ -215,7 +222,8 @@ export class CreateRequestComponent implements OnInit {
    *
    * @return {void}
    */
-  deleteBasicSkill(skill, type, position) {
+  deleteRequestSkill(skill, type, position) {
+    this.requestSkills.splice(position, 1);
     if (type === 'basic') {
       if (this.basicSkills[position].name === skill) {
         this.basicSkills.splice(position, 1);

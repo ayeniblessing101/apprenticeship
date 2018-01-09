@@ -31,7 +31,7 @@
 
           <div class="skill-list" *ngIf="basicSkills.length">
             <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill.name }}
-              <span (click)="deleteBasicSkill(skill.name, 'basic', position)" class="close">&times;</span>
+              <span (click)="deleteRequestSkill(skill.name, 'basic', position)" class="close">&times;</span>
             </span>
           </div>
         </div>
@@ -47,7 +47,7 @@
 
           <div class="skill-list" *ngIf="complementarySkills.length">
             <span class="chip" *ngFor="let skill of complementarySkills; let position = index">{{ skill.name }}
-              <span (click)="deleteBasicSkill(skill.name, 'complementary', position)" class="close">&times;</span>
+              <span (click)="deleteRequestSkill(skill.name, 'complementary', position)" class="close">&times;</span>
             </span>
           </div>
         </div>
