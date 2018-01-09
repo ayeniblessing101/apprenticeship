@@ -114,6 +114,20 @@
 
 .form-group {
   margin-bottom: 2%;
+  .skills-counter {
+    position: absolute;
+    font-size: 12px;
+    margin-left: 43.925em;
+    color: #D3D3D3;
+
+    &#basic-counter {
+      top: 365px;
+    }
+
+    &#complementary-counter {
+      top: 450px;
+    }
+  }
 
   &>label {
     display: block;
@@ -133,6 +147,11 @@
     background-color: #ffffff;
     border: solid 1px #e9eff4;
     padding-left: 2em;
+
+    #basic-skills, #complementary-skills {
+      position: relative;
+      z-index: -1;
+    }
 
   }
 

@@ -24,10 +24,11 @@
 
         <div class="form-group">
           <label for="basic-skills">Basic Skills</label>
-            <input #basicSkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MUST have"
+          <input #basicSkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MUST have"
                    ng2-auto-complete [source]="skills" [list-formatter]="autocompleListFormatter"
                    id="basic-skills" display-property-name="name" (valueChanged)="saveSkills('basic', basicSkill.value);
                     basicSkill.value = ''" [disabled]="basicSkills.length === 3" required/>
+          <span class="skills-counter" id="basic-counter">{{ basicSkills.length }}/3</span>
 
           <div class="skill-list" *ngIf="basicSkills.length">
             <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill.name }}
@@ -44,6 +45,7 @@
                  [list-formatter]="autocompleListFormatter"
                  id="complementary-skills" display-property-name="name"
                  [disabled]="complementarySkills.length === 3" required/>
+          <span class="skills-counter" id="complementary-counter">{{ complementarySkills.length }}/3</span>
 
           <div class="skill-list" *ngIf="complementarySkills.length">
             <span class="chip" *ngFor="let skill of complementarySkills; let position = index">{{ skill.name }}
