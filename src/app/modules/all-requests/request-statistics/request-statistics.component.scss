@@ -25,7 +25,9 @@
   padding: 10px 30px 5px;
   float: left;
   margin-left: 6em;
-  margin-top: 6em;
+  margin-top: 5em;
+  position: fixed;
+  background: $primary-background-color;
 }
 
 .card-container {
@@ -43,6 +45,11 @@
   background-color: #ffffff;
   display: flex;
   border: 5px solid #ffffff;
+  cursor: pointer;
+  &:hover { 
+    position: relative; 
+    top: -5px;
+  }
   &.active{
     &:nth-last-child(4){
       border-bottom-color: #ffaf30;
