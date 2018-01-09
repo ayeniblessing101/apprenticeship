@@ -24,6 +24,7 @@ import { SkillService } from '../../services/skill.service';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
+import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { NoSearchResultComponent } from './no-search-result/no-search-result.com
     PendingModalComponent,
     PendingRequestsTableComponent,
     PoolRecordsComponent,
+    InProgressSingleViewComponent,
   ],
   exports: [
     PoolComponent,

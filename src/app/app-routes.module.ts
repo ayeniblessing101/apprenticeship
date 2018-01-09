@@ -13,6 +13,7 @@ import { AllRequestsPageComponent } from './modules/all-requests/all-requests-pa
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
 import { HeaderComponent } from './modules/shared/header/header.component';
+import { InProgressSingleViewComponent } from './modules/request-pool/in-progress/in-progress-single-view/in-progress-single-view.component';
 
 const appRoutes: Routes = [
 
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'request-pool/history', component: HistoryComponent, canActivate: [AuthGuard] },
 
   { path: 'request-pool/in-progress', component: InProgressComponent, canActivate: [AuthGuard] },
+
+  { path: 'request-pool/in-progress/:id', component: InProgressSingleViewComponent, canActivate: [AuthGuard] },
 
   { path: 'request-pool/pending', component: PendingComponent, canActivate: [AuthGuard] },
 

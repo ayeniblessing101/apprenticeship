@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-in-progress',
@@ -19,6 +20,7 @@ export class InProgressComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private userService: UserService,
+    private route: Router,
   ) { }
 
   ngOnInit() {
@@ -71,5 +73,16 @@ export class InProgressComponent implements OnInit {
       return request;
     });
     return requestsInProgress;
+  }
+
+  /**
+   * Redirect to the single view component.
+   *
+   * @param {number} id - request id
+   *
+   * @return {void}
+   * */
+  goToSingleViewPage(id: number) {
+    this.route.navigate(['request-pool/in-progress/', id]);
   }
 }

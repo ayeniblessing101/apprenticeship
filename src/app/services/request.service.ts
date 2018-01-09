@@ -27,7 +27,7 @@ export class RequestService {
    * @return Observable containing details of request
    */
   getRequestDetails(requestId: number) {
-    return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}`)
+    return this.http.get(`${this.apiBaseUrl}/v1/requests/${requestId}`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -412,6 +412,18 @@ export class RequestService {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/status-statistics?${this.getEncodedParameters(params)}`)
       .map((res: Response) => res.json())
+  }
+
+  /**
+   * retrieves sessions for a request
+   *
+   * @param {number} requestId - request id
+   *
+   * @return {observable} sessions
+   */
+  getRequestSessions(requestId: number): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/v2/requests/in-progress/${requestId}`)
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 }
