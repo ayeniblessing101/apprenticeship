@@ -34,7 +34,9 @@ export class CreateRequestComponent implements OnInit {
   numberOfMonths: number;
   durationTime: any;
   duration: string;
+  sessionDuration: string;
   currentUser: any;
+  displayedSessionDuration: string;
   title: string;
 
   constructor(
@@ -58,9 +60,42 @@ export class CreateRequestComponent implements OnInit {
     this.getTimeSlots();
     this.currentUser = this.userService.getCurrentUser();
     this.duration = '01:30';
-    this.durationTime = moment(this.duration);
+    this.sessionDuration = this.addHrsMinsStrings(this.duration);
+    this.duration = this.sessionDuration;
+    this.durationTime = moment(this.sessionDuration);
+
+    this.displayedSessionDuration = this.addHrsMinsStrings(this.duration);
 
     this.title = this.requestType;
+  }
+
+  /**
+   * Formats the displayed Session Duration time by adding the strings
+   * 'hr' and 'mins' to the time.
+   *
+   * @param {string} time
+   * @return {string} formattedSessionDuration
+   */
+  addHrsMinsStrings(time: string): string {
+    let formattedSessionDuration = time.replace(':', 'hr ');
+    formattedSessionDuration = formattedSessionDuration + 'mins';
+    if (formattedSessionDuration[0] === '0') {
+      formattedSessionDuration = formattedSessionDuration.substr(1);
+    }
+    return formattedSessionDuration;
+  }
+
+  /**
+   * Formats the displayed Session Duration time by removing the string 'mins' and
+   * replacing the string 'hrs' with ':'
+   *
+   * @param {string} time
+   * @return {string}
+   */
+  removeHrsMinsStrings(time: string): string {
+    let formattedSessionDuration = time.replace('hr ', ':');
+    formattedSessionDuration = formattedSessionDuration.replace('mins', '');
+    return formattedSessionDuration;
   }
 
   /**
@@ -280,10 +315,14 @@ export class CreateRequestComponent implements OnInit {
    * @return {void}
    */
   changeTime(time, operation) {
+    this.durationTime = this.removeHrsMinsStrings(time);
     this.durationTime = moment(time, 'HH:mm');
 
     operation === 'add' ? this.durationTime.add(30, 'm') : this.durationTime.subtract(30, 'm');
+    this.sessionDuration = this.durationTime.format('HH:mm');
     this.duration = this.durationTime.format('HH:mm');
+    this.duration = this.addHrsMinsStrings(this.duration);
+
   }
 
   /**
