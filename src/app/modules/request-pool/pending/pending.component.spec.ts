@@ -1,15 +1,16 @@
 import { HttpService as Http } from './../../../services/http.service';
 import { RequestServiceStub } from './../../../stubs/request-stub.service';
 import { HttpModule } from '@angular/http';
+import { StarRatingModule } from 'angular-star-rating';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+
 import { PendingComponent } from './pending.component';
+import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 import { PendingModalComponent } from './../pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './../pending-requests-table/pending-requests-table.component';
-import { StarRatingModule } from 'angular-star-rating';
 import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service';
-import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 
 describe('PendingComponent', () => {
   let component: PendingComponent;
@@ -25,7 +26,7 @@ describe('PendingComponent', () => {
         PendingComponent,
         PendingModalComponent,
         PendingRequestsTableComponent,
-        NoSearchResultComponent,
+        CancelRequestModalComponent,
       ],
       providers: [
         UserService,

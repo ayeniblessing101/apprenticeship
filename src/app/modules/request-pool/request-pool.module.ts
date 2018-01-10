@@ -11,6 +11,10 @@ import {
   MdSliderModule,
   MdCardModule,
 } from '@angular/material';
+
+import { RequestService } from '../../services/request.service';
+import { SkillService } from '../../services/skill.service';
+
 import { SaveFiltersModalComponent } from './save-filters-modal/save-filters-modal.component';
 import { PoolComponent } from './pool/pool.component';
 import { PoolRecordsComponent } from './pool-records/pool-records.component';
@@ -19,12 +23,11 @@ import { PendingComponent } from './pending/pending.component';
 import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
-import { RequestService } from '../../services/request.service';
-import { SkillService } from '../../services/skill.service';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
 import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
+import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
 
 @NgModule({
   imports: [
@@ -53,6 +56,7 @@ import { InProgressSingleViewComponent } from './in-progress/in-progress-single-
     PendingRequestsTableComponent,
     PoolRecordsComponent,
     InProgressSingleViewComponent,
+    CancelRequestModalComponent,
   ],
   exports: [
     PoolComponent,
@@ -63,7 +67,6 @@ import { InProgressSingleViewComponent } from './in-progress/in-progress-single-
   providers: [
     SaveFiltersModalComponent,
     RequestService,
-    SkillService,
   ],
 })
 export class RequestPoolModule { }

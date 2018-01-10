@@ -10,9 +10,9 @@ export class PendingRequestsTableComponent implements OnInit {
   @Input() requests;
   @Input() title: string;
   @Output() reload: EventEmitter<boolean> = new EventEmitter();
+  @Output() request = new EventEmitter<number>();
   openModal: boolean;
-  modalRequest: any[];
-  modalType: string;
+  pendingRequest: any[];
 
   constructor() { }
 
@@ -20,14 +20,15 @@ export class PendingRequestsTableComponent implements OnInit {
   }
 
   /**
-   * Open pending modal to display single request info
+   * Open pending modal to display single request info and emit request to pending
+   * modal such that it can be deleted from pending pool
    *
    * @param {Object} request - single request object
    */
   openPendingModal(request) {
-    this.modalRequest = request;
+    this.pendingRequest = request;
     this.openModal = true;
-    this.modalType = this.title === 'AWAITING YOU' ? 'myRequests' : 'myInterests';
+    this.request.emit(request);
   }
 
   /**
@@ -35,12 +36,5 @@ export class PendingRequestsTableComponent implements OnInit {
    */
   closePendingModal() {
     this.openModal = false;
-  }
-
-  /**
-   * Reloads pending pool
-   */
-  reloadPendingPool() {
-    this.reload.emit();
   }
 }

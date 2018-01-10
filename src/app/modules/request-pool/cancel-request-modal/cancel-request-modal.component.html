@@ -1,0 +1,35 @@
+<div class="modal-container">
+  <div class="modal">
+    <div class="holder">
+      <div class="modal-content">
+        <div class="confirmation-message">
+           {{message}}
+        </div>
+        <div class="reason">
+          Reason
+        </div>
+        <div class="dropdown">
+          <div (click)="showDropdown = !showDropdown" class="input-field">
+            <div class="cancel-reason-box">
+              <div class="cancel-reason-text">
+                {{cancellationReason}}
+              </div>
+            </div>
+            <div class="picker">
+              <img src="../../assets/images/chevron.svg" alt="Chevron">
+            </div>
+            <div *ngIf="showDropdown" class="dropdown-content">
+              <a *ngFor="let reason of cancelRequestReason"
+                  (click)="setCancellationReason(reason)">{{reason}}</a>
+            </div>
+        </div>
+        </div>
+        <div class="cancel-options">
+          <div class="button cancel-button"
+            (click)="cancelRequest()">CANCEL REQUEST</div>
+          <div class="button goback-button" (click)="closeModal()">GO BACK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

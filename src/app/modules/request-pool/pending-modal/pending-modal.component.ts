@@ -9,6 +9,7 @@ import {
   HostListener,
 } from '@angular/core';
 import * as moment from 'moment';
+import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 
 import { UserService } from './../../../services/user.service';
 import { AlertService } from './../../../services/alert.service';
@@ -23,15 +24,19 @@ import { User } from './../../../interfaces/user.interface';
 })
 export class PendingModalComponent implements OnInit {
   @Input() request;
+  @Input() userId;
   @Input() type;
   @Output() closePendingModal = new EventEmitter();
-  @Output() reloadPendingPool = new EventEmitter();
   @ViewChild('pendingModal') pendingModal: ElementRef;
 
   mentee: User;
   mentors: User[] = [];
   userIds: string[] = [];
   mentor: User;
+  showCancelRequestModal = false;
+  requestToCancel: any;
+  currentUserId: string;
+
   alertServiceConfig = {
     abortActionText: 'BACK',
     confirmActionText: 'PROCEED',
@@ -53,11 +58,15 @@ export class PendingModalComponent implements OnInit {
     const pairingTime = moment(this.request.pairing.start_time, 'HH:mm')
       .format('h.mm a');
     this.request['pairingDays'] = `${pairingDays} at ${pairingTime}`;
-
     this.userIds = [this.request.mentee_id];
-    if (this.type === 'myRequests') {
-      this.userIds = this.request.interested.concat([this.request.mentee_id]);
+    this.currentUserId = this.userService.getCurrentUser().id;
+
+    if (this.request.mentee_id === this.currentUserId) {
+      if (this.request.interested) {
+        this.userIds = this.request.interested.concat([this.request.mentee_id]);
+      }
     }
+
     this.getUsersByIds(this.userIds);
   }
 
@@ -69,8 +78,12 @@ export class PendingModalComponent implements OnInit {
    */
   @HostListener('click', ['$event'])
   onClick(event) {
-    if (!this.pendingModal.nativeElement.contains(event.target)) {
-      this.closePendingModal.emit();
+    if (event.path[1].localName === 'app-cancel-request-modal') {
+      this.closeModal('cancelRequestModal');
+    }
+
+    if (event.path[1].localName === 'app-pending-modal') {
+      this.closeModal('pendingRequestModal');
     }
   }
 
@@ -260,6 +273,7 @@ export class PendingModalComponent implements OnInit {
     this.requestService.acceptInterestedMentor(this.request.id, { mentorId, mentorName })
       .toPromise().then((response) => {
         this.closePendingModal.emit();
+        this.requestService.updatePendingPoolRequests();
       });
   }
 
@@ -276,7 +290,7 @@ export class PendingModalComponent implements OnInit {
 
         if (!(this.request.interested)) {
           this.closePendingModal.emit();
-          this.reloadPendingPool.emit();
+          this.requestService.updatePendingPoolRequests();
           return;
         }
         this.removeRejectedMentor();
@@ -295,6 +309,33 @@ export class PendingModalComponent implements OnInit {
         this.mentors.splice(mentorIndex, 1);
         break;
       }
+    }
+  }
+
+ /** Open Cancel Request modal
+ *
+ * @param request
+ *
+ * @returns {void}
+ */
+  openCancelRequestModal(request) {
+    this.showCancelRequestModal = true;
+    this.requestToCancel = request;
+  }
+
+   /** Close modal
+   *
+   * @param {event} modal - Modal to be closed
+   *
+   * @returns {void}
+   */
+  closeModal(modal) {
+    if (modal === 'cancelRequestModal') {
+      this.showCancelRequestModal = false;
+    }
+
+    if (modal === 'pendingRequestModal') {
+      this.closePendingModal.emit();
     }
   }
 }

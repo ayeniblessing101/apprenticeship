@@ -4,6 +4,7 @@ import { StarRatingModule } from 'angular-star-rating';
 
 import { PendingRequestsTableComponent } from './pending-requests-table.component';
 import { PendingModalComponent } from './../pending-modal/pending-modal.component';
+import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 
 import { HttpService as Http } from './../../../services/http.service';
 import { RequestService } from './../../../services/request.service';
@@ -23,6 +24,7 @@ describe('PendingRequestsTableComponent', () => {
       declarations: [
         PendingModalComponent,
         PendingRequestsTableComponent,
+        CancelRequestModalComponent,
       ],
       providers: [
         UserService,

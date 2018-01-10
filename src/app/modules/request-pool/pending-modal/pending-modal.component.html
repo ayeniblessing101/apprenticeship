@@ -4,7 +4,7 @@
             <div class="modal-heading">
                 <h4 class="title"> {{ request.title }} MENTOR</h4>
                 <div class="underline"></div>
-                <button *ngIf="type==='myRequests'"  class="button delete">DELETE</button>
+                <button *ngIf="this.request.mentee_id == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
             </div>
             <div class="modal-content">
                 <div class="request-description">
@@ -42,8 +42,8 @@
                         </li>
                     </ul>
                 </div>
-                <div *ngIf="type==='myRequests'" class="interested">
-                    <div *ngIf="mentors" class="table">
+                <div *ngIf="mentors" class="interested">
+                    <div class="table">
                         <div *ngFor="let mentor of mentors" class="body">
                             <div class="row">
                                 <div> {{ mentor.name }}
@@ -68,10 +68,10 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="type==='myInterests'" class="cancel">
-                    <button class="button cancel">CANCEL REQUEST</button>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<app-cancel-request-modal *ngIf="showCancelRequestModal" #cancelRequestModal
+[request]="requestToCancel" (closeCancelRequestModal)="closeModal($event)">
+</app-cancel-request-modal>

@@ -1,0 +1,131 @@
+@import '../request-pool';
+$modal-width:  36.4%;
+$modal-min-height: 25vh;
+$modal-padding: 50px;
+$modal-margin-left: 29vw;
+$modal-margin-top: 23vh;
+
+.modal-container {
+    .modal {
+        width: $modal-width;
+        min-height: $modal-min-height;
+        margin-left: $modal-margin-left;
+        padding: $modal-padding;
+        padding-bottom: 40px;
+        left: 0%;
+        top: 0%;
+        margin-top: $modal-margin-top;
+        .modal-content {
+            margin-top: 0;
+            margin-bottom: 0;
+            .confirmation-message {
+                height: 44px;
+                font-size: 18px;
+                line-height: 1.22;
+                text-align: left;
+                color: #303030;
+                margin-bottom: 20px;
+            }
+            .reason { 
+                width: 40px;
+                height: 15px;
+                font-size: 12px;
+                text-align: left;
+                color: #303030;
+                margin-bottom: 8px;
+            }
+            .cancel-options {
+                float:right;
+                .cancel-button {
+                    width: 200px;
+                    height: 44px;
+                    border: solid 1px #3359db;
+                    display:inline-block;    
+                    letter-spacing: 0.3px;
+                    text-align: center;
+                    line-height: 36px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: $andela-blue;
+                        color: #fff;
+                    }
+                }
+                .goback-button {
+                    width: 130px;
+                    height: 44px;
+                    border: solid 1px #3359db;
+                    background-color: #3359db;
+                    display:inline-block;
+                    color: #ffffff;
+                    font-size: 15px;
+                    margin-left: 10px;
+                    letter-spacing: 0.3px;
+                    text-align: center;
+                    line-height: 36px; 
+                    cursor: pointer;                
+                }
+            }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                width: 347px;
+                cursor: pointer;
+                .input-field {
+                    width: 347px;
+                    height: 45px;
+                    border-radius: 4px;
+                    border: solid 1px #e9eff4;
+                    margin-bottom: 40px;
+                    position: relative;
+                    display: inline-block;
+                    .picker {
+                        width: 45px;
+                        height: 44.5px;
+                        background-color: #f4f7f966;
+                        border-left: solid 1px #e9eff4;
+                        display: inline-flex;
+                        position: absolute;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .cancel-reason-box {
+                        width: 302px;
+                        display: inline;
+                        padding: 9px 0px 10px 19px;
+                        float: left;
+                        .cancel-reason-text {
+                            font-size: 12px;
+                            line-height: 2.17;
+                            text-align: left;
+                            color: #323c47;
+                            display: inline;
+                        }
+                    }
+                }
+                .request-for-content {
+                    margin-top: 10px;
+                    }
+                .dropdown-content {
+                        display: block;
+                        position: absolute;
+                        margin-top: 45px;
+                        background-color: #ffffff;
+                        min-width: 347px;
+                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                        z-index: 1;
+                        border-bottom-left-radius: 4px;
+                        border-bottom-right-radius: 4px;
+                        & a {
+                            color: #444444;
+                            font-size: 12px;
+                            line-height: 2.17;
+                            padding: 5px 21px;
+                            text-decoration: none;
+                            display: block;
+                            &:hover { background-color: #f1f1f1 }
+                        }
+                }
+            }
+        }
+    }
+}

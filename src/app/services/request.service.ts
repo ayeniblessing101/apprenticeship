@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
 
@@ -14,6 +15,7 @@ import 'rxjs/add/operator/publishReplay';
 export class RequestService {
   private apiBaseUrl: string = environment.apiBaseUrl;
   private statuses: any;
+  updatePendingPoolRequestsTable = new Subject<any>();
   constructor(
     private http: Http,
     private userService: UserService,
@@ -74,9 +76,9 @@ export class RequestService {
    *
    * @return String
    */
-  getEncodedParameters(params){
+  getEncodedParameters(params) {
     let paramValues = new URLSearchParams();
-    for(let key in params){
+    for (let key in params) {
       paramValues.set(key, params[key])
     }
     return paramValues.toString();
@@ -194,13 +196,27 @@ export class RequestService {
    * Send PATCH request to cancel mentorship request
    *
    * @param {Number} id the id of the request
-   * @param {String} reason the reason for cancelling a request
+   * @param {Object} reason the reason for cancelling a request
+   *
+   * @return Observable
    */
-  cancelRequest(id: number, reason = '') {
-    return this.http.patch(
-      `${this.apiBaseUrl}/v1/requests/${id}/cancel-request`, { reason })
-      .map(res => res.json())
-      .catch(error => Observable.throw(error.json().message));
+  cancelRequest(id: number, reason?) {
+    return this.http
+      .patch(`${this.apiBaseUrl}/v2/requests/${id}/cancel-request`, reason)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Send PATCH request to withdraw a users interest in a MentorshipRequest
+   *
+   * @param (Number) - id the id of the Mentorship request
+   *
+   * @return Observable
+   */
+  withdrawInterest(id: number, reason) {
+    return this.http
+      .patch(`${this.apiBaseUrl}/v2/requests/${id}/withdraw-interest`, reason)
+      .catch(this.handleError);
   }
 
   /**
@@ -426,4 +442,15 @@ export class RequestService {
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
+
+  /**
+   * Update request in pending pool after after cancel a request,
+   * withdrawing interest in a request and accepting or rejecting mentor
+   *
+   * @return {void}
+   */
+  updatePendingPoolRequests() {
+    this.updatePendingPoolRequestsTable.next();
+  }
 }
+
