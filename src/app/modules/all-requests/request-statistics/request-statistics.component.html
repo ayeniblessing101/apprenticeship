@@ -1,18 +1,18 @@
 <section id="section">
   <h4 class="title">All Requests</h4>
   <div class="checkbox-container">
-    <label *ngFor="let location of getOptions('locations')" title="All" class="filter">
-      <input type="checkbox" name="location" value="{{ location }}" (change)="reloadRequestsOnLocationChange($event)" [checked]="activeLocations[location]"/>
+    <label *ngFor="let location of locations" title="All" class="filter">
+      <input type="checkbox" value="{{ location.value }}" (change)="location.isSelected = !location.isSelected; reloadRequestsOnLocationChange($event)" [checked]="location.isSelected" />
       <div class="img"></div>
-      {{ location }}
+      {{ location.name }}
     </label>
   </div>
   <div class="card-container">
-    <div *ngFor="let request of getOptions('requests')" class="card" (click)="reloadRequestsOnStatusChange(request)" [ngClass]="{'active' : request === selectedStatus}">
+    <div *ngFor="let request of requests" class="card" (click)="reloadRequestsOnStatusChange(request.status)" [ngClass]="{'active' : request.status === selectedStatus}">
       <div class="content"> 
-        <span>{{ request }}</span>
+        <span>{{ request.status }}</span>
         <div class="statistics">
-          <span>{{ requests[request] }}</span>
+          <span>{{ request.statistic }}</span>
         </div>
       </div>
     </div>

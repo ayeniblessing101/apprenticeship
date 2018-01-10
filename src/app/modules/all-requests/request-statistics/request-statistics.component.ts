@@ -16,19 +16,18 @@ export class RequestStatisticsComponent implements OnInit {
   };
   selectedLocation: any[] = [];
   totalRequests: number;
-  locations: object = {
-    All: '',
-    Nigeria: 'Lagos',
-    Kenya: 'Nairobi',
-    Uganda: 'Uganda',
-  };
-  activeLocations: object;
-  requests: object = {
-    'Total Requests': 0,
-    'Open Requests': 0,
-    'Completed Requests': 0,
-    'Cancelled Requests': 0,
-  };
+  locations = [
+    { name: 'All', value: '', isSelected: true },
+    { name: 'Nigeria', value: 'Lagos', isSelected: false },
+    { name: 'Kenya', value: 'Nairobi', isSelected: false },
+    { name: 'Uganda', value: 'Kampala', isSelected: false },
+  ];
+  requests = [
+    { status: 'Total Requests', statistic: 0 },
+    { status: 'Open Requests', statistic: 0 },
+    { status: 'Completed Requests', statistic: 0 },
+    { status: 'Cancelled Requests', statistic: 0 },
+  ];
   selectedStatus = 'Total Requests';
 
   constructor(
@@ -36,24 +35,8 @@ export class RequestStatisticsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activeLocations = {
-      All: true,
-      Nigeria: false,
-      Kenya: false,
-      Uganda: false,
-    }
     this.applyFilters.emit(this.appliedFilters);
     this.getRequestStatistics(this.selectedLocation);
-  }
-
-  /**
-   * Returns options for filters and statistics
-   *
-   * @param {String} content
-   * @return {Array}
-   */
-  getOptions(content: string) {
-    return Object.keys(this[content]);
   }
 
   /**
@@ -71,10 +54,10 @@ export class RequestStatisticsComponent implements OnInit {
     this.requestService.getRequestStatistics(options)
       .toPromise()
       .then((statistics) => {
-        this.requests['Total Requests'] = statistics.totalRequests;
-        this.requests['Open Requests'] = statistics.totalOpenRequests;
-        this.requests['Cancelled Requests'] = statistics.totalCancelledRequests;
-        this.requests['Completed Requests'] = statistics.totalCompletedRequests;
+        this.requests[0].statistic = statistics.totalRequests;
+        this.requests[1].statistic = statistics.totalOpenRequests;
+        this.requests[2].statistic = statistics.totalCancelledRequests;
+        this.requests[3].statistic = statistics.totalCompletedRequests;
       },
     )
   }
@@ -87,19 +70,40 @@ export class RequestStatisticsComponent implements OnInit {
    * @return {Void}
    */
   reloadRequestsOnLocationChange(event): void {
-    this.appliedFilters['type'] = [false, false];
-    const location = event.target.value;
+    const location = event.target.value
+
     if (event.target.checked) {
-      this.appliedFilters.locations.push(this.locations[location]);
-      this.selectedLocation.push(this.locations[location]);
+      this.appliedFilters.locations.push(location);
+      this.selectedLocation.push(location);
     } else {
-      const unCheckedLocation = this.appliedFilters.locations.indexOf(this.locations[location])
+      const unCheckedLocation = this.appliedFilters.locations.indexOf(location)
       this.appliedFilters.locations.splice(unCheckedLocation, 1);
-      const unCheckedLocationStatistics = this.selectedLocation.indexOf(this.locations[location])
+      const unCheckedLocationStatistics = this.selectedLocation.indexOf(location)
       this.selectedLocation.splice(unCheckedLocationStatistics, 1);
     }
+
+    this.selectAllCheckbox();
     this.getRequestStatistics(this.selectedLocation);
     this.applyFilters.emit(this.appliedFilters);
+  }
+
+  /**
+   * Automatically deselects the All location checkbox when
+   * less than all the rest of the checkboxes are selected,
+   * and automatically selects the All checkbox when all the
+   * rest of the checkboxes are selected.
+   *
+   * @return {Void}
+   */
+  selectAllCheckbox() {
+    let allAreChecked = true;
+    for (let i = 1; i < this.locations.length; i++) {
+      if (!this.locations[i].isSelected) {
+        allAreChecked = false;
+        break;
+      }
+    }
+    this.locations[0].isSelected = allAreChecked;
   }
 
   /** Fetches new records based on selected status
