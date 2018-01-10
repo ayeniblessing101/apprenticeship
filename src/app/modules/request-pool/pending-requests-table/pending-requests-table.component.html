@@ -18,7 +18,7 @@
     <div *ngFor="let request of requests" class="body">
       <div class="row" (click)="openPendingModal(request)">
         <div>{{ request.title }}</div>
-        <div>{{ request.userName }}</div>
+        <div>{{ request.mentee.fullname }}</div>
         <div>{{ request.primarySkills }}</div>
         <div>{{ request.duration }}</div>
         <div>{{ request.created_at | date:'MMMM dd, yyyy' }}</div>
