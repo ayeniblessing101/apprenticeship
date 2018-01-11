@@ -26,7 +26,6 @@ export class InProgressSingleViewComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = Number.parseInt(params['id']);
       this.assignNextSessionDate(id);
-      this.assignSessions(id);
     });
   }
 
@@ -46,7 +45,7 @@ export class InProgressSingleViewComponent implements OnInit {
         if (this.nextSessionDate) {
           sessionsCount += 1;
         }
-        this.pageWidth = (sessionsCount * 500).toString().concat('px');
+        this.pageWidth = (sessionsCount * 450).toString().concat('px');
       })
   }
 
@@ -66,7 +65,7 @@ export class InProgressSingleViewComponent implements OnInit {
         const mentorshipEndDate = startDateClone.add(response.data.duration, 'months');
         for (const day of response.data.pairing.days) {
           if (moment().day(day).day() > moment().day() && moment().isBefore(mentorshipEndDate)) {
-            this.nextSessionDate = this.formatSessionDate(moment().day(day).toDate().toDateString());
+            this.nextSessionDate = this.formatSessionDate(moment().day(day).format('YYY MM DD'));
             break;
           }
         }
@@ -74,9 +73,10 @@ export class InProgressSingleViewComponent implements OnInit {
           const firstDay = moment().day(response.data.pairing.days[0]).day();
           const nextDay = moment().day(firstDay).add(1, 'weeks');
           if (nextDay.day() < mentorshipEndDate.day()) {
-            this.nextSessionDate = this.formatSessionDate(nextDay.toDate().toDateString());
+            this.nextSessionDate = this.formatSessionDate(nextDay.format('YYY MM DD'));
           }
         }
+        this.assignSessions(requestId);
       })
   }
 
