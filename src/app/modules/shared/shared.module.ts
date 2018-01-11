@@ -8,6 +8,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AlertComponent } from '../../modules/shared/alert/alert.component';
 import { AlertService } from '../../services/alert.service';
+import { SkillService } from '../../services/skill.service';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ConfirmationAlertComponent } from './confimation-alert/confirmation-alert.component';
 import { MessageAlertComponent } from './message-alert/message-alert.component'
@@ -48,6 +49,7 @@ import { MdCardModule } from '@angular/material';
   providers: [
     AlertService,
     NotificationsComponent,
+    SkillService,
   ],
 })
 export class SharedModule { }
