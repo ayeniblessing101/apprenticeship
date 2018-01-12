@@ -47,6 +47,7 @@ export class SaveFiltersModalComponent implements OnInit {
    */
   save(event): void {
     event.preventDefault();
+    let filterNameExist;
     let message;
     if (!this.filtersName || this.filtersName.length > 20) {
       message = 'Please enter a valid name to save your filter'
@@ -64,29 +65,39 @@ export class SaveFiltersModalComponent implements OnInit {
       this.savedFilters = {
         [this.filtersName]: this.filters,
       }
-    } else if (this.savedFilters[this.filtersName]) {
-      message =
-        `Saving this filter as ${this.filtersName} will overwrite ${this.filtersName}`;
-      this.isError = true;
-      this.alertService
-        .confirm(message, this, {
-          confirmActionText: 'OVERWRITE',
-          abortActionText: 'CANCEL',
-          confirmAction: this.updateSavedFilters.bind(this),
-          afterClose: () => this.isError = false,
-        })
     } else {
-      this.updateSavedFilters();
-    }
-  }
+        if (this.savedFilters[this.filtersName]) {
+          filterNameExist = true;
+          message =
+          `Saving this filter as ${this.filtersName} will overwrite ${this.filtersName}`;
+          this.isError = true;
+
+          this.alertService
+            .confirm(message, this, {
+              confirmActionText: 'OVERWRITE',
+              abortActionText: 'CANCEL',
+              confirmAction: () => {
+                this.savedFilters[this.filtersName] = this.filters;
+                this.persistSavedFilters();
+              },
+              afterClose: () => this.isError = false,
+          });
+        } else {
+          this.savedFilters[this.filtersName] = this.filters;
+        }
+      }
+
+     if (!filterNameExist) {
+       this.persistSavedFilters();
+     }
+  } 
 
   /**
    * Contains logic for saving filters to local storage
    *
    * @returns {void}
    */
-  updateSavedFilters(): void {
-    this.savedFilters[this.filtersName] = this.filters;
+  persistSavedFilters(): void {
     localStorage.
       setItem('savedFilters', JSON.stringify(this.savedFilters));
     const savedFilterNames = Object.keys(this.savedFilters).reverse();
