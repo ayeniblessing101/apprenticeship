@@ -99,7 +99,9 @@ export class PoolFiltersComponent implements OnInit {
    * @returns void
    */
   resetFiltersForm() {
-    this.form.setValue(this.defaultFilters);
+    this.form.reset(this.defaultFilters);
+    localStorage.removeItem('savedFilters')
+    this.savedFiltersNames = []
   }
 
 
