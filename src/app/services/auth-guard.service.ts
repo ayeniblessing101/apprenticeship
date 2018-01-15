@@ -25,13 +25,10 @@ export class AuthGuard implements CanActivate {
         this.auth.changeNotice('permission');
         this.router.navigate(['/login']);
         return false;
-      } else {
-        // TODO: check that the user has permission to view route
       }
       return true;
     }
 
-    this.auth.changeNotice('unauthenticated');
     this.router.navigate(['/login']);
 
     return false;
