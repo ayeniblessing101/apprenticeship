@@ -1,5 +1,7 @@
 <section id="section">
-  <h4 class="title">All Requests</h4>
+  <div  class="title-container">
+    <h4 class="title">{{ headerName }}</h4>
+  </div>
   <div class="checkbox-container">
     <label *ngFor="let location of locations" title="All" class="filter">
       <input type="checkbox" value="{{ location.value }}" (change)="location.isSelected = !location.isSelected; reloadRequestsOnLocationChange($event)" [checked]="location.isSelected" />
@@ -8,7 +10,7 @@
     </label>
   </div>
   <div class="card-container">
-    <div *ngFor="let request of requests" class="card" (click)="reloadRequestsOnStatusChange(request.status)" [ngClass]="{'active' : request.status === selectedStatus}">
+    <div *ngFor="let request of requests" class="card" (click)="reloadRequestsAndHeaderOnStatusChange(request.status)" [ngClass]="{'active' : request.status === selectedStatus}">
       <div class="content"> 
         <span>{{ request.status }}</span>
         <div class="statistics">

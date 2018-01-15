@@ -29,6 +29,7 @@ export class RequestStatisticsComponent implements OnInit {
     { status: 'Cancelled Requests', statistic: 0 },
   ];
   selectedStatus = 'Total Requests';
+  headerName = 'All Requests'
 
   constructor(
     private requestService: RequestService,
@@ -112,7 +113,7 @@ export class RequestStatisticsComponent implements OnInit {
    *
    * return {Void}
    */
-  reloadRequestsOnStatusChange(status) {
+  reloadRequestsAndHeaderOnStatusChange(status) {
     this.selectedStatus = status;
     let status_id;
     switch (status) {
@@ -130,5 +131,11 @@ export class RequestStatisticsComponent implements OnInit {
     }
     this.appliedFilters.status = status_id;
     this.applyFilters.emit(this.appliedFilters)
+    // sets the header name based on selected status
+    if (this.selectedStatus === 'Total Requests') {
+      this.headerName = 'All Requests'
+    } else {
+      this.headerName = this.selectedStatus;
+    }
   }
 }

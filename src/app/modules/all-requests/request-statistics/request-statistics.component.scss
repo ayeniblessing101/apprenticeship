@@ -25,13 +25,15 @@
   padding: 10px 30px 5px;
   float: left;
   margin-left: 6em;
-  margin-top: 5em;
+  margin-top: 4em;
   position: fixed;
   background: $primary-background-color;
 }
 
 .card-container {
-  display: flex;
+  display: inline-flex;
+  margin-top: 20px;
+  margin-right: 115px;
   position: relative;
 }
 
@@ -104,10 +106,17 @@
   }
 }
 
+.title-container {
+  display: inline-block;
+  float: left;
+  margin-top: 30px;
+}
+
 .checkbox-container {
   display: inline-block;
   float: right;
-  margin-top: 5px;
+  margin-top: 45px;
+  margin-right: 131px;
 }
 
 
