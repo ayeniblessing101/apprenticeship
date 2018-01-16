@@ -2,7 +2,7 @@
   <div class="modal-save">
     <form (submit)="save($event)">
       <span>Save your filter selections as</span>
-      <input required [(ngModel)]="filtersName" name="filtersName" placeholder="start typing">
+      <input required [(ngModel)]="filterName" name="filterName" placeholder="start typing">
       <div class="modal-footer form-group">
         <div class="button-group">
           <input type="button" class="inline-block btn-modal-close" id="btn-modal-close" (click)="closeModal($event)" value="DISCARD">

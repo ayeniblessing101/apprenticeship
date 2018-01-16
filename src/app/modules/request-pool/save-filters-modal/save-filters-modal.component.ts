@@ -14,12 +14,13 @@ export class SaveFiltersModalComponent implements OnInit {
   @Input() filters: any;
 
   savedFilters: object;
-  filtersName: string;
+  filterName: string;
   isError: boolean;
 
   constructor(private alertService: AlertService) { }
 
   ngOnInit() {
+    this.filterName = '';
     this.savedFilters = JSON
       .parse(localStorage.getItem('savedFilters'));
   }
@@ -39,6 +40,29 @@ export class SaveFiltersModalComponent implements OnInit {
   }
 
   /**
+   * Validates the name of a filter.
+   *
+   * @param {string} filterName - the name of the filter
+   *
+   * @returns {string}
+   */
+  validateFilterName(filterName): any {
+    let status = true;
+    let message = '';
+
+    if (filterName === '') {
+      status = false;
+      message = 'Please enter a filter name to save your filter.';
+    } else if (filterName.length > 20) {
+      status = false;
+      message =
+        'Please enter a filter name that is not greater than 20 characters.';
+    }
+
+    return { status, message };
+  }
+
+  /**
    * Save filters to local storage as savedFilters
    *
    * @param {Event} event DOM submit event
@@ -48,9 +72,12 @@ export class SaveFiltersModalComponent implements OnInit {
   save(event): void {
     event.preventDefault();
     let filterNameExist;
-    let message;
-    if (!this.filtersName || this.filtersName.length > 20) {
-      message = 'Please enter a valid name to save your filter'
+    this.filterName = this.filterName.trim();
+
+    const { status: isValidFilterName, message } =
+      this.validateFilterName(this.filterName);
+
+    if (!isValidFilterName) {
       this.isError = true;
       this.alertService.showMessage(
         message,
@@ -59,38 +86,35 @@ export class SaveFiltersModalComponent implements OnInit {
       return;
     }
 
-    this.filtersName = this.filtersName.trim();
-
     if (!this.savedFilters) {
       this.savedFilters = {
-        [this.filtersName]: this.filters,
+        [this.filterName]: this.filters,
       }
     } else {
-        if (this.savedFilters[this.filtersName]) {
-          filterNameExist = true;
-          message =
-          `Saving this filter as ${this.filtersName} will overwrite ${this.filtersName}`;
-          this.isError = true;
-
-          this.alertService
-            .confirm(message, this, {
+      if (this.savedFilters[this.filterName]) {
+        filterNameExist = true;
+        this.isError = true;
+        this.alertService
+          .confirm(
+            `Saving this filter as ${this.filterName} will overwrite ${this.filterName}`,
+            this, {
               confirmActionText: 'OVERWRITE',
               abortActionText: 'CANCEL',
               confirmAction: () => {
-                this.savedFilters[this.filtersName] = this.filters;
+                this.savedFilters[this.filterName] = this.filters;
                 this.persistSavedFilters();
               },
               afterClose: () => this.isError = false,
-          });
-        } else {
-          this.savedFilters[this.filtersName] = this.filters;
-        }
+            });
+      } else {
+        this.savedFilters[this.filterName] = this.filters;
       }
+    }
 
-     if (!filterNameExist) {
-       this.persistSavedFilters();
-     }
-  } 
+    if (!filterNameExist) {
+      this.persistSavedFilters();
+    }
+  }
 
   /**
    * Contains logic for saving filters to local storage
