@@ -12,6 +12,11 @@ import { UserService } from '../../../services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { NotificationService } from 'app/services/notifications.service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { FirebaseApp } from 'angularfire2';
+import { UserServiceStub } from 'app/stubs/user-stub.service';
+import { NotificationServiceStub } from 'app/stubs/notification-stub.service';
 
 
 describe('HeaderComponent', () => {
@@ -34,7 +39,8 @@ describe('HeaderComponent', () => {
             },
           },
         },
-        UserService,
+        { provide: UserService, useClass: UserServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
       ],
     })
       .compileComponents();

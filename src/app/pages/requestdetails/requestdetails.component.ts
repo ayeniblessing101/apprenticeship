@@ -16,6 +16,7 @@ import { environment } from '../../../environments/environment';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
+import { NotificationTypes } from 'app/enums/notification-types.enum';
 
 @Component({
   selector: 'app-requestdetails',
@@ -342,7 +343,7 @@ export class RequestdetailsComponent implements OnInit {
       .updateMentorRequestInterested(requestId, { interested: [mentorId] })
       .toPromise()
       .then(() => this.notificationService.sendMessage([menteeId], {
-        type: '',
+        type: NotificationTypes.MENTOR_REQUEST,
         message: {
           title: `${mentorName} has indicated interest in being your mentor`,
           content: 'I would like to mentor you.',

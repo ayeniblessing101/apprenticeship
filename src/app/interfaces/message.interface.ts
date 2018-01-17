@@ -1,3 +1,5 @@
+import { NotificationTypes } from 'app/enums/notification-types.enum';
+
 /**
  * @interface Notice
  * Blueprint for the notification message
@@ -12,7 +14,7 @@ interface Notice {
  * Blueprint for the notification object
  */
 export interface Message {
-  type: string;
+  type: NotificationTypes;
   message: Notice;
   sender: string;
   messageUrl: string;

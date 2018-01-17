@@ -35,7 +35,7 @@ export class NotificationService {
       .database.object(`Users/${user}/${sentItem.key}`)
       .update({
         read: false,
-        timestamp: message.timestamp
+        timestamp: message.timestamp,
       })))
       .then(this.handleSuccess)
       .catch(this.handleError);
