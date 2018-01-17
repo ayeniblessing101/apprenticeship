@@ -51,6 +51,7 @@ export class PendingModalComponent implements OnInit {
   ) {
     this.acceptMentor = this.acceptMentor.bind(this);
     this.rejectMentor = this.rejectMentor.bind(this);
+    this.withdrawInterest = this.withdrawInterest.bind(this);
   }
 
   ngOnInit() {
@@ -312,12 +313,43 @@ export class PendingModalComponent implements OnInit {
     }
   }
 
- /** Open Cancel Request modal
- *
- * @param request
- *
- * @returns {void}
- */
+  /**
+   * Confirm withdrawing interest in mentorship request
+   *
+   * @return {void}
+   */
+  confirmWithdrawInterest() {
+    const confirmationMessage = `Are you sure you want to withdraw interest in
+     "${this.request.title}" request? This can't be undone.`;
+
+    this.alertServiceConfig.confirmAction = this.withdrawInterest;
+    this.alertServiceConfig.confirmActionText = `WITHDRAW INTEREST`;
+    this.alertServiceConfig.abortActionText = `GO BACK`;
+    this.alertServiceConfig.canDisable = false;
+
+    this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
+  }
+
+  /**
+   * Withdraw interest in Mentorship Request
+   *
+   * @return void
+   */
+  withdrawInterest() {
+    this.requestService.withdrawInterest(this.request.id)
+      .toPromise()
+      .then((reponse) => {
+        this.requestService.updatePendingPoolRequests();
+        this.closeModal('pendingRequestModal');
+      });
+  }
+
+  /** Open Cancel Request modal
+  *
+  * @param request
+  *
+  * @returns {void}
+  */
   openCancelRequestModal(request) {
     this.showCancelRequestModal = true;
     this.requestToCancel = request;

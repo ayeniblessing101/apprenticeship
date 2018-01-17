@@ -5,6 +5,7 @@
                 <h4 class="title"> {{ request.title }} MENTOR</h4>
                 <div class="underline"></div>
                 <button *ngIf="this.request.mentee_id == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
+                <button *ngIf="this.request.mentee_id !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW INTEREST</button>
             </div>
             <div class="modal-content">
                 <div class="request-description">

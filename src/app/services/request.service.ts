@@ -213,9 +213,9 @@ export class RequestService {
    *
    * @return Observable
    */
-  withdrawInterest(id: number, reason) {
+  withdrawInterest(requestId: number) {
     return this.http
-      .patch(`${this.apiBaseUrl}/v2/requests/${id}/withdraw-interest`, reason)
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/withdraw-interest`, {})
       .catch(this.handleError);
   }
 

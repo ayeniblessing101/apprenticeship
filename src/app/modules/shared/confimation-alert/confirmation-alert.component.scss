@@ -4,17 +4,18 @@
   position: inline-block;
   height: 44px;    
   border-radius: 0;
-  width: 40%;
+  width: 50%;
   border: none;
   color: white;
   padding: 10px;
   background-color: #3359db;
   margin: 0 2%;
+  font-size: 15px;
   cursor: pointer;
 }
 
 .button-container {
-  width: 50%;
+  width: 60%;
   display: flex;
   align-content: flex-end !important;
   float: right;
