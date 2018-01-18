@@ -15,11 +15,11 @@
   box-sizing: content-box;
   position: fixed;
   z-index: 1000;
-  top: 20%;
+  top: 18%;
   left: 15%;
   border-radius: 4px;
   width: 60%;
-  height: 50%;
+  height: 57%;
   background-color: white;
   box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
   padding: 4%;
@@ -73,7 +73,8 @@
   margin-left: 65%;
   @include fit-content-height;
   .button-group {
-    @include fit-content-width;
+    width: 300px;
+    //margin-bottom: 100px !important;
     @include fit-content-height;
     cursor: pointer;
     input[type="button"] {
@@ -103,7 +104,15 @@
       color: #ffffff;
       margin-right: 10px;
     }
+    .right {
+      float: right !important;
+    }
   }
+}
+
+.btn-disabled {
+  background-color: rgba(152, 152, 152, 0.2) !important;
+  border-color: rgba(152, 152, 152, 0.2) !important;
 }
 
  .button-container {

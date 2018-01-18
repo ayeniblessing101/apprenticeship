@@ -13,7 +13,7 @@ import { AlertService } from 'app/services/alert.service';
 import { NotificationService } from 'app/services/notifications.service';
 import { environment } from '../../../../environments/environment';
 import { NotificationTypes } from 'app/enums/notification-types.enum';
-
+import { RequestService } from '../../../services/request.service';
 
 @Component({
   selector: 'app-request-details',
@@ -26,15 +26,44 @@ export class RequestDetailsComponent implements OnInit {
   @ViewChild('requestModal') requestModal: ElementRef;
   userInfo: object;
   rating: number;
+  currentUserIsInterested: boolean;
+  currentUserIsRequestOwner: boolean;
+  currentUser: any;
+
   constructor(private userService: UserService,
               private alertService: AlertService,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService,
+              private requestService: RequestService) { }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
+
+    this.currentUserIsRequestOwner =
+      (this.selectedRequest.mentee_id === this.currentUser.id);
+
+    this.currentUserIsInterested = (this.selectedRequest.interested &&
+      this.selectedRequest.interested.includes(this.currentUser.id));
+
     this.userService.getUserInfo(this.selectedRequest.mentee_id)
-      .toPromise().then((user) => {
+      .toPromise()
+      .then((user) => {
         this.userInfo = user;
         this.rating = user.rating;
+      });
+  }
+
+  /**
+   * Updates request interested field when user indicates interest
+   * in a mentorship request.
+   *
+   * @return {void}
+   */
+  indicateInterest() {
+    this.requestService.indicateInterest(this.selectedRequest.id)
+      .toPromise()
+      .then(() => {
+        this.currentUserIsInterested = true;
+        this.notifyMentee();
       });
   }
 
@@ -53,25 +82,11 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   /**
-   * Called when "I'm interested button" of a request is clicked
-   * It sends notification to the requester when a user indicates
-   * interest in a request.
-   *
-   * @todo implement the I'm interested functionality
-   *
-   * @returns {void}
-   */
-  indicateInterest() {
-    this.notifyMentee();
-  }
-
-  /**
    * Sends notification to mentee when a user offers to mentor
    *
    * @returns {Promise} Promise from notification service
    */
   notifyMentee() {
-    const currentUser = this.userService.getCurrentUser();
 
     return this.notificationService.sendMessage([this.selectedRequest.mentee_id], {
       type: NotificationTypes.MENTOR_REQUEST,
@@ -80,14 +95,14 @@ export class RequestDetailsComponent implements OnInit {
         content: `Somone has offered to mentor you on "${this
           .selectedRequest.primarySkills}."`,
       },
-      sender: currentUser.name,
+      sender: this.currentUser.name,
       timestamp: Date.now(),
       messageUrl: `${environment.lenkenBaseUrl}/requests/pending`,
     })
       .then(() => {
         this.alertService.showMessage(`
-      Clicked the I'm interested button.  This functionality is still in
-      progress. Nevertheless, a notification would be sent to the requester.
+      We have sent notification to the mentee about your interest in the mentorship request.
+      You will be notified when your interest is approved.
       `);
       })
       .catch(() => {

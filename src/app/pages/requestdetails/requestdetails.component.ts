@@ -340,7 +340,7 @@ export class RequestdetailsComponent implements OnInit {
     const requestId = details.id;
 
     return this.requestService
-      .updateMentorRequestInterested(requestId, { interested: [mentorId] })
+      .indicateInterest(requestId)
       .toPromise()
       .then(() => this.notificationService.sendMessage([menteeId], {
         type: NotificationTypes.MENTOR_REQUEST,

@@ -143,15 +143,15 @@ export class RequestService {
   }
 
   /**
-   * Update a mentorship request interested field
+   * Indicate interest in mentorship request
    *
    * @param id the mentorship request Id
-   * @param data the update data
    *
-   * @return Observable containing the updated request
+   * @return Observable containing the http response
    */
-  updateMentorRequestInterested(id: number, data): Observable<any> {
-    return this.http.patch(`${this.apiBaseUrl}/v1/requests/${id}/update-interested`, data);
+  indicateInterest(id: number): Observable<any> {
+    return this.http.patch(`${this.apiBaseUrl}/v2/requests/${id}/indicate-interest`, null)
+      .catch(this.handleError);
   }
 
   /**
