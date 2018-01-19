@@ -1,6 +1,6 @@
-@import '../../../../assets/scss/fonts';
-@import '../../../../assets/scss/colors';
-@import '../../../../assets/scss/loaders';
+@import '../../../assets/scss/fonts';
+@import '../../../assets/scss/colors';
+@import '../../../assets/scss/loaders';
 
 $table-width:100%;
 * {
@@ -245,4 +245,12 @@ section {
     width: 65%;
     padding: 35px 0px 5px 0px;
   }
+}
+
+.aside {
+  margin-top: -220px;
+  top: 0;
+  right: 0;
+  width: 20%;
+  float: right;
 }

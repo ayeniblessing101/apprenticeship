@@ -1,0 +1,45 @@
+<div id="base">
+  <div class="cal-header">
+  <img src="../../../../../assets/images/calendar-icon.svg">
+  <div class="caption">
+  <span class="title">Calendar</span>
+  <span class="date">{{today| date: 'd MMMM'}}</span>
+  </div>
+  </div>
+    <div class="calendar">
+      <div class="calendar-navs">
+        <div class="month-nav">
+          <button class="navigation-buttons" (click)="prevMonth()">&lt;</button>
+          <span class="p4">{{ currentDate.format('MMMM YYYY') }}</span>
+          <button class="navigation-buttons" (click)="nextMonth()">&gt;</button>
+        </div>
+      </div>
+      <div class="month-grid">
+        <div class="day-names">
+          <div *ngFor="let name of dayNames" class="day-name">
+            {{ name }}
+          </div>
+        </div>
+        <div class="weeks">
+          <div *ngFor="let week of weeks" class="week">
+            <ng-container *ngFor="let day of week">
+              <div *ngIf="!isSelectedMonth(day.date)" class="week-date disabled">
+                <span class="date-text">{{ day.date.date() }}</span>
+              </div>
+              <div *ngIf="isSelectedMonth(day.date)" class="week-date enabled"
+                   [ngClass]="{ today: day.today, missed: day.status === 'missed', completed: day.status === 'upcoming'
+                   || day.status === 'completed'}">
+                <span class="date-text">{{ day.date.date() }}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  <hr class="separator">
+  <span class="legend">LEGEND</span>
+  <div class="keys">
+    <span class="completed"><span>completed, upcoming</span></span>
+    <span class="missed"><span>missed</span></span>
+  </div>
+</div>

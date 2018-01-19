@@ -1,0 +1,264 @@
+@import '../../../../../assets/scss/fonts';
+
+@mixin dots($color) {
+  margin-right: 3px;
+  content: "\002022";
+  color: $color;
+}
+
+#base {
+  display: block;
+  padding: 100px 10px 10px 10px ;
+  top: 0;
+  width: auto;
+  position: fixed;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
+}
+
+.cal-header {
+  float: left;
+  display: inline-block;
+  margin-top: 10%;
+
+  img {
+    margin-right: 20px;
+  }
+
+  .caption {
+    float: right;
+    font-family: $font-family-1;
+    font-size: 20px;
+    text-align: left;
+
+    .date {
+      display: block;
+      width: auto;
+      height: 36px;
+      font-family: $font-family-1;
+      font-weight: 100;
+      font-size: 17px;
+      line-height: 2.12;
+      text-align: left;
+      color: #989898;
+    }
+
+    .title {
+      width: auto;
+      color: #323c47;
+    }
+
+  }
+
+}
+
+.legend {
+  display: block;
+  margin: 10% auto auto 3%;
+  color: #dce0e5;
+  font-size: 14px;
+}
+
+.keys {
+  margin-left: 3%;
+  display: block;
+
+  span {
+    display: inline-block;
+    font-size: 11px;
+    line-height: 2.55;
+    letter-spacing: 0.6px;
+
+    &.completed {
+      width: 100%;
+
+      &:before {
+        @include dots(#4da1ff)
+      }
+    }
+
+    &.missed {
+      width: 100%;
+
+      &:before {
+        @include dots(#ff6d4a);
+      }
+    }
+  }
+}
+
+$dayBase: 14%;
+$base: 10px;
+
+.calendar {
+  float: left;
+  display: block;
+  width: $dayBase * 7;
+  margin-top: 10%;
+  * {
+    box-sizing: border-box;
+  }
+
+  .calendar-navs {
+    background-color: transparent;
+  }
+
+  .month-nav {
+    font-family: $font-family-1;
+    font-size: 14px;
+    line-height: 2;
+    text-align: left;
+    color: #989898;
+    padding: $base;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navigation-buttons {
+    -webkit-transform:scale(1, 1.5);
+    -moz-transform:scale(1, 1.5);
+    -ms-transform:scale(1, 1.5);
+    -o-transform:scale(1, 1.5);
+    transform:scale(1, 1.5);
+    color: #3359db;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    outline: none;
+
+    &:hover{
+      outline: none;
+      color: rgba(77, 161, 255, 0.9);
+    }
+  }
+
+  .year-nav {
+    padding: $base;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: $font-family-1;
+  }
+
+  .month-grid {
+    .day-names {
+      display: flex;
+      flex-direction: row;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    .weeks {
+      margin: 10px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .week {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .week-date,
+    .day-name {
+      width: $dayBase;
+      height: $dayBase;
+      font-family: $font-family-1;
+      font-size: 11px;
+      letter-spacing: 0.9px;
+      color: #808080;
+      text-align: left;
+      padding: $base;
+      display: block;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .week-date {
+      position: relative;
+      text-align: center;
+
+      &.date-text {
+        z-index: 10;
+        font-size: 10px;
+        font-family: $font-family-1;
+        color: #999999;
+      }
+
+      &::after {
+        content: '';
+        height: $dayBase * 0.9;
+        width: $dayBase * 0.9;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+        z-index: -1;
+      }
+
+      &.enabled {
+        cursor: pointer;
+
+        &:hover {
+          &:after {
+            height: 30px;
+            width: 30px ;
+            position: absolute;
+            background-color: rgba(77, 161, 255, 0.1);
+          }
+        }
+      }
+
+      &.missed {
+        &:after {
+          @include dots(#ff6d4a);
+          height: 30px;
+          width: 30px;
+          text-align: right;
+          position: absolute;
+        }
+      }
+
+        &.completed {
+          &:after {
+            @include dots(#4da1ff);
+            height: 30px;
+            width: 30px;
+            text-align: right;
+            position: absolute;
+          }
+        }
+
+        &:hover {
+          &:after {
+            height: 30px;
+            width: 30px ;
+            position: absolute;
+            background-color: rgba(77, 161, 255, 0.1);
+          }
+        }
+
+      &.disabled {
+          color: #e6e6e6;
+      }
+    }
+
+    .today {
+      width: 30px;
+      height: 30px;
+      margin: 0 5px 0 5px;
+      border-radius: 4px;
+      background-color: rgba(77, 161, 255, 0.1);
+    }
+  }
+}
+.separator {
+  margin: 10px;
+  width: 199px;
+  height: 1px;
+  background-color: #eeeeee;
+  border: none;
+}

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
 import { Router } from '@angular/router';
+import { SessionService } from './../../../services/session.service';
 
 @Component({
   selector: 'app-in-progress',
@@ -16,12 +17,16 @@ export class InProgressComponent implements OnInit {
   loading: boolean;
   requests: any[];
   user;
+  sessionDates: any;
 
   constructor(
     private requestService: RequestService,
+    private sessionService: SessionService,
     private userService: UserService,
     private route: Router,
-  ) { }
+  ) {
+    this.requests = [];
+  }
 
   ngOnInit() {
     this.getInProgressRequests();
@@ -37,7 +42,12 @@ export class InProgressComponent implements OnInit {
       .toPromise()
       .then((response) => {
         this.loading = false;
-        this.requests = this.formatInProgressRequests(response);
+        if (response) {
+          this.requests = this.formatInProgressRequests(response);
+        }
+      })
+      .then(() => {
+        this.fetchAllSessionDates(this.requests);
       })
       .catch(error => this.errorMessage = error);
   }
@@ -84,5 +94,23 @@ export class InProgressComponent implements OnInit {
    * */
   goToSingleViewPage(id: number) {
     this.route.navigate(['request-pool/in-progress/', id]);
+  }
+
+  /**
+   * Assign all session dates to session dates variable.
+   *
+   * @return {void}
+   */
+  fetchAllSessionDates(requests: any[]) {
+    this.sessionDates = [];
+    for (const request of requests) {
+      this.sessionService.fetchSessionDates(request.id)
+        .toPromise()
+        .then((currentSessionDates) => {
+          if (currentSessionDates) {
+            this.sessionDates = this.sessionDates.concat(currentSessionDates);
+          }
+        });
+    }
   }
 }

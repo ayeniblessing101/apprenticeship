@@ -106,4 +106,17 @@ export class SessionService {
     return Observable.of(err);
   }
 
+  /**
+   * Retrieve missed, completed and upcoming session dates for a request.
+   *
+   * @param {number} requestId - request id
+   *
+   * @return {observable} sessions
+   */
+  fetchSessionDates(requestId: number): Observable <any> {
+    return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions/dates`)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
 }

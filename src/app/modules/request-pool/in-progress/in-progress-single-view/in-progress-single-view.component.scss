@@ -1,4 +1,6 @@
 @import '../../../../../assets/scss/fonts';
+
+@import '../../../../../assets/scss/fonts';
 @import '../../../../../assets/scss/colors';
 @import '../../../../../assets/scss/loaders';
 
@@ -57,6 +59,7 @@
       line-height: 1.4;
       text-align: left;
       color: #3359db;
+
       .indicator-active {
         margin-left: 0;
         @include indicator-active(70px, #3359db);
@@ -220,5 +223,16 @@ a {
     font-size: 12px;
     color: #989898;
   }
+}
+
+.container {
+  display: block;
+  width: 100%;
+}
+
+.aside {
+  display: block;
+  width: 20%;
+  float: right;
 }
 

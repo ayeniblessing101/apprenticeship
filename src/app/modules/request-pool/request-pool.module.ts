@@ -28,6 +28,8 @@ import { PendingRequestsTableComponent } from './pending-requests-table/pending-
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
 import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
 import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
+import { CalendarComponent } from './in-progress/calendar/calendar.component';
+import {SessionService} from '../../services/session.service';
 
 @NgModule({
   imports: [
@@ -57,16 +59,19 @@ import { CancelRequestModalComponent } from './cancel-request-modal/cancel-reque
     PoolRecordsComponent,
     InProgressSingleViewComponent,
     CancelRequestModalComponent,
+    CalendarComponent,
   ],
   exports: [
     PoolComponent,
     PoolFiltersComponent,
     SaveFiltersModalComponent,
     PoolRecordsComponent,
+    CalendarComponent,
   ],
   providers: [
     SaveFiltersModalComponent,
     RequestService,
+    SessionService,
   ],
 })
 export class RequestPoolModule { }

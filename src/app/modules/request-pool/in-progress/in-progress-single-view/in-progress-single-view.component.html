@@ -1,3 +1,4 @@
+<div class="container">
 <div class="wrapper">
   <div class="header">
     <ul class="header-bar">
@@ -19,7 +20,6 @@
       <span class="card-header">{{formatSessionDate(session.date)}}
         <hr class="indicator-active">
       </span>
-
       <div class="card-header-buttons">
         <button class="add-file">Add file</button>
         <button class="log-session">Log Session</button>
@@ -45,14 +45,17 @@
     </div>
   </div>
     <div *ngIf="nextSessionDate" class="card">
-      <span class="card-header">{{nextSessionDate}}
+      <span class="card-header">{{formatSessionDate(nextSessionDate)}}
         <hr class="indicator-inactive">
       </span>
-
       <div class="card-header-buttons">
         <button class="add-file">Add file</button>
         <button class="log-session inactive">Log Session</button>
       </div>
     </div>
+</div>
+</div>
+<div class="aside">
+  <app-calendar [sessionDates]="sessionDates"></app-calendar>
 </div>
 </div>

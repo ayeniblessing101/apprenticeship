@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../../../../services/request.service';
 import * as moment from 'moment'
+import { SessionService } from '../../../../services/session.service';
 
 @Component({
   selector: 'app-in-progress-single-view',
@@ -13,10 +14,12 @@ export class InProgressSingleViewComponent implements OnInit {
   requestTitle: string;
   sessions: any[];
   nextSessionDate: any;
+  sessionDates: any;
   pageWidth: string;
 
   constructor(
     private requestService: RequestService,
+    private sessionService: SessionService,
     private route: ActivatedRoute,
   ) {
     this.nextSessionDate = null;
@@ -26,6 +29,7 @@ export class InProgressSingleViewComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = Number.parseInt(params['id']);
       this.assignNextSessionDate(id);
+      this.assignSessionDates(id);
     });
   }
 
@@ -90,9 +94,24 @@ export class InProgressSingleViewComponent implements OnInit {
   formatSessionDate(date: string) {
     const sessionDate = moment(date);
     const today = moment();
-    if (sessionDate.isSame(today)) {
+    if (sessionDate.diff(today, 'days') === 0) {
       return 'Today';
     }
     return sessionDate.format('MMM DD');
+  }
+
+  /**
+   * Get mentorship dates.
+   *
+   * @param {number} requestId
+   *
+   * @return {void}
+   */
+  assignSessionDates(requestId: number) {
+    this.sessionService.fetchSessionDates(requestId)
+      .toPromise()
+      .then((response) => {
+        this.sessionDates = response;
+      });
   }
 }
