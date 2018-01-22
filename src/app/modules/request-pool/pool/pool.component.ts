@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
 
 import * as moment from 'moment';
+import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 
 @Component({
   selector: 'app-pool',
@@ -10,6 +11,8 @@ import * as moment from 'moment';
   styleUrls: ['./pool.component.scss'],
 })
 export class PoolComponent implements OnInit {
+
+  @ViewChild(PoolFiltersComponent) poolFilterComponent;
   @Input() showFilters = true;
   @Input() showOpenRequests = true;
   currentPage = 1;
@@ -21,6 +24,7 @@ export class PoolComponent implements OnInit {
   filterParams: any = {};
   sectionGridWidth = '68%';
   savedFiltersNames: string[];
+  firstPageLoad: boolean;
 
   constructor(
     private requestService: RequestService,
@@ -30,6 +34,7 @@ export class PoolComponent implements OnInit {
 
   ngOnInit() {
     this.isSaveFiltersModalOpened = false;
+    this.firstPageLoad = true;
     const savedFilters = JSON.parse(localStorage.getItem('savedFilters'));
     this.savedFiltersNames = savedFilters ? Object
       .keys(savedFilters) : [];
@@ -91,8 +96,16 @@ export class PoolComponent implements OnInit {
       .then((response) => {
         this.requests = this.formatRequestData(response.requests);
         this.loadingRequests = false;
+
+        if (this.requests.length === 0 && this.filterParams.category === 'recommended'
+          && this.firstPageLoad) {
+          this.firstPageLoad = false;
+          this.poolFilterComponent.form.patchValue({
+            category: 'all',
+          })
+        }
       },
-    )
+    );
   }
 
   /**
@@ -195,5 +208,4 @@ export class PoolComponent implements OnInit {
     this.filterService.setFilters(event);
     this.getRequests();
   }
-
 }
