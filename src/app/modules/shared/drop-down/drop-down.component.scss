@@ -1,0 +1,73 @@
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/fonts';
+
+ul {
+  margin-top: 5px;
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0;
+  position: relative;
+
+  button {
+    border-radius: 4px;
+    background: url(../../../../assets/images/input-drop-down.svg) right no-repeat;
+    background-size: 44px;
+    text-indent: 10px;
+
+    i {
+      float: right;
+      padding-right: 10px;
+      font-style: normal;
+    }
+  }
+}
+
+.common-dropdown-styles {
+  position: absolute;
+  font-size: 14px;
+  background-color: #FFFFFF;
+  width: 127px;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+
+  a {
+    color: #444444;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+}
+
+.request-option {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-align: left;
+  border: solid 1px #e9eff4;
+  width: 127px;
+  height: 46px;
+  border-radius: 1px;
+  cursor: pointer;
+  font-family: $font-family-1;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+
+  .request-content {
+    margin-top: 10px;
+  }
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}

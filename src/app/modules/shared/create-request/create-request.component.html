@@ -23,45 +23,36 @@
         </div>
 
         <div class="form-group">
-          <label for="basic-skills">Basic Skills</label>
-          <input #basicSkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MUST have"
-                   ng2-auto-complete [source]="skills" [list-formatter]="autocompleListFormatter"
-                   id="basic-skills" display-property-name="name" (valueChanged)="saveSkills('basic', basicSkill.value);
-                    basicSkill.value = ''" [disabled]="basicSkills.length === 3" required/>
-          <span class="skills-counter" id="basic-counter">{{ basicSkills.length }}/3</span>
-
-          <div class="skill-list" *ngIf="basicSkills.length">
+          <label>Basic Skills</label>
+          <app-skills-dropdown [list]="skillNames"
+                         [skillsLength]="basicSkills.length" (changes)="saveSkills('basic', $event)"
+                         [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills">
+          </app-skills-dropdown>
+        </div>
+        <div class="skill-list" *ngIf="basicSkills.length">
             <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill.name }}
               <span (click)="deleteRequestSkill(skill.name, 'basic', position)" class="close">&times;</span>
             </span>
-          </div>
         </div>
 
         <div class="form-group">
-          <label for="complementary-skills">Complementary Skills</label>
-          <input #complementarySkill class="all-skills" placeholder="Enter 3 prerequisite skills the {{ title }} MAY have"
-                 ng2-auto-complete [source]="skills"
-                 (valueChanged)="saveSkills('complementary', complementarySkill.value); complementarySkill.value=''"
-                 [list-formatter]="autocompleListFormatter"
-                 id="complementary-skills" display-property-name="name"
-                 [disabled]="complementarySkills.length === 3" required/>
-          <span class="skills-counter" id="complementary-counter">{{ complementarySkills.length }}/3</span>
-
-          <div class="skill-list" *ngIf="complementarySkills.length">
+          <label>Complementary Skills</label>
+          <app-skills-dropdown [list]="skillNames" [defaultValue]="complementarySkillsPlaceholder"
+                         [skillsLength]="complementarySkills.length" (changes)="saveSkills('complementary', $event)"></app-skills-dropdown>
+        </div>
+        <div class="skill-list" *ngIf="complementarySkills.length">
             <span class="chip" *ngFor="let skill of complementarySkills; let position = index">{{ skill.name }}
               <span (click)="deleteRequestSkill(skill.name, 'complementary', position)" class="close">&times;</span>
             </span>
-          </div>
         </div>
 
         <div class="form-group duration">
           <div class="duration">
             <span>
-                <label for="period" class="block duration-label">Duration</label>
+                <label class="block duration-label">Duration</label>
                 <span class="mentor-dropdown">
-                    <select [(ngModel)]="numberOfMonths" class="required-field" id="period" name="period" required>
-                        <option *ngFor="let month of lengthOfMentorship" value="{{ month }}">{{ month }} Months</option>
-                    </select>
+                  <app-drop-down [list]="lengthOfMentorship" (changes)="setMonthDuration($event)"
+                                 [defaultValue]="durationOfMonths.toString()"></app-drop-down>
                 </span>
             </span>
 
@@ -87,22 +78,16 @@
         <div class="form-group">
           <div class="time-select inline-block">
 
-            <label for="start-time" class="block">Pairing Time</label>
+            <label class="block">Pairing Time</label>
             <span class="mentor-dropdown">
-                  <select [(ngModel)]="timeSelected" class="required-field" name="startTime" id="start-time" required>
-                      <option *ngFor="let timeSlot of timeSlots" value="{{ timeSlot }}">{{ timeSlot }}</option>
-                  </select>
+              <app-drop-down [list]="timeSlots" [defaultValue]="startTime" (changes)="setStartTime($event)"></app-drop-down>
             </span>
           </div>
 
           <div class="time-select inline-block">
             <label for="timezone" class="block">Time Zone</label>
             <span class="mentor-dropdown" id="timezone">
-                <select ngModel class="required-field" name="timeZone" required>
-                    <option>WAT</option>
-                    <option>EAT</option>
-                    <option>CAT</option>
-                </select>
+              <app-drop-down [list]="allTimeZones" (changes)="setTimeZone($event)" [defaultValue]="selectedTimeZone"></app-drop-down>
             </span>
           </div>
 
@@ -118,11 +103,11 @@
         </div>
         <div *ngIf="getSelectedDays().length || timeSelected || numberOfMonths" class="info"><span class="bullet"></span>
           This event will take place
-          <span *ngIf="getSelectedDays().length"> on
-            <span class="capitalize" *ngFor="let day of getSelectedDays()"> {{ day }}, </span>
+          <span *ngIf="getSelectedDays()"> on
+            <span class="capitalize"> {{ formatSelectedDays() }}</span>
           </span>
-          <span *ngIf="timeSelected">at {{ timeSelected }} hours </span>
-          <span *ngIf="numberOfMonths">for {{ numberOfMonths }} months</span>
+          <span>{{ getAmPmTime(startTime) }}</span>
+          <span>for {{ displayDurationOfMonths() }}</span>
         </div>
 
         <div class="modal-footer form-group">

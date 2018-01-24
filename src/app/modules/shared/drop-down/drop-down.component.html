@@ -1,0 +1,11 @@
+<ul>
+  <li class="dropdown" (mouseleave)="showDropDownContent = false">
+    <button (click)="showDropDownContent = !showDropDownContent" type="button" class="request-option"
+            [disabled]="disabled">
+      {{ formattedValue }}
+    </button>
+    <div *ngIf="showDropDownContent" class="request-content common-dropdown-styles">
+      <a *ngFor="let item of list" (click)="setSelectedValue(item)">{{ item }}</a>
+    </div>
+  </li>
+</ul>

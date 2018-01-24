@@ -17,6 +17,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { FirebaseApp } from 'angularfire2';
 import { UserServiceStub } from 'app/stubs/user-stub.service';
 import { NotificationServiceStub } from 'app/stubs/notification-stub.service';
+import { DropDownComponent } from '../drop-down/drop-down.component';
+import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
 
 
 describe('HeaderComponent', () => {
@@ -26,7 +28,14 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent, NotificationsComponent, CreateRequestComponent, RouterLinkStubDirective],
+      declarations: [
+        HeaderComponent,
+        NotificationsComponent,
+        CreateRequestComponent,
+        RouterLinkStubDirective,
+        DropDownComponent,
+        SkillsDropdownComponent,
+      ],
       imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule],
       providers: [
         Http,

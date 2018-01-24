@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { MdCardModule } from '@angular/material';
+import { DropDownComponent } from './drop-down/drop-down.component';
+import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { MdCardModule } from '@angular/material';
     NotificationsComponent,
     MessageAlertComponent,
     CreateRequestComponent,
+    DropDownComponent,
+    SkillsDropdownComponent,
   ],
   exports: [
     HeaderComponent,

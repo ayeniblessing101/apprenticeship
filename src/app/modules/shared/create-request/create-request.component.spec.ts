@@ -9,6 +9,8 @@ import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { SkillService } from '../../../services/skill.service';
+import { DropDownComponent } from 'app/modules/shared/drop-down/drop-down.component';
+import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
 
 
 describe('CreateRequestComponent', () => {
@@ -22,7 +24,11 @@ describe('CreateRequestComponent', () => {
         FormsModule,
         Ng2AutoCompleteModule,
       ],
-      declarations: [CreateRequestComponent],
+      declarations: [
+        CreateRequestComponent,
+        DropDownComponent,
+        SkillsDropdownComponent,
+      ],
       providers: [
         Http,
         UserService,

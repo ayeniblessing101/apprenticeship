@@ -11,16 +11,16 @@
     </div>
     <div class="footer">
       <div class="button-container">
-        <button
-          class="white-button"
-          (click)="confirm()">
-            {{config.confirmActionText}}
-          </button>
         <!-- the close method is inhertied from Alertcomponent -->
         <button
-          class="blue-button"
+          class="white-button"
           (click)="close()">
             {{config.abortActionText}}
+        </button>
+        <button
+          class="blue-button"
+          (click)="confirm()">
+          {{config.confirmActionText}}
         </button>
       </div>
     </div>

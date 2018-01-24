@@ -17,6 +17,7 @@
   -o-appearance: button;
   -ms-appearance: button;
   appearance: button;
+  cursor: pointer;
 }
 
 #btn-close {
@@ -87,6 +88,10 @@
     overflow-y: auto;
     margin: 0 auto;
 
+    .underline {
+      border: none;
+    }
+
     &::-webkit-scrollbar {
       width: 0 !important
     }
@@ -114,20 +119,8 @@
 
 .form-group {
   margin-bottom: 2%;
-  .skills-counter {
-    position: absolute;
-    font-size: 12px;
-    margin-left: 43.925em;
-    color: #D3D3D3;
+  height: 69.19px;
 
-    &#basic-counter {
-      top: 365px;
-    }
-
-    &#complementary-counter {
-      top: 450px;
-    }
-  }
 
   &>label {
     display: block;
@@ -179,56 +172,6 @@
   position: relative;
   display: inline-block;
   margin-right: 45px;
-
-  select {
-    background-color: #fff;
-    color: #323c47;
-    font-family: $font-family-1;
-    font-size: 13px;
-    padding-left: 20px;
-    height: 45px;
-    width: 127px;
-    border: solid 1px #e9eff4;
-    margin: 0;
-    border-radius: 3px;
-    text-indent: 0.01px;
-    text-overflow: '';
-    background-image: none;
-    cursor: pointer;
-    @include appearance-button;
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-  }
-
-  &::after {
-    content: "\221F";
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    text-align: center;
-    height: 1em;
-    font-size: 1em;
-    line-height: 1;
-    right: 1.2em;
-    top: 50%;
-    margin-top: -.55em;
-    margin-right: -.3em;
-    padding-right: .25em;
-  }
-  /*  Custom dropdown arrow cover */
-  &::before {
-    width: 2.8em;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 0 3px 3px 0;
-    background-color: rgba(244, 247, 249, 0.4);
-    border: solid 1px #e9eff4;
-  }
 }
 
 .days-label {

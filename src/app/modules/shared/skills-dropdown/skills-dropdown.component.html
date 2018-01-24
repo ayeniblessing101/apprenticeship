@@ -1,0 +1,12 @@
+<ul>
+  <li class="dropdown" (mouseleave)="showDropDownContent = false">
+    <button (click)="showDropDownContent = !showDropDownContent" type="button" class="request-option"
+            [ngStyle]="{'border': isEmptyBasicSkills ? '1px solid red' : '1px solid #e9eff4'}"
+            [disabled]="disabled">
+      {{ defaultValue }} <i>{{ skillsLength }}/3</i>
+    </button>
+    <div *ngIf="showDropDownContent" class="request-content common-dropdown-styles">
+      <a *ngFor="let item of list" (click)="setSelectedValue(item)">{{ item }}</a>
+    </div>
+  </li>
+</ul>

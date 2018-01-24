@@ -21,9 +21,13 @@ export class CreateRequestComponent implements OnInit {
   @Output() closeMentorshipModal = new EventEmitter<boolean>();
 
   skills: any[] = [];
+  skillNames: string[] = [];
   basicSkills: Skill[] = [];
   complementarySkills: Skill[] = [];
   requestSkills: string[] = [];
+  allTimeZones: string[] = ['WAT', 'EAT', 'CAT', 'EST', 'PST'];
+  selectedTimeZone: string;
+  durationOfMonths: number;
 
   timeSlots: string[] = [];
   selectedDays: string[];
@@ -35,9 +39,14 @@ export class CreateRequestComponent implements OnInit {
   durationTime: any;
   duration: string;
   sessionDuration: string;
+  startTime: string;
   currentUser: any;
   displayedSessionDuration: string;
   title: string;
+
+  complementarySkillsPlaceholder: string;
+  primarySkillsPlaceholder: string;
+  isEmptyBasicSkills: boolean;
 
   constructor(
     private skillService: SkillService,
@@ -67,6 +76,13 @@ export class CreateRequestComponent implements OnInit {
     this.displayedSessionDuration = this.addHrsMinsStrings(this.duration);
 
     this.title = this.requestType;
+    this.selectedTimeZone = this.allTimeZones[0];
+    this.startTime = this.timeSlots[0];
+    this.durationOfMonths = this.lengthOfMentorship[0];
+
+    this.complementarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MAY have`;
+    this.primarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MUST have`;
+
   }
 
   /**
@@ -95,6 +111,9 @@ export class CreateRequestComponent implements OnInit {
   removeHrsMinsStrings(time: string): string {
     let formattedSessionDuration = time.replace('hr ', ':');
     formattedSessionDuration = formattedSessionDuration.replace('mins', '');
+    if (formattedSessionDuration[1] === ':') {
+      formattedSessionDuration = '0' + formattedSessionDuration;
+    }
     return formattedSessionDuration;
   }
 
@@ -148,20 +167,20 @@ export class CreateRequestComponent implements OnInit {
 
       const basicSkillIds = this.basicSkills.map(skill => skill.id);
       const complementarySkillIds = this.complementarySkills.map(skill => skill.id);
-      const sessionEndTime = this.calculateSessionEndTime(form.value.startTime, form.value.duration);
+      const sessionEndTime = this.calculateSessionEndTime(this.startTime, this.sessionDuration);
       const requestDetails = {
         isMentor,
         title: form.value.neededSkill,
         description: form.value.description,
         primary: basicSkillIds,
         secondary: complementarySkillIds,
-        duration: form.value.period,
-        location: this.currentUser.location,
+        duration: this.durationOfMonths,
+        location: this.currentUser ? this.currentUser.location : '',
         pairing: {
-          start_time: form.value.startTime,
+          start_time: this.startTime,
           end_time: sessionEndTime,
           days: selectedDays,
-          timezone: form.value.timeZone,
+          timezone: this.selectedTimeZone,
         },
       };
 
@@ -262,6 +281,7 @@ export class CreateRequestComponent implements OnInit {
     if (type === 'basic') {
       if (this.basicSkills[position].name === skill) {
         this.basicSkills.splice(position, 1);
+        this.isEmptyBasicSkills = this.basicSkills.length === 0 ? true : false;
       }
 
     } else {
@@ -283,7 +303,8 @@ export class CreateRequestComponent implements OnInit {
         this.skills = res.map(skill => ({
           name: skill.name,
           id: skill.id,
-        }))
+        })),
+        this.skillNames = res.map(skill => skill.name);
       });
   }
 
@@ -337,13 +358,76 @@ export class CreateRequestComponent implements OnInit {
   }
 
   /**
-   * Formats the display of the autocomplete list in form
+   * Sets the timezone to be used in the requestDetails payload
    *
-   * @param {Object} skill object name
+   * @param {string} timeZone
    *
-   * @return {String} skill name to be displayed in autocomplete form input
+   * return {void}
    */
-  autocompleListFormatter(skill: any) {
-    return skill.name;
+  setTimeZone(timeZone: string) {
+    this.selectedTimeZone = timeZone;
+  }
+
+  /**
+   * Sets the start time for the mentorship session to be used
+   * in the requestDetails payload.
+   *
+   * @param {string} startTime
+   *
+   * return {void}
+   */
+  setStartTime(startTime: string) {
+    this.startTime = startTime;
+  }
+
+  /**
+   * Sets the duration of months to be used in the payload
+   *
+   * @param {string} durationOfMonths
+   *
+   * return {void}
+   */
+  setMonthDuration(durationOfMonths: number) {
+    this.durationOfMonths = durationOfMonths;
+  }
+
+  /**
+   * Formats the list of selected days to include the ampersand('&') and
+   * commas depending on the number of days selected.
+   *
+   * @return {string} days
+   */
+  formatSelectedDays() {
+    const days = this.getSelectedDays();
+    let selectedDays = days.length > 1 ? days.join(', ') : days[0];
+    const commaIndex = selectedDays.lastIndexOf(', ');
+    selectedDays = commaIndex !== -1 ?
+      selectedDays.substring(0, commaIndex) + ' & ' + selectedDays.substring(commaIndex + 1) : selectedDays;
+    return selectedDays;
+  }
+
+  /**
+   * Formats the time using moment by appending 'am' or 'pm' at the
+   * end of the time string.
+   *
+   * @param {string} time
+   *
+   * @return {string} The time in 'am' or 'pm'
+   */
+  getAmPmTime(time: string) {
+    const formattedTime = moment(time, 'hh:mm').format('hh:mm a');
+    return formattedTime;
+  }
+
+  /**
+   * Formats the duration of months selected and adds the strings 'months' or
+   * 'month' depending on the duration selected.
+   *
+   * @return {string} The duration of months appended with either 'months' or 'month'
+   */
+  displayDurationOfMonths() {
+    const formattedMonthDuration = this.durationOfMonths === 1 ?
+      `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
+    return formattedMonthDuration;
   }
 }
