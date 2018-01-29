@@ -7,14 +7,14 @@
         </form>
       </div>
     </li>
-      <li *ngIf="isAdmin" class="dropdown">
-        <button class="request-option" id="admin-button">DASHBOARD</button>
-        <div class="admin-content common-dropdown-styles">
-          <a [routerLink]="['/all-requests']">REQUESTS</a>
-          <a [routerLink]="['admin/skills']">SKILLS</a>
-          <a [routerLink]="['admin/reports']">REPORTS</a>
-        </div>
-      </li>
+    <li *ngIf="isAdmin" class="dropdown">
+      <button class="request-option" id="admin-button">DASHBOARD</button>
+      <div class="admin-content common-dropdown-styles">
+        <a [routerLink]="['/all-requests']">REQUESTS</a>
+        <a [routerLink]="['admin/skills']">SKILLS</a>
+        <a [routerLink]="['admin/reports']">REPORTS</a>
+      </div>
+    </li>
     <li class="dropdown">
       <button class="request-option" id="request-button"> REQUEST FOR</button>
       <div class="admin-content common-dropdown-styles">
@@ -25,26 +25,17 @@
     <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>
     <a (click)="openNotifications()">
       <li class="notification">
-        <img src="../../assets/images/notification.png" alt="">
+        <span class="dot"></span>
+        <img src="../../assets/images/notification-icon.png" width="30" alt="">
       </li>
     </a>
     <a class="dropdown user-icon drop-btn">
-      <div>
-        <img class="img-circular" src="{{currentUser?.picture}}" alt="" width="32px" height="32px">
-      </div>
-      <div class="arrow-spacing">
-        <div>
-          <li class="caret-spacing">
-            <div class="spacer">
-              <span class="arrow-down"></span>
-            </div>
-          </li>
-        </div>
-        <div class="dropdown-content common-dropdown-styles">
-          <a href="/profile">VIEW PROFILE</a>
-          <a href="#">SETTINGS</a>
-          <a href="#" class="sign-out" (click)="logoutUser()">SIGN OUT</a>
-        </div>
+      <img class="img-circular" src="{{currentUser?.picture}}" alt="" width="32px" height="32px">
+      <span class="arrow-down"></span>
+      <div class="dropdown-content common-dropdown-styles">
+        <a href="/profile">VIEW PROFILE</a>
+        <a href="#">SETTINGS</a>
+        <a href="#" class="sign-out" (click)="logoutUser()">SIGN OUT</a>
       </div>
     </a>
   </ul>

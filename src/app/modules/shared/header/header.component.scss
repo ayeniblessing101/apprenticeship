@@ -28,19 +28,25 @@
     }
 
     .notification {
-      top: 35%;
+      top: 2%;
       cursor: pointer;
     }
 
     .user-icon {
       top: 5%;
-      margin-right: 4%;
+      padding-right: 15px;
+      display: inline-flex;
+      align-items: center;
     }
     .caret-spacing {
       top: 35%;
       margin-left: 5px;
     }
   }
+}
+
+.user-profile {
+  pointer-events: none;
 }
 
 .spacer {
@@ -53,6 +59,7 @@
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 7px solid #E4DEDE;
+  margin-left: 15px;
 }
 
 .img-circular {
@@ -124,10 +131,6 @@
 .dropdown {
   position: relative;
   display: inline-block;
-  .dropdown-content {
-    margin-top: 25px;
-    margin-right: -30px;
-  }
 
   .admin-content {
     margin-top: 10px;
@@ -162,10 +165,6 @@
   background-color: #f1f1f1
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 .admin-content a:hover {
   background-color: #f1f1f1
 }
@@ -174,21 +173,21 @@
   background-color: #f1f1f1
 }
 
-.dropdown:hover .admin-content {
-  display: block;
-}
-
-.dropdown:hover .request-for-content {
-  display: block;
-}
-
-.dropdown:hover .arrow-down {
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #E4DEDE;
-  border-top: none;
-  position: absolute;
-  margin-top: -10px;
+.dropdown:hover {
+  .arrow-down {
+    transform-origin: center center;
+    transform: scaleY(-1);
+  }
+  .request-for-content {
+    display: block;
+  }
+  .admin-content {
+    display: block;
+  }
+  .dropdown-content {
+    display: block;
+    top: 100%;
+  }
 }
 
 .sign-out {
@@ -198,5 +197,16 @@
 .arrow-spacing {
   width: 100%;
   margin-left: 140%;
+  pointer-events: none;
 }
 
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #ffaf30;
+  border-radius: 50%;
+  display: inline-block;
+  position:relative; 
+  top:16px; 
+  left:-3px;
+}
