@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../../../../services/request.service';
-import * as moment from 'moment'
+import * as moment from 'moment';
 import { SessionService } from '../../../../services/session.service';
 
 @Component({
@@ -11,94 +11,24 @@ import { SessionService } from '../../../../services/session.service';
 })
 export class InProgressSingleViewComponent implements OnInit {
 
-  requestTitle: string;
-  sessions: any[];
-  nextSessionDate: any;
   sessionDates: any;
-  pageWidth: string;
-
+  request: any;
+  isRequestScheduleVisible = true;
+  isRequestDetailsVisible = false;
   constructor(
     private requestService: RequestService,
     private sessionService: SessionService,
     private route: ActivatedRoute,
   ) {
-    this.nextSessionDate = null;
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      const id = Number.parseInt(params['id']);
-      this.assignNextSessionDate(id);
-      this.assignSessionDates(id);
+    route.data.subscribe((value) => {
+      this.request = value.request.data
     });
   }
 
-  /**
-   * Assign sessions from request service.
-   *
-   * @param {Number} requestId - ID of the request.
-   *
-   *@return {void}
-   */
-  assignSessions(requestId: number) {
-    this.requestService.getRequestSessions(requestId)
-      .toPromise()
-      .then((response) => {
-        this.sessions = response;
-        let sessionsCount = this.sessions.length;
-        if (this.nextSessionDate) {
-          sessionsCount += 1;
-        }
-        this.pageWidth = (sessionsCount * 450).toString().concat('px');
-      })
+  ngOnInit() {
+    this.assignSessionDates(this.request.id);
   }
 
-  /**
-   * Assign next session date.
-   *
-   * @param {number} requestId - request id.
-   *
-   * @return {void}
-   */
-  assignNextSessionDate(requestId: number) {
-    this.requestService.getRequestDetails(requestId)
-      .toPromise()
-      .then((response) => {
-        this.requestTitle = response.data.title;
-        const startDateClone = moment(response.data.match_date).clone();
-        const mentorshipEndDate = startDateClone.add(response.data.duration, 'months');
-        for (const day of response.data.pairing.days) {
-          if (moment().day(day).day() > moment().day() && moment().isBefore(mentorshipEndDate)) {
-            this.nextSessionDate = this.formatSessionDate(moment().day(day).format('YYY MM DD'));
-            break;
-          }
-        }
-        if (this.nextSessionDate === undefined) {
-          const firstDay = moment().day(response.data.pairing.days[0]).day();
-          const nextDay = moment().day(firstDay).add(1, 'weeks');
-          if (nextDay.day() < mentorshipEndDate.day()) {
-            this.nextSessionDate = this.formatSessionDate(nextDay.format('YYY MM DD'));
-          }
-        }
-        this.assignSessions(requestId);
-      })
-  }
-
-  /**
-   * Format session date.
-   *
-   * @param {moment.Moment} date
-   *
-   * @return {string}
-   */
-  formatSessionDate(date: string) {
-    const sessionDate = moment(date);
-    const today = moment();
-    if (sessionDate.diff(today, 'days') === 0) {
-      return 'Today';
-    }
-    return sessionDate.format('MMM DD');
-  }
 
   /**
    * Get mentorship dates.
@@ -113,5 +43,27 @@ export class InProgressSingleViewComponent implements OnInit {
       .then((response) => {
         this.sessionDates = response;
       });
+  }
+
+
+
+  /**
+   * Show request details page and hide request schedule page
+   *
+   * @return {void}
+   */
+  showRequestDetails() {
+    this.isRequestDetailsVisible = true;
+    this.isRequestScheduleVisible = false;
+  }
+
+  /**
+   * Show request schedule page and hide request details page
+   *
+   * @return {void}
+   */
+  showRequestSchedule() {
+    this.isRequestDetailsVisible = false;
+    this.isRequestScheduleVisible = true;
   }
 }

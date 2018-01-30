@@ -1,0 +1,25 @@
+<div>
+  <div class = "request-description">
+      {{ request.description }}
+  </div>
+  <div class="request-body">
+    <div class="request-details">
+       <div class= "mentee-name"><b>Request by - </b><span>{{ mentee.name }}
+        </span>
+        </div>
+        <div class="star">
+              <star-rating-comp
+                [size] = "'medium'"
+                [starType]="'svg'"
+                [readOnly]="true"
+                [rating]="mentee.rating"
+                >
+              </star-rating-comp>
+       </div>
+    </div>
+      <div class="request-details"><b>Primary Skills - </b><span>{{ primarySkills || 'None' }}</span></div>
+      <div class="request-details"><b>Secondary Skills - </b><span>{{ secondarySkills || 'None' }}</span></div>
+      <div class="request-details"><b>Preffered Location - </b><span>{{ request.location || 'Anywhere' }}</span></div>
+      <div class="request-details"><b>Proposed Duration - </b><span>{{ request.duration }}</span></div>
+  </div>
+</div>

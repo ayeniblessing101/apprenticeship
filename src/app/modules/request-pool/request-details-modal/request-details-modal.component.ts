@@ -17,10 +17,10 @@ import { RequestService } from '../../../services/request.service';
 
 @Component({
   selector: 'app-request-details',
-  templateUrl: './request-details.component.html',
-  styleUrls: ['./request-details.component.scss'],
+  templateUrl: './request-details-modal.component.html',
+  styleUrls: ['./request-details-modal.component.scss'],
 })
-export class RequestDetailsComponent implements OnInit {
+export class RequestDetailsModalComponent implements OnInit {
   @Input() selectedRequest;
   @Output() close = new EventEmitter();
   @ViewChild('requestModal') requestModal: ElementRef;

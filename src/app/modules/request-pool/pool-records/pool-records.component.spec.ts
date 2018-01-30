@@ -12,7 +12,7 @@ import { FilterService } from '../../../services/filter.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
-import { RequestDetailsComponent } from 'app/modules/request-pool/request-details/request-details.component';
+import { RequestDetailsModalComponent } from 'app/modules/request-pool/request-details-modal/request-details-modal.component';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 
 
@@ -37,7 +37,7 @@ describe('PoolRecordsComponent', () => {
       declarations: [
         PoolRecordsComponent,
         SaveFiltersModalComponent,
-        RequestDetailsComponent,
+        RequestDetailsModalComponent,
         NoSearchResultComponent,
       ],
       providers: [

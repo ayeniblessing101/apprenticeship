@@ -1,61 +1,28 @@
 <div class="container">
-<div class="wrapper">
-  <div class="header">
-    <ul class="header-bar">
-      <li> <span class="header-title">{{requestTitle|uppercase}}
-      <hr class="indicator-active">
-      </span></li>
-      <li>
-        <div class="header-buttons">
-          <button class="schedule">Schedule</button>
-          <button class="details">Details</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <div [ngStyle] = "{ 'width': pageWidth}" class="row">
-  <div *ngFor="let session of sessions">
-    <div class="card">
-      <span class="card-header">{{formatSessionDate(session.date)}}
+  <div class="wrapper">
+    <div class="header">
+      <ul class="header-bar">
+        <li> <span class="header-title">{{request.title|uppercase}}
         <hr class="indicator-active">
-      </span>
-      <div class="card-header-buttons">
-        <button class="add-file">Add file</button>
-        <button class="log-session">Log Session</button>
-      </div>
-      <div class="card-body">
-      <div class="file" *ngFor="let file of session.files">
-        <p class="file-time">{{file.created_at|date:'shortTime'}}</p>
-        <p class="name">{{file.name}}</p>
-        <a class="file-name" href="{{file.url}}">
-          <img src="../../../../../assets/images/link.svg">
-          {{file.name}}
-        </a>
-        <a class="download" href="{{file.url}}">
-          <img src="../../../../../assets/images/download.svg">
-          Download
-        </a>
-        <a class="delete" href="">
-          <img src="../../../../../assets/images/trash.svg">
-          Delete
-        </a>
-      </div>
-      </div>
+        </span></li>
+        <li>
+          <div class="header-buttons">
+            <button (click) = "showRequestSchedule()" [ngClass] = "{'inactive-button': !isRequestScheduleVisible}">Schedule</button>
+            <button (click) = "showRequestDetails()" [ngClass] = "{'inactive-button': !isRequestDetailsVisible}">Details</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  <div>
+    <div *ngIf="isRequestDetailsVisible">
+      <app-request-details-page [request] = "request"></app-request-details-page>
+    </div>
+    <div *ngIf="isRequestScheduleVisible">
+      <app-request-schedule-page [request] = "request"></app-request-schedule-page>
     </div>
   </div>
-    <div *ngIf="nextSessionDate" class="card">
-      <span class="card-header">{{formatSessionDate(nextSessionDate)}}
-        <hr class="indicator-inactive">
-      </span>
-      <div class="card-header-buttons">
-        <button class="add-file">Add file</button>
-        <button class="log-session inactive">Log Session</button>
-      </div>
+    <div class="aside">
+      <app-calendar [sessionDates]="sessionDates"></app-calendar>
     </div>
-</div>
-</div>
-<div class="aside">
-  <app-calendar [sessionDates]="sessionDates"></app-calendar>
-</div>
+  </div>
 </div>

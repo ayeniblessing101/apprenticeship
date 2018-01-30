@@ -109,7 +109,7 @@ export class RequestdetailsComponent implements OnInit {
     /**
      * Gets the request details and thereafter gets the details of the mentee
      */
-    this.requestService.getRequestDetails(this.requestId)
+    this.requestService.getRequest(this.requestId)
       .toPromise()
       .then(res => this.fetchRequestDetails(res))
       .then(() => {

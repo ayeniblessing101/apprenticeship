@@ -14,6 +14,7 @@ import {
 
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
+import { RequestResolver } from '../../resolvers/request.resolver';
 
 import { SaveFiltersModalComponent } from './save-filters-modal/save-filters-modal.component';
 import { PoolComponent } from './pool/pool.component';
@@ -22,14 +23,18 @@ import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { PendingComponent } from './pending/pending.component';
 import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
-import { RequestDetailsComponent } from './request-details/request-details.component';
+import { RequestDetailsModalComponent } from './request-details-modal/request-details-modal.component';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
 import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
 import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
 import { CalendarComponent } from './in-progress/calendar/calendar.component';
-import {SessionService} from '../../services/session.service';
+import { SessionService } from '../../services/session.service';
+import { RequestDetailsPageComponent } from './request-details-page/request-details-page.component';
+import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
+
+
 
 @NgModule({
   imports: [
@@ -53,13 +58,15 @@ import {SessionService} from '../../services/session.service';
     HistoryComponent,
     PendingComponent,
     NoSearchResultComponent,
-    RequestDetailsComponent,
+    RequestDetailsModalComponent,
     PendingModalComponent,
     PendingRequestsTableComponent,
     PoolRecordsComponent,
     InProgressSingleViewComponent,
     CancelRequestModalComponent,
     CalendarComponent,
+    RequestDetailsPageComponent,
+    RequestSchedulePageComponent,
   ],
   exports: [
     PoolComponent,
@@ -72,6 +79,7 @@ import {SessionService} from '../../services/session.service';
     SaveFiltersModalComponent,
     RequestService,
     SessionService,
+    RequestResolver,
   ],
 })
 export class RequestPoolModule { }

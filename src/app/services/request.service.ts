@@ -28,7 +28,7 @@ export class RequestService {
    *
    * @return Observable containing details of request
    */
-  getRequestDetails(requestId: number) {
+  getRequest(requestId: number) {
     return this.http.get(`${this.apiBaseUrl}/v1/requests/${requestId}`)
       .map((response: Response) => response.json())
       .catch(this.handleError);

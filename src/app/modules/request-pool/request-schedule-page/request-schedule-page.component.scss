@@ -1,8 +1,9 @@
-@import '../../../../../assets/scss/fonts';
+@import '../../../../assets/scss/fonts';
 
-@import '../../../../../assets/scss/fonts';
-@import '../../../../../assets/scss/colors';
-@import '../../../../../assets/scss/loaders';
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/loaders';
+
 
 @mixin indicator-active($width, $color) {
   width: $width;
@@ -10,67 +11,6 @@
   border-radius: 11px;
   border: solid 0;
   background-color: $color;
-}
-
-.wrapper {
-  padding: 90px 90px 90px 120px;
-}
-
-.header {
-  position: fixed;
-  width: 90%;
-  margin-left: -25px;
-}
-
-.header-bar{
-  margin-right: 30px;
-
-  li {
-    display: inline;
-    list-style: none;
-
-    .header-buttons {
-      display: inline-block;
-      float: right;
-      width: 200px;
-      height: auto;
-      padding: 5px;
-      margin-right: 20%;
-      border-radius: 4px;
-
-    }
-
-    .header-title{
-      display: inline-block;
-      width: auto;
-      height: 28px;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.4;
-      text-align: left;
-      color: #3359db;
-
-      .indicator-active {
-        margin-left: 0;
-        @include indicator-active(70px, #3359db);
-      }
-    }
-
-
-    button {
-      cursor: pointer;
-      width: 94px;
-      height: 34px;
-      border-radius: 3px;
-      border: solid 0;
-      outline: none;
-      box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
-
-      &.inactive {
-        opacity: 0.45;
-      }
-    }
-  }
 }
 
 @mixin button($width) {
@@ -127,11 +67,10 @@
   color: #474f58;
   padding: 10px;
 
-  .indicator-active {
+    .indicator-active {
     margin-left: 0;
     @include indicator-active(40px, #3359db);
   }
-
   .indicator-inactive {
     margin-left: 0;
     @include indicator-active(40px, rgba(152, 152, 152, 0.2));
@@ -150,7 +89,6 @@
   display: inline;
   float: right;
 }
-
 
 .file {
   width: 263px;
@@ -213,19 +151,4 @@ a {
     font-size: 12px;
     color: #989898;
   }
-}
-
-.container {
-  display: block;
-  width: 100%;
-}
-
-.aside {
-  display: block;
-  width: 16%;
-  float: right;
-}
-
-.inactive-button {
-  background-color: transparent !important;
 }

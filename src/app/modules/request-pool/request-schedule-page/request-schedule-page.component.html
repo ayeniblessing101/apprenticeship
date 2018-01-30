@@ -1,0 +1,39 @@
+<div [ngStyle] = "{ 'width': pageWidth}" class="row">
+  <div *ngFor="let session of sessions">
+    <div class="card">
+      <span class="card-header">{{formatSessionDate(session.date)}}
+        <hr class="indicator-active">
+      </span>
+      <div class="card-header-buttons">
+        <button class="add-file">Add file</button>
+        <button class="log-session">Log Session</button>
+      </div>
+      <div class="card-body">
+      <div class="file" *ngFor="let file of session.files">
+        <p class="file-time">{{file.created_at|date:'shortTime'}}</p>
+        <p class="name">{{file.name}}</p>
+        <a class="file-name" href="{{file.url}}">
+          <img src="../../../../../assets/images/link.svg">
+          {{file.name}}
+        </a>
+        <a class="download" href="{{file.url}}">
+          <img src="../../../../../assets/images/download.svg">
+          Download
+        </a>
+        <a class="delete" href="">
+          <img src="../../../../../assets/images/trash.svg">
+          Delete
+        </a>
+      </div>
+      </div>
+    </div>
+  </div>
+    <div *ngIf="nextSessionDate" class="card">
+      <span class="card-header">{{formatSessionDate(nextSessionDate)}}
+        <hr class="indicator-inactive">
+      </span>
+      <div class="card-header-buttons">
+        <button class="add-file">Add file</button>
+        <button class="log-session inactive">Log Session</button>
+      </div>
+  </div>
