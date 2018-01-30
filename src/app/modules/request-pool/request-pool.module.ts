@@ -33,8 +33,7 @@ import { CalendarComponent } from './in-progress/calendar/calendar.component';
 import { SessionService } from '../../services/session.service';
 import { RequestDetailsPageComponent } from './request-details-page/request-details-page.component';
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
-
-
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 
 @NgModule({
   imports: [
@@ -67,6 +66,7 @@ import { RequestSchedulePageComponent } from './request-schedule-page/request-sc
     CalendarComponent,
     RequestDetailsPageComponent,
     RequestSchedulePageComponent,
+    FilterDropdownComponent,
   ],
   exports: [
     PoolComponent,

@@ -13,7 +13,7 @@ export class FilterService {
   statusResult = new Subject<Object[]>();
   skills: any;
   filters = {
-    category: ['recommended'],
+    category: 'recommended',
     type: [],
     ratings: [],
     locations: [],

@@ -96,13 +96,10 @@ export class PoolComponent implements OnInit {
       .then((response) => {
         this.requests = this.formatRequestData(response.requests);
         this.loadingRequests = false;
-
         if (this.requests.length === 0 && this.filterParams.category === 'recommended'
           && this.firstPageLoad) {
           this.firstPageLoad = false;
-          this.poolFilterComponent.form.patchValue({
-            category: 'all',
-          })
+          this.poolFilterComponent.applySelectedFilters({ type: 'category', value: 'all' });
         }
       },
     );

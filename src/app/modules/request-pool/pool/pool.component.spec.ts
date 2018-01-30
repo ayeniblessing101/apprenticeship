@@ -21,6 +21,7 @@ import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters
 import { RequestDetailsModalComponent } from '../request-details-modal/request-details-modal.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
+import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -48,6 +49,7 @@ describe('PoolComponent', () => {
         RequestDetailsModalComponent,
         NoSearchResultComponent,
         PoolRecordsComponent,
+        FilterDropdownComponent,
       ],
       providers: [
         Http,

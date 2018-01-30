@@ -18,7 +18,7 @@ import { RequestDetailsModalComponent } from '../../request-pool/request-details
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FilterService } from '../../../services/filter.service';
 import { NoSearchResultComponent } from 'app/modules/request-pool/no-search-result/no-search-result.component';
-
+import { FilterDropdownComponent } from '../../request-pool/filter-dropdown/filter-dropdown.component';
 
 
 describe('AllRequestsPageComponent', () => {
@@ -46,6 +46,7 @@ describe('AllRequestsPageComponent', () => {
         RequestDetailsModalComponent,
         SaveFiltersModalComponent,
         NoSearchResultComponent,
+        FilterDropdownComponent,
       ],
       providers: [
         Http,

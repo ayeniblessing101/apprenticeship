@@ -1,40 +1,53 @@
 <div id="side-grid">
-  <form [formGroup]="form">
+  <form >
     <div class="side-contents">
-      <input type="hidden" [value]="appliedFilters.status" formControlName="status">
+      <input type="hidden" [value]="appliedFilters.status" name="status">
       <h4>Requests</h4>
-      <md-radio-group ngDefaultControl formControlName="category">
-        <md-radio-button value="all">All Requests</md-radio-button> <br />
-        <md-radio-button value="recommended">Recommended for me</md-radio-button>
-      </md-radio-group>
+      <div class="requests-radio-encloser">
+        <div class="requests-radio">
+          <input #all type="radio" value="all" id="all-requests"
+                 [checked]="selectedFilters[all.name] === all.value" name="category"
+                 (click)="applySelectedFilters({ type: all.name, value: all.value })">
+          <label for="all-requests">All Requests</label>
+        </div>
+        <div class="requests-radio">
+          <input #recommended type="radio" value="recommended" id="recommended"
+                 [checked]="selectedFilters[recommended.name] === recommended.value" name="category"
+                 (click)="applySelectedFilters({ type: recommended.name, value: recommended.value })">
+          <label for="recommended">Recommended for me</label>
+        </div>
+      </div>
     </div>
     <div class="side-contents seeking-mentor">
       <h4>Type</h4>
-      <md-checkbox disabled="true" [formControl]="form.controls['type'].controls[0]">Seeking Mentor</md-checkbox>
-      <md-checkbox disabled="true" [formControl]="form.controls['type'].controls[1]">Seeking Mentee</md-checkbox>
+      <div class="seeking-checkbox-encloser">
+        <div class="seeking-separator">
+          <input type="checkbox" disabled="true" class="regular-checkbox" id="mentor-cbx">
+          <label for="mentor-cbx" class="checkbox-label"></label>
+          <span>Seeking Mentor</span>
+        </div>
+        <div class="seeking-separator">
+          <input type="checkbox" disabled="true" class="regular-checkbox" id="mentee-cbx">
+          <label for="mentee-cbx" class="checkbox-label"></label>
+          <span>Seeking Mentee</span>
+        </div>
+      </div>
     </div>
     <div class="side-contents">
       <h4>Sorting</h4>
-      <md-select disabled="true" placeholder="User's Rating" [multiple]="true" formControlName="ratings">
-        <md-option *ngFor="let rate of ratings" [value]="rate?.value">
-          {{rate.label}}
-        </md-option>
-      </md-select>
-      <md-select [(ngModel)]="appliedFilters.locations" placeholder="Location" [multiple]="true" formControlName="locations">
-        <md-option *ngFor="let location of locations" [value]="location?.name">
-          {{location?.name}}
-        </md-option>
-      </md-select>
-      <md-select [(ngModel)]="appliedFilters.lengths" placeholder="Length" [multiple]="true" formControlName="lengths">
-        <md-option *ngFor="let length of lengths" [value]="length.value">
-          {{length.label}}
-        </md-option>
-      </md-select>
-      <md-select [(ngModel)]="appliedFilters.skills" placeholder="Skill set" name="skills" [multiple]="true" formControlName="skills">
-        <md-option *ngFor="let skill of skills" [value]="skill?.id">
-          {{skill?.name}}
-        </md-option>
-      </md-select>
+      <app-filter-dropdown [placeholder]="'User\'s rating'" [list]="ratings" [filterCategory]="'ratings'"
+      [disabled]="true">
+      </app-filter-dropdown>
+      <app-filter-dropdown [placeholder]="'Location'" [list]="locations" [filterCategory]="'locations'"
+                           (changes)="applySelectedFilters($event)">
+      </app-filter-dropdown>
+      <app-filter-dropdown [placeholder]="'Length'" [list]="lengths" [filterCategory]="'lengths'"
+                           (changes)="applySelectedFilters($event)">
+      </app-filter-dropdown>
+      <app-filter-dropdown [placeholder]="'Skill set'" [list]="skills" [filterCategory]="'skills'"
+                           (changes)="applySelectedFilters($event)">
+      </app-filter-dropdown>
+
     </div>
     <div class="side-contents">
       <h4>Saved Filters</h4>
@@ -53,7 +66,7 @@
 
     </div>
     <div class="btn-wrapper">
-      <input type="button" class="inline-block" (click)="resetFiltersForm()" value="CLEAR FILTERS">
+      <input type="button" class="inline-block" value="CLEAR FILTERS">
       <input class="btn-success inline-block" type="button" (click)="openFiltersSaveModal()" value="SAVE FILTERS">
     </div>
   </form>
