@@ -43,6 +43,7 @@ export class CreateRequestComponent implements OnInit {
   currentUser: any;
   displayedSessionDuration: string;
   title: string;
+  isAllDaysChecked: boolean;
 
   complementarySkillsPlaceholder: string;
   primarySkillsPlaceholder: string;
@@ -83,6 +84,7 @@ export class CreateRequestComponent implements OnInit {
     this.complementarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MAY have`;
     this.primarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MUST have`;
 
+    this.isAllDaysChecked = false;
   }
 
   /**
@@ -346,15 +348,40 @@ export class CreateRequestComponent implements OnInit {
 
   }
 
-  /**
-   * Checks all days when the all days checkbox is selected
+   /**
+   * Checks the all days checkbox, when all the days has been checked
+   * or unchecks it whenever the allDays checkbox is checked.
+   *
+   * @param {Object} day the day object selected
    *
    * @return {void}
    */
-  checkAllDays() {
-    for (const day of this.daysOfAvailability) {
-      day.checked = true;
+  toggleAllDaysCheckbox(day) {
+    if (this.isAllDaysChecked) {
+      this.isAllDaysChecked = false;
+    } else {
+      if (day.checked) {
+        for (const weekDay of this.daysOfAvailability) {
+          if (!weekDay.checked) {
+            return;
+          }
+        }
+        this.isAllDaysChecked = true;
+      }
     }
+  }
+
+  /**
+   * Checks all the days when the allDays checkbox is checked
+   * or uncheck all the days when the allDays checkbox is uncheck.
+   *
+   * @return {void}
+   */
+  toggleWeekDaysCheckbox() {
+    for (const day of this.daysOfAvailability) {
+      day.checked = !this.isAllDaysChecked;
+    }
+    this.isAllDaysChecked = !this.isAllDaysChecked;
   }
 
   /**

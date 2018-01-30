@@ -59,12 +59,12 @@
             <span class="inline-block">
                 <label class="block days-label">Days</label>
                 <span class="inline-block checkbox-group">
-                    <span (click)="checkAllDays(allDays.value)" class="checkbox-wrapper">
-                      <input ngModel name="all-days" type="checkbox" #allDays class="regular-checkbox" id="all-days">
+                    <span class="checkbox-wrapper">
+                      <input (change)="toggleWeekDaysCheckbox(allDays.value)" [ngModel]= "isAllDaysChecked" name="all-days" type="checkbox" #allDays class="regular-checkbox" id="all-days">
                       <label class="checkbox-label" for="all-days"></label>
                       All days</span>
                     <span *ngFor="let day of daysOfAvailability" class="checkbox-wrapper">
-                      <input [(ngModel)]="day.checked" type="checkbox" name="daysSelected"
+                      <input (change) = "toggleAllDaysCheckbox(day)"  [(ngModel)]="day.checked" type="checkbox" name="daysSelected"
                              value="{{ day.value }}" class="regular-checkbox" id="{{ day.value }}">
                       <label class="checkbox-label" for="{{ day.value }}"></label>
                       {{ day.name }}
