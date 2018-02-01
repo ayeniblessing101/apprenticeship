@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../../../../services/request.service';
-import * as moment from 'moment';
 import { SessionService } from '../../../../services/session.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class InProgressSingleViewComponent implements OnInit {
     this.assignSessionDates(this.request.id);
   }
 
-
   /**
    * Get mentorship dates.
    *
@@ -44,8 +42,6 @@ export class InProgressSingleViewComponent implements OnInit {
         this.sessionDates = response;
       });
   }
-
-
 
   /**
    * Show request details page and hide request schedule page

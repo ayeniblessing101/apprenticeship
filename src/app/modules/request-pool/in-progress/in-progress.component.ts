@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
@@ -62,17 +61,6 @@ export class InProgressComponent implements OnInit {
   formatInProgressRequests(requests): any {
     const requestsInProgress = requests.map((request) => {
       this.user = this.userService.getCurrentUser();
-      const primarySkills = [];
-
-      request.request_skills.forEach(({ type, name }) => {
-        if (type === 'primary') {
-          primarySkills.push(name);
-        }
-      });
-
-      request.primarySkills = primarySkills.slice(0, 2).join(', ');
-      request.dateStarted = moment(request.created_at).format('MMMM DD, YYYY');
-      request.duration = request.duration > 1 ? `${request.duration} months` : `${request.duration} month`;
 
       if (request.mentor_id === this.user.id) {
         request.role = 'Mentor'

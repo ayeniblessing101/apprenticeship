@@ -19,11 +19,16 @@ import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters
 import { FilterService } from '../../../services/filter.service';
 import { NoSearchResultComponent } from 'app/modules/request-pool/no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../../request-pool/filter-dropdown/filter-dropdown.component';
-
+import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
   let fixture: ComponentFixture<AllRequestsPageComponent>;
+  let proposedRequestDuration: ProposedRequestDurationPipe;
+  let requestDuration: RequestDurationPipe;
+  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -47,6 +52,9 @@ describe('AllRequestsPageComponent', () => {
         SaveFiltersModalComponent,
         NoSearchResultComponent,
         FilterDropdownComponent,
+        ProposedRequestDurationPipe,
+        RequestDurationPipe,
+        RequestSkillPipe,
       ],
       providers: [
         Http,
@@ -56,7 +64,10 @@ describe('AllRequestsPageComponent', () => {
         FilterService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
+    proposedRequestDuration = new ProposedRequestDurationPipe;
+    requestDuration = new RequestDurationPipe;
+    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

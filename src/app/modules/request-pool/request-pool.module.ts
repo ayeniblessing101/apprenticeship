@@ -34,7 +34,10 @@ import { SessionService } from '../../services/session.service';
 import { RequestDetailsPageComponent } from './request-details-page/request-details-page.component';
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
-
+import { HistoryPageComponent } from './history-page/history-page.component';
+import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
+import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
+import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -67,6 +70,10 @@ import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.compo
     RequestDetailsPageComponent,
     RequestSchedulePageComponent,
     FilterDropdownComponent,
+    HistoryPageComponent,
+    ProposedRequestDurationPipe,
+    RequestDurationPipe,
+    RequestSkillPipe,
   ],
   exports: [
     PoolComponent,

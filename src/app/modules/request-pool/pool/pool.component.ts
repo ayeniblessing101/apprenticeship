@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
 
-import * as moment from 'moment';
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 
 @Component({
@@ -94,7 +93,7 @@ export class PoolComponent implements OnInit {
     this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
       .toPromise()
       .then((response) => {
-        this.requests = this.formatRequestData(response.requests);
+        this.requests = response.requests;
         this.loadingRequests = false;
         if (this.requests.length === 0 && this.filterParams.category === 'recommended'
           && this.firstPageLoad) {
@@ -119,45 +118,10 @@ export class PoolComponent implements OnInit {
         // concatenate new request data with previous data
         this.requests = [
           ...this.requests,
-          ...this.formatRequestData(response.requests),
+          ...response.requests,
         ];
         this.loadingRequests = false;
       });
-  }
-
-  /**
-   * Formats request data to be displayed
-   *
-   * @param {Array} requests - contains an array of create-request.
-   *
-   * @return {Array} formatted request data
-   */
-  formatRequestData(requests): any {
-    const requestData = requests.map((request) => {
-      const primarySkills = [];
-      const secondarySkills = [];
-      request.request_skills.forEach(({ type, name }) => {
-        switch (type) {
-          case 'primary':
-            primarySkills.push(name);
-            break;
-          case 'secondary':
-            secondarySkills.push(name);
-            break;
-        }
-      });
-
-      request.primarySkills = primarySkills.slice(0, 2).join(', ');
-      request.secondarySkills = secondarySkills.slice(0, 2).join(', ');
-      request.duration = request.duration > 1 ?
-        `${request.duration} Months` : `${request.duration} Month`;
-
-      request.date = moment(request.created_at).format('MMMM DD, YYYY');
-
-      return request;
-    });
-
-    return requestData;
   }
 
   /**

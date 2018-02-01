@@ -27,19 +27,19 @@
                         </li>
                         <li>
                             <strong>Primary Skills</strong> -
-                            <span>{{ request.primarySkills }}</span>
+                            <span>{{ request.request_skills|requestSkill: 'primary' }}</span>
                         </li>
                         <li>
                             <strong>Secondary Skills</strong> -
-                            <span>{{ request.secondarySkills }}</span>
+                            <span>{{ request.request_skills|requestSkill: 'secondary' }}</span>
                         </li>
                         <li>
                             <strong>Preferred Location</strong> -
-                            <span>{{ mentee ? mentee.location : null }}</span>
+                            <span>{{ mentee ? mentee.location : 'Anywhere' }}</span>
                         </li>
                         <li>
                             <strong>Proposed Duration</strong> -
-                            <span>{{ request.duration }} ({{ request.pairingDays }})</span>
+                            <span>{{ request|proposedRequestDuration }}</span>
                         </li>
                     </ul>
                 </div>

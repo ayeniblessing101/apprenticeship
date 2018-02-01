@@ -14,12 +14,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
 import { RequestDetailsModalComponent } from 'app/modules/request-pool/request-details-modal/request-details-modal.component';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
-
+import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 
 describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
   let fixture: ComponentFixture<PoolRecordsComponent>;
   let pageTitle: HTMLElement;
+  let proposedRequestDuration: ProposedRequestDurationPipe;
+  let requestDuration: RequestDurationPipe;
+  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,6 +44,9 @@ describe('PoolRecordsComponent', () => {
         SaveFiltersModalComponent,
         RequestDetailsModalComponent,
         NoSearchResultComponent,
+        ProposedRequestDurationPipe,
+        RequestDurationPipe,
+        RequestSkillPipe,
       ],
       providers: [
         Http,
@@ -47,7 +55,10 @@ describe('PoolRecordsComponent', () => {
         FilterService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
+    proposedRequestDuration = new ProposedRequestDurationPipe;
+    requestDuration = new RequestDurationPipe;
+    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

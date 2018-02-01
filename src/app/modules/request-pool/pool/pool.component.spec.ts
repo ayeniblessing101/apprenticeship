@@ -17,16 +17,21 @@ import { FilterService } from '../../../services/filter.service';
 import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 
-
 import { RequestDetailsModalComponent } from '../request-details-modal/request-details-modal.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
+import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
   let fixture: ComponentFixture<PoolComponent>;
   let pageTitle: HTMLElement;
+  let proposedRequestDuration: ProposedRequestDurationPipe;
+  let requestDuration: RequestDurationPipe;
+  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,6 +55,9 @@ describe('PoolComponent', () => {
         NoSearchResultComponent,
         PoolRecordsComponent,
         FilterDropdownComponent,
+        ProposedRequestDurationPipe,
+        RequestDurationPipe,
+        RequestSkillPipe,
       ],
       providers: [
         Http,
@@ -61,6 +69,9 @@ describe('PoolComponent', () => {
       ],
     })
       .compileComponents();
+    proposedRequestDuration = new ProposedRequestDurationPipe;
+    requestDuration = new RequestDurationPipe;
+    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

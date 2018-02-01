@@ -19,9 +19,9 @@
       <div class="row" (click)="openPendingModal(request)">
         <div>{{ request.title }}</div>
         <div>{{ request.mentee.fullname }}</div>
-        <div>{{ request.primarySkills }}</div>
-        <div>{{ request.duration }}</div>
-        <div>{{ request.created_at | date:'MMMM dd, yyyy' }}</div>
+        <div>{{ request.request_skills|requestSkill: 'primary' }}</div>
+        <div>{{ request.duration|requestDuration }}</div>
+        <div>{{ request.created_at | date:'longDate' }}</div>
         <div>{{ request.location }}</div>
         <div>{{ request.interested?.length || '0' }}</div>
       </div>

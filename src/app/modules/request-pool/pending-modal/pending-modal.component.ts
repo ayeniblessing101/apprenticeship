@@ -8,7 +8,6 @@ import {
   ViewChild,
   HostListener,
 } from '@angular/core';
-import * as moment from 'moment';
 import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 
 import { UserService } from './../../../services/user.service';
@@ -55,10 +54,6 @@ export class PendingModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pairingDays = this.formatDays(this.request.pairing.days);
-    const pairingTime = moment(this.request.pairing.start_time, 'HH:mm')
-      .format('h.mm a');
-    this.request['pairingDays'] = `${pairingDays} at ${pairingTime}`;
     this.userIds = [this.request.mentee_id];
     this.currentUserId = this.userService.getCurrentUser().id;
 
@@ -138,96 +133,6 @@ export class PendingModalComponent implements OnInit {
     });
 
     return formattedUsers;
-  }
-
-  /**
-   * Format days to human friendly days format
-   *
-   * @param {Array} pairingDays - days and time information on pairing
-   *
-   * @return {String} formatted days string
-   */
-  formatDays(pairingDays) {
-    const weekDays = [
-      'monday', 'tuesday', 'wednesday',
-      'thursday', 'friday', 'saturday',
-      'sunday',
-    ];
-
-    if (weekDays.toString() === pairingDays.toString()) {
-      return 'Every day'
-    }
-
-    const daysAreConsecutive =
-      this.checkDaysAreConsecutive(weekDays, pairingDays);
-
-    const capitalisedPairingDays = this.convertToTitleCase(pairingDays);
-
-    const formattedDays =
-      this.createFormattedDays(daysAreConsecutive, capitalisedPairingDays);
-
-    return formattedDays;
-  }
-
-  /**
-   * Check if pairing days are in consecutive order in relation to
-   * weekdays
-   *
-   * @param {String[]} weekDays - all days of the week
-   * @param pairingDays - days which pairing sessions are to be held
-   *
-   * @return {boolean} - true if pairing days are consecutive else false
-   */
-  checkDaysAreConsecutive(weekDays, pairingDays) {
-    return (
-      weekDays.slice(
-        weekDays.indexOf(pairingDays[0]),
-        (weekDays.indexOf(pairingDays[(pairingDays.length - 1)]) + 1),
-      )
-    ).toString() === pairingDays.toString();
-  }
-
-  /**
-   * Create a string of formatted pairing days depending on whether days are
-   * consecutive
-   *
-   * @param {boolean} daysAreConsecutive - value on whether pairing days are
-   *    consecutive
-   * @param {Array} capitalisedDays - contains capitalised pairing days
-   *
-   * @return {String} days that have been formatted
-   */
-  createFormattedDays(daysAreConsecutive, capitalisedDays) {
-    let formattedDays;
-
-    if (!daysAreConsecutive || capitalisedDays.length <= 2) {
-      formattedDays = capitalisedDays.length === 1 ?
-        capitalisedDays[0] : [
-          capitalisedDays.slice(0, capitalisedDays.length - 1)
-            .join(', '),
-          capitalisedDays[capitalisedDays.length - 1],
-        ].join(' & ');
-    } else {
-      const firstDay = capitalisedDays[0];
-      const lastDay = capitalisedDays[capitalisedDays.length - 1];
-      formattedDays = `${firstDay} to ${lastDay}`;
-    }
-
-    return formattedDays;
-  }
-
-  /**
-   * Capitalise first letter of string
-   *
-   * @param {Array} sentence - strings to convertToTitleCase
-   *
-   * @return {String} capitalised string
-   */
-  convertToTitleCase(sentence: string[]) {
-    return sentence.map((word) => {
-      word = word.toLowerCase();
-      return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
-    });
   }
 
   /**

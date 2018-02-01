@@ -1,25 +1,25 @@
 <div #requestModal class="request-modal">
   <div class="modal-heading">
-    {{ selectedRequest.primarySkills.toUpperCase() }} MENTOR
+    {{ selectedRequest.title|uppercase }} MENTOR
     <hr class="underline">
   </div>
   <div class="request-body">
-    <p class="request-description">{{ selectedRequest.title }}</p>
+    <p class="request-description">{{ selectedRequest.description }}</p>
     <p class="request-content">Requested by -
       <span> {{ userInfo ? userInfo.name : null }} </span>
       <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"></star-rating-comp>
     </p>
     <p class="request-content">Primary Skills -
-      <span> {{ selectedRequest.primarySkills }} </span>
+      <span> {{ selectedRequest.request_skills|requestSkill: 'primary'}} </span>
     </p>
     <p class="request-content">Secondary Skills -
-      <span> {{ selectedRequest.secondarySkills }} </span>
+      <span> {{ selectedRequest.request_skills|requestSkill: 'secondary' }} </span>
     </p>
     <p class="request-content">Preffered Location -
-      <span> {{ selectedRequest.location }} </span>
+      <span> {{ selectedRequest.location || "Anywhere" }} </span>
     </p>
     <p class="request-content">Proposed Duration -
-      <span> {{ selectedRequest.duration }} </span>
+      <span> {{ selectedRequest|proposedRequestDuration }} </span>
     </p>
     <div class="modal-footer">
       <div class="button-group">

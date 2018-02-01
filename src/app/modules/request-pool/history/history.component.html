@@ -14,12 +14,12 @@
         </div>
         <div class="space"></div>
         <div *ngFor="let request of requests" class="body">
-          <div class="row">
+          <div class="row" (click)="gotoRequestDetails(request.id)">
             <div>{{ request.title }}</div>
-            <div>{{ request.skills }}</div>
-            <div>{{ request.createdAt }}</div>
-            <div>{{ request.endDate }}</div>
-            <div>{{ request.duration + " Month(s)" }}</div>
+            <div>{{ request.request_skills|requestSkill: 'primary' }}</div>
+            <div>{{ request.match_date|date: 'longDate' }}</div>
+            <div>{{ request.endDate|date: 'longDate' }}</div>
+            <div>{{ request.duration|requestDuration }}</div>
             <div>{{ request.role }}</div>
             <div>
               <star-rating-comp

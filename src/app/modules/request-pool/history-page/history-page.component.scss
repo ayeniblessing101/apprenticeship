@@ -1,0 +1,233 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/loaders';
+
+@mixin indicator-active($width, $color) {
+  width: $width;
+  height: 5px;
+  border-radius: 11px;
+  border: solid 0;
+  background-color: $color;
+}
+
+.wrapper {
+  padding: 90px 90px 90px 120px;
+}
+
+.header {
+  position: fixed;
+  width: 90%;
+  margin-left: -25px;
+}
+
+.header-bar {
+  margin-right: 30px;
+
+  li {
+    display: inline;
+    list-style: none;
+
+    .header-buttons {
+      display: inline-block;
+      float: right;
+      width: 200px;
+      height: 17px;
+      padding: 5px;
+      margin-right: -48px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      color: #323c47;
+      background-color: #e9eff47a;
+    }
+
+    .header-title {
+      display: inline-block;
+      width: auto;
+      height: 28px;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: left;
+      color: #3359db;
+
+      .indicator-active {
+        margin-left: 0;
+        @include indicator-active(70px, #3359db);
+      }
+    }
+
+    button {
+      cursor: pointer;
+      width: 94px;
+      height: 34px;
+      border-radius: 3px;
+      border: solid 0;
+      outline: none;
+      box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
+
+      &.inactive {
+        opacity: 0.45;
+      }
+    }
+  }
+}
+
+@mixin button($width) {
+  cursor: pointer;
+  width: $width;
+  height: 25px;
+  border-radius: 0;
+}
+
+.history {
+  position: fixed;
+  overflow-y: auto;
+}
+
+.add-file {
+  @include button(66px);
+  border: solid 1px #3359db;
+}
+
+.log-session {
+  @include button(87px);
+  border: solid 0px;
+  background-color: #3359db;
+  color: #ffffff;
+}
+
+.inactive {
+  background-color: rgba(152, 152, 152, 0.2);
+}
+
+.row {
+  display: block;
+  overflow-x: scroll;
+  width: auto;
+  direction: ltr;
+}
+
+.card {
+  float: left;
+  margin: 90px 0 0 45px;
+  width: 303px;
+  height: auto;
+  min-height: 107px;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
+}
+
+.card-header {
+  display: inline-block;
+  width: auto;
+  height: 21px;
+  font-family: $font-family-1;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  text-align: left;
+  color: #474f58;
+  padding: 10px;
+
+  .indicator-active {
+    margin-left: 0;
+    @include indicator-active(40px, #3359db);
+  }
+
+  .indicator-inactive {
+    margin-left: 0;
+    @include indicator-active(40px, rgba(152, 152, 152, 0.2));
+  }
+}
+
+.card-body {
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.card-header-buttons {
+  display: inline;
+  float: right;
+}
+
+.file {
+  width: 263px;
+  height: auto;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: solid 1px #e9eff4;
+  padding: 21px 15px 21px 15px;
+  margin: 15px 0 15px 0;
+  font-family: $font-family-1;
+
+  p {
+    &.name {
+      width: auto;
+      height: 18px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      text-align: left;
+      color: #323c47;
+    }
+
+    &.file-time {
+      width: auto;
+      height: 14px;
+      opacity: 0.7;
+      font-size: 11px;
+      letter-spacing: -0.3px;
+      text-align: left;
+      color: #989898;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  font-family: $font-family-1;
+  font-size: 12px;
+  text-align: left;
+  margin-right: 10px;
+
+  &.download {
+    width: 53px;
+    height: 12px;
+    line-height: 1;
+    color: #3359db;
+  }
+
+  &.file-name {
+    width: 80px;
+    height: 15px;
+    opacity: 0.7;
+    letter-spacing: -0.3px;
+    color: #989898;
+  }
+
+  &.delete {
+    width: 35px;
+    height: 15px;
+    font-size: 12px;
+    color: #989898;
+  }
+}
+
+.container {
+  display: block;
+  width: 100%;
+}
+
+.inactive-button {
+  background-color: transparent !important;
+  color: #989898;
+  opacity: 0.45;
+}

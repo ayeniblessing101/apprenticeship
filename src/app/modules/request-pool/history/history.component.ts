@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { RequestService } from '../../../services/request.service';
 import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history',
@@ -16,6 +16,7 @@ export class HistoryComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private userService: UserService,
+    private route: Router,
   ) {}
 
   ngOnInit() {
@@ -32,11 +33,11 @@ export class HistoryComponent implements OnInit {
     this.requestService.getUserHistory()
       .toPromise()
       .then(
-        (response) => {
-          this.loading = false;
-          this.requests = this.formatRequests(response);
-        },
-      )
+      (response) => {
+        this.loading = false;
+        this.requests = this.formatRequests(response);
+      },
+    )
   }
 
   /**
@@ -51,23 +52,22 @@ export class HistoryComponent implements OnInit {
       const oneDay = 1000 * 60 * 60 * 24;
       const startDate = new Date(request.match_date.split(' ')[0]);
       const mentorshipEndDate = new Date(duration * oneDay + startDate.getTime());
-      request.endDate = moment(mentorshipEndDate).format('MMMM D, YY');
-      request.createdAt = moment(request.created_at).format('MMMM D, YY');
-      delete request.created_at;
-
+      request.endDate = mentorshipEndDate;
       request.role = request.mentee_id === this.userService.getCurrentUser().id ? 'Mentee' : 'Mentor';
-
-      const primarySkills = [];
-      request.request_skills.forEach(({ type, name }) => {
-        if (type === 'primary') {
-          primarySkills.push(name);
-        }
-      });
-      request.skills = primarySkills.join(',');
-      delete request.request_skills;
-
       return request;
     });
     return requests;
   }
+
+  /**
+   * Navigate to history page to view details and schedules
+   *
+   * @param {number} requestId - Id of the request we need to see history for
+   *
+   * @return {void}
+   */
+  gotoRequestDetails(requestId) {
+    this.route.navigate(['request-pool/history/', requestId]);
+  }
+
 }

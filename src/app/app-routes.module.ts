@@ -15,6 +15,7 @@ import { AdminGuard } from './services/admin-guard.service';
 import { HeaderComponent } from './modules/shared/header/header.component';
 import { InProgressSingleViewComponent } from './modules/request-pool/in-progress/in-progress-single-view/in-progress-single-view.component';
 import { RequestResolver } from './resolvers/request.resolver';
+import { HistoryPageComponent } from './modules/request-pool/history-page/history-page.component';
 
 const appRoutes: Routes = [
 
@@ -27,6 +28,15 @@ const appRoutes: Routes = [
   { path: 'request-pool', component: PoolComponent, canActivate: [AuthGuard] },
 
   { path: 'request-pool/history', component: HistoryComponent, canActivate: [AuthGuard] },
+
+  {
+    path: 'request-pool/history/:id',
+    component: HistoryPageComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      request: RequestResolver,
+    },
+  },
 
   { path: 'request-pool/in-progress', component: InProgressComponent, canActivate: [AuthGuard] },
 

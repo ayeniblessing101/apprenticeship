@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SessionService } from '../../../services/session.service';
 import { InProgressComponent } from './in-progress.component';
-
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 
 describe('InProgressComponent', () => {
   let component: InProgressComponent;
@@ -18,6 +19,8 @@ describe('InProgressComponent', () => {
   const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
   }
+  let requestDuration: RequestDurationPipe;
+  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,6 +31,8 @@ describe('InProgressComponent', () => {
         InProgressComponent,
         NoSearchResultComponent,
         CalendarComponent,
+        RequestDurationPipe,
+        RequestSkillPipe,
       ],
       providers: [
         Http,
@@ -38,7 +43,9 @@ describe('InProgressComponent', () => {
         SessionService,
       ],
     })
-    .compileComponents();
+      .compileComponents();
+    requestDuration = new RequestDurationPipe;
+    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="wrapper">
+        <div class="header">
+            <ul class="header-bar">
+                <li>
+                    <span class="header-title">{{request.title|uppercase}}
+                        <hr class="indicator-active">
+                    </span>
+                </li>
+                <li>
+                    <div class="header-buttons">
+                        <button (click)="showRequestSchedule()"
+                            [ngClass]="{'inactive-button': !isRequestScheduleVisible}">Schedule</button>
+                        <button (click)="showRequestDetail()"
+                            [ngClass]="{'inactive-button': !isRequestDetailsVisible}">Details</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="history">
+            <div *ngIf="isRequestDetailsVisible">
+                <app-request-details-page [request]="request"></app-request-details-page>
+            </div>
+        </div>
+    </div>
+</div>

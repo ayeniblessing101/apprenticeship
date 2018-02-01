@@ -17,9 +17,9 @@
               </star-rating-comp>
        </div>
     </div>
-      <div class="request-details"><b>Primary Skills - </b><span>{{ primarySkills || 'None' }}</span></div>
-      <div class="request-details"><b>Secondary Skills - </b><span>{{ secondarySkills || 'None' }}</span></div>
+      <div class="request-details"><b>Primary Skills - </b><span>{{ request.request_skills|requestSkill: 'primary' || 'None' }}</span></div>
+      <div class="request-details"><b>Secondary Skills - </b><span>{{ request.request_skills|requestSkill: 'secondary' || 'None' }}</span></div>
       <div class="request-details"><b>Preffered Location - </b><span>{{ request.location || 'Anywhere' }}</span></div>
-      <div class="request-details"><b>Proposed Duration - </b><span>{{ request.duration }}</span></div>
+      <div class="request-details"><b>Proposed Duration - </b><span>{{ request|proposedRequestDuration }}</span></div>
   </div>
 </div>
