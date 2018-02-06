@@ -26,7 +26,8 @@
           <label>Basic Skills</label>
           <app-skills-dropdown [list]="skillNames"
                          [skillsLength]="basicSkills.length" (changes)="saveSkills('basic', $event)"
-                         [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills">
+                         [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills"
+                         id="basic-skills">
           </app-skills-dropdown>
         </div>
         <div class="skill-list" *ngIf="basicSkills.length">
@@ -61,7 +62,7 @@
                 <span class="inline-block checkbox-group">
                     <span class="checkbox-wrapper">
                       <input (change)="toggleWeekDaysCheckbox(allDays.value)" [ngModel]= "isAllDaysChecked" name="all-days" type="checkbox" #allDays class="regular-checkbox" id="all-days">
-                      <label class="checkbox-label" for="all-days"></label>
+                      <label class="checkbox-label" for="all-days" id="all-days-checkbox"></label>
                       All days</span>
                     <span *ngFor="let day of daysOfAvailability" class="checkbox-wrapper">
                       <input (change) = "toggleAllDaysCheckbox(day)"  [(ngModel)]="day.checked" type="checkbox" name="daysSelected"

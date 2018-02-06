@@ -18,8 +18,8 @@
     <li class="dropdown">
       <button class="request-option" id="request-button"> REQUEST FOR</button>
       <div class="admin-content common-dropdown-styles">
-        <a (click)="showCreateRequestModal('mentor')">MENTOR</a>
-        <a (click)="showCreateRequestModal('mentee')">MENTEE</a>
+        <a id="mentor" (click)="showCreateRequestModal('mentor')">MENTOR</a>
+        <a id="mentee" (click)="showCreateRequestModal('mentee')">MENTEE</a>
       </div>
     </li>
     <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>
@@ -33,7 +33,7 @@
       <img class="img-circular" src="{{currentUser?.picture}}" alt="" width="32px" height="32px">
       <span class="arrow-down"></span>
       <div class="dropdown-content common-dropdown-styles">
-        <a href="/profile">VIEW PROFILE</a>
+        <a id="view-profile" href="/profile">VIEW PROFILE</a>
         <a href="#">SETTINGS</a>
         <a href="#" class="sign-out" (click)="logoutUser()">SIGN OUT</a>
       </div>

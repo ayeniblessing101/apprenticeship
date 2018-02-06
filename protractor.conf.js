@@ -5,7 +5,7 @@
 var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  // seleniumAddress: 'http://localhost:4444/wd/hub',
   allScriptsTimeout: 11000,
   specs: [
     './e2e/**/*.e2e-spec.ts'
@@ -13,7 +13,8 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome'
   },
-  directConnect: false,
+  directConnect: true,
+  baseUrl: 'http://lenken-dev.andela.com:4200',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
@@ -28,5 +29,6 @@ exports.config = {
   },
   onPrepare: function() {
     jasmine.getEnv().addReporter(new SpecReporter());
+    browser.manage().window().maximize();
   }
 };

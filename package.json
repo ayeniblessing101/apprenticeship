@@ -52,9 +52,11 @@
     "ngx-accordion": "0.0.17",
     "ngx-infinite-scroll": "^0.6.1",
     "ngx-pagination": "^3.0.1",
+    "reflect-metadata": "^0.1.12",
     "rxjs": "^5.1.0",
+    "ts-node": "^4.1.0",
     "tslint-config-airbnb": "^5.3.1",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "@angular/language-service": "^4.0.0",
@@ -70,6 +72,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
+    "reflect-metadata": "^0.1.12",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
     "typescript": "2.4.1"

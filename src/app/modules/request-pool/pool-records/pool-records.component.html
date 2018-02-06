@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="space"></div>
-  <div *ngFor="let request of requests" class="body">
+  <div *ngFor="let request of requests" class="body" id="request-pool">
     <div class="row" (click)="showRequestDetails(request)">
       <div>{{ request.title }}</div>
       <div>{{ request.request_skills|requestSkill: 'primary' }}</div>

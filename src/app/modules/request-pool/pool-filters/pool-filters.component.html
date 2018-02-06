@@ -38,7 +38,7 @@
       <app-filter-dropdown [placeholder]="'User\'s rating'" [list]="ratings" [filterCategory]="'ratings'"
       [disabled]="true">
       </app-filter-dropdown>
-      <app-filter-dropdown [placeholder]="'Location'" [list]="locations" [filterCategory]="'locations'"
+      <app-filter-dropdown id="location" [placeholder]="'Location'" [list]="locations" [filterCategory]="'locations'"
                            (changes)="applySelectedFilters($event)">
       </app-filter-dropdown>
       <app-filter-dropdown [placeholder]="'Length'" [list]="lengths" [filterCategory]="'lengths'"
