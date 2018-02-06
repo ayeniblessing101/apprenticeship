@@ -28,6 +28,7 @@
   margin-top: 4em;
   position: fixed;
   background: $primary-background-color;
+  width: 100%;
 }
 
 .card-container {
@@ -35,29 +36,33 @@
   margin-top: 20px;
   margin-right: 115px;
   position: relative;
+  width: 85%;
+  height: 160px;
 }
 
 .card {
   position: relative;
   border-radius: 10px;
   margin: 6px;
-  width: 280px;
+  width: 18.85%;
   height: 113px;
   box-sizing: border-box;
   background-color: #ffffff;
   display: flex;
   border: 5px solid #ffffff;
   cursor: pointer;
-  &:hover { 
-    position: relative; 
+  &:hover {
     top: -5px;
   }
   &.active{
-    &:nth-last-child(4){
-      border-bottom-color: #ffaf30;
+    &:nth-last-child(5){
+      border-bottom-color: #0A21A8;
     }
-    &:nth-last-child(3){
+    &:nth-last-child(4){
       border-bottom-color: #3359db;
+    }
+    &:nth-last-child(3) {
+      border-bottom-color: #ffaf30;
     }
     &:nth-last-child(2){
       border-bottom-color: #4fab00;
@@ -75,7 +80,7 @@
     color: #323c47;
     margin: 20px;
     .statistics {
-      width: 200px;
+      width: 92%;
       font-size: 48px;
       line-height: 0.58;
       text-align: right;
@@ -116,7 +121,7 @@
   display: inline-block;
   float: right;
   margin-top: 45px;
-  margin-right: 131px;
+  margin-right: 182px;
 }
 
 

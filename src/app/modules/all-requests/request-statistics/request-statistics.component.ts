@@ -25,11 +25,12 @@ export class RequestStatisticsComponent implements OnInit {
   requests = [
     { status: 'Total Requests', statistic: 0 },
     { status: 'Open Requests', statistic: 0 },
+    { status: 'Matched Requests', statistic: 0 },
     { status: 'Completed Requests', statistic: 0 },
     { status: 'Cancelled Requests', statistic: 0 },
   ];
   selectedStatus = 'Total Requests';
-  headerName = 'All Requests'
+  headerName = 'All Requests';
 
   constructor(
     private requestService: RequestService,
@@ -57,8 +58,9 @@ export class RequestStatisticsComponent implements OnInit {
       .then((statistics) => {
         this.requests[0].statistic = statistics.totalRequests;
         this.requests[1].statistic = statistics.totalOpenRequests;
-        this.requests[2].statistic = statistics.totalCancelledRequests;
+        this.requests[2].statistic = statistics.totalMatchedRequests;
         this.requests[3].statistic = statistics.totalCompletedRequests;
+        this.requests[4].statistic = statistics.totalCancelledRequests;
       },
     )
   }
@@ -122,6 +124,9 @@ export class RequestStatisticsComponent implements OnInit {
         break;
       case 'Cancelled Requests':
         status_id = 4;
+        break;
+      case 'Matched Requests':
+        status_id = 2;
         break;
       case 'Completed Requests':
         status_id = 3;
