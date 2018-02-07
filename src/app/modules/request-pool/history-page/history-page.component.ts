@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HistoryPageComponent {
   request: any;
+  showAddFileButton = false;
+  showLogSessionButton = false;
   isRequestScheduleVisible = true;
   isRequestDetailsVisible = false;
   constructor(

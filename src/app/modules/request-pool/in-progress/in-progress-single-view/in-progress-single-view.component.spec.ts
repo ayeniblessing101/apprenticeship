@@ -7,8 +7,8 @@ import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CalendarComponent } from '../calendar/calendar.component';
-import { SharedModule } from '../../../shared/shared.module';
 import { SessionService } from '../../../../services/session.service';
+import { FileService } from '../../../../services/files.service';
 import { InProgressSingleViewComponent } from './in-progress-single-view.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { RequestDetailsPageComponent } from '../../request-details-page/request-details-page.component';
@@ -34,7 +34,6 @@ describe('InProgressSingleViewComponent', () => {
         RequestSkillPipe,
       ],
       imports: [
-        SharedModule,
         HttpModule,
         StarRatingModule.forRoot(),
       ],
@@ -47,6 +46,7 @@ describe('InProgressSingleViewComponent', () => {
         RequestService,
         UserService,
         SessionService,
+        FileService,
       ],
     })
       .compileComponents();

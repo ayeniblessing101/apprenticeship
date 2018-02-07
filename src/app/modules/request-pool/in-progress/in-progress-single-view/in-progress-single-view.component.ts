@@ -12,6 +12,7 @@ export class InProgressSingleViewComponent implements OnInit {
 
   sessionDates: any;
   request: any;
+  showButton = true;
   isRequestScheduleVisible = true;
   isRequestDetailsVisible = false;
   constructor(

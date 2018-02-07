@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import * as moment from 'moment'
+import { FileService } from 'app/services/files.service';
 
 @Component({
   selector: 'app-request-schedule-page',
@@ -10,12 +11,15 @@ import * as moment from 'moment'
 
 export class RequestSchedulePageComponent implements OnInit {
   @Input() request;
+  @Input() showAddFileButton = true;
+  @Input() showLogSessionButton = true;
   nextSessionDate: any;
   sessions: any;
   pageWidth: string;
 
   constructor (
-     private requestService: RequestService,
+    private requestService: RequestService,
+    private fileService: FileService,
   ) {}
 
   ngOnInit() {
@@ -78,5 +82,40 @@ export class RequestSchedulePageComponent implements OnInit {
 
         this.pageWidth = (sessionsCount * 450).toString().concat('px');
       })
+  }
+
+  /**
+   * Downloads file by generating the url on demand and downloading the file
+   *
+   * @param {Number} fileId - ID of file to be downloaded
+   *
+   * @return {void}
+   */
+  downloadFile(fileId) {
+    this.fileService.getFileDownloadUrl(fileId)
+      .toPromise()
+      .then((response) => {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = response.url
+        downloadLink.click();
+      });
+  }
+
+  /**
+   * Deletes file from session
+   *
+   * @param {Object} session - ID of the session to delete file from
+   * @param {Object} file - ID of file to be deleted
+   *
+   * @return {void}
+   */
+  deleteFile(session, file) {
+    this.fileService.deleteSessionFile(session.id, file.id)
+      .toPromise()
+      .then((response) => {
+        const sessionLocation = this.sessions.indexOf(session);
+        const fileLocation = this.sessions[sessionLocation].files.indexOf(file);
+        this.sessions[sessionLocation].files.splice(fileLocation, 1);
+      });
   }
 }

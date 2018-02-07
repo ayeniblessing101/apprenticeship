@@ -1,7 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
+import { HttpModule } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { StarRatingModule } from 'angular-star-rating';
+import { HttpService as Http } from '../../../services/http.service';
+import { UserService } from '../../../services/user.service';
+import { RequestService } from '../../../services/request.service';
+import { FileService } from '../../../services/files.service';
+import { RequestSchedulePageComponent } from '../request-schedule-page/request-schedule-page.component';
 import { HistoryPageComponent } from './history-page.component';
 import { RequestDetailsPageComponent } from '../request-details-page/request-details-page.component';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
@@ -19,13 +25,19 @@ describe('HistoryPageComponent', () => {
       declarations: [
         HistoryPageComponent,
         RequestDetailsPageComponent,
+        RequestSchedulePageComponent,
         ProposedRequestDurationPipe,
         RequestSkillPipe,
       ],
       imports: [
         StarRatingModule.forRoot(),
+        HttpModule,
       ],
       providers: [
+        RequestService,
+        FileService,
+        UserService,
+        Http,
         { provide: ActivatedRoute, useValue: { data: routeStub } },
       ],
     })

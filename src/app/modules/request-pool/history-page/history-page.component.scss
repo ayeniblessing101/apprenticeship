@@ -82,11 +82,6 @@
   border-radius: 0;
 }
 
-.history {
-  position: fixed;
-  overflow-y: auto;
-}
-
 .add-file {
   @include button(66px);
   border: solid 1px #3359db;

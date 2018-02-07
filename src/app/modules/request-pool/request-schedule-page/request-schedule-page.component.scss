@@ -38,25 +38,30 @@
 
 .row {
   display: block;
-  overflow-x: scroll;
-  width: auto;
   direction: ltr;
+  height: 70vh;
 }
 
 .card {
   float: left;
   margin: 90px 0 0 45px;
   width: 303px;
-  height: auto;
-  min-height: 107px;
+  min-height: 17px;
+  max-height: 72vh;
   padding: 20px;
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.header {
+   display: inline-flex;
+   width: 100%;
+   margin-bottom: 15px;
 }
 
 .card-header {
-  display: inline-block;
   width: auto;
   height: 21px;
   font-family: $font-family-1;
@@ -65,7 +70,7 @@
   letter-spacing: 0.1px;
   text-align: left;
   color: #474f58;
-  padding: 10px;
+  padding-right: 75px;
 
     .indicator-active {
     margin-left: 0;
@@ -78,16 +83,12 @@
 }
 
 .card-body {
-  overflow-y: scroll;
+  overflow: auto;
+  max-height: calc(72vh - 50px);
 }
 
 ::-webkit-scrollbar {
   width: 0px;
-}
-
-.card-header-buttons {
-  display: inline;
-  float: right;
 }
 
 .file {

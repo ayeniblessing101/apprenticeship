@@ -48,11 +48,13 @@ export class CalendarComponent implements OnInit, OnChanges {
     const queryDate = date.format('YYYY-MM-DD');
     const status = [];
 
-    this.sessionDates.forEach((sessionDate) => {
-      if (sessionDate.date === queryDate) {
-        status.push(sessionDate.status);
-      }
-    });
+    if (this.sessionDates) {
+      this.sessionDates.forEach((sessionDate) => {
+        if (sessionDate.date === queryDate) {
+          status.push(sessionDate.status);
+        }
+      });
+    }
 
     if (!status.includes('missed') && status.includes('completed')) {
       return 'completed';

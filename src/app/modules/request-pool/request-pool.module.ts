@@ -15,6 +15,7 @@ import {
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
 import { RequestResolver } from '../../resolvers/request.resolver';
+import { FileService } from '../../services/files.service';
 
 import { SaveFiltersModalComponent } from './save-filters-modal/save-filters-modal.component';
 import { PoolComponent } from './pool/pool.component';
@@ -86,6 +87,7 @@ import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
     SaveFiltersModalComponent,
     RequestService,
     SessionService,
+    FileService,
     RequestResolver,
   ],
 })

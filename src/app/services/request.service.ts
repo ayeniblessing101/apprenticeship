@@ -438,7 +438,7 @@ export class RequestService {
    * @return {observable} sessions
    */
   getRequestSessions(requestId: number): Observable<any> {
-    return this.http.get(`${this.apiBaseUrl}/v2/requests/in-progress/${requestId}`)
+    return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
