@@ -2,8 +2,7 @@
   <div *ngFor="let session of sessions">
     <div class="card">
       <div class="header">
-        <span class="card-header">
-          {{formatSessionDate(session.date)}}
+        <span class="card-header">{{formatSessionDate(session.date)}}
           <hr class="indicator-active">
         </span>
         <div>
@@ -36,7 +35,7 @@
         <span class="card-header">{{formatSessionDate(nextSessionDate)}}
           <hr class="indicator-inactive">
         </span>
-        <div class="card-header-buttons">
+        <div>
           <button *ngIf="showAddFileButton" class="add-file">Add file</button>
           <button *ngIf="showLogSessionButton" class="log-session inactive">Log Session</button>
         </div>
