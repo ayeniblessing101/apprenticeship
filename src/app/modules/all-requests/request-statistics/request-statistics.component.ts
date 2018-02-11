@@ -56,11 +56,11 @@ export class RequestStatisticsComponent implements OnInit {
     this.requestService.getRequestStatistics(options)
       .toPromise()
       .then((statistics) => {
-        this.requests[0].statistic = statistics.totalRequests;
-        this.requests[1].statistic = statistics.totalOpenRequests;
-        this.requests[2].statistic = statistics.totalMatchedRequests;
-        this.requests[3].statistic = statistics.totalCompletedRequests;
-        this.requests[4].statistic = statistics.totalCancelledRequests;
+        this.requests[0].statistic = statistics.total;
+        this.requests[1].statistic = statistics.open;
+        this.requests[2].statistic = statistics.matched;
+        this.requests[3].statistic = statistics.completed;
+        this.requests[4].statistic = statistics.cancelled;
       },
     )
   }
