@@ -24,6 +24,7 @@ import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.comp
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -58,6 +59,7 @@ describe('PoolComponent', () => {
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
+        SaveFiltersComponent,
       ],
       providers: [
         Http,

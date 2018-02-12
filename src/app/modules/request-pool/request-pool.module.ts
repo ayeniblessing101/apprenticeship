@@ -39,6 +39,8 @@ import { HistoryPageComponent } from './history-page/history-page.component';
 import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
+import { SaveFiltersComponent } from './save-filters/save-filters.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -75,6 +77,7 @@ import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
     ProposedRequestDurationPipe,
     RequestDurationPipe,
     RequestSkillPipe,
+    SaveFiltersComponent,
   ],
   exports: [
     PoolComponent,

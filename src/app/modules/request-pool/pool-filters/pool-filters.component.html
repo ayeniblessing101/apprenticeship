@@ -49,25 +49,8 @@
       </app-filter-dropdown>
 
     </div>
-    <div class="side-contents">
-      <h4>Saved Filters</h4>
-      <div class="saved-filters">
-      <h6 *ngIf="savedFiltersNames.length === 0">You are yet to save any filter</h6>
-        <md-radio-group (change)="applySavedFilters($event)">
-          <div class="saved-filter" *ngFor="let filterName of savedFiltersNames">
-            <span>
-              <md-radio-button [value]="filterName"></md-radio-button>
-              {{filterName}}
-            </span>
-            <input (click)="confirmFiltersDelete($event)" class="btn-delete-filter" type="button" [id]="filterName">
-          </div>
-        </md-radio-group>
-      </div>
 
-    </div>
-    <div class="btn-wrapper">
-      <input type="button" class="inline-block" value="CLEAR FILTERS">
-      <input class="btn-success inline-block" type="button" (click)="openFiltersSaveModal()" value="SAVE FILTERS">
-    </div>
+    <app-save-filters (resetFilters)="resetFilters()" [filters]="selectedFilters" (applySavedFilter)="applySavedFilter($event)"></app-save-filters>
+
   </form>
 </div>

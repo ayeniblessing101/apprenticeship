@@ -1,0 +1,146 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+
+.side-contents {
+  width: inherit;
+  margin-bottom: 1.5em;
+  margin-left: 10px;
+  text-align: left;
+  color: #747474;
+
+  .requests-radio-encloser {
+    margin-top: 1px;
+    .requests-radio {
+      @keyframes ripple {
+        0% {
+          box-shadow: 0em 0em 0em 0.0625em #fffacd;
+        }
+        50% {
+          box-shadow: 0em 0em 0em 0.9375em #B0E2FF;
+        }
+        100% {
+          box-shadow: 0em 0em 0em 0.9375em rgba(0, 0, 0, 0);
+        }
+      }
+      font-family: DINRegular;
+      input[type="radio"] {
+        display: none;
+        margin: 0.1875em 0em;
+        &:checked + label:before {
+          border-color: $andela-blue;
+          animation: ripple 0.2s linear forwards;
+          box-sizing: border-box;
+        }
+        &:checked + label:after {
+          transform: scale(1);
+        }
+      }
+
+      label {
+        display: inline-block;
+        height: 1.25em;
+        position: relative;
+        padding: 0 (1.25em + 0.625em);
+        margin-bottom: 0;
+        cursor: pointer;
+        vertical-align: bottom;
+        &:before, &:after {
+          position: absolute;
+          content: '';
+          border-radius: 50%;
+          transition: all .3s ease;
+          transition-property: transform, border-color;
+          box-sizing: border-box;
+        }
+        &:before {
+          left: 0;
+          top: 0;
+          width: 1.25em;
+          height: 1.25em;
+          border: 0.125em solid $grey-light-600;
+        }
+        &:after {
+          top: 1.25em / 2 - 0.625em / 2;
+          left: 1.25em / 2 - 0.625em / 2;
+          width: 0.625em;
+          height: 0.625em;
+          transform: scale(0);
+          background: $andela-blue;
+        }
+      }
+    }
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: #747474;
+    margin-bottom: 10px;
+  }
+}
+
+input[type="button"] {
+  all: unset;
+  display: inline-block;
+  width: 48%;
+  height: 44px;
+  border: solid 1px #3359db;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #3359db;
+  background-color: #ffffffff;
+  cursor: pointer;
+}
+
+.btn-success {
+  all: unset;
+  width: 49%px;
+  height: 44px;
+  border: solid 1px #3359db;
+  background-color: #3359db !important;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+.btn-wrapper {
+  background-color: #3359db;
+  position: fixed;
+  bottom: 0px;
+  width: 25%;
+  margin-left: 0px;
+  display: flex;
+}
+
+.btn-delete-filter {
+  background: url('../../../../assets/images/ic-delete-24-px@2x.png')  no-repeat !important;
+  background-size: contain !important;
+  background-position: center bottom;
+  width: 30px !important;
+  height: 16px !important;
+  border: 0 !important;
+  margin-top: auto !important;
+  cursor: pointer;
+}
+
+.saved-filters {
+  cursor: pointer;
+  height: 5em;
+  overflow-y: scroll;
+  border-color: #747474;
+  border-style: none;
+  border-width: 0 0 1px;
+}
+
+.saved-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100% !important;
+}

@@ -122,11 +122,9 @@ export class SaveFiltersModalComponent implements OnInit {
    * @returns {void}
    */
   persistSavedFilters(): void {
-    localStorage.
-      setItem('savedFilters', JSON.stringify(this.savedFilters));
+    localStorage.setItem('savedFilters', JSON.stringify(this.savedFilters));
     const savedFilterNames = Object.keys(this.savedFilters).reverse();
-    this.updateSavedFiltersNames
-      .emit(savedFilterNames);
+    this.updateSavedFiltersNames.emit(savedFilterNames);
     this.isError = false;
     this.close.emit();
   }

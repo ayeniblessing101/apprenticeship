@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-filter-dropdown',
   templateUrl: './filter-dropdown.component.html',
   styleUrls: ['./filter-dropdown.component.scss'],
 })
-export class FilterDropdownComponent {
+export class FilterDropdownComponent implements OnInit {
   @Input() list: any[];
   @Input() placeholder: string;
   @Input() filterCategory: string;
@@ -13,12 +13,12 @@ export class FilterDropdownComponent {
 
   @Output() changes = new EventEmitter();
 
-  checkedList: any[] = [];
+  checkedList: any[];
   checkedNumbers = [];
   showDropDown: boolean;
   filterDetails = {};
 
-  constructor() {
+  ngOnInit() {
     this.checkedList = [];
     this.filterDetails[this.filterCategory] = this.list;
   }
@@ -61,5 +61,39 @@ export class FilterDropdownComponent {
       filtersToEmit['value'] = this.checkedList;
     }
     this.changes.emit(filtersToEmit);
+  }
+
+  /**
+   * Clears the checked list
+   *
+   * @return void
+   */
+  clearCheckedList() {
+    this.checkedList = [];
+  }
+
+  /**
+   * Make filters checked
+   * @param {object} filter - Filters to check.
+   *
+   * @return {void}
+   */
+  checkFilters(filters) {
+    const checkList = [];
+    this.list.forEach((element) => {
+      if (filters[this.filterCategory].includes(element.name)) {
+        element.checked = true;
+        checkList.push(element.name);
+      } else if (filters[this.filterCategory].includes(element.value)) {
+        element.checked = true;
+        checkList.push(element.label);
+      } else if (filters[this.filterCategory].includes(element.id)) {
+        element.checked = true;
+        checkList.push(element.name);
+      } else {
+        element.checked = false;
+      }
+    });
+    this.checkedList = checkList;
   }
 }

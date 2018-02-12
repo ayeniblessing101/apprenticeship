@@ -1,0 +1,29 @@
+<app-save-filters-modal (updateSavedFiltersNames)="updateSavedFiltersNames($event)" [filters]="filters" (close)="closeSaveFiltersModal()"
+  *ngIf="isSaveFiltersModalOpened">
+</app-save-filters-modal>
+
+<div>
+  <div class="side-contents">
+    <h4>Saved Filters</h4>
+    <div class="saved-filters">
+      <h6 *ngIf="savedFiltersNames.length === 0">You are yet to save any filter</h6>
+      <div *ngFor="let filterName of savedFiltersNames">
+        <div class="saved-filter">
+          <div class="requests-radio-encloser">
+            <div class="requests-radio">
+              <span>
+                <input type="radio" [value]="filterName" (click)="applyFilter(filterName)" [id]="filterName" name="filters">
+                <label [for]="filterName">{{ filterName }}</label>
+              </span>
+            </div>
+          </div>
+          <input (click)="confirmDeleteFilter($event)" class="btn-delete-filter" type="button" [id]="filterName">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-wrapper">
+    <input type="button" class="inline-block" (click)="clearFilters()" value="CLEAR FILTERS">
+    <input class="btn-success inline-block" type="button" (click)="openSaveFiltersModal()" value="SAVE FILTERS">
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChildren, QueryList } from '@angular/core';
 import { FilterService } from 'app/services/filter.service';
 import { localStorage } from 'app/globals';
 import { AlertService } from 'app/services/alert.service';
+import { FilterDropdownComponent } from 'app/modules/request-pool/filter-dropdown/filter-dropdown.component';
 
 enum REQUEST_STATUS {
   OPEN = 1,
@@ -15,10 +16,12 @@ enum REQUEST_STATUS {
   templateUrl: './pool-filters.component.html',
   styleUrls: ['./pool-filters.component.scss'],
 })
+
 export class PoolFiltersComponent implements OnInit {
   @Output() applyFilters = new EventEmitter<any>();
   @Output() openSaveFiltersModal = new EventEmitter();
   @Input() savedFiltersNames: string[];
+  @ViewChildren(FilterDropdownComponent) filterDropdowns: QueryList<FilterDropdownComponent>;
 
   defaultFilters: object;
   filterToDelete: string;
@@ -28,7 +31,7 @@ export class PoolFiltersComponent implements OnInit {
   ratings: any = [];
   locations: any = [];
   lengths: any = [];
-
+  isSkillsFetched = false;
   selectedFilters = {};
   filters: any;
 
@@ -44,12 +47,11 @@ export class PoolFiltersComponent implements OnInit {
       skills: [],
       lengths: [],
     };
-
-    this.deleteSavedFilters = this.deleteSavedFilters.bind(this);
   }
 
   ngOnInit() {
     this.initializeFilters();
+    this.isSkillsFetched = true;
   }
 
   /**
@@ -63,50 +65,6 @@ export class PoolFiltersComponent implements OnInit {
   applySelectedFilters(event) {
     this.selectedFilters[event.type] = event.value;
     this.applyFilters.emit(this.selectedFilters);
-  }
-
-  /**
-   * It carries out a filter delete action through
-   * a modal service which allows your to confirm
-   * or abort an action
-   *
-   * @param {Event} event the name of the filter to delete
-   */
-  confirmFiltersDelete(event) {
-    this.filterToDelete = event.target.id;
-    const message =
-      `Are you sure you want to delete the saved filter '${this.filterToDelete}'?`
-    const alertServiceConfig = {
-      abortActionText: 'CLOSE',
-      confirmActionText: 'DELETE',
-      confirmAction: this.deleteSavedFilters,
-      canDisable: true,
-    }
-    this.alertService.confirm(message, this, alertServiceConfig);
-  }
-
-  /**
-   * Deletes a saved filter
-   *
-   * @returns {void}
-   */
-  deleteSavedFilters() {
-    const savedFilters = JSON
-      .parse(localStorage.getItem('savedFilters'));
-    delete savedFilters[this.filterToDelete];
-    localStorage
-      .setItem('savedFilters', JSON.stringify(savedFilters));
-    this.savedFiltersNames = Object.keys(savedFilters)
-  }
-
-  /**
-   *  IteEmits an event initiates opening
-   * of request filter modal
-   *
-   * @returns {void}
-   */
-  openFiltersSaveModal() {
-    this.openSaveFiltersModal.emit();
   }
 
   /**
@@ -128,7 +86,19 @@ export class PoolFiltersComponent implements OnInit {
    * @return {void}
    */
   initializeFilters(): void {
-    this.getSkillsWithRequests();
+    if (!this.isSkillsFetched) {
+      this.getSkillsWithRequests();
+    }
+
+    if (this.isSkillsFetched) {
+      this.skills.forEach((value) => {
+        delete value.checked;
+      });
+
+      this.ratings = [];
+      this.lengths = [];
+      this.selectedFilters = {};
+    }
 
     this.locations = [
       { name: 'Kampala' },
@@ -150,5 +120,35 @@ export class PoolFiltersComponent implements OnInit {
     this.appliedFilters = filters;
     filters['status'] = REQUEST_STATUS.OPEN;
     this.selectedFilters = { ...filters, ...this.selectedFilters };
+  }
+
+  /**
+   * This resets request filters form to its default
+   *
+   * @returns {void}
+   */
+  resetFilters() {
+    localStorage.removeItem('savedFilters');
+    this.initializeFilters();
+    this.applyFilters.emit(this.defaultFilters);
+
+    this.filterDropdowns.forEach((dropDown) => {
+      dropDown.clearCheckedList();
+    });
+  }
+
+  /**
+   * Apply the saved filter upon selection.
+   * @param {Event} event - The filter to apply.
+   *
+   * @return {void}
+   */
+  applySavedFilter(event) {
+    this.selectedFilters = event;
+    this.applyFilters.emit(this.selectedFilters);
+
+    this.filterDropdowns.forEach((dropDown) => {
+      dropDown.checkFilters(this.selectedFilters);
+    });
   }
 }

@@ -22,6 +22,7 @@ import { FilterDropdownComponent } from '../../request-pool/filter-dropdown/filt
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SaveFiltersComponent } from '../../request-pool/save-filters/save-filters.component';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -55,6 +56,7 @@ describe('AllRequestsPageComponent', () => {
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
+        SaveFiltersComponent,
       ],
       providers: [
         Http,

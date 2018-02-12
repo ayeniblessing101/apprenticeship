@@ -22,7 +22,6 @@ export class PoolComponent implements OnInit {
   requests = [];
   filterParams: any = {};
   sectionGridWidth = '68%';
-  savedFiltersNames: string[];
   firstPageLoad: boolean;
 
   constructor(
@@ -34,49 +33,11 @@ export class PoolComponent implements OnInit {
   ngOnInit() {
     this.isSaveFiltersModalOpened = false;
     this.firstPageLoad = true;
-    const savedFilters = JSON.parse(localStorage.getItem('savedFilters'));
-    this.savedFiltersNames = savedFilters ? Object
-      .keys(savedFilters) : [];
     this.filterParams = this.filterService.getFilters();
     this.getRequests();
     if (!this.showFilters) {
       this.sectionGridWidth = '85%';
     }
-  }
-
-  /**
-   * Closes filter save filter modal
-   *
-   * @param {boolean}  event event emmited when Dismiss button
-   * of  save filter modal is clicked
-   *
-   * @return {void}
-   */
-  closeSaveFiltersModal() {
-    this.isSaveFiltersModalOpened = false;
-  }
-
-  /**
-   * Opens save filter modal
-   *
-   * @param {boolean} event Event fired when
-   * save Filters is clicked
-   *
-   * @returns {void}
-   */
-  openSaveFiltersModal() {
-    this.isSaveFiltersModalOpened = true;
-  }
-
-  /**
-   * Updates names of all saved filers each time a new filter is saved
-   *
-   * @param {string[]} event fired after a filter is saved
-   *
-   * @returns {void}
-   */
-  updateSavedFiltersNames(event) {
-    this.savedFiltersNames = event;
   }
 
   /**
