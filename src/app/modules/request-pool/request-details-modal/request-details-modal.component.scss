@@ -19,11 +19,11 @@
   left: 15%;
   border-radius: 4px;
   width: 60%;
-  height: 57%;
   background-color: white;
   box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
   padding: 4%;
   overflow-y: auto;
+
   .request-body {
     .request-content {
       font-size: 18px;
@@ -32,11 +32,13 @@
       color: #303030;
       line-height: 15px;
       margin-left: 0;
+
       span {
         font-weight: normal;
         color: #747474;
       }
     }
+
     .request-description {
       margin-top: 0;
       text-align: left;
@@ -71,18 +73,17 @@
   display: inline-block;
   margin-top: 4%;
   margin-left: 65%;
-  @include fit-content-height;
+
   .button-group {
     width: 300px;
-    //margin-bottom: 100px !important;
     @include fit-content-height;
     cursor: pointer;
+
     input[type="button"] {
       all: unset;
       width: 120px;
       height: 44px;
       border: solid 1px #3359db;
-      font-family: DINPro;
       font-size: 15px;
       font-weight: 500;
       letter-spacing: 0.3px;
@@ -90,13 +91,13 @@
       color: #3359db;
       margin-right: 10px;
     }
+
     input[type="submit"] {
       all: unset;
       width: 150px;
       height: 44px;
       border: solid 1px #3359db;
       background-color: #3359db;
-      font-family: DINPro;
       font-size: 15px;
       font-weight: 500;
       letter-spacing: 0.3px;
@@ -104,6 +105,7 @@
       color: #ffffff;
       margin-right: 10px;
     }
+
     .right {
       float: right !important;
     }
@@ -127,6 +129,7 @@
     margin-top: -45px;
     text-align: center;
     overflow-x: auto;
+
     &:first-child {
       border-bottom: solid 1px #e9eff4;
       padding-bottom: 3px;
@@ -171,3 +174,18 @@ star-rating-comp {
     margin-left: 45%;
   }
 }
+
+@media only screen and (min-width: 1600px) {
+  .request-modal {
+    left: 20%;
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+  .request-modal {
+    left: 25%;
+    width: 40%;
+  }
+}
+
