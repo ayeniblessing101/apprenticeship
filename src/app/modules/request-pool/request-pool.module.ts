@@ -40,6 +40,7 @@ import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-durati
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from './save-filters/save-filters.component';
+import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-pool-header-width-to-parent-directive';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { SaveFiltersComponent } from './save-filters/save-filters.component';
     RequestDurationPipe,
     RequestSkillPipe,
     SaveFiltersComponent,
+    MatchPoolHeaderWidthToParentDirective,
   ],
   exports: [
     PoolComponent,

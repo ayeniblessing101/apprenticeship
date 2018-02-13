@@ -3,18 +3,15 @@
 </div>
 <div class="content-container">
   <div *ngIf="requests?.length > 0" class="table">
-    <div class="header">
-      <div class="row">
+    <div class="header" appMatchPoolHeaderWidthToParent>
         <div>Request</div>
         <div>Created By</div>
         <div>Primary Skill</div>
         <div>Preffered Duration</div>
         <div>Date Added</div>
         <div>Location</div>
-        <div>Applications</div>
-      </div>
     </div>
-    <div class="space"></div>
+    <div class="header-space"></div>
     <div *ngFor="let request of requests" class="body">
       <div class="row" (click)="openPendingModal(request)">
         <div>{{ request.title }}</div>

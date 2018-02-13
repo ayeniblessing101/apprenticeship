@@ -1,8 +1,7 @@
 <div class="wrapper">
   <section id="section-grid">
       <div class="table" *ngIf="requests?.length > 0; else noRequest">
-        <div class="header">
-          <div class="row">
+        <div class="header" appMatchPoolHeaderWidthToParent>
             <div>Request</div>
             <div>Primary Skill</div>
             <div>Preferred Duration</div>
@@ -10,8 +9,7 @@
             <div>Location</div>
             <div>Role</div>
           </div>
-        </div>
-        <div class="space"></div>
+        <div class="header-space"></div>
         <div *ngFor="let request of requests" class="body">
           <div class="row" (click)="goToSingleViewPage(request.id)">
             <div>{{ request.title }}</div>

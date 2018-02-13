@@ -1,15 +1,13 @@
 <div class="table" *ngIf="requests.length > 0; else noRequest">
-  <div class="header">
-    <div class="row">
+  <div class="header" appMatchPoolHeaderWidthToParent>
       <div>Request</div>
       <div>Primary Skill</div>
       <div>Secondary Skill</div>
       <div>Preferred Duration</div>
       <div>Date Added</div>
       <div>Location</div>
-    </div>
   </div>
-  <div class="space"></div>
+  <div class="header-space"></div>
   <div *ngFor="let request of requests" class="body" id="request-pool">
     <div class="row" (click)="showRequestDetails(request)">
       <div>{{ request.title }}</div>

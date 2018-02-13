@@ -1,8 +1,7 @@
 <div class="wrapper">
   <section id="section-grid">
-      <div *ngIf="requests?.length > 0; else noRequest" class="table" >
-        <div class="header">
-          <div class="row">
+      <div *ngIf="requests?.length > 0; else noRequest" class="table">
+        <div class="header" appMatchPoolHeaderWidthToParent>
             <div>Request</div>
             <div>Primary Skill</div>
             <div>Date Added</div>
@@ -10,9 +9,8 @@
             <div>Duration</div>
             <div>Role</div>
             <div>Rating</div>
-          </div>
         </div>
-        <div class="space"></div>
+        <div class="header-space"></div>
         <div *ngFor="let request of requests" class="body">
           <div class="row" (click)="gotoRequestDetails(request.id)">
             <div>{{ request.title }}</div>
