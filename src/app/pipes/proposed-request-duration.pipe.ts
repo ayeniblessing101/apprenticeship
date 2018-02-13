@@ -21,7 +21,7 @@ export class ProposedRequestDurationPipe implements PipeTransform {
    */
   transform(request: any): any {
     let requestDuration = '';
-    if (request.duration.trim() === '1') {
+    if (request.duration === 1) {
       requestDuration = `${request.duration} month`;
     } else {
       requestDuration = `${request.duration} months`;

@@ -41,8 +41,8 @@ export class PendingComponent implements OnInit {
       .then(
         (response) => {
           this.loading = false;
-          this.requests.awaitingYou = response.awaitingYou;
-          this.requests.awaitingResponse = response.awaitingResponse;
+          this.requests.awaitingYou = response.awaiting_you;
+          this.requests.awaitingResponse = response.awaiting_response;
         },
       );
   }
