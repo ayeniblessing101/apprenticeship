@@ -10,7 +10,10 @@
   display: block;
   padding: 100px 10px 10px 10px ;
   top: 0;
-  width: auto;
+  width: 20%;
+  @media(max-width: 925px) {
+    width: 18%;
+  }
   position: fixed;
   height: 100%;
   background-color: rgb(255, 255, 255);
@@ -24,12 +27,18 @@
 
   img {
     margin-right: 20px;
+     @media(max-width: 925px) {
+      margin-right: 10px;
+    }
   }
 
   .caption {
     float: right;
     font-family: $font-family-1;
     font-size: 20px;
+    @media(max-width: 925px) {
+      font-size: 17px;
+    }
     text-align: left;
 
     .date {
@@ -39,6 +48,9 @@
       font-family: $font-family-1;
       font-weight: 100;
       font-size: 17px;
+      @media(max-width: 925px) {
+        font-size: 12px;
+    }
       line-height: 2.12;
       text-align: left;
       color: #989898;
