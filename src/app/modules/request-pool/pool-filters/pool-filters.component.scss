@@ -2,13 +2,13 @@
 @import '../../../../assets/scss/colors';
 
 #side-grid {
-  position: absolute;
+  position: fixed;
   width: 24.5%;
-  right: 0px;
+  right: 0;
   overflow-y: scroll;
   min-height: 91.35vh;
   display: inline-block;
-  padding: 90px 0 5px 0px;
+  padding: 90px 0 5px 0;
   color: $primary-text-color;
   border-left: 1px solid #d1d1d1;
 
@@ -18,7 +18,7 @@
     margin-left: 10px;
     text-align: left;
     color: #747474;
-    margin-top: 40px;
+    margin-top: 8px;
 
     .regular-checkbox {
       display: none;
