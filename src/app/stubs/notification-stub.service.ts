@@ -34,4 +34,13 @@ export class NotificationServiceStub {
   sendMessage() {
     return 'write successful';
   }
+
+  /**
+     * Return the number of unread notifications
+     *
+     * @return {Number}
+     */
+  getUnreadCount(): Number {
+    return 1;
+  }
 }

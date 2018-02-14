@@ -23,12 +23,12 @@
       </div>
     </li>
     <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>
-    <a (click)="openNotifications()">
-      <li class="notification">
-        <span class="dot"></span>
-        <img src="../../assets/images/notification-icon.png" width="30" alt="">
-      </li>
-    </a>
+    <li (click)="openNotifications()">
+      <a class="notification">
+        <span *ngIf="checkIfUnreadNotificationsExist()" class="dot"></span>
+        <img src="../../assets/images/notification-icon.png" alt="">
+      </a>
+    </li>
     <a class="dropdown user-icon drop-btn">
       <img class="img-circular" src="{{currentUser?.picture}}" alt="" width="32px" height="32px">
       <span class="arrow-down"></span>

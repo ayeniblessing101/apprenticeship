@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input, EventEmitter, Output } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import * as moment from 'moment';
+import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from 'app/services/notifications.service';
 import { UserService } from 'app/services/user.service';
 import { NotificationTypes } from '../../../enums/notification-types.enum';
@@ -20,6 +21,7 @@ import { Notification } from 'rxjs/Notification';
     transition('1 <=> 0', animate('500ms ease-in-out')),
   ])],
 })
+
 export class NotificationsComponent implements OnInit, OnChanges {
   @Output() close: EventEmitter<null> = new EventEmitter();
   @Input() state = false;
@@ -27,10 +29,12 @@ export class NotificationsComponent implements OnInit, OnChanges {
   currentUserId: string;
   notifications: any;
   notificationGroups: string[] = [];
-  notificationTypes =  NotificationTypes;
+  notificationTypes = NotificationTypes;
 
-  constructor(private notificationService: NotificationService,
-              private userService: UserService) {
+  constructor(
+    private notificationService: NotificationService,
+    private authService: AuthService,
+    private userService: UserService) {
   }
 
   ngOnInit() {
@@ -46,6 +50,19 @@ export class NotificationsComponent implements OnInit, OnChanges {
   }
 
   /**
+   * @description Gets list of message keys from the notification object 
+   * 
+   * @param {object} notifications 
+   * 
+   * @returns {Array} String 
+   */
+  getMessageIds(notifications: object) {
+    return Object.keys(notifications).map(elem => notifications[elem])
+      .map(x => x.map(b => b.$key)).reduce((a, b) => a.concat(b));
+  }
+
+
+  /**
    * Categorizes notifications by time created i.e today, wednesday, 1 week ago, etc
    *
    * @param {object} notifications object containing information about each notification
@@ -58,7 +75,6 @@ export class NotificationsComponent implements OnInit, OnChanges {
     Object.keys(notifications).forEach((notificationId) => {
       const notification = notifications[notificationId];
       const category = this.generateReadableDate(notification.timestamp);
-
       if (groupedNotifications[category]) {
         groupedNotifications[category].push(notification)
       } else {
@@ -66,8 +82,22 @@ export class NotificationsComponent implements OnInit, OnChanges {
         this.notificationGroups.push(category);
       }
     });
-
     return groupedNotifications;
+  }
+
+
+  /**
+   * @description Marks all notifications as read;
+   *
+   * @param {String}
+   * 
+   * @return {Void}
+   */
+  markMessagesAsRead(): void {
+    this.notificationService.markMessagesAsRead(
+      this.authService.userInfo.id,
+      this.getMessageIds(this.notifications)
+    );
   }
 
   /**
@@ -90,14 +120,11 @@ export class NotificationsComponent implements OnInit, OnChanges {
    * @return {string} Date in a human readable form
    */
   generateReadableDate(timestamp) {
-
+    let readableDateTime;
     const momentDateTime = moment(timestamp);
     const oneWeek = 7;
     const oneMonth = 30;
-
     const daysPast = moment().diff(timestamp, 'days');
-
-    let readableDateTime;
 
     if (daysPast < 1) {
       readableDateTime = 'Today';
@@ -106,7 +133,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
     } else if (daysPast < oneWeek) {
       const daysPastInWords = moment()
         .subtract(daysPast, 'days')
-          .calendar().split(' ');
+        .calendar().split(' ');
 
       if (daysPastInWords[0] === 'Last') {
         readableDateTime = daysPastInWords.splice(0, 2).join(' ');
@@ -145,6 +172,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
     event.preventDefault();
     if (event.target.id === 'notification-overlay' || event.target.id === 'notification-close-x') {
       this.close.emit(null);
+      this.markMessagesAsRead()
     }
   }
 }

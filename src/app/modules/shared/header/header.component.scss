@@ -2,42 +2,46 @@
 @import '../../../../assets/scss/fonts';
 .header-grid {
   width: 100vw;
-  height: 4em;
+  height: 5em;
   background-color: #f7f8f7;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
-  padding-bottom: 10px;
   z-index: 2;
 
   ul {
     display: flex;
     justify-content: flex-end;
-    width: 98%;
     height: 100%;
-    margin-top: 5px;
+    margin: 0;
     list-style-type: none;
+    align-items: center;
 
     a {
       margin-right: 2%;
     }
 
     li {
-      position: relative;
-      top: 20%;
       margin-right: 2%;
     }
 
     .notification {
-      top: 2%;
       cursor: pointer;
+      position: relative;
+      display: block;
+
+      img {
+        width: 30px;
+        height: auto;
+        display: block;
+      }
     }
 
     .user-icon {
-      top: 5%;
       padding-right: 15px;
       display: inline-flex;
       align-items: center;
     }
+
     .caret-spacing {
       top: 35%;
       margin-left: 5px;
@@ -111,13 +115,13 @@
   padding: 10px;
   height: 32px;
   width: 224px;
-  margin-top: 5px;
   background: url(../../../../assets/images/search.png) no-repeat scroll 130px 2px;
   background-position: 93% 50%;
   padding-left: 30px;
   border-width: 1px;
   border: 1px solid #dddddd;
   border-radius: 50px;
+
   &:focus {
     outline: none;
   }
@@ -131,10 +135,6 @@
 .dropdown {
   position: relative;
   display: inline-block;
-
-  .admin-content {
-    margin-top: 10px;
-  }
 }
 
 .request-for-content {
@@ -178,12 +178,15 @@
     transform-origin: center center;
     transform: scaleY(-1);
   }
+
   .request-for-content {
     display: block;
   }
+
   .admin-content {
     display: block;
   }
+
   .dropdown-content {
     display: block;
     top: 100%;
@@ -206,7 +209,7 @@
   background-color: #ffaf30;
   border-radius: 50%;
   display: inline-block;
-  position:relative; 
-  top:16px; 
-  left:-3px;
+  position: absolute;
+  top: -2px;
+  left: -2px;
 }

@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Message } from '../interfaces/message.interface';
 
+
 @Injectable()
 export class NotificationService {
-  private userMessages: {[id: string]: {}};
+  private userMessages: {};
   private unreadCount: number;
+  private notifyUser: Boolean;
 
   /**
    * Creates an instance of the NotificationService.
@@ -17,6 +19,7 @@ export class NotificationService {
   constructor(private database: AngularFireDatabase) {
     this.userMessages = {};
     this.unreadCount = 0;
+    this.notifyUser = false;
   }
 
   /**
@@ -32,11 +35,11 @@ export class NotificationService {
       .list('/Messages')
       .push(message)
       .then(sentItem => users.forEach(user => this
-      .database.object(`Users/${user}/${sentItem.key}`)
-      .update({
-        read: false,
-        timestamp: message.timestamp,
-      })))
+        .database.object(`Users/${user}/${sentItem.key}`)
+        .update({
+          read: false,
+          timestamp: message.timestamp,
+        })))
       .then(this.handleSuccess)
       .catch(this.handleError);
   }
@@ -57,31 +60,23 @@ export class NotificationService {
         limitToLast: limit || 10,
       }
     })
-    .subscribe((queriedItems) => {
-      const messageKeys = [];
-      this.userMessages = {};
-
-      queriedItems.reverse().forEach(item => messageKeys.push(item['$key']));
-
-      /**
-       * This block uses each message key stored earlier to subscribe to the messages collection,
-       * then appends read status/property of the messages stored in the users' collection to each message.
-       * The read status for each message is stored in the users' collection(the receiver) so that
-       * they can be independently updated. Based on the number of unread messages found
-       * for each user, the corresponding notification count is updated.
-       */
-      messageKeys.forEach((key) => {
-        this.unreadCount = 0;
-        this.database.object(`Messages/${key}`)
-          .subscribe(message => {
-            message.read = queriedItems.filter(item => item['$key'] === key)[0].read;
-            if (!message.read) {
-              this.unreadCount += 1;
-            }
-            this.userMessages[key] = message;
-          });
+      .subscribe((queriedItems) => {
+        const messageKeys = [];
+        this.userMessages = {};
+        queriedItems.reverse().forEach(item => messageKeys.push(item['$key']));
+        messageKeys.forEach((key) => {
+          this.unreadCount = 0;
+          this.database.object(`Messages/${key}`)
+            .subscribe(message => {
+              message.read = queriedItems.filter(item => item['$key'] === key)[0].read;
+              if (!message.read) {
+                this.unreadCount += 1;
+                this.notifyUser = true;
+              }
+              this.userMessages[key] = message;
+            });
+        });
       });
-    });
   }
 
   /**

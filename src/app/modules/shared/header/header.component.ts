@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { NotificationService } from 'app/services/notifications.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private notificationService: NotificationService,
     private router: Router,
   ) { }
 
@@ -27,15 +29,25 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
+   * Checks for unread message
+   *
+   * @return {Boolean}
+   */
+  checkIfUnreadNotificationsExist(): Boolean {
+    return this.notificationService.getUnreadCount() > 0;
+  }
+
+  /**
    * Opens mentorship request modal
    *
    * @return {void}
    */
   showCreateRequestModal(requestType: string) {
     this.requestType = requestType;
-
     this.displayCreateRequestModal = true;
   }
+
+
 
   /**
    * Closes mentorship request modal
@@ -67,7 +79,7 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
-   * log out the user from the session
+   * Log out the user from the session
    */
   logoutUser() {
     this.authService.logOut();
