@@ -7,7 +7,6 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AngularFireModule } from 'angularfire2';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { ChartModule } from 'angular2-chartjs';
 
 // services
 import { AuthService } from './services/auth.service';
@@ -49,7 +48,6 @@ if (authToken) {
     HttpModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MomentModule,
-    ChartModule,
     SharedModule,
     RequestPoolModule,
     AllRequestsModule,

@@ -1,8 +1,0 @@
-<button
-    [disabled]="loading.selectMentor"
-    md-raised-button class="md-btn-andela-pink"
-    *ngIf="details.mentee_id === userId && details.status === 'open'"
-    (click)="openModal(mentor)">
-        Select Mentor
-        <md-spinner *ngIf="currentMentorButton === mentor.name && loading.selectMentor"></md-spinner>
-</button>

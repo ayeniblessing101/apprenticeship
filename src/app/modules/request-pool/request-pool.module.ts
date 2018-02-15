@@ -4,13 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StarRatingModule } from 'angular-star-rating';
-import {
-  MdCheckboxModule,
-  MdSelectModule,
-  MdRadioModule,
-  MdSliderModule,
-  MdCardModule,
-} from '@angular/material';
 
 import { RequestService } from '../../services/request.service';
 import { SkillService } from '../../services/skill.service';
@@ -46,11 +39,6 @@ import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-po
   imports: [
     CommonModule,
     InfiniteScrollModule,
-    MdCheckboxModule,
-    MdSelectModule,
-    MdRadioModule,
-    MdSliderModule,
-    MdCardModule,
     SharedModule,
     ReactiveFormsModule,
     FormsModule,

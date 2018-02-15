@@ -58,7 +58,7 @@ export class NotificationService {
       query: {
         orderByChild: 'timestamp',
         limitToLast: limit || 10,
-      }
+      },
     })
       .subscribe((queriedItems) => {
         const messageKeys = [];

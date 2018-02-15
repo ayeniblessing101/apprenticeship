@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -40,10 +39,7 @@ describe('PoolComponent', () => {
         InfiniteScrollModule,
         HttpModule,
         ReactiveFormsModule,
-        MdRadioModule,
         FormsModule,
-        MdSelectModule,
-        MdCheckboxModule,
         StarRatingModule,
         SharedModule,
         BrowserAnimationsModule,

@@ -6,7 +6,7 @@ import {
   Request,
   RequestOptionsArgs,
   Response,
-  Headers
+  Headers,
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -29,11 +29,11 @@ export class HttpService extends Http {
 
   request(
     url: string|Request,
-    options?: RequestOptionsArgs
+    options?: RequestOptionsArgs,
   ): Observable<Response> {
     if (typeof url === 'string') {
       if (!options) {
-        options = {headers: new Headers()};
+        options = { headers: new Headers() };
       }
       options.headers.set('Authorization', `Bearer ${this.token}`);
     } else {

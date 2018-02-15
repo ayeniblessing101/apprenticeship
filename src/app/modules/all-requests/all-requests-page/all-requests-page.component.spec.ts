@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdRadioModule, MdSelectModule, MdCheckboxModule } from '@angular/material';
 import { StarRatingModule } from 'angular-star-rating';
 
 import { AllRequestsPageComponent } from './all-requests-page.component';
@@ -39,10 +38,7 @@ describe('AllRequestsPageComponent', () => {
         HttpModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
-        MdRadioModule,
         FormsModule,
-        MdSelectModule,
-        MdCheckboxModule,
         StarRatingModule,
       ],
       declarations: [
