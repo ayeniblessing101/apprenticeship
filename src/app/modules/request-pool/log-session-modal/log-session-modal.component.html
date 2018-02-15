@@ -1,0 +1,73 @@
+<div class="session-modal" #sessionModal>
+  <div class="modal-content">
+    <div class="heading">
+      <span>Log Session <hr/></span>
+    </div>
+    <form [formGroup] = "sessionForm" (ngSubmit)="logSession()">
+      <div class="form-group">
+        <div class="display-inline-block select-wrapper">
+          <label class="display-block start-label" for="startTime">Session began</label>
+          <span class="select-menu">
+            <select [(ngModel)] = "defaultStartTime" #startTime
+                    (ngModelChange)="calculateSessionTimeDifference(startTime.value, endTime.value)"
+                    formControlName="startTime" id="startTime">
+              <option *ngFor="let timeSlot of timeSlots" value="{{timeSlot}}">{{timeSlot}}</option>
+            </select>
+          </span>
+        </div>
+        <div class="display-inline-block select-wrapper">
+          <label class="display-block" for="endTime">Session ended</label>
+          <span class="select-menu">
+            <select [(ngModel)] = "defaultEndTime" #endTime
+                    (ngModelChange)="calculateSessionTimeDifference(startTime.value, endTime.value)"
+                    formControlName="endTime" id="endTime">
+              <option *ngFor="let timeSlot of timeSlots" value="{{timeSlot}}">{{timeSlot}}</option>
+            </select>
+          </span>
+        </div>
+        <div class="display-inline-block hour-wrapper">
+          <p class="lasted-hours" *ngIf="hoursInSessionTimeDifference > 0">
+            This session lasted for {{hoursInSessionTimeDifference}}
+            <span *ngIf="minutesInSessionTimeDifference === 30">and half </span>
+            {{hoursInSessionTimeDifference === 1 && minutesInSessionTimeDifference === 0 ? 'hour' : 'hours'}}
+          </p>
+          <p class="lasted-hours" *ngIf="hoursInSessionTimeDifference === 0 &&
+          minutesInSessionTimeDifference === 30">This session lasted for 30 minutes
+          </p>
+        </div>
+      </div>
+      <div class="form-group rating-wrapper">
+        <p class="rating-heading">Rate the mentor/mentee in the following criteria</p>
+        <p class="rating-type">
+          <span class="availability">Availability</span>
+          <star-rating-comp [starType]="'svg'" formControlName="availability"></star-rating-comp>
+        </p>
+        <p class="rating-type">
+          <span class="reliability">Reliability</span>
+          <star-rating-comp [starType]="'svg'" formControlName="reliability"></star-rating-comp>
+        </p>
+        <p class="rating-type">
+          <span class="knowledge">Knowledge</span>
+          <star-rating-comp [starType]="'svg'" formControlName="knowledge"></star-rating-comp>
+        </p>
+        <p class="rating-type">
+          <span class="teaching">Teaching</span>
+          <star-rating-comp [starType]="'svg'" formControlName="teaching"></star-rating-comp>
+        </p>
+        <p class="rating-type">
+          <span class="usefulness">Usefulness</span>
+          <star-rating-comp [starType]="'svg'" formControlName="usefulness"></star-rating-comp>
+        </p>
+      </div>
+      <div class="form-group">
+        <p class="comment-heading">Comment feedback (optional)</p>
+        <input formControlName="comment" name="comment" type="text" placeholder="Start Typing">
+      </div>
+      <div class="form-group form-footer">
+        <button (click)="closeSessionModal()" type="button">DISCARD</button>
+        <button type="submit">SUBMIT</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="session-modal-bg"></div>

@@ -10,6 +10,7 @@ export class HistoryPageComponent {
   request: any;
   showAddFileButton = false;
   showLogSessionButton = false;
+  showConfirmSessionButton = false;
   isRequestScheduleVisible = true;
   isRequestDetailsVisible = false;
   constructor(
@@ -21,7 +22,7 @@ export class HistoryPageComponent {
   }
 
   /**
-   * Show request schedule view and hide detail view
+   * Shows request schedule view and hide detail view
    *
    * @return {void}
    */
@@ -31,7 +32,7 @@ export class HistoryPageComponent {
   }
 
   /**
-   * Show request detail view and hide schedule view
+   * Shows request detail view and hide schedule view
    *
    * @return {void}
    */

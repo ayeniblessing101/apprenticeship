@@ -1,0 +1,35 @@
+<div *ngIf="session" class="card">
+  <span class="card-header">{{formatSessionDate(session.date)}}
+    <hr [ngClass]="{'indicator-inactive': sessionIsDisabled,
+    'indicator-active': (sessionIsEnabled || sessionNeedsConfirmation)}">
+  </span>
+  <div class="card-header-buttons">
+    <button *ngIf="showAddFileButton" class="add-file">Add file</button>
+    <button
+      *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
+      class="log-session"
+      [ngClass]="{'active': sessionIsEnabled, 'inactive': sessionIsDisabled}"
+      [disabled]="sessionIsDisabled"
+      (click)="openSessionModal()">Log Session</button>
+    <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
+            class="confirm-session">Confirm Session</button>
+  </div>
+  <div class="card-body" *ngIf="session.files.length > 0">
+    <div class="file" *ngFor="let file of session.files">
+      <p class="file-time">{{file.created_at|date:'shortTime'}}</p>
+      <p class="name">{{file.name}}</p>
+      <a class="file-name" (click)=downloadFile(file.id)>
+        <img src="../../../../assets/images/link.svg">
+        {{file.name}}
+      </a>
+      <a class="download" (click)=downloadFile(file.id)>
+        <img src="../../../../assets/images/download.svg">
+        Download
+      </a>
+      <a class="delete" (click)="deleteFile(session, file)">
+        <img src="../../../../assets/images/trash.svg">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

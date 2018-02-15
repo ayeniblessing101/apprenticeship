@@ -49,23 +49,24 @@ export class CalendarComponent implements OnInit, OnChanges {
     const status = [];
 
     if (this.sessionDates) {
+
       this.sessionDates.forEach((sessionDate) => {
         if (sessionDate.date === queryDate) {
           status.push(sessionDate.status);
         }
       });
-    }
 
-    if (!status.includes('missed') && status.includes('completed')) {
-      return 'completed';
-    }
+      if (!status.includes('missed') && status.includes('completed')) {
+        return 'completed';
+      }
 
-    if (status.includes('missed')) {
-      return 'missed';
-    }
+      if (status.includes('missed')) {
+        return 'missed';
+      }
 
-    if (status.includes('upcoming')) {
-      return 'upcoming';
+      if (status.includes('upcoming')) {
+        return 'upcoming';
+      }
     }
 
     return null;

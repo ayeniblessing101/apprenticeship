@@ -1,3 +1,5 @@
+import { Rating } from './rating.interface';
+
 /**
  * @interface Session
  * Blueprint for the session object
@@ -6,8 +8,9 @@ export interface Session {
   date?: number,
   start_time?: string,
   end_time?: string,
-  request_id?: number,
-  user_id?: string
+  comment?: string,
+  rating_scale?: number,
+  rating_values?: Rating
 }
 
 /**

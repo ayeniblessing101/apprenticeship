@@ -7,20 +7,23 @@
         </span></li>
         <li>
           <div class="header-buttons">
-            <button (click) = "showRequestSchedule()" [ngClass] = "{'inactive-button': !isRequestScheduleVisible}">Schedule</button>
-            <button (click) = "showRequestDetails()" [ngClass] = "{'inactive-button': !isRequestDetailsVisible}">Details</button>
+            <button (click)="showRequestSchedule()" [ngClass]="{'inactive-button': !isRequestScheduleVisible}">
+              Schedule
+            </button>
+            <button (click)="showRequestDetails()" [ngClass]="{'inactive-button': !isRequestDetailsVisible}">Details
+            </button>
           </div>
         </li>
       </ul>
     </div>
-  <div>
-    <div *ngIf="isRequestDetailsVisible">
-      <app-request-details-page [request] = "request"></app-request-details-page>
+    <div>
+      <div class="request-details-wrapper" *ngIf="isRequestDetailsVisible">
+        <app-request-details-page [request]="request"></app-request-details-page>
+      </div>
+      <div class="request-schedule-wrapper" *ngIf="isRequestScheduleVisible">
+        <app-request-schedule-page [request]="request"></app-request-schedule-page>
+      </div>
     </div>
-    <div *ngIf="isRequestScheduleVisible">
-      <app-request-schedule-page [request] = "request"></app-request-schedule-page>
-    </div>
-  </div>
     <div class="aside">
       <app-calendar [sessionDates]="sessionDates"></app-calendar>
     </div>

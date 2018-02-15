@@ -18,11 +18,15 @@
             </ul>
         </div>
         <div>
-            <div *ngIf="isRequestDetailsVisible">
+            <div class="request-details-wrapper" *ngIf="isRequestDetailsVisible">
                 <app-request-details-page [request]="request"></app-request-details-page>
             </div>
-            <div *ngIf="isRequestScheduleVisible">
-                <app-request-schedule-page [showAddFileButton]="showAddFileButton" [showLogSessionButton]="showLogSessionButton" [request]="request">
+            <div class="request-schedule-wrapper" *ngIf="isRequestScheduleVisible">
+                <app-request-schedule-page
+                  [request]="request"
+                  [showAddFileButton]="showAddFileButton"
+                  [showLogSessionButton]="showLogSessionButton"
+                  [showConfirmSessionButton]="showConfirmSessionButton">
                 </app-request-schedule-page>
             </div>
         </div>

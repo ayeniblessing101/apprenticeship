@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RequestService } from '../../../../services/request.service';
 import { SessionService } from '../../../../services/session.service';
 
 @Component({
@@ -9,14 +8,11 @@ import { SessionService } from '../../../../services/session.service';
   styleUrls: ['./in-progress-single-view.component.scss'],
 })
 export class InProgressSingleViewComponent implements OnInit {
-
   sessionDates: any;
   request: any;
-  showButton = true;
   isRequestScheduleVisible = true;
   isRequestDetailsVisible = false;
   constructor(
-    private requestService: RequestService,
     private sessionService: SessionService,
     private route: ActivatedRoute,
   ) {

@@ -1,44 +1,22 @@
-<div [ngStyle] = "{ 'width': pageWidth}" class="row">
+<div *ngIf="!rerender" [ngStyle] = "{ 'width': pageWidth}" class="row">
   <div *ngFor="let session of sessions">
-    <div class="card">
-      <div class="header">
-        <span class="card-header">{{formatSessionDate(session.date)}}
-          <hr class="indicator-active">
-        </span>
-        <div>
-          <button *ngIf="showAddFileButton" class="add-file">Add file</button>
-          <button *ngIf="showLogSessionButton" class="log-session">Log Session</button>
-        </div>
-      </div>
-      <div class="card-body">
-      <div class="file" *ngFor="let file of session.files">
-        <p class="file-time">{{file.created_at|date:'shortTime'}}</p>
-        <p class="name">{{file.name}}</p>
-        <a class="file-name" (click)=downloadFile(file.id)>
-          <img src="../../../../../assets/images/link.svg">
-          {{file.name}}
-        </a>
-        <a class="download" (click)=downloadFile(file.id)>
-          <img src="../../../../../assets/images/download.svg">
-          Download
-        </a>
-        <a class="delete" (click)="deleteFile(session, file)">
-          <img src="../../../../../assets/images/trash.svg">
-          Delete
-        </a>
-      </div>
-      </div>
-    </div>
-  </div>
-    <div *ngIf="nextSessionDate" class="card">
-      <div class="header">
-        <span class="card-header">{{formatSessionDate(nextSessionDate)}}
-          <hr class="indicator-inactive">
-        </span>
-        <div>
-          <button *ngIf="showAddFileButton" class="add-file">Add file</button>
-          <button *ngIf="showLogSessionButton" class="log-session inactive">Log Session</button>
-        </div>
-      </div>
+    <app-session-details
+      (openLogSessionModal)="openSessionModal(session)"
+      (removeDeletedFile)="deleteFile($event, session)"
+      [session]="session"
+      [request]="request"
+      [showAddFileButton]="showAddFileButton"
+      [showLogSessionButton]="showLogSessionButton"
+      [showConfirmSessionButton]="showConfirmSessionButton">
+    </app-session-details>
   </div>
 </div>
+
+<app-log-session #myModal
+  *ngIf="showLogSessionModal"
+  [session] = "modalSession"
+  [userId]="currentUser.id"
+  [request] = "request"
+  (closeLogSessionModal) = "closeSessionModal()"
+  (updateLoggedSession) = "updateSession($event)">
+</app-log-session>

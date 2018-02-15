@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpService as Http } from '../../../../services/http.service';
 import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { SessionService } from '../../../../services/session.service';
@@ -13,6 +14,8 @@ import { InProgressSingleViewComponent } from './in-progress-single-view.compone
 import { StarRatingModule } from 'angular-star-rating';
 import { RequestDetailsPageComponent } from '../../request-details-page/request-details-page.component';
 import { RequestSchedulePageComponent } from '../../request-schedule-page/request-schedule-page.component';
+import { SessionDetailsComponent } from '../../session-details/session-details.component';
+import { LogSessionModalComponent } from '../../log-session-modal/log-session-modal.component';
 import { ProposedRequestDurationPipe } from '../../../../pipes/proposed-request-duration.pipe';
 import { RequestSkillPipe } from '../../../../pipes/request-skills-pipe';
 
@@ -32,10 +35,14 @@ describe('InProgressSingleViewComponent', () => {
         CalendarComponent,
         ProposedRequestDurationPipe,
         RequestSkillPipe,
+        SessionDetailsComponent,
+        LogSessionModalComponent,
       ],
       imports: [
         HttpModule,
         StarRatingModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
       ],
 
       providers: [

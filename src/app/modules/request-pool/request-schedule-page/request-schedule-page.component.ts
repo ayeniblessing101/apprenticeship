@@ -1,121 +1,113 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { UserService } from '../../../services/user.service';
 import { RequestService } from '../../../services/request.service';
-import * as moment from 'moment'
-import { FileService } from 'app/services/files.service';
 
 @Component({
   selector: 'app-request-schedule-page',
   templateUrl: './request-schedule-page.component.html',
   styleUrls: ['./request-schedule-page.component.scss'],
 })
-
 export class RequestSchedulePageComponent implements OnInit {
-  @Input() request;
+  @Input() request: any;
+  @Input() pageWidth: string;
   @Input() showAddFileButton = true;
   @Input() showLogSessionButton = true;
-  nextSessionDate: any;
-  sessions: any;
-  pageWidth: string;
+  @Input() showConfirmSessionButton = true;
+  sessions: any[];
+  currentUser: any;
+  showLogSessionModal: boolean;
+  modalSession: any;
+  rerender: boolean;
 
-  constructor (
+  constructor(
+    private userService: UserService,
     private requestService: RequestService,
-    private fileService: FileService,
-  ) {}
+    private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.assignSessions();
-    this.assignNextSessionDate();
+    this.currentUser = this.userService.getCurrentUser();
+    this.getSessions(this.request.id);
   }
+
   /**
-   * Format session date.
+   *  Opens modal for user to log a session.
    *
-   * @param {moment.Moment} date
+   *  @param {object} session - object containing session that will be opened in the modal.
    *
-   * @return {string}
+   *  @return {void}
    */
-  formatSessionDate(date: string) {
-    const sessionDate = moment(date);
-    const today = moment();
-    if (sessionDate.diff(today, 'days') === 0) {
-      return 'Today';
+  openSessionModal(session) {
+    this.modalSession = session;
+    this.showLogSessionModal = true;
+  }
+
+  /**
+   *  Closes the modal for log session.
+   *
+   *  @return {void}
+   */
+  closeSessionModal() {
+    this.showLogSessionModal = false;
+  }
+
+  /**
+   *  Updates the session that was just logged in the array of sessions.
+   *  This will prevent the user from logging the session again.
+   *
+   *  @param {object} event - event object containing the logged session.
+   *
+   *  @return {void}
+   */
+  updateSession(event) {
+    const loggedSessionPosition = this.sessions.indexOf(event);
+
+    if (this.currentUser.id === this.request.mentor_id) {
+      event['mentor_logged'] = true;
     }
-    return sessionDate.format('MMM DD');
-  }
-
-  /**
-   * Assign next session date.
-   *
-   * @return {void}
-   */
-  assignNextSessionDate() {
-    const startDateClone = moment(this.request.match_date).clone();
-    const mentorshipEndDate = startDateClone.add(this.request.duration, 'months');
-    for (const day of this.request.pairing.days) {
-      if (moment().day(day).day() > moment().day() && moment().isBefore(mentorshipEndDate)) {
-        this.nextSessionDate = this.formatSessionDate(moment().day(day).format('YYY MM DD'));
-        break;
-      }
+    if (this.currentUser.id === this.request.mentee_id) {
+      event['mentee_logged'] = true;
     }
-    if (this.nextSessionDate === undefined) {
-      const firstDay = moment().day(this.request.pairing.days[0]).day();
-      const nextDay = moment().day(firstDay).add(1, 'weeks');
-      if (nextDay.day() < mentorshipEndDate.day()) {
-        this.nextSessionDate = this.formatSessionDate(nextDay.format('YYY MM DD'));
-      }
-    }
-  }
 
-  /**
-   * Assign sessions from request service.
-   *
-   *@return {void}
-   */
-  assignSessions() {
-    this.requestService.getRequestSessions(this.request.id)
-      .toPromise()
-      .then((response) => {
-        this.sessions = response;
-        let sessionsCount = this.sessions.length;
-        if (this.nextSessionDate) {
-          sessionsCount += 1;
-        }
-
-        this.pageWidth = (sessionsCount * 450).toString().concat('px');
-      })
-  }
-
-  /**
-   * Downloads file by generating the url on demand and downloading the file
-   *
-   * @param {Number} fileId - ID of file to be downloaded
-   *
-   * @return {void}
-   */
-  downloadFile(fileId) {
-    this.fileService.getFileDownloadUrl(fileId)
-      .toPromise()
-      .then((response) => {
-        const downloadLink = document.createElement('a');
-        downloadLink.href = response.url
-        downloadLink.click();
-      });
+    this.sessions.splice(loggedSessionPosition, 1, event);
+    this.rerender = true;
+    this.changeDetector.detectChanges();
+    this.rerender = false;
   }
 
   /**
    * Deletes file from session
    *
    * @param {Object} session - ID of the session to delete file from
-   * @param {Object} file - ID of file to be deleted
+   * @param {Object} event - event containing the ID of file to be deleted
    *
    * @return {void}
    */
-  deleteFile(session, file) {
-    this.fileService.deleteSessionFile(session.id, file.id)
+  deleteFile(event, session) {
+    const sessionLocation = this.sessions.indexOf(session);
+    const fileLocation = this.sessions[sessionLocation].files.indexOf(event);
+    this.sessions[sessionLocation].files.splice(fileLocation, 1);
+  }
+
+  /**
+   * Gets all sessions based on the provided request ID.
+   *
+   * @return {void}
+   */
+  getSessions(requestId) {
+    this.requestService.getRequestSessions(requestId)
       .toPromise()
-      .then((response) => {
-        const sessionLocation = this.sessions.indexOf(session);
-        const fileLocation = this.sessions[sessionLocation].files.indexOf(file);
-        this.sessions[sessionLocation].files.splice(fileLocation, 1);
+      .then((sessions) => {
+        this.sessions = sessions;
+        this.pageWidth = this.calculatePageWidth();
       });
+  }
+
+  /**
+   * Calculates the page width based on the number of request sessions.
+   *
+   * @return {string} the page width in pixel
+   */
+  calculatePageWidth() {
+    return (this.sessions.length * 373).toString().concat('px');
   }
 }

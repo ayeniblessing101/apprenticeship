@@ -6,6 +6,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StarRatingModule } from 'angular-star-rating';
 
 import { RequestService } from '../../services/request.service';
+import { SessionService } from '../../services/session.service';
 import { SkillService } from '../../services/skill.service';
 import { RequestResolver } from '../../resolvers/request.resolver';
 import { FileService } from '../../services/files.service';
@@ -24,7 +25,6 @@ import { NoSearchResultComponent } from './no-search-result/no-search-result.com
 import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
 import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
 import { CalendarComponent } from './in-progress/calendar/calendar.component';
-import { SessionService } from '../../services/session.service';
 import { RequestDetailsPageComponent } from './request-details-page/request-details-page.component';
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
@@ -34,14 +34,16 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from './save-filters/save-filters.component';
 import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-pool-header-width-to-parent-directive';
+import { LogSessionModalComponent } from './log-session-modal/log-session-modal.component';
+import { SessionDetailsComponent } from './session-details/session-details.component';
 
 @NgModule({
   imports: [
     CommonModule,
     InfiniteScrollModule,
     SharedModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     StarRatingModule.forRoot(),
   ],
   declarations: [
@@ -68,6 +70,8 @@ import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-po
     RequestSkillPipe,
     SaveFiltersComponent,
     MatchPoolHeaderWidthToParentDirective,
+    LogSessionModalComponent,
+    SessionDetailsComponent,
   ],
   exports: [
     PoolComponent,
@@ -75,6 +79,7 @@ import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-po
     SaveFiltersModalComponent,
     PoolRecordsComponent,
     CalendarComponent,
+    LogSessionModalComponent,
   ],
   providers: [
     SaveFiltersModalComponent,

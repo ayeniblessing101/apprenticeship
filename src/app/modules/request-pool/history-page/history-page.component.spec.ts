@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { HttpModule } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
 import { HttpService as Http } from '../../../services/http.service';
 import { UserService } from '../../../services/user.service';
@@ -12,6 +13,8 @@ import { HistoryPageComponent } from './history-page.component';
 import { RequestDetailsPageComponent } from '../request-details-page/request-details-page.component';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SessionDetailsComponent } from '../session-details/session-details.component';
+import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
 
 describe('HistoryPageComponent', () => {
   let component: HistoryPageComponent;
@@ -24,6 +27,8 @@ describe('HistoryPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HistoryPageComponent,
+        LogSessionModalComponent,
+        SessionDetailsComponent,
         RequestDetailsPageComponent,
         RequestSchedulePageComponent,
         ProposedRequestDurationPipe,
@@ -31,6 +36,8 @@ describe('HistoryPageComponent', () => {
       ],
       imports: [
         StarRatingModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
         HttpModule,
       ],
       providers: [
