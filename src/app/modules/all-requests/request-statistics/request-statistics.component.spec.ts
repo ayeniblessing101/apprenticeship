@@ -7,6 +7,9 @@ import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { UserService } from '../../../services/user.service';
+import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
+import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
+
 
 describe('RequestStaticsComponent', () => {
   let component: RequestStatisticsComponent;
@@ -17,7 +20,11 @@ describe('RequestStaticsComponent', () => {
       imports: [
         HttpModule,
       ],
-      declarations: [RequestStatisticsComponent],
+      declarations: [
+        RequestStatisticsComponent,
+        CalendarPickerComponent,
+        DropDownComponent,
+      ],
       providers: [
         Http,
         { provide: RequestService, useClass: RequestServiceStub },

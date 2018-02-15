@@ -29,6 +29,7 @@
   position: fixed;
   background: $primary-background-color;
   width: 100%;
+  z-index: 1;
 }
 
 .card-container {
@@ -117,6 +118,18 @@
   margin-top: 30px;
 }
 
+.location {
+  width: 46px;
+  height: 15px;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+
 .checkbox-container {
   display: inline-block;
   float: right;
@@ -145,4 +158,27 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 20px 20px;
+}
+
+.date-range-picker {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 3fr));
+  grid-template-rows: 100%;
+}
+
+.calendar-icon {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 45px;
+  height: 49px;
+  cursor: pointer;
+  border-radius: 0px 4px 4px 0px;
+  background-color: rgba(244, 247, 249, 0.4);
+  border: solid 1px #d6e3ef;
+  margin-top: 25px;
+}
+
+.location-dropdown {
+  margin-top: 3px;
 }

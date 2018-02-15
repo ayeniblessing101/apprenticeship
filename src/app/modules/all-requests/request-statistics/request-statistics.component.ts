@@ -13,15 +13,13 @@ export class RequestStatisticsComponent implements OnInit {
     type: [false, false],
     locations : [],
     status: [],
+    startDate: '',
+    endDate: '',
   };
   selectedLocation: any[] = [];
   totalRequests: number;
-  locations = [
-    { name: 'All', value: '', isSelected: true },
-    { name: 'Nigeria', value: 'Lagos', isSelected: false },
-    { name: 'Kenya', value: 'Nairobi', isSelected: false },
-    { name: 'Uganda', value: 'Kampala', isSelected: false },
-  ];
+  locations = ['All', 'Lagos', 'Nairobi', 'Kampala'];
+  location = 'All';
   requests = [
     { status: 'Total Requests', statistic: 0 },
     { status: 'Open Requests', statistic: 0 },
@@ -38,7 +36,7 @@ export class RequestStatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.applyFilters.emit(this.appliedFilters);
-    this.getRequestStatistics(this.selectedLocation);
+    this.getRequestStatistics();
   }
 
   /**
@@ -48,9 +46,11 @@ export class RequestStatisticsComponent implements OnInit {
    *
    * @return {Void}
    */
-  getRequestStatistics(locations): void {
+  getRequestStatistics(): void {
     const options = {
-      locations,
+      locations: this.selectedLocation,
+      start_date: this.appliedFilters.startDate,
+      end_date: this.appliedFilters.endDate,
     };
 
     this.requestService.getRequestStatistics(options)
@@ -72,41 +72,13 @@ export class RequestStatisticsComponent implements OnInit {
    *
    * @return {Void}
    */
-  reloadRequestsOnLocationChange(event): void {
-    const location = event.target.value
-
-    if (event.target.checked) {
-      this.appliedFilters.locations.push(location);
-      this.selectedLocation.push(location);
-    } else {
-      const unCheckedLocation = this.appliedFilters.locations.indexOf(location)
-      this.appliedFilters.locations.splice(unCheckedLocation, 1);
-      const unCheckedLocationStatistics = this.selectedLocation.indexOf(location)
-      this.selectedLocation.splice(unCheckedLocationStatistics, 1);
-    }
-
-    this.selectAllCheckbox();
-    this.getRequestStatistics(this.selectedLocation);
+  reloadRequestsOnLocationChange(location: string): void {
+    this.location = location;
+    const city = location === 'All' ? '' : location;
+    this.appliedFilters.locations[0] = city;
+    this.selectedLocation[0] = city;
+    this.getRequestStatistics();
     this.applyFilters.emit(this.appliedFilters);
-  }
-
-  /**
-   * Automatically deselects the All location checkbox when
-   * less than all the rest of the checkboxes are selected,
-   * and automatically selects the All checkbox when all the
-   * rest of the checkboxes are selected.
-   *
-   * @return {Void}
-   */
-  selectAllCheckbox() {
-    let allAreChecked = true;
-    for (let i = 1; i < this.locations.length; i++) {
-      if (!this.locations[i].isSelected) {
-        allAreChecked = false;
-        break;
-      }
-    }
-    this.locations[0].isSelected = allAreChecked;
   }
 
   /** Fetches new records based on selected status
@@ -143,4 +115,39 @@ export class RequestStatisticsComponent implements OnInit {
       this.headerName = this.selectedStatus;
     }
   }
+
+  /**
+   * Set the start date
+   * @param {string} date - The date specified.
+   *
+   * @returns {void}
+   */
+  setStartDate(date: string) {
+    this.appliedFilters.startDate = date;
+    this.reloadRequestsOnDateChange();
+  }
+
+  /**
+   * Set the end date
+   * @param {string} date - The date specified.
+   *
+   * @returns {void}
+   */
+  setEndDate(date: string) {
+    this.appliedFilters.endDate = date;
+    this.reloadRequestsOnDateChange();
+  }
+
+  /**
+   * Reload requests on date change (Start and End date)
+   *
+   * @returns {void}
+   */
+  reloadRequestsOnDateChange() {
+    if (this.appliedFilters.startDate && this.appliedFilters.endDate) {
+      this.applyFilters.emit(this.appliedFilters);
+      this.getRequestStatistics();
+    }
+  }
+
 }

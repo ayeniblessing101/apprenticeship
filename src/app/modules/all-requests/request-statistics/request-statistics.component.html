@@ -1,17 +1,20 @@
 <section id="section">
-  <div  class="title-container">
-    <h4 class="title">{{ headerName }}</h4>
-  </div>
-  <div class="checkbox-container">
-    <label *ngFor="let location of locations" title="All" class="filter">
-      <input type="checkbox" value="{{ location.value }}" (change)="location.isSelected = !location.isSelected; reloadRequestsOnLocationChange($event)" [checked]="location.isSelected" />
-      <div class="img"></div>
-      {{ location.name }}
-    </label>
+  <div class="title-container">
+    <div class="date-range-picker">
+      <app-calendar-picker [borderSelector]="'4px 0px 0px 4px'" [label]="'Start Date'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
+      <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
+      <div class="calendar-icon">
+        <img src="../../../../assets/images/calendar.svg" />
+      </div>
+      <div class="location-dropdown">
+        <span class="location">Location</span>
+        <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
+      </div>
+    </div>
   </div>
   <div class="card-container">
     <div *ngFor="let request of requests" class="card" (click)="reloadRequestsAndHeaderOnStatusChange(request.status)" [ngClass]="{'active' : request.status === selectedStatus}">
-      <div class="content"> 
+      <div class="content">
         <span>{{ request.status }}</span>
         <div class="statistics">
           <span>{{ request.statistic }}</span>

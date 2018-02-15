@@ -1,0 +1,258 @@
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/fonts';
+
+@mixin dots($color) {
+  margin-right: 3px;
+  content: "\002022";
+  color: $color;
+}
+
+#base {
+  display: block;
+  padding: 10px 10px 10px 10px ;
+  width: 22rem;
+  position: relative;
+  height: 18rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
+  z-index: 1;
+}
+
+$dayBase: 14%;
+$base: 10px;
+
+.calendar {
+  float: left;
+  display: block;
+  width: $dayBase * 7;
+  margin-top: 0.2rem;
+  * {
+    box-sizing: border-box;
+  }
+
+  .calendar-navs {
+    background-color: transparent;
+  }
+
+  .month-nav {
+    font-family: $font-family-1;
+    font-size: 14px;
+    line-height: 2;
+    text-align: left;
+    color: #989898;
+    padding: $base;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navigation-buttons {
+    -webkit-transform:scale(1, 1.5);
+    -moz-transform:scale(1, 1.5);
+    -ms-transform:scale(1, 1.5);
+    -o-transform:scale(1, 1.5);
+    transform:scale(1, 1.5);
+    color: #3359db;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    outline: none;
+
+    &:hover {
+      outline: none;
+      color: rgba(77, 161, 255, 0.9);
+    }
+  }
+
+  .year-nav {
+    padding: $base;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: $font-family-1;
+  }
+
+  .month-grid {
+    .day-names {
+      display: flex;
+      flex-direction: row;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    .weeks {
+      margin: 10px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .week {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .week-date,
+    .day-name {
+      width: $dayBase;
+      height: $dayBase;
+      font-family: $font-family-1;
+      font-size: 11px;
+      letter-spacing: 0.9px;
+      color: #808080;
+      text-align: left;
+      padding: $base;
+      display: block;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .week-date {
+      position: relative;
+      text-align: center;
+
+      &.date-text {
+        z-index: 10;
+        font-size: 10px;
+        font-family: $font-family-1;
+        color: #999999;
+      }
+
+      &::after {
+        content: '';
+        height: $dayBase * 0.9;
+        width: $dayBase * 0.9;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+        z-index: -1;
+      }
+
+      &.enabled {
+        cursor: pointer;
+
+        &:hover {
+          &:after {
+            height: 30px;
+            width: 30px ;
+            position: absolute;
+            background-color: rgba(77, 161, 255, 0.1);
+          }
+        }
+      }
+
+      &.missed {
+        &:after {
+          @include dots(#ff6d4a);
+          height: 30px;
+          width: 30px;
+          text-align: right;
+          position: absolute;
+        }
+      }
+
+        &.completed {
+          &:after {
+            @include dots(#4da1ff);
+            height: 30px;
+            width: 30px;
+            text-align: right;
+            position: absolute;
+          }
+        }
+
+        &:hover {
+          &:after {
+            height: 30px;
+            width: 30px ;
+            position: absolute;
+            background-color: rgba(77, 161, 255, 0.1);
+          }
+        }
+
+      &.disabled {
+          color: #e6e6e6;
+      }
+    }
+
+    .today {
+      width: 30px;
+      height: 30px;
+      margin: 0 5px 0 5px;
+      border-radius: 4px;
+      background-color: rgba(77, 161, 255, 0.1);
+    }
+  }
+}
+
+.calendar-dropdown {
+  margin-top: 5px;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+
+  button {
+    border-radius: 4px;
+    border: solid 1px #d6e3ef;
+    background-size: 22px;
+    text-indent: 10px;
+  }
+
+  input {
+    border-radius: 4px;
+    border: solid 1px #d6e3ef;
+    background-size: 22px;
+    text-indent: 10px;
+    background-color: #f1f2f3;
+    margin-top: 20px;
+    width: 127px;
+    height: 45px;
+  }
+}
+
+.request-option {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-align: left;
+  border: solid 1px #e9eff4;
+  width: 127px;
+  height: 46px;
+  border-radius: 0px;
+  cursor: pointer;
+  font-family: $font-family-1;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.common-dropdown-styles {
+  position: absolute;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1 !important;
+  left: 0;
+  margin-top: 4px;
+  height: 219px;
+}
+
+.selectDatelabel {
+  position: absolute;
+  width: 55px;
+  height: 15px;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}

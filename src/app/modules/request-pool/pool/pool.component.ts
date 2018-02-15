@@ -127,6 +127,12 @@ export class PoolComponent implements OnInit {
       }
       this.filterParams['type'].push('mentee');
     }
+    if (event.startDate) {
+      this.filterParams['startDate'] = event.startDate;
+    }
+    if (event.endDate) {
+      this.filterParams['endDate'] = event.endDate;
+    }
     this.filterService.setFilters(event);
     this.getRequests();
   }

@@ -23,6 +23,8 @@ import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-dur
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from '../../request-pool/save-filters/save-filters.component';
+import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
+import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -57,6 +59,8 @@ describe('AllRequestsPageComponent', () => {
         RequestDurationPipe,
         RequestSkillPipe,
         SaveFiltersComponent,
+        CalendarPickerComponent,
+        DropDownComponent,
       ],
       providers: [
         Http,

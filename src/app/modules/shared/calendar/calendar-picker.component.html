@@ -1,0 +1,40 @@
+<div class="calendar-dropdown">
+  <div class="dropdown" (mouseleave)="showDropDownContent = false">
+    <label class="selectDatelabel"> {{ label }} </label>
+    <input class="request-option" [value]="selectedDate" (click)="showDropDownContent = !showDropDownContent"
+    [ngStyle]="{'border-radius':borderSelector}" readonly>
+    <div *ngIf="showDropDownContent" class="common-dropdown-styles">
+      <div id="base" name="calendar-picker">
+        <div class="calendar">
+          <div class="calendar-navs">
+            <div class="month-nav">
+              <button class="navigation-buttons" (click)="prevMonth()">&lt;</button>
+              <span class="p4">{{ currentDate.format('MMMM YYYY') }}</span>
+              <button class="navigation-buttons" (click)="nextMonth()">&gt;</button>
+            </div>
+          </div>
+          <div class="month-grid">
+            <div class="day-names">
+              <div *ngFor="let name of dayNames" class="day-name">
+                {{ name }}
+              </div>
+            </div>
+            <div class="weeks">
+              <div *ngFor="let week of weeks" class="week">
+                <ng-container *ngFor="let day of week">
+                  <div *ngIf="!isSelectedMonth(day.date)" (click)="setDate(day.date)" class="week-date disabled">
+                    <span class="date-text">{{ day.date.date() }}</span>
+                  </div>
+
+                  <div *ngIf="isSelectedMonth(day.date)" (click)="setDate(day.date)" class="week-date enabled" [ngClass]="{ today: day.today}">
+                    <span class="date-text">{{ day.date.date() }}</span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

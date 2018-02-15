@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PoolComponent } from '../../request-pool/pool/pool.component';
-import { PoolRecordsComponent } from 'app/modules/request-pool/pool-records/pool-records.component';
+import { PoolRecordsComponent } from '../../request-pool/pool-records/pool-records.component';
 
 @Component({
   selector: 'app-all-requests-page',

@@ -19,6 +19,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { MdCardModule } from '@angular/material';
 import { DropDownComponent } from './drop-down/drop-down.component';
 import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.component';
+import { CalendarPickerComponent } from './calendar/calendar-picker.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.compo
     CreateRequestComponent,
     DropDownComponent,
     SkillsDropdownComponent,
+    CalendarPickerComponent,
   ],
   exports: [
     HeaderComponent,
@@ -49,6 +51,8 @@ import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.compo
     AlertComponent,
     ConfirmationAlertComponent,
     MessageAlertComponent,
+    DropDownComponent,
+    CalendarPickerComponent,
   ],
   providers: [
     AlertService,

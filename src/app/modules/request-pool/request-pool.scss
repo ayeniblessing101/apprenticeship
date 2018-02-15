@@ -2,7 +2,7 @@
 @import '../../../assets/scss/colors';
 @import '../../../assets/scss/loaders';
 
-$table-width:100%;
+$table-width: 100%;
 * {
   box-sizing: border-box;
   margin: 0;
@@ -63,22 +63,20 @@ section {
   display: table;
   width: 100%;
   border-collapse: collapse;
-   margin-top: -25px;
+  margin-top: 4px;
   .header {
-    color: $header-text-color;
     font-size: 14px;
     padding-top: 20px;
     background-color: #f1f2f3;
-    display: table-header-group;
     position: fixed;
-      display: table-row;
-      color: $primary-text-color;
-      div {
-        border-bottom: 1px solid #e0e0e0;
-        display: table-cell;
-        padding-left: 2%;
-        padding-bottom: 15px;
-      }
+    display: table-row;
+    color: $primary-text-color;
+    div {
+      border-bottom: 1px solid #e0e0e0;
+      display: table-cell;
+      padding-left: 2%;
+      padding-bottom: 15px;
+    }
   }
 
   .body {
@@ -128,7 +126,7 @@ section {
 }
 
 .title:after {
-  content: "";
+  content: '';
   margin-top: 15px;
   float: left;
   background: $andela-blue;
@@ -184,10 +182,10 @@ section {
     .modal-content {
       margin-top: 30px;
       line-height: 25px;
-  }
+    }
 
-   &::-webkit-scrollbar {
-      width: 0 !important
+    &::-webkit-scrollbar {
+      width: 0 !important;
     }
   }
 }
@@ -197,27 +195,25 @@ section {
 ********************************************************************************************************************************/
 
 .button {
-    border-radius: 0;
-    height: 35px;
-    width: auto;
-    background: none;
-    color: $andela-blue;
-    border: 1px solid $andela-blue;
-    font-size: 1em;
-    padding: 5px 30px 5px 30px;
-    outline: none;
-    &:active {
-        transform: scale(0.95);
-    }
+  border-radius: 0;
+  height: 35px;
+  width: auto;
+  background: none;
+  color: $andela-blue;
+  border: 1px solid $andela-blue;
+  font-size: 1em;
+  padding: 5px 30px 5px 30px;
+  outline: none;
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 /*******************************************************************************************************************************
                                              RATING
 ********************************************************************************************************************************/
 
-
 .rating.color-default .star-container .star {
-
   svg {
     fill: #3359db;
   }
@@ -238,7 +234,6 @@ section {
 .rating.color-negative .star-container .star svg {
   fill: #3259db;
 }
-
 
 @media only screen and (max-width: 1210px) {
   #section-grid {
