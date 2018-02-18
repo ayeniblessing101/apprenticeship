@@ -87,13 +87,16 @@ export class RequestDetailsModalComponent implements OnInit {
    * @returns {Promise} Promise from notification service
    */
   notifyMentee() {
-
+    const requestSkills = this.selectedRequest.request_skills
+      .filter(skill => skill.type === 'primary');
+    const primarySkills = (requestSkills.map(primarySkill => primarySkill.name));
+    primarySkills.splice(primarySkills.length - 1, 0, 'and');
+    const selectedSkills = primarySkills.join(', ');
     return this.notificationService.sendMessage([this.selectedRequest.mentee_id], {
       type: NotificationTypes.MENTOR_REQUEST,
       message: {
         title: 'New Mentor Request',
-        content: `Somone has offered to mentor you on "${this
-          .selectedRequest.primarySkills}."`,
+        content: `Someone has offered to mentor you on "${selectedSkills}."`,
       },
       sender: this.currentUser.name,
       timestamp: Date.now(),
