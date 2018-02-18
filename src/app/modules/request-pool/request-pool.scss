@@ -42,16 +42,13 @@ body {
 ********************************************************************************************************************************/
 
 #section-grid {
-  width: 74%;
+  width: 78%;
   min-height: 91.35vh;
   overflow-y: scroll;
-  padding: 35px 30px 5px;
+  padding: 0 5px 5px;
   float: left;
-  margin-left: 7%;
-  @media (max-width: 900px) {
-    margin-left: 11%;
-  }
-  margin-top: 4em;
+  margin-left: 0;
+  margin-top: -20px;
 }
 
 section {
@@ -63,10 +60,9 @@ section {
   display: table;
   width: 100%;
   border-collapse: collapse;
-  margin-top: 4px;
   .header {
     font-size: 14px;
-    padding-top: 20px;
+    padding-top: 30px;
     background-color: #f1f2f3;
     position: fixed;
     display: table-row;
@@ -244,7 +240,7 @@ section {
 @media only screen and (max-width: 900px) {
   #section-grid {
     width: 65%;
-    padding: 35px 0px 5px 0px;
+    padding: 0 0px 5px 0px;
   }
 }
 

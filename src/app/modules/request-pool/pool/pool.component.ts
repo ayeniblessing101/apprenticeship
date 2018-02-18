@@ -21,7 +21,7 @@ export class PoolComponent implements OnInit {
   isSaveFiltersModalOpened: boolean;
   requests = [];
   filterParams: any = {};
-  sectionGridWidth = '68%';
+  sectionGridWidth = '71%';
   firstPageLoad: boolean;
 
   constructor(
@@ -36,7 +36,7 @@ export class PoolComponent implements OnInit {
     this.filterParams = this.filterService.getFilters();
     this.getRequests();
     if (!this.showFilters) {
-      this.sectionGridWidth = '85%';
+      this.sectionGridWidth = '90%';
     }
   }
 

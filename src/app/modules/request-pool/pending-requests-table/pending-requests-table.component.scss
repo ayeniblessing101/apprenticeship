@@ -3,7 +3,8 @@
 
 .title-container {
     position: fixed;
-    padding-top: 0;
+    margin-top: -40px;
+    padding-top: 52px;
     width: 100%;
     margin-bottom: 10px;
     background: $primary-background-color;
@@ -12,7 +13,7 @@
 .content-container {
     margin-top: 60px;
     .table{
-        
+
         width: $table-width;
         .row {
           cursor: pointer;

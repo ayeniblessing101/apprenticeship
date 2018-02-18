@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from 'app/services/notifications.service';
+import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,10 @@ import { Router } from '@angular/router';
 
 export class HeaderComponent implements OnInit {
   displayNotifications = false;
+  showHeaderContent = true;
+  redirectUrl = `${environment.apiGateway}/login?redirect_url=${environment.lenkenBaseUrl}/request-pool`;
   isAdmin = false;
+  isLoggedIn = false;
   @Input() currentUser: any;
   displayCreateRequestModal = false
   requestType: string;
@@ -20,7 +24,12 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private notificationService: NotificationService,
     private router: Router,
-  ) { }
+  ) {
+    if (!localStorage.getItem('id_token')) {
+      this.showHeaderContent = false;
+      this.isLoggedIn = true
+    }
+  }
 
   ngOnInit() {
     if (this.authService.userInfo.roles.LENKEN_ADMIN) {

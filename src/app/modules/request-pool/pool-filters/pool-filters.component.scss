@@ -8,17 +8,17 @@
   overflow-y: scroll;
   min-height: 91.35vh;
   display: inline-block;
-  padding: 90px 0 5px 0;
+  padding: 10px 0 5px 0px;
   color: $primary-text-color;
   border-left: 1px solid #d1d1d1;
 
   .side-contents {
     width: inherit;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
     margin-left: 10px;
     text-align: left;
     color: #747474;
-    margin-top: 8px;
+    margin-top: 0;
 
     .regular-checkbox {
       display: none;

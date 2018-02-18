@@ -3,21 +3,22 @@
 
 #wrapper {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background: url('../../../../assets/images/bg.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  margin: -100px 0 0 -120px
   }
-  
+
   .logo {
     position: absolute;
     margin: 0 auto;
     transform: translate(-50%, -50%);
     left: 50%;
-  
+
     .text {
       width: 107px;
       height: 41px;
@@ -28,20 +29,20 @@
       float: right;
       margin-top: 10px;
     }
-  
+
     img {
       margin-right: 15px;
     }
-  
+
   }
-  
+
   .page-intro {
     position: absolute;
     margin: 0 auto;
     transform: translate(-50%, -50%);
     top: 41%;
     left: 50%;
-  
+
     .tagline {
       font-family: $font-family-2;
       font-size: 48px;
@@ -52,7 +53,7 @@
       margin-top: 100px;
     }
   }
-  
+
   .sign-in-button {
     width: 340px;
     height: 60px;
@@ -60,7 +61,7 @@
     margin: 0 auto;
     display: block;
     margin-top: 8%;
-  
+
     &:hover {
       cursor: pointer;
     }

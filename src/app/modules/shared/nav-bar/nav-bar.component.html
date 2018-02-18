@@ -3,9 +3,11 @@
     <li class="nav-home-icon">
       <img src="../../assets/images/andela-master-condensed-mark.png" alt="">
     </li>
-    <li class="nav-icons section-img" [routerLinkActive]="['active']" [routerLink]="['request-pool']" [routerLinkActiveOptions]="{ exact: true }" id="pool"><span>Pool</span></li>
-    <li class="nav-icons section-img" [routerLinkActive]="['active']" [routerLink]="['request-pool/pending']" id="pending"><span>Pending</span></li>
-    <li class="nav-icons section-img" [routerLinkActive]="['active']" [routerLink]="['request-pool/in-progress']" id="progress"><span>In Progress</span></li>
-    <li class="nav-icons section-img" [routerLinkActive]="['active']" [routerLink]="['request-pool/history']" id="history"><span>History</span></li>
+  <div [ngClass]="{'showNavContent': !showNavContent}">
+    <li [routerLinkActive]="['active']" [routerLink]="['request-pool']" class="nav-icons section-img" [routerLinkActiveOptions]="{ exact: true }" id="pool"><span>Pool</span></li>
+    <li [routerLinkActive]="['active']" [routerLink]="['request-pool/pending']" class="nav-icons section-img" id="pending"><span>Pending</span></li>
+    <li [routerLinkActive]="['active']" [routerLink]="['request-pool/in-progress']" class="nav-icons section-img" id="progress"><span>In Progress</span></li>
+    <li [routerLinkActive]="['active']" [routerLink]="['request-pool/history']" class="nav-icons section-img" id="history"><span>History</span></li>
+  </div>
   </ul>
 </nav>

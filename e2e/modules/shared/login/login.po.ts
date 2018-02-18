@@ -55,4 +55,5 @@ export class LoginPage {
     passwordNextButton.click();
     browser.sleep(5000);
   }
+
 }

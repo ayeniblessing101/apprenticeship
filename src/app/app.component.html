@@ -1,4 +1,6 @@
 <app-header *ngIf='showNavAndHeader' [currentUser]="currentUser"></app-header>
 <app-nav-bar *ngIf='showNavAndHeader'></app-nav-bar>
+<div class="main-wrapper">
 <router-outlet></router-outlet>
+</div>
 <app-alert></app-alert>

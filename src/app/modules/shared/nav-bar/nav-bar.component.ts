@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -7,12 +7,13 @@ import { By } from '@angular/platform-browser';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
-export class NavBarComponent implements OnInit {
-
+export class NavBarComponent {
+  showNavContent = true;
   constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit() {
+    private router: Router,
+  ) {
+    if (!localStorage.getItem('id_token')) {
+      this.showNavContent = false;
+    }
   }
 }

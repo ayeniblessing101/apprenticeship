@@ -1,5 +1,18 @@
 <header class="header-grid">
-  <ul>
+
+
+  <ul *ngIf='isLoggedIn'>
+    <li>
+      <a href="{{ redirectUrl }}" class="redirect-link">
+        <div class="rectangle">
+          <img src="../../../../assets/images/google-black.png" class="google-black"/>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <p>Sign in to get started</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <ul *ngIf='showHeaderContent'>
     <li>
       <div>
         <form>

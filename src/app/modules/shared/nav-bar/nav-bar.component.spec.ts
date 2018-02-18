@@ -9,8 +9,8 @@ import { RouterLinkStubDirective } from '../../../stubs/router-stubs';
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;
-  let mockRouter = {
-    navigate: jasmine.createSpy('navigate')
+  const mockRouter = {
+    navigate: jasmine.createSpy('navigate'),
   }
 
   beforeEach(async(() => {
@@ -19,8 +19,8 @@ describe('NavBarComponent', () => {
         NavBarComponent,
         RouterLinkStubDirective,
       ],
-      providers: [ { provide: Router, useValue: mockRouter } ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      providers: [{ provide: Router, useValue: mockRouter }],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));

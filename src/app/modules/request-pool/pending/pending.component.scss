@@ -9,10 +9,11 @@
   height: calc((100vh - 10em)/2);
   overflow-y: scroll;
   &:nth-child(1) {
+    margin-top: 30px;
     margin-bottom: 40px;
   }
 }
 
 #section-grid {
-  width: 90%;
+  width: 95%;
 }

@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from '../../services/alert.service';
 import { SkillService } from '../../services/skill.service';
@@ -32,6 +33,7 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
     NavBarComponent,
     LoginComponent,
     PageNotFoundComponent,
+    UnauthorizedPageComponent,
     AlertComponent,
     ConfirmationAlertComponent,
     NotificationsComponent,
@@ -46,6 +48,7 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
     NavBarComponent,
     LoginComponent,
     PageNotFoundComponent,
+    UnauthorizedPageComponent,
     AlertComponent,
     ConfirmationAlertComponent,
     MessageAlertComponent,

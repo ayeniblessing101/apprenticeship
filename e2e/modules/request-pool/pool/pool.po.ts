@@ -53,7 +53,7 @@ export class RequestPoolPage {
    * @return {WebElement}
    */
   getRequestModalBackButton(): ElementFinder {
-    return element(by.css('.right'));
+    return element(by.id('back-modal-button'));
   }
 
   /**

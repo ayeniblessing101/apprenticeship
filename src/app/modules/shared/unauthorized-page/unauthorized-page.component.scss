@@ -1,27 +1,28 @@
 .centered {
   position: fixed;
   top: 30%;
-  left: 37%;
+  left: 26%;
   color: rgb(63, 37, 38);
 }
 
-.not-found-image {
+.unauthorized-image {
   width: 350px;
-  margin-left: 8%;
+  margin-left: 27%
 }
 
 @media only screen and (max-width: 760px) {
   .centered {
     position: fixed;
     top: 30%;
-    left: 37%;
+    text-align: center;
+    left: 20%;
     font-size: 7px;
     color: rgb(63, 37, 38);
   }
 
-  .not-found-image {
+  .unauthorized-image {
     width: 150px;
-    margin-left: 8%;
+    margin-left: 5%
   }
 }
 
@@ -29,12 +30,13 @@
   .centered {
     position: fixed;
     top: 30%;
-    left: 28%;
+    text-align: center;
+    left: 13%;
     color: rgb(63, 37, 38);
   }
 
-  .not-found-image {
+  .unauthorized-image {
     width: 350px;
-    margin-left: 8%;
+    margin-left: 3%
   }
 }

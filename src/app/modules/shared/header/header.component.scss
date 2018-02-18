@@ -111,6 +111,14 @@
   border-radius: 1px;
 }
 
+.sign-in-button {
+  width: 200px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  margin-top: 3%;
+}
+
 .search {
   padding: 10px;
   height: 32px;
@@ -209,7 +217,32 @@
   background-color: #ffaf30;
   border-radius: 50%;
   display: inline-block;
-  position: absolute;
-  top: -2px;
-  left: -2px;
+  position:relative;
+  top:16px;
+  left:-3px;
+}
+.redirect-link {
+  text-decoration: none;
+}
+.rectangle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #3359db;
+  color: #ffffff;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.rectangle img {
+  height: 20px;
+}
+
+.rectangle p {
+  padding: 0;
+  margin: 0;
 }

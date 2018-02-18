@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './modules/shared/login/login.component';
 import { PageNotFoundComponent } from './modules/shared/page-not-found/page-not-found.component';
+import { UnauthorizedPageComponent } from './modules/shared/unauthorized-page/unauthorized-page.component';
 import { PoolComponent } from './modules/request-pool/pool/pool.component';
 import { HistoryComponent } from './modules/request-pool/history/history.component';
 import { InProgressComponent } from './modules/request-pool/in-progress/in-progress.component';
@@ -13,7 +14,9 @@ import { AllRequestsPageComponent } from './modules/all-requests/all-requests-pa
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
 import { HeaderComponent } from './modules/shared/header/header.component';
-import { InProgressSingleViewComponent } from './modules/request-pool/in-progress/in-progress-single-view/in-progress-single-view.component';
+import {
+  InProgressSingleViewComponent,
+} from './modules/request-pool/in-progress/in-progress-single-view/in-progress-single-view.component';
 import { RequestResolver } from './resolvers/request.resolver';
 import { HistoryPageComponent } from './modules/request-pool/history-page/history-page.component';
 
@@ -62,6 +65,9 @@ const appRoutes: Routes = [
 
   { path: 'admin/reports', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
 
+  { path: 'unauthorized', component: UnauthorizedPageComponent },
+
+  { path: 'page-not-found', component: PageNotFoundComponent },
 
   { path: '**', component: PageNotFoundComponent },
 

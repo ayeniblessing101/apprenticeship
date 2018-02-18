@@ -189,7 +189,6 @@ export class RequestService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-
     return Observable.throw(errMsg);
   }
 
