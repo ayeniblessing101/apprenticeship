@@ -23,12 +23,16 @@
         {{file.name}}
       </a>
       <a class="download" (click)=downloadFile(file.id)>
-        <img src="../../../../assets/images/download.svg">
-        Download
+        <span class="icon">
+          <img src="../../../../assets/images/download.svg">
+          Download
+        </span>
       </a>
       <a class="delete" (click)="deleteFile(session, file)">
-        <img src="../../../../assets/images/trash.svg">
-        Delete
+        <span class="icon">
+          <img src="../../../../assets/images/trash.svg">
+          Delete
+        </span>
       </a>
     </div>
   </div>
