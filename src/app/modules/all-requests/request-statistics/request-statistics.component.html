@@ -10,6 +10,11 @@
         <span class="location">Location</span>
         <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
       </div>
+          <div class="export-button" (click)="exportRequests()">
+            <button>Export
+              <img src="../../../../../assets/images/export-csv.svg" class="export-icon">
+            </button>
+          </div>
     </div>
   </div>
   <div class="card-container">

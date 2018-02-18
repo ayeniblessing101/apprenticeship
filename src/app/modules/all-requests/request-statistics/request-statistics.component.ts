@@ -1,17 +1,23 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 import { RequestService } from './../../../services/request.service';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { RequestStatuses } from '../../../enums/request-statuses.enum';
 
 @Component({
   selector: 'app-request-statistics',
   templateUrl: './request-statistics.component.html',
   styleUrls: ['./request-statistics.component.scss'],
+  providers: [RequestSkillPipe, RequestDurationPipe, DatePipe],
 })
 export class RequestStatisticsComponent implements OnInit {
   @Output() applyFilters = new EventEmitter<any>();
   appliedFilters = {
     category: ['all'],
     type: [false, false],
-    locations : [],
+    locations: [],
     status: [],
     startDate: '',
     endDate: '',
@@ -32,6 +38,9 @@ export class RequestStatisticsComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
+    private requestSkillPipe: RequestSkillPipe,
+    private requestDurationPipe: RequestDurationPipe,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit() {
@@ -148,6 +157,112 @@ export class RequestStatisticsComponent implements OnInit {
       this.applyFilters.emit(this.appliedFilters);
       this.getRequestStatistics();
     }
+  }
+
+  /**
+   * Exports Requests to CSV File
+   *
+   * @returns {void}
+   */
+  exportRequests() {
+    let limit: number;
+    let request: object;
+    const page = null;
+    const downloadLink = document.createElement('a');
+
+    for (const status of this.requests) {
+      if (status.status === this.selectedStatus) {
+        limit = status.statistic;
+      }
+    }
+
+    this.requestService.getRequests(limit, page, this.appliedFilters)
+      .toPromise()
+      .then((response) => {
+        request = response.requests;
+        const blob = new Blob([this.convertRequestToCsv(request)], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.download = `${this.createFileName()}`;
+        downloadLink.click();
+      });
+  }
+
+  /**
+   * Converts Requests JSON into CSV format
+   *
+   * @param {object} requests - Requests to be formatted into csv format
+   *
+   * @return {string} - CSV string
+   */
+  convertRequestToCsv(requests) {
+    const lineDelimiter = '\r\n';
+    let requestsInCsvFormat = '';
+    requestsInCsvFormat = requestsInCsvFormat.concat(`Request,Mentee,Mentor,Primary Skill,Secondary Skill,`)
+      .concat(`Preferred Duration,Date Added,Location,Status${lineDelimiter}`);
+
+    if (requests.length > 0) {
+      for (const request of requests) {
+        const title = request.title;
+        const menteeName = request.mentee.fullname;
+        const mentorName = request.mentor.fullname;
+        const primarySkills = this.requestSkillPipe.transform(request.request_skills, 'primary');
+        const secondarySkills = this.requestSkillPipe.transform(request.request_skills, 'secondary');
+        const duration = this.requestDurationPipe.transform(request.duration);
+        const dateAdded = this.datePipe.transform(request.created_at);
+        const location = request.location;
+        const status = RequestStatuses[request.status_id];
+        requestsInCsvFormat = requestsInCsvFormat.concat(`"${title}",${menteeName},${mentorName},"${primarySkills}",`)
+          .concat(`"${secondarySkills}",${duration},"${dateAdded}","${location}",${status},${lineDelimiter}`);
+      }
+    }
+
+    return requestsInCsvFormat;
+  }
+
+  /**
+   * Creates a file name following the format <start_date>-<end_date>-<location>-<status>.csv
+   *
+   * @return(void)
+   */
+  createFileName() {
+    const startDate = this.appliedFilters.startDate ? this.formatDate(this.appliedFilters.startDate) : '';
+    const endDate = this.appliedFilters.endDate ? this.formatDate(this.appliedFilters.endDate) : '';
+    const location = this.getLocationCode(this.location);
+    return `${startDate} - ${endDate} - ${location} - ${this.selectedStatus}.csv`
+  }
+
+  /**
+   * Gets location code
+   *
+   * @param {String} location - Location to get abbreviation for.
+   *
+   * @return {string} - Location Abbreviation
+   */
+  getLocationCode(selectedLocation) {
+    const locations = [
+      { name: 'All', locationCode: 'All' },
+      { name: 'Lagos', locationCode: 'LOS' },
+      { name: 'Nairobi', locationCode: 'NBO' },
+      { name: 'Kampala', locationCode: 'KLA' },
+    ];
+
+    for (const location of locations) {
+      if (selectedLocation === location.name) {
+        return location.locationCode;
+      }
+    }
+  }
+
+  /**
+   * Format date to 'DD MM, YYYY' Eg. 20th March, 2018
+   *
+   * @param {Date} date - Selected date
+   *
+   * @returns {Date}
+   */
+  formatDate(date) {
+    return moment(date, 'DD-MMM-YYYY').format('Do MMMM, YYYY');
   }
 
 }
