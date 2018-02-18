@@ -110,6 +110,6 @@ export class SessionService {
    * @return {Observable} err
    */
   handleError(error: Response | any): Observable<any> {
-    return Observable.of(error.json().message);
+    return Observable.throw(error.json().message);
   }
 }

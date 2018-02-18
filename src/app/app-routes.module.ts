@@ -10,6 +10,7 @@ import { InProgressComponent } from './modules/request-pool/in-progress/in-progr
 import { SharedModule } from './modules/shared/shared.module';
 import { PendingComponent } from 'app/modules/request-pool/pending/pending.component';
 import { AllRequestsPageComponent } from './modules/all-requests/all-requests-page/all-requests-page.component'
+import { ReportsPageComponent } from './modules/reports/reports-page/reports-page.component'
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
@@ -63,7 +64,7 @@ const appRoutes: Routes = [
 
   { path: 'admin/skills', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
 
-  { path: 'admin/reports', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/reports', loadChildren: './modules/reports/reports.module#ReportsModule', canActivate: [AuthGuard, AdminGuard] },
 
   { path: 'unauthorized', component: UnauthorizedPageComponent },
 

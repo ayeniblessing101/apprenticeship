@@ -1,0 +1,24 @@
+@import '../../../../assets/scss/fonts';
+
+.chart {
+  border-radius: 6px;
+  margin-left: 30px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.03);
+
+  .chart-header {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+    font-size: 18px;
+    padding: 25px 0;
+    padding-left: 30px;
+    width: calc(100% - 25px);
+  }
+
+  #line-chart {
+    padding: 30px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    font-family: $font-family-1;
+  }
+}

@@ -1,0 +1,14 @@
+<div class="wrapper">
+    
+  <div class="date-picker">
+    <app-calendar-picker [label]="'Start Date'" [borderSelector]="'4px 0px 0px 4px'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
+    <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
+    <div class="calendar">
+      <img src="../../assets/images/calendar.svg" alt="calendar">
+    </div>
+  </div>
+
+  <app-inactive-mentorship-graph
+    [startDate]="startDate"
+    [endDate]="endDate"></app-inactive-mentorship-graph>
+</div>
