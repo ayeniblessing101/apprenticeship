@@ -38,6 +38,9 @@ export class PoolComponent implements OnInit {
     if (!this.showFilters) {
       this.sectionGridWidth = '90%';
     }
+    this.requestService.requestPool.subscribe(() => {
+      this.getRequests();
+    });
   }
 
   /**

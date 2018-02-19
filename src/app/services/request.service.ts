@@ -16,6 +16,7 @@ export class RequestService {
   private apiBaseUrl: string = environment.apiBaseUrl;
   private statuses: any;
   updatePendingPoolRequestsTable = new Subject<any>();
+  requestPool = new Subject<any>();
   constructor(
     private http: Http,
     private userService: UserService,
@@ -59,8 +60,8 @@ export class RequestService {
    * @return String
    */
   getEncodedParameters(params) {
-    let paramValues = new URLSearchParams();
-    for (let key in params) {
+    const paramValues = new URLSearchParams();
+    for (const key in params) {
       paramValues.set(key, params[key])
     }
     return paramValues.toString();

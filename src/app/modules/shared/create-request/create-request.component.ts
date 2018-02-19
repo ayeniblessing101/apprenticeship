@@ -188,7 +188,8 @@ export class CreateRequestComponent implements OnInit {
 
       return this.requestService.createRequest(requestDetails)
         .toPromise()
-        .then(() => {
+        .then((response) => {
+          this.requestService.requestPool.next();
           this.closeMentorshipRequestModal();
 
           const alertServiceConfig = {
