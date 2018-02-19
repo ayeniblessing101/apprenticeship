@@ -3,10 +3,11 @@ import { SkillService } from '../../../services/skill.service';
 import { AlertService } from '../../../services/alert.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
-export class Skill {
-  constructor(public name: string) { }
-}
-
+/**
+ * @class UserSkillsComponent
+ *
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-user-skills',
   templateUrl: './user-skills.component.html',
@@ -26,6 +27,7 @@ export class UserSkillsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.sortUserSkills(this.currentUser.skills);
     this.skills = this.getSkills();
   }
 
@@ -53,6 +55,7 @@ export class UserSkillsComponent implements OnInit {
         .toPromise()
         .then(() => {
           this.currentUser.skills.push(skill);
+          this.sortUserSkills(this.currentUser.skills);
           this.skillControl.reset()
         },
       )
@@ -67,6 +70,7 @@ export class UserSkillsComponent implements OnInit {
    * Check if a value is an Object
    *
    * @param {any} value value to check
+   *
    * @returns {Boolean}
    */
   isObject(value) { return typeof value === 'object'; }
@@ -98,5 +102,27 @@ export class UserSkillsComponent implements OnInit {
    */
   autocompleListFormatter(skill) {
     return skill.name;
+  }
+
+  /**
+   * Sorts the user skills into an alphabetical order
+   *
+   * @param {array} userSkills A list containing the user's skills
+   *
+   * @returns {array} Array containing the sorted user skills
+   */
+  sortUserSkills(userSkills) {
+    return userSkills.sort((preceedingSkill, subsequentSkill) => {
+      if (preceedingSkill.name.toLowerCase()
+        < subsequentSkill.name.toLowerCase()) {
+        return -1;
+      }
+      if (preceedingSkill.name.toLowerCase()
+      > subsequentSkill.name.toLowerCase()) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 }
