@@ -18,8 +18,12 @@
 
 .header {
   position: fixed;
-  width: 90%;
+  width: 78.7%;
   margin-left: -25px;
+  background-color: $primary-background-color;
+  z-index: 1;
+  margin-top: -1.5%;
+  padding-top: 10px;
 }
 
 .header-bar {
@@ -35,7 +39,7 @@
       width: 200px;
       height: auto;
       padding: 5px;
-      margin-right: 20%;
+      margin-right: 8%;
       border-radius: 4px;
 
     }
@@ -231,4 +235,19 @@ a {
 .request-details-wrapper , .request-schedule-wrapper {
   display: inline-block;
   margin-right: 290px;
+}
+
+.request-schedule-wrapper {
+	width: 100%;
+	height: 100%;
+	overflow-x: scroll;
+}
+
+.request-schedule-wrapper::-webkit-scrollbar {
+	height: 8px;
+}
+
+.request-schedule-wrapper::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: $scroll-bar-color;
 }
