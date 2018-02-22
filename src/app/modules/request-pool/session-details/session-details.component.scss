@@ -149,6 +149,10 @@
 
 .card-body {
   overflow-y: scroll;
+  max-height: calc(72vh - 50px);
+  a {
+    cursor: pointer;
+  }
 }
 
 ::-webkit-scrollbar {

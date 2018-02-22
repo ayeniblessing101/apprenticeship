@@ -279,6 +279,7 @@
   border-radius: 1px;
   display: inline-block;
   position: relative;
+  cursor: pointer;
 }
 
 .regular-checkbox:checked + .checkbox-label {
