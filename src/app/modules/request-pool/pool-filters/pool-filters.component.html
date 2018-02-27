@@ -8,7 +8,7 @@
           <input #all type="radio" value="all" id="all-requests"
                  [checked]="selectedFilters[all.name] === all.value" name="category"
                  (click)="applySelectedFilters({ type: all.name, value: all.value })">
-          <label for="all-requests">All Requests</label>
+          <label id="all-requests-label" for="all-requests">All Requests</label>
         </div>
         <div class="requests-radio">
           <input #recommended type="radio" value="recommended" id="recommended"

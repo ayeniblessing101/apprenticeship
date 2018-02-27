@@ -77,6 +77,24 @@ export class RequestPoolPage {
   }
 
   /**
+   * Gets the all requests radio button
+   *
+   * @return {WebElement}
+   */
+  getAllRequestsRadioButton(): ElementFinder {
+    return element(by.id('all-requests-label'));
+  }
+
+  /**
+   * Gets the first row element with id 'title'
+   *
+   * @return {WebElement}
+   */
+  getFirstRowMentorshipRequest(): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id('title'));
+  }
+
+  /**
    * Fills the request a mentor form
    *
    * @return {void}

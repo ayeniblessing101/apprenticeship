@@ -23,12 +23,6 @@ describe('Request Pool', () => {
     browser.sleep(3000);
   });
 
-  it('Should filter the request pool by location', () => {
-    requestPool.getLocationFilter().click();
-    requestPool.getLagosFilter().click();
-    browser.sleep(3000);
-  });
-
   it('Should be able to request a mentor', () => {
     browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
     requestPool.requestAMentor();
@@ -36,7 +30,16 @@ describe('Request Pool', () => {
 
     requestPool.getCloseAlertButton().click();
     browser.sleep(3000);
+    requestPool.getAllRequestsRadioButton().click();
+    browser.sleep(3000);
+    expect(requestPool.getFirstRowMentorshipRequest().getText()).toContain('Angular e2e');
+    browser.sleep(2000);
+  });
 
+  it('Should filter the request pool by location', () => {
+    requestPool.getLocationFilter().click();
+    requestPool.getLagosFilter().click();
+    browser.sleep(3000);
   });
 
   it('Should show notifications when user clicks on notifications icon', () => {
