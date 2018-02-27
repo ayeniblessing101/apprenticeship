@@ -1,20 +1,24 @@
 <section id="section">
   <div class="title-container">
     <div class="date-range-picker">
-      <app-calendar-picker [borderSelector]="'4px 0px 0px 4px'" [label]="'Start Date'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
-      <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
-      <div class="calendar-icon">
-        <img src="../../../../assets/images/calendar.svg" />
-      </div>
-      <div class="location-dropdown">
-        <span class="location">Location</span>
-        <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
-      </div>
-          <div class="export-button" (click)="exportRequests()">
-            <button>Export
-              <img src="../../../../../assets/images/export-csv.svg" class="export-icon">
-            </button>
+      <div class="date-range-controls">
+        <div class="calendar-filter ">
+          <app-calendar-picker [borderSelector]="'4px 0px 0px 4px'" [label]="'Start Date'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
+          <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
+          <div class="calendar-icon">
+            <img src="../../../../assets/images/calendar.svg" />
           </div>
+        </div>
+        <div class="location-dropdown">
+          <span class="location">Location</span>
+          <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
+        </div>
+      </div>
+      <div class="export-button" (click)="exportRequests()">
+        <button>Export
+          <img src="../../../../../assets/images/export-csv.svg" class="export-icon">
+        </button>
+      </div>
     </div>
   </div>
   <div class="card-container">

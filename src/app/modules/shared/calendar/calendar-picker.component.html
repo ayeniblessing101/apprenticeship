@@ -1,8 +1,8 @@
 <div class="calendar-dropdown">
   <div class="dropdown" (mouseleave)="showDropDownContent = false">
-    <label class="selectDatelabel"> {{ label }} </label>
-    <input class="request-option" [value]="selectedDate" (click)="showDropDownContent = !showDropDownContent"
-    [ngStyle]="{'border-radius':borderSelector}" readonly>
+    <label class="selectDatelabel" id="calendar-picker-label"> {{ label }} </label>
+    <input class="request-option" id="calendar-picker" [value]="selectedDate" (click)="showDropDownContent = !showDropDownContent"
+      [ngStyle]="{'border-radius':borderSelector}" readonly>
     <div *ngIf="showDropDownContent" class="common-dropdown-styles">
       <div id="base" name="calendar-picker">
         <div class="calendar">

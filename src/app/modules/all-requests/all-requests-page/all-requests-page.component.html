@@ -1,6 +1,5 @@
-<div class="wrapper">
+<div class="wrapper flexer flexer-col">
     <app-request-statistics (applyFilters)="applyFilters($event)"></app-request-statistics>
-    <div class="spacer"></div>
-    <app-pool [showFilters]="false" [showOpenRequests]="false"></app-pool>
+    <app-pool [showFilters]="false" [showOpenRequests]="false" class="flexed requests-table-section"></app-pool>
     <div *ngIf="loadingRequests" class="loader"> </div>
 </div>

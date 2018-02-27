@@ -56,15 +56,19 @@ section {
   overflow: hidden;
 }
 
+.top-spacer {
+  height: 45px
+}
+
 .table {
   display: table;
   width: 100%;
   border-collapse: collapse;
+
   .header {
+    position: absolute;
     font-size: 14px;
-    padding-top: 30px;
     background-color: #f1f2f3;
-    position: fixed;
     display: table-row;
     color: $primary-text-color;
     div {
@@ -79,6 +83,7 @@ section {
     display: table-row-group;
     color: $primary-text-color;
     font-size: 13px;
+    margin-top: 60px;
     .row {
       display: table-row;
       color: #2f2f2f;
@@ -102,6 +107,7 @@ section {
   .space {
     height: 10px;
   }
+
   .header-space {
     margin-top: 64px;
   }

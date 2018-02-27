@@ -1,3 +1,9 @@
 .main-wrapper {
-  margin: 100px 0 0 120px
+  padding: 100px 0 0 120px;
+  height: calc(100% - 100px);
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
