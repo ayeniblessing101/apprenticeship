@@ -32,7 +32,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authService.userInfo.roles.LENKEN_ADMIN) {
+    if (this.authService.userInfo &&
+      this.authService.userInfo.roles.LENKEN_ADMIN) {
       this.isAdmin = true;
     }
   }
