@@ -5,6 +5,7 @@ import { RequestService } from './../../../services/request.service';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestStatuses } from '../../../enums/request-statuses.enum';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-request-statistics',
@@ -41,6 +42,7 @@ export class RequestStatisticsComponent implements OnInit {
     private requestSkillPipe: RequestSkillPipe,
     private requestDurationPipe: RequestDurationPipe,
     private datePipe: DatePipe,
+    private alert: AlertService,
   ) {}
 
   ngOnInit() {
@@ -170,6 +172,11 @@ export class RequestStatisticsComponent implements OnInit {
     const page = null;
     const downloadLink = document.createElement('a');
 
+    if (!this.appliedFilters.endDate || !this.appliedFilters.startDate) {
+      this.alert.showMessage('Start Date and End Date is required!');
+      return;
+    }
+
     for (const status of this.requests) {
       if (status.status === this.selectedStatus) {
         limit = status.statistic;
@@ -262,7 +269,7 @@ export class RequestStatisticsComponent implements OnInit {
    * @returns {Date}
    */
   formatDate(date) {
-    return moment(date, 'DD-MMM-YYYY').format('Do MMMM, YYYY');
+    return moment(date, 'DD-MMM-YYYY').format('DD, MMMM, YYYY');
   }
 
 }

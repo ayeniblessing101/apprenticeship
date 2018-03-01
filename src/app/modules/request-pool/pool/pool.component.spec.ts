@@ -13,6 +13,7 @@ import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool
 import { PoolRecordsComponent } from 'app/modules/request-pool/pool-records/pool-records.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FilterService } from '../../../services/filter.service';
+import { AlertService } from '../../../services/alert.service';
 import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 
@@ -64,6 +65,7 @@ describe('PoolComponent', () => {
         FilterService,
         UserService,
         SkillService,
+        AlertService,
       ],
     })
       .compileComponents();

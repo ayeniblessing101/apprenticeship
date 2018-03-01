@@ -7,6 +7,7 @@ import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { UserService } from '../../../services/user.service';
+import { AlertService } from '../../../services/alert.service';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 
@@ -29,6 +30,7 @@ describe('RequestStaticsComponent', () => {
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
+        AlertService,
         UserService,
       ],
     })

@@ -13,6 +13,7 @@ import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { UserService } from '../../../services/user.service';
+import { AlertService } from '../../../services/alert.service';
 import { RequestDetailsModalComponent } from '../../request-pool/request-details-modal/request-details-modal.component';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FilterService } from '../../../services/filter.service';
@@ -64,6 +65,7 @@ describe('AllRequestsPageComponent', () => {
         RequestService,
         UserService,
         FilterService,
+        AlertService,
       ],
     })
       .compileComponents();

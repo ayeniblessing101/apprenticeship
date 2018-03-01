@@ -8,7 +8,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 import { AlertComponent } from './alert/alert.component';
-import { AlertService } from '../../services/alert.service';
 import { SkillService } from '../../services/skill.service';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ConfirmationAlertComponent } from './confimation-alert/confirmation-alert.component';
@@ -56,7 +55,6 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
     CalendarPickerComponent,
   ],
   providers: [
-    AlertService,
     NotificationsComponent,
     SkillService,
   ],
