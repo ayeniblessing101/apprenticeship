@@ -55,7 +55,8 @@ const appRoutes: Routes = [
 
   { path: 'request-pool/pending', component: PendingComponent, canActivate: [AuthGuard] },
 
-  { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
+  { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule',
+    canActivate: [AuthGuard] },
 
   { path: 'admin/create-request', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
 
