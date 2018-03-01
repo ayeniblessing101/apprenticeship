@@ -36,7 +36,7 @@
     </li>
     <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>
     <li (click)="openNotifications()">
-      <a class="notification">
+      <a [className]="(checkIfUnreadNotificationsExist()) ? 'unread-notifications': 'notification'">
         <span *ngIf="checkIfUnreadNotificationsExist()" class="dot"></span>
         <img src="../../assets/images/notification-icon.png" alt="">
       </a>

@@ -35,6 +35,11 @@
         display: block;
       }
     }
+    .unread-notifications {
+      @extend .notification;
+      top:-8.5px;
+    }
+
 
     .user-icon {
       padding-right: 15px;

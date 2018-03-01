@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
-   * Checks for unread message
+   * Checks for unread notifications
    *
    * @return {Boolean}
    */
