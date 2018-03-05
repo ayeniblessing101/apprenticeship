@@ -17,6 +17,7 @@ import { HttpService } from './services/http.service';
 import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
 import { SegmentService } from './services/segment.service';
+import { FileService } from './services/files.service';
 
 // components
 import { AppRoutesModule } from './app-routes.module';
@@ -31,6 +32,7 @@ import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
+
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -68,6 +70,7 @@ if (authToken) {
     AlertService,
     SegmentService,
     NotificationService,
+    FileService,
   ],
   bootstrap: [AppComponent],
 })

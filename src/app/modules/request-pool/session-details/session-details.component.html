@@ -1,18 +1,20 @@
 <div *ngIf="session" class="card">
-  <span class="card-header">{{formatSessionDate(session.date)}}
-    <hr [ngClass]="{'indicator-inactive': sessionIsDisabled,
-    'indicator-active': (sessionIsEnabled || sessionNeedsConfirmation)}">
-  </span>
-  <div class="card-header-buttons">
-    <button *ngIf="showAddFileButton" class="add-file">Add file</button>
-    <button
-      *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
-      class="log-session"
-      [ngClass]="{'active': sessionIsEnabled, 'inactive': sessionIsDisabled}"
-      [disabled]="sessionIsDisabled"
-      (click)="openSessionModal()">Log Session</button>
-    <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
-            class="confirm-session">Confirm Session</button>
+  <div class="header">
+    <span class="card-header">{{formatSessionDate(session.date)}}
+      <hr [ngClass]="{'indicator-inactive': sessionIsDisabled,
+      'indicator-active': (sessionIsEnabled || sessionNeedsConfirmation)}">
+    </span>
+    <div>
+      <button *ngIf="showAddFileButton" class="add-file" (click)="openAddFileModal(session)">Add file</button>
+      <button
+        *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
+        class="log-session"
+        [ngClass]="{'active': sessionIsEnabled, 'inactive': sessionIsDisabled}"
+        [disabled]="sessionIsDisabled"
+        (click)="openSessionModal()">Log Session</button>
+      <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
+              class="confirm-session">Confirm Session</button>
+    </div>
   </div>
   <div class="card-body" *ngIf="session.files.length > 0">
     <div class="file" *ngFor="let file of session.files">
@@ -37,3 +39,10 @@
     </div>
   </div>
 </div>
+<app-add-file-modal *ngIf="openFileModal"
+                    (closeFileModal)="closeAddFileModal()"
+                    [sessionId]="sessionId"
+                    [requestId]="request.id"
+                    [sessionDate]="session.date"
+                    (modifiedSession)="updateSession($event)">
+</app-add-file-modal>

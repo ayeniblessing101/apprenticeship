@@ -1,0 +1,44 @@
+<div class="modal-container">
+  <div class="modal">
+    <div class="modal-heading">
+      <h4 class="title">Upload a file</h4>
+      </div>
+    <div class="modal-content">
+      <form  class="addFileForm" #fileForm="ngForm" (ngSubmit)="submitForm(fileForm)" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="file-title">Enter the title of the document</label>
+            <input ngModel
+                   type="text"
+                   class="addFileField"
+                   placeholder="e.g Assignment"
+                   id="file-title"
+                   #fileTitle
+                   name="fileTitle"
+            />
+          </div>
+            <div draggable="true"
+                 #fileToUpload
+                 class="upload-file-area"
+                 appUploadFile
+                 (fileAddedEmitter)="file = $event">
+                <img class="upload-icon-svg" src="/assets/images/upload-icon.svg"/>
+                <span class="upload-information">You can drop your file here</span>
+            </div>
+
+        <div *ngIf="file; else noFileUploaded" class="uploaded-file-name">
+          <img class="file-icon-svg" src="/assets/images/file-icon.svg"/>
+          <span class="file-name" #fileToUpload> {{ file?.name}} </span>
+          <span><a type="button" class="remove-file" (click)="removeUploadedFile()">Remove</a></span>
+        </div>
+        <ng-template #noFileUploaded> </ng-template>
+        <div *ngIf="loading" class="loader-bar"> </div>
+    <div class="modal-footer">
+      <div class="button-group">
+        <input  type="button" class="inline-block" (click)="closeAddFileModal()" value="DISCARD">
+        <input type="submit"  value="SAVE" class="inline-block">
+      </div>
+    </div>
+    </form>
+    </div>
+  </div>
+</div>

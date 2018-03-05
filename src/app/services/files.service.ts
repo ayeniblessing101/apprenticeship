@@ -39,4 +39,18 @@ export class FileService {
       .map((response: Response) => response.json())
       .catch(error => Observable.throw(error.json()));
   }
+
+  /**
+   * Uploads a file to a given session.
+   *
+   * @param {Object} requestData
+   * @param {number} sessionId
+   *
+   * @returns {Observable<any>}
+   */
+  addFile(uploadFile: Object, sessionId) {
+    return this.http.post(`${this.apiBaseUrl}/v2/sessions/${sessionId}/files`, uploadFile)
+      .map(response => response.json());
+  }
+
 }

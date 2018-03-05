@@ -11,18 +11,22 @@ import { FileService } from '../../../services/files.service';
   styleUrls: ['./session-details.component.scss'],
 })
 export class SessionDetailsComponent implements OnInit {
-  @Output() openLogSessionModal = new EventEmitter<string>();
+  @Output() openLogSessionModal = new EventEmitter<number>();
   @Output() removeDeletedFile = new EventEmitter<any>();
   @Input() showAddFileButton;
   @Input() showLogSessionButton;
   @Input() showConfirmSessionButton;
   @Input() session: any;
   @Input() request: any;
+  sessions: any[];
   isMentor: boolean;
   isMentee: boolean;
   sessionIsDisabled: boolean;
   sessionIsEnabled: boolean;
   sessionNeedsConfirmation: boolean;
+  sessionId: number;
+  openFileModal: boolean;
+  sessionDate: object;
 
   constructor(
     private userService: UserService,
@@ -61,7 +65,7 @@ export class SessionDetailsComponent implements OnInit {
    * @return {void}
    */
   openSessionModal() {
-    this.openLogSessionModal.emit();
+    this.openLogSessionModal.emit(this.sessionId);
   }
 
   /**
@@ -81,8 +85,7 @@ export class SessionDetailsComponent implements OnInit {
    * @return {boolean}
    */
   checkCurrentUserLoggedSession() {
-    return this.session.status === 'upcoming' ||
-      (this.session.mentor_logged && this.isMentor) ||
+    return (this.session.mentor_logged && this.isMentor) ||
       (this.session.mentee_logged && this.isMentee);
   }
 
@@ -136,5 +139,38 @@ export class SessionDetailsComponent implements OnInit {
       .then((response) => {
         this.removeDeletedFile.emit(file);
       });
+  }
+
+  /** Opens the add file modal.
+   * @param session
+   *
+   * @return {void}
+   */
+  openAddFileModal(session) {
+    this.session = session;
+    this.sessionDate = session.date;
+    this.sessionId = session.id;
+    this.openFileModal = true;
+  }
+
+  /**
+   * It sets the session id and
+   * pushes the added file to the specific session files array.
+   * @param event
+   *
+   * @return {void}
+   */
+  updateSession(event) {
+    this.session.id =  event.session_id;
+    this.session.files.push(event.file);
+  }
+
+  /**
+   * closes the add file modal
+   *
+   * @return {void}
+   */
+  closeAddFileModal() {
+    this.openFileModal = false;
   }
 }

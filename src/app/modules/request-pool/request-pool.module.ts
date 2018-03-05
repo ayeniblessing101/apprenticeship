@@ -36,6 +36,8 @@ import { SaveFiltersComponent } from './save-filters/save-filters.component';
 import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-pool-header-width-to-parent-directive';
 import { LogSessionModalComponent } from './log-session-modal/log-session-modal.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
+import { AddFileModalComponent } from './add-file-modal/add-file-modal.component';
+import { UploadFileDirective } from './add-file-modal/upload-file.directive';
 
 @NgModule({
   imports: [
@@ -72,6 +74,8 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
     MatchPoolHeaderWidthToParentDirective,
     LogSessionModalComponent,
     SessionDetailsComponent,
+    AddFileModalComponent,
+    UploadFileDirective,
   ],
   exports: [
     PoolComponent,

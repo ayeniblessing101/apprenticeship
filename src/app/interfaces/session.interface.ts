@@ -5,6 +5,7 @@ import { Rating } from './rating.interface';
  * Blueprint for the session object
  */
 export interface Session {
+  session_id?: number,
   date?: number,
   start_time?: string,
   end_time?: string,

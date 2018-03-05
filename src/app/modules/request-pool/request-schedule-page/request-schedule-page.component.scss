@@ -6,9 +6,6 @@
   display: block;
   direction: ltr;
   height: 86vh;
-  padding-right: 20%;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar {
-  width: 0;
-}

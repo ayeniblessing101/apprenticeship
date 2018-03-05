@@ -11,6 +11,8 @@ import { FilterService } from '../../../services/filter.service';
 import { SharedModule } from '../../shared/shared.module';
 import { UserServiceStub } from '../../../stubs/user-stub.service';
 import { FileService } from '../../../services/files.service';
+import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
+import { FormsModule } from '@angular/forms';
 
 describe('SessionDetailsComponent', () => {
   let component: SessionDetailsComponent;
@@ -22,9 +24,11 @@ describe('SessionDetailsComponent', () => {
         InfiniteScrollModule,
         SharedModule,
         HttpModule,
+        FormsModule,
       ],
       declarations: [
         SessionDetailsComponent,
+        AddFileModalComponent,
       ],
       providers: [
         Http,

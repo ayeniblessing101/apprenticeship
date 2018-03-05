@@ -1,7 +1,7 @@
 <div>
   <app-message-alert (onClose)="closeMessageAlert()" [message]="message" *ngIf="isMessage"></app-message-alert>
 
-  <app-confirmation-alert 
+  <app-confirmation-alert
   (onClose)="closeConfirmationAlert()"
   *ngIf="isConfirmation"
   [config]="confirmationAlertConfig"

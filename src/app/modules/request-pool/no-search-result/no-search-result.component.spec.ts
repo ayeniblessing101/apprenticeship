@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NoSearchResultComponent } from './no-search-result.component';
 
 describe('NoSearchResultComponent', () => {

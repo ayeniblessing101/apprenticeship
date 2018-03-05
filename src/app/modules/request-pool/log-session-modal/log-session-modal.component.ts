@@ -33,6 +33,7 @@ export class LogSessionModalComponent implements OnInit {
   minutesInSessionTimeDifference: number;
   defaultStartTime: string;
   defaultEndTime: string;
+  sessionId: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,6 +88,27 @@ export class LogSessionModalComponent implements OnInit {
   }
 
   /**
+   * Checks to see if the session id exists for a Mentorship request if not it creates a new
+   * session and logs the session. otherwise the session will be updated.
+   *
+   * @return {void}
+   */
+  createOrLogSession() {
+    if (this.session.id === null) {
+      const formData = new FormData();
+      formData.append('date', this.session.date);
+      this.sessionService.createSession(formData, this.request.id)
+        .toPromise()
+        .then((response) => {
+          this.sessionId = response.id;
+          this.logSession();
+        });
+    } else {
+      this.logSession();
+    }
+  }
+
+  /**
    * Logs session for a Mentorship request.
    *
    * @return {void}
@@ -108,7 +130,6 @@ export class LogSessionModalComponent implements OnInit {
         usefulness: this.sessionForm.value.usefulness,
       };
     }
-
     const sessionPayload: Session = {
       date: Date.parse(this.session.date) / 1000,
       start_time: this.sessionForm.value.startTime,
@@ -117,14 +138,14 @@ export class LogSessionModalComponent implements OnInit {
       rating_scale: this.ratingScale,
       rating_values: ratingValues,
     };
-    this.sessionService.logSession(sessionPayload, this.request.id)
+    this.sessionId = this.sessionId === undefined ? this.session.id : this.sessionId,
+    this.sessionService.logSession(sessionPayload, this.request.id, this.sessionId)
       .toPromise()
-      .then(() => {
+      .then((response) => {
         if (this.userId === this.request.mentor_id) {
           this.alertService.showMessage(`Your session has been logged
             successfully but your rating is not recorded. Only a Mentee can rate for now.`);
         }
-
         this.updateSession();
         this.closeSessionModal();
       });

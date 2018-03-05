@@ -16,7 +16,6 @@ export class ConfirmationAlertComponent {
   @Input() isDeactivated: boolean;
   @Input() alertInstanceId: string;
 
-
   @Output() onClose = new EventEmitter<null>();
 
   /**

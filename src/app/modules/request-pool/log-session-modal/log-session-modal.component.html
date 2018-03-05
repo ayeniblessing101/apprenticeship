@@ -3,7 +3,7 @@
     <div class="heading">
       <span>Log Session <hr/></span>
     </div>
-    <form [formGroup] = "sessionForm" (ngSubmit)="logSession()">
+    <form [formGroup] = "sessionForm" (ngSubmit)="createOrLogSession()">
       <div class="form-group">
         <div class="display-inline-block select-wrapper">
           <label class="display-block start-label" for="startTime">Session began</label>

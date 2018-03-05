@@ -13,73 +13,11 @@
 .wrapper {
   padding: 90px 90px 90px 120px;
 }
-.icon {
-  display: inline-block;
-}
+
 .header {
-  position: fixed;
-  width: 90%;
-}
-
-.header-bar {
-  margin-right: 30px;
-
-  li {
-    display: inline;
-    list-style: none;
-
-    .header-buttons {
-      display: inline-block;
-      float: right;
-      width: 200px;
-      height: auto;
-      padding: 5px;
-      border-radius: 4px;
-      background-color: rgba(233, 239, 244, 0.48);
-
-      .schedule {
-        width: 94px;
-        height: 34px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
-      }
-
-      .details {
-        background-color: transparent;
-      }
-    }
-
-    .header-title {
-      display: inline-block;
-      width: auto;
-      height: 28px;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.4;
-      text-align: left;
-      color: #3359db;
-
-      .indicator-active {
-        margin-left: 0;
-        @include indicator-active(70px, #3359db);
-      }
-    }
-
-    button {
-      cursor: pointer;
-      width: 94px;
-      height: 34px;
-      border-radius: 3px;
-      background-color: #ffffff;
-      border: solid 0;
-      box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
-
-      &.inactive {
-        opacity: 0.45;
-      }
-    }
-  }
+  display: inline-flex;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 @mixin button($width) {
@@ -116,15 +54,16 @@
   float: left;
   margin: 90px 0 0 30px;
   width: 303px;
-  min-height: 75px;
+  min-height: 17px;
+  max-height: 74vh;
   padding: 20px;
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
 .card-header {
-  display: inline-block;
   width: auto;
   height: 21px;
   font-family: $font-family-1;
@@ -133,7 +72,7 @@
   letter-spacing: 0.1px;
   text-align: left;
   color: #474f58;
-  padding: 10px;
+  padding-right: 75px;
 
   .indicator-active {
     margin-left: 0;
@@ -147,22 +86,13 @@
 }
 
 .card-body {
-  overflow-y: scroll;
+  overflow: auto;
   max-height: calc(72vh - 50px);
-  a {
-    cursor: pointer;
-  }
 }
 
 ::-webkit-scrollbar {
   width: 0px;
 }
-
-.card-header-buttons {
-  display: inline;
-  float: right;
-}
-
 
 .file {
   width: 263px;

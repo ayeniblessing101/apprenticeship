@@ -18,6 +18,7 @@ import { SessionDetailsComponent } from '../../session-details/session-details.c
 import { LogSessionModalComponent } from '../../log-session-modal/log-session-modal.component';
 import { ProposedRequestDurationPipe } from '../../../../pipes/proposed-request-duration.pipe';
 import { RequestSkillPipe } from '../../../../pipes/request-skills-pipe';
+import { AddFileModalComponent } from '../../add-file-modal/add-file-modal.component';
 
 describe('InProgressSingleViewComponent', () => {
   let component: InProgressSingleViewComponent;
@@ -32,6 +33,7 @@ describe('InProgressSingleViewComponent', () => {
         InProgressSingleViewComponent,
         RequestDetailsPageComponent,
         RequestSchedulePageComponent,
+        AddFileModalComponent,
         CalendarComponent,
         ProposedRequestDurationPipe,
         RequestSkillPipe,
@@ -40,6 +42,7 @@ describe('InProgressSingleViewComponent', () => {
       ],
       imports: [
         HttpModule,
+        FormsModule,
         StarRatingModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,

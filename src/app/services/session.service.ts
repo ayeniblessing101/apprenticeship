@@ -14,14 +14,28 @@ export class SessionService {
   constructor(private http: Http) {}
 
   /**
-   * logs a session
+   * Creates a session for a given request.
    *
    * @param {String} - requestId
+   * @param {object} - requestData
+   *
    * @return {Observable} sessions
    */
-  logSession(data: Session, requestId): Observable<any> {
+  createSession(requestData: Object, requestId) {
+    return this.http.post(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions`, requestData)
+      .map(response => response.json());
+  }
+
+  /**
+   * Logs a session for a request.
+   *
+   * @param {String} - requestId
+   *
+   * @return {Observable} sessions
+   */
+  logSession(data: Session, requestId, sessionId): Observable<any> {
     return this.http
-      .post(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions`, data)
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions/${sessionId}`, data)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -30,6 +44,7 @@ export class SessionService {
    * retrieves sessions for a request
    *
    * @param {Number} - requestId
+   *
    * @return {Observable} sessions
    */
   getSessions(requestId: number, include: string): Observable<any> {
@@ -42,6 +57,7 @@ export class SessionService {
    * approves a session
    *
    * @param {Number} - requestId
+   *
    * @return {Observable} sessions
    */
   approveSession(sessionId: number, payload: any): Observable<any> {
@@ -55,6 +71,7 @@ export class SessionService {
    * rejects a session
    *
    * @param {Number} - requestId
+   *
    * @return {Observable} sessions
    */
   rejectSession(sessionId: number, payload: any): Observable<any> {
