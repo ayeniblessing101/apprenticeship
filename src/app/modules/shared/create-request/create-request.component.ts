@@ -150,6 +150,12 @@ export class CreateRequestComponent implements OnInit {
    * @returns {Object}
    */
   onSubmit(form) {
+    if (this.validateSessionDuration(this.duration) === false) {
+      return this.alertService.showMessage(
+        '0hr 00mins is an invalid session duration',
+      );
+    };
+
     const selectedDays = this.getSelectedDays();
 
     if (selectedDays.length === 0 || this.basicSkills.length === 0) {
@@ -173,7 +179,8 @@ export class CreateRequestComponent implements OnInit {
 
       const basicSkillIds = this.basicSkills.map(skill => skill.id);
       const complementarySkillIds = this.complementarySkills.map(skill => skill.id);
-      const sessionEndTime = this.calculateSessionEndTime(this.startTime, this.sessionDuration);
+      const sessionEndTime = this.calculateSessionEndTime(this.startTime,
+                                                          this.removeHrsMinsStrings(this.duration));
       const requestDetails = {
         isMentor,
         title: form.value.neededSkill,
@@ -189,7 +196,6 @@ export class CreateRequestComponent implements OnInit {
           timezone: this.selectedTimeZone,
         },
       };
-
       return this.requestService.createRequest(requestDetails)
         .toPromise()
         .then((response) => {
@@ -272,7 +278,7 @@ export class CreateRequestComponent implements OnInit {
         this.complementarySkills.push(selectedSkill);
       }
     }
-}
+  }
 
   /**
    * Deletes selected skills in form
@@ -283,7 +289,7 @@ export class CreateRequestComponent implements OnInit {
    *
    * @return {void}
    */
-deleteRequestSkill(skill, type, position) {
+  deleteRequestSkill(skill, type, position) {
     this.requestSkills.splice(position, 1);
     if (type === 'basic') {
       if (this.basicSkills[position].name === skill) {
@@ -303,7 +309,7 @@ deleteRequestSkill(skill, type, position) {
    *
    * @return {void}
    */
-fetchSkills() {
+  fetchSkills() {
     this.skillService.getSkills()
       .toPromise()
       .then((res) => {
@@ -313,17 +319,17 @@ fetchSkills() {
         })),
         this.skillNames = res.map(skill => skill.name);
       });
-}
+  }
 
   /**
    * Curate a selection of time slots for the start and end time select boxes
    *
    * @return {void}
    */
-getTimeSlots() {
-  const totalTimeSteps = 48;
+  getTimeSlots() {
+    const totalTimeSteps = 48;
 
-  if (this.timeSlots.length < totalTimeSteps) {
+    if (this.timeSlots.length < totalTimeSteps) {
       const currentTime = moment().startOf('day');
 
       for (let i = 1; i <= totalTimeSteps; i = i + 1) {
@@ -331,8 +337,7 @@ getTimeSlots() {
         currentTime.add(30, 'm'); // time intervals of 30mins each
       }
     }
-
-}
+  }
 
   /**
    * Adds or subtracts time from duration input box
@@ -342,16 +347,32 @@ getTimeSlots() {
    *
    * @return {void}
    */
-changeTime(time, operation) {
-  this.durationTime = this.removeHrsMinsStrings(time);
-  this.durationTime = moment(time, 'HH:mm');
+  changeTime(time, operation) {
+    this.durationTime = this.removeHrsMinsStrings(time);
+    this.durationTime = moment(time, 'HH:mm');
 
-  operation === 'add' ? this.durationTime.add(30, 'm') : this.durationTime.subtract(30, 'm');
-  this.sessionDuration = this.durationTime.format('HH:mm');
-  this.duration = this.durationTime.format('HH:mm');
-  this.duration = this.addHrsMinsStrings(this.duration);
+    operation === 'add' ? this.durationTime.add(30, 'm') : this.durationTime.subtract(30, 'm');
+    this.sessionDuration = this.durationTime.format('HH:mm');
+    this.duration = this.durationTime.format('HH:mm');
+    this.duration = this.addHrsMinsStrings(this.duration);
 
-}
+  }
+
+  /**
+   * Validates session duration by checking
+   * if the selected duration is equal to '00:00' and return
+   * false if true
+   *
+   * @param {string} duration how long the session
+   * is supposed to last
+   *
+   * @return {boolean} true or false
+   */
+  validateSessionDuration(duration): boolean {
+    if (duration === '0hr 00mins') {
+      return false;
+    }
+  }
 
    /**
    * Checks the all days checkbox, when all the days has been checked
@@ -361,8 +382,8 @@ changeTime(time, operation) {
    *
    * @return {void}
    */
-toggleAllDaysCheckbox(day) {
-  if (this.isAllDaysChecked) {
+  toggleAllDaysCheckbox(day) {
+    if (this.isAllDaysChecked) {
       this.isAllDaysChecked = false;
     } else {
       if (day.checked) {
@@ -374,7 +395,7 @@ toggleAllDaysCheckbox(day) {
         this.isAllDaysChecked = true;
       }
     }
-}
+  }
 
   /**
    * Checks all the days when the allDays checkbox is checked
@@ -382,12 +403,12 @@ toggleAllDaysCheckbox(day) {
    *
    * @return {void}
    */
-toggleWeekDaysCheckbox() {
-  for (const day of this.daysOfAvailability) {
+  toggleWeekDaysCheckbox() {
+    for (const day of this.daysOfAvailability) {
       day.checked = !this.isAllDaysChecked;
     }
-  this.isAllDaysChecked = !this.isAllDaysChecked;
-}
+    this.isAllDaysChecked = !this.isAllDaysChecked;
+  }
 
   /**
    * Sets the timezone to be used in the requestDetails payload
@@ -396,9 +417,9 @@ toggleWeekDaysCheckbox() {
    *
    * return {void}
    */
-setTimeZone(timeZone: string) {
-  this.selectedTimeZone = timeZone;
-}
+  setTimeZone(timeZone: string) {
+    this.selectedTimeZone = timeZone;
+  }
 
   /**
    * Sets the start time for the mentorship session to be used
@@ -408,9 +429,9 @@ setTimeZone(timeZone: string) {
    *
    * return {void}
    */
-setStartTime(startTime: string) {
-  this.startTime = startTime;
-}
+  setStartTime(startTime: string) {
+    this.startTime = startTime;
+  }
 
   /**
    * Sets the duration of months to be used in the payload
@@ -419,9 +440,9 @@ setStartTime(startTime: string) {
    *
    * return {void}
    */
-setMonthDuration(durationOfMonths: number) {
-  this.durationOfMonths = durationOfMonths;
-}
+  setMonthDuration(durationOfMonths: number) {
+    this.durationOfMonths = durationOfMonths;
+  }
 
   /**
    * Formats the list of selected days to include the ampersand('&') and
@@ -429,14 +450,14 @@ setMonthDuration(durationOfMonths: number) {
    *
    * @return {string} days
    */
-formatSelectedDays() {
-  const days = this.getSelectedDays();
-  let selectedDays = days.length > 1 ? days.join(', ') : days[0];
-  const commaIndex = selectedDays.lastIndexOf(', ');
-  selectedDays = commaIndex !== -1 ?
-      selectedDays.substring(0, commaIndex) + ' & ' + selectedDays.substring(commaIndex + 1) : selectedDays;
-  return selectedDays;
-}
+  formatSelectedDays() {
+    const days = this.getSelectedDays();
+    let selectedDays = days.length > 1 ? days.join(', ') : days[0];
+    const commaIndex = selectedDays.lastIndexOf(', ');
+    selectedDays = commaIndex !== -1 ?
+        selectedDays.substring(0, commaIndex) + ' & ' + selectedDays.substring(commaIndex + 1) : selectedDays;
+    return selectedDays;
+  }
 
   /**
    * Formats the time using moment by appending 'am' or 'pm' at the
@@ -446,10 +467,10 @@ formatSelectedDays() {
    *
    * @return {string} The time in 'am' or 'pm'
    */
-getAmPmTime(time: string) {
-  const formattedTime = moment(time, 'hh:mm').format('hh:mm a');
-  return formattedTime;
-}
+  getAmPmTime(time: string) {
+    const formattedTime = moment(time, 'hh:mm').format('hh:mm a');
+    return formattedTime;
+  }
 
   /**
    * Formats the duration of months selected and adds the strings 'months' or
@@ -457,9 +478,9 @@ getAmPmTime(time: string) {
    *
    * @return {string} The duration of months appended with either 'months' or 'month'
    */
-displayDurationOfMonths() {
-  const formattedMonthDuration = this.durationOfMonths === 1 ?
-      `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
-  return formattedMonthDuration;
-}
+  displayDurationOfMonths() {
+    const formattedMonthDuration = this.durationOfMonths === 1 ?
+        `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
+    return formattedMonthDuration;
+  }
 }
