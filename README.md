@@ -46,10 +46,15 @@ Then change the directory to the repository:
 ```
 $ cd lenken
 ```
+Then checkout to the `develop-v2` branch
+```
+git checkout develop-v2
+```
+
 To install requirements run:
 
 ```
-npm install
+yarn install
 ```
 
 This will install all the requirements defined in the `package.json` file inside lenken folder.
@@ -69,4 +74,12 @@ or any provided port on the terminal.
 ### Solution: 
 - Run
 
-	`ng serve --host lenken-dev.andela.com:4200`
+  `sudo nano /etc/hosts`
+  
+- Add 
+  
+  `127.0.0.1       lenken-dev.andela.com`
+  
+- Run
+
+	`ng serve --host lenken-dev.andela.com --port 4200`
