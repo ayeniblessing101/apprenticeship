@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { AngularFireModule } from 'angularfire2';
+import { IntercomModule, INTERCOM_DIRECTIVES } from 'ng2-intercom';
 import { MomentModule } from 'angular2-moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -41,6 +42,7 @@ if (authToken) {
 @NgModule({
   declarations: [
     AppComponent,
+    ...INTERCOM_DIRECTIVES
   ],
   imports: [
     AppRoutesModule,
@@ -54,6 +56,7 @@ if (authToken) {
     SharedModule,
     RequestPoolModule,
     AllRequestsModule,
+    IntercomModule
   ],
   providers: [
     {

@@ -3267,6 +3267,10 @@ ng2-cookies@^1.0.6:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/ng2-cookies/-/ng2-cookies-1.0.12.tgz#3f3e613e0137b0649b705c678074b4bd08149ccc"
 
+ng2-intercom@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ng2-intercom/-/ng2-intercom-0.1.0.tgz#4a0c9f5639b08947d3f114f81448e307bf6ebb83"
+
 ngx-accordion@0.0.17:
   version "0.0.17"
   resolved "https://registry.yarnpkg.com/ngx-accordion/-/ngx-accordion-0.0.17.tgz#072ee5cd25c115e45f8d35a7906c5c9de12006bd"

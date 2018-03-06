@@ -24,4 +24,5 @@ export const environment = {
   apiGateway: 'https://api-staging.andela.com',
   segmentAPIKey: 'WmVlgctp4KY8XpgNBMveGUtimL9TW8ke',
   segmentAPIBaseUrl: 'https://api.segment.io',
+  intercomAppId: 'dgixpcoe'
 };

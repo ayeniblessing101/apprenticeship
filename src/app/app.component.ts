@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, Event, NavigationStart } from '@angular/router';
+import { Intercom } from 'ng2-intercom/intercom';
 import { SegmentService } from './services/segment.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class AppComponent {
     private segmentService: SegmentService,
     private userService: UserService,
     private authService: AuthService,
+    private intercom: Intercom,
   ) {
     if (localStorage.getItem('id_token')) {
       this.authService.decodeToken();
@@ -43,5 +46,31 @@ export class AppComponent {
         }
       }
     });
+
+    this.initializeIntercom();
+  }
+
+  /**
+   * Initialize intercom widget
+   *
+   * @return {Void}
+   */
+  initializeIntercom() {
+    const config = {
+      app_id: environment.intercomAppId,
+      widget: {
+        activator: '#intercom',
+      },
+    };
+
+    if (this.currentUser) {
+      this.intercom.init({
+        ...config,
+        name: this.currentUser.name,
+        email: this.currentUser.email,
+      });
+    } else {
+      this.intercom.init(config);
+    }
   }
 }
