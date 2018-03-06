@@ -1,6 +1,14 @@
 import { browser, by, element, promise, ElementFinder, ElementArrayFinder } from 'protractor';
 
 export class RequestPoolRecordPage {
+  /**
+   * Navigates to the admin all requests page
+   *
+   * @return {promise}
+   */
+  navigateToAllRequestsPage(): promise.Promise {
+    return browser.get('/all-requests');
+  }
 
   /**
    * Gets the table in the request pool
@@ -32,10 +40,10 @@ export class RequestPoolRecordPage {
   }
 
   /**
- * Gets the the All requests page 
+ * Gets the All requests page
  *
  */
-  ViewAllRequestPage() {
+  getAllRequestsPage() {
     this.getAllRequests().click();
   }
   /**

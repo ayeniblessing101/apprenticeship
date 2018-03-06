@@ -1,19 +1,15 @@
 import { browser, element, by } from 'protractor';
 import { RequestPoolRecordPage } from './pool-records.po';
-import { LoginPage } from '../../shared/login/login.po';
-import { Browser } from 'selenium-webdriver';
 
-describe('Request Pool', () => {
-  const login = new LoginPage();
+describe('All Request Pool', () => {
   const allRequest = new RequestPoolRecordPage();
 
-  login.navigateToLogin();
-  login.logInUsingGoogleAuth();
+  beforeAll(() => {
+    allRequest.navigateToAllRequestsPage();
+    browser.sleep(3000);
+  });
 
-  it('Should be on the all request pool page', () => {
-    browser.actions().mouseMove(allRequest.getDashboardButton()).perform();
-    allRequest.ViewAllRequestPage();
-    browser.sleep(2000);
+  it('Should be on the all requests pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/all-requests');
     browser.sleep(2000);
   });

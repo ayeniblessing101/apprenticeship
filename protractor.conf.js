@@ -4,6 +4,8 @@
 /*global jasmine */
 var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
+
+
 exports.config = {
   // seleniumAddress: 'http://localhost:4444/wd/hub',
   allScriptsTimeout: 11000,
@@ -28,7 +30,38 @@ exports.config = {
     });
   },
   onPrepare: function() {
+    const expectedConditions = protractor.ExpectedConditions;
     jasmine.getEnv().addReporter(new SpecReporter());
     browser.manage().window().maximize();
+    browser.ignoreSynchronization = true;
+
+    // login to the application before the test starts running
+    browser.driver.get('http://lenken-dev.andela.com:4200/login');
+    browser.driver.wait(expectedConditions.visibilityOf($('a')), 3000,
+      'The google login button should be showing.');
+    browser.driver.findElement(by.tagName('a')).click();
+
+    browser.driver.wait(
+      expectedConditions.and(
+        expectedConditions.visibilityOf($('#identifierId')),
+        expectedConditions.elementToBeClickable($('#identifierNext'))
+      ), 3000, 'The google login email address page should have rendered.');
+    browser.driver.findElement(by.id('identifierId')).sendKeys('test-user-admin@andela.com');
+    browser.driver.findElement(by.id('identifierNext')).click();
+
+    browser.driver.wait(
+      expectedConditions.and(
+        expectedConditions.visibilityOf($('input[type=password]')),
+        expectedConditions.elementToBeClickable($('#passwordNext'))
+      ), 3000, 'The google login password page should have rendered.');
+    browser.driver.findElement(by.css('input[type=password]')).sendKeys('andela2015');
+    browser.driver.findElement(by.id('passwordNext')).click();
+
+    return browser.driver.wait(function() {
+      return browser.driver.getCurrentUrl().then(function(url) {
+        browser.ignoreSynchronization = false;
+        return /request-pool/.test(url);
+      });
+    }, 10000);
   }
 };

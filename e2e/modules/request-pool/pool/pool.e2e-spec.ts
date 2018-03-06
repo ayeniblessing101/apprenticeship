@@ -1,25 +1,29 @@
 import { browser } from 'protractor';
 import { RequestPoolPage } from './pool.po';
-import { LoginPage } from '../../shared/login/login.po';
 
 describe('Request Pool', () => {
-  const login = new LoginPage();
   const requestPool = new RequestPoolPage();
 
-  login.navigateToLogin();
-  login.logInUsingGoogleAuth();
+  beforeAll(() => {
+    requestPool.navigateToPoolPage();
+    browser.sleep(3000);
+  });
 
   it('Should be on the request pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/request-pool');
-
   });
 
   it('Should show a request modal when a request is clicked', () => {
-    browser.navigate().refresh();
     requestPool.getRequestsInRequestPool().get(0).click();
     browser.sleep(2000);
     expect(requestPool.getSingleRequestModal().isDisplayed).toBeTruthy();
     requestPool.getRequestModalBackButton().click();
+    browser.sleep(3000);
+  });
+
+  it('Should filter the request pool by location', () => {
+    requestPool.getLocationFilter().click();
+    requestPool.getLagosFilter().click();
     browser.sleep(3000);
   });
 
@@ -30,16 +34,7 @@ describe('Request Pool', () => {
 
     requestPool.getCloseAlertButton().click();
     browser.sleep(3000);
-    requestPool.getAllRequestsRadioButton().click();
-    browser.sleep(3000);
-    expect(requestPool.getFirstRowMentorshipRequest().getText()).toContain('Angular e2e');
-    browser.sleep(2000);
-  });
 
-  it('Should filter the request pool by location', () => {
-    requestPool.getLocationFilter().click();
-    requestPool.getLagosFilter().click();
-    browser.sleep(3000);
   });
 
   it('Should show notifications when user clicks on notifications icon', () => {

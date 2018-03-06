@@ -3,6 +3,15 @@ import { browser, by, element, promise, ElementFinder, ElementArrayFinder } from
 export class RequestPoolPage {
 
   /**
+   * Navigates to the request pool page
+   *
+   * @return {promise.Promise<any>}
+   */
+  navigateToPoolPage(): promise.Promise<any> {
+    return element(by.id('pool')).click();
+  }
+
+  /**
    * Gets the table in the request pool
    *
    * @return {WebElement}
@@ -67,16 +76,6 @@ export class RequestPoolPage {
   }
 
   /**
-   * Gets the mentor button after hovering
-   * over the Request For button
-   *
-   * @return {WebElement}
-   */
-  getRequestMentorButton(): ElementFinder {
-    return element(by.id('mentor'));
-  }
-
-  /**
    * Gets the all requests radio button
    *
    * @return {WebElement}
@@ -92,6 +91,16 @@ export class RequestPoolPage {
    */
   getFirstRowMentorshipRequest(): ElementFinder {
     return this.getRequestsInRequestPool().get(0).element(by.id('title'));
+  }
+
+  /**
+   * Gets the mentor button after hovering
+   * over the Request For button
+   *
+   * @return {WebElement}
+   */
+  getRequestMentorButton(): ElementFinder {
+    return element(by.id('mentor'));
   }
 
   /**

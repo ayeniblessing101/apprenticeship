@@ -38,9 +38,11 @@ export class NotificationsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.currentUserId = this.userService.getCurrentUser() &&
-      this.userService.getCurrentUser().id;
-    this.notificationService.getUserMessages(this.currentUserId, 10);
+    const currentUser = this.userService.getCurrentUser();
+    if (currentUser) {
+      this.currentUserId = this.userService.getCurrentUser().id;
+      this.notificationService.getUserMessages(this.currentUserId, 10);
+    }
   }
 
   ngOnChanges() {
@@ -51,11 +53,11 @@ export class NotificationsComponent implements OnInit, OnChanges {
   }
 
   /**
-   * @description Gets list of message keys from the notification object 
-   * 
-   * @param {object} notifications 
-   * 
-   * @returns {Array} String 
+   * @description Gets list of message keys from the notification object
+   *
+   * @param {object} notifications
+   *
+   * @returns {Array} String
    */
   getMessageIds(notifications: object) {
     return Object.keys(notifications).map(elem => notifications[elem])
@@ -91,7 +93,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
    * @description Marks all notifications as read;
    *
    * @param {String}
-   * 
+   *
    * @return {Void}
    */
   markMessagesAsRead(): void {
