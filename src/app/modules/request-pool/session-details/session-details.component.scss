@@ -127,6 +127,11 @@
   }
 }
 
+.download-file {
+  display: inline-block;
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
   font-family: $font-family-1;
