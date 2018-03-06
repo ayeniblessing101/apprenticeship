@@ -36,6 +36,7 @@ export class RequestStatisticsComponent implements OnInit {
   ];
   selectedStatus = 'Total Requests';
   headerName = 'All Requests';
+  isExportingRequestsCsv = false;
 
   constructor(
     private requestService: RequestService,
@@ -171,9 +172,11 @@ export class RequestStatisticsComponent implements OnInit {
     let request: object;
     const page = null;
     const downloadLink = document.createElement('a');
+    this.isExportingRequestsCsv = true;
 
     if (!this.appliedFilters.endDate || !this.appliedFilters.startDate) {
       this.alert.showMessage('Start Date and End Date is required!');
+      this.isExportingRequestsCsv = false;
       return;
     }
 
@@ -192,6 +195,7 @@ export class RequestStatisticsComponent implements OnInit {
         downloadLink.href = url;
         downloadLink.download = `${this.createFileName()}`;
         downloadLink.click();
+        this.isExportingRequestsCsv = false;
       });
   }
 
@@ -269,7 +273,7 @@ export class RequestStatisticsComponent implements OnInit {
    * @returns {Date}
    */
   formatDate(date) {
-    return moment(date, 'DD-MMM-YYYY').format('DD, MMMM, YYYY');
+    return moment(date, 'DD-MM-YYYY').format('Do MMMM, YYYY');
   }
 
 }

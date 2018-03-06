@@ -25,6 +25,7 @@ import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from '../../request-pool/save-filters/save-filters.component';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
+import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -58,6 +59,7 @@ describe('AllRequestsPageComponent', () => {
         SaveFiltersComponent,
         CalendarPickerComponent,
         DropDownComponent,
+        ExportButtonComponent,
       ],
       providers: [
         Http,

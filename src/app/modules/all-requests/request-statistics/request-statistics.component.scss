@@ -205,26 +205,8 @@
   margin-top: 5px;
 }
 
-.export-button {
+app-export-button {
   margin-top: 28px;
   grid-column: 9;
-  margin-left: 15px;
-}
-
-button {
-  width: 97px;
-  height: 40px;
-  border-radius: 2px;
-  background-color: #ffffff;
-  border: solid 1px #3359db;
-  outline: none;
-  font-size: 14px;
-  color: #3359db;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.export-icon {
-  width: 25px;
-  height: 15.5px;
+  margin-left: 45%;
 }

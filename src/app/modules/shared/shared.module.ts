@@ -19,6 +19,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { DropDownComponent } from './drop-down/drop-down.component';
 import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.component';
 import { CalendarPickerComponent } from './calendar/calendar-picker.component';
+import { ExportButtonComponent } from './export-button/export-button.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
     DropDownComponent,
     SkillsDropdownComponent,
     CalendarPickerComponent,
+    ExportButtonComponent,
   ],
   exports: [
     HeaderComponent,
@@ -53,6 +55,7 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
     MessageAlertComponent,
     DropDownComponent,
     CalendarPickerComponent,
+    ExportButtonComponent,
   ],
   providers: [
     NotificationsComponent,

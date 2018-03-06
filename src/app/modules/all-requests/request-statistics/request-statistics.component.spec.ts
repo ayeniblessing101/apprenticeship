@@ -10,6 +10,7 @@ import { UserService } from '../../../services/user.service';
 import { AlertService } from '../../../services/alert.service';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
+import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
 
 
 describe('RequestStaticsComponent', () => {
@@ -25,6 +26,7 @@ describe('RequestStaticsComponent', () => {
         RequestStatisticsComponent,
         CalendarPickerComponent,
         DropDownComponent,
+        ExportButtonComponent,
       ],
       providers: [
         Http,
