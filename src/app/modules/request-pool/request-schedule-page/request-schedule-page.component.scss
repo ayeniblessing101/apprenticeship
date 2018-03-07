@@ -5,7 +5,7 @@
 .row {
   display: block;
   direction: ltr;
-  height: 86vh;
+  height: calc(100vh - 119px);
   overflow: hidden;
 }
 
