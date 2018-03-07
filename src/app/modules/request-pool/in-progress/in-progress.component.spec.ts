@@ -7,11 +7,13 @@ import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 import { SessionService } from '../../../services/session.service';
 import { InProgressComponent } from './in-progress.component';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SortingHelper } from '../../../helpers/sorting.helper';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
 describe('InProgressComponent', () => {
   let component: InProgressComponent;
@@ -33,6 +35,7 @@ describe('InProgressComponent', () => {
         CalendarComponent,
         RequestDurationPipe,
         RequestSkillPipe,
+        SetRequestHeaderIconDirective,
       ],
       providers: [
         Http,
@@ -41,6 +44,7 @@ describe('InProgressComponent', () => {
         RequestService,
         UserService,
         SessionService,
+        SortingHelper,
       ],
     })
       .compileComponents();
@@ -52,6 +56,14 @@ describe('InProgressComponent', () => {
     fixture = TestBed.createComponent(InProgressComponent);
     component = fixture.componentInstance;
     component.sessionDates = [];
+    component.activeSortCategory = {};
+    component.sortCategoryValues = {
+      title: 'asc',
+      duration: 'asc',
+      location:  'asc',
+      role: 'asc',
+      created_at: 'asc',
+    };
     fixture.detectChanges();
   });
 

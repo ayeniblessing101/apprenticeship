@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestService } from '../../../../services/request.service';
+import { RequestService } from '../../../services/request.service';
 import { HttpModule } from '@angular/http';
-import { HttpService as Http } from '../../../../services/http.service';
-import { UserService } from '../../../../services/user.service';
+import { HttpService as Http } from '../../../services/http.service';
+import { UserService } from '../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { CalendarComponent } from '../calendar/calendar.component';
-import { SessionService } from '../../../../services/session.service';
-import { FileService } from '../../../../services/files.service';
+import { SessionService } from '../../../services/session.service';
+import { FileService } from '../../../services/files.service';
 import { InProgressSingleViewComponent } from './in-progress-single-view.component';
 import { StarRatingModule } from 'angular-star-rating';
-import { RequestDetailsPageComponent } from '../../request-details-page/request-details-page.component';
-import { RequestSchedulePageComponent } from '../../request-schedule-page/request-schedule-page.component';
-import { SessionDetailsComponent } from '../../session-details/session-details.component';
-import { LogSessionModalComponent } from '../../log-session-modal/log-session-modal.component';
-import { ProposedRequestDurationPipe } from '../../../../pipes/proposed-request-duration.pipe';
-import { RequestSkillPipe } from '../../../../pipes/request-skills-pipe';
-import { AddFileModalComponent } from '../../add-file-modal/add-file-modal.component';
+import { RequestDetailsPageComponent } from '../request-details-page/request-details-page.component';
+import { RequestSchedulePageComponent } from '../request-schedule-page/request-schedule-page.component';
+import { SessionDetailsComponent } from '../session-details/session-details.component';
+import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
+import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
 
 describe('InProgressSingleViewComponent', () => {
   let component: InProgressSingleViewComponent;

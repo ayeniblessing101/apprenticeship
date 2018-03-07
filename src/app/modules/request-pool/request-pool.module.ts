@@ -22,9 +22,9 @@ import { RequestDetailsModalComponent } from './request-details-modal/request-de
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
-import { InProgressSingleViewComponent } from './in-progress/in-progress-single-view/in-progress-single-view.component';
+import { InProgressSingleViewComponent } from './in-progress-single-view/in-progress-single-view.component';
 import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
-import { CalendarComponent } from './in-progress/calendar/calendar.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { RequestDetailsPageComponent } from './request-details-page/request-details-page.component';
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
@@ -38,6 +38,7 @@ import { LogSessionModalComponent } from './log-session-modal/log-session-modal.
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { AddFileModalComponent } from './add-file-modal/add-file-modal.component';
 import { UploadFileDirective } from './add-file-modal/upload-file.directive';
+import { SetRequestHeaderIconDirective } from '../../directives/set-request-header-icon.directive';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { UploadFileDirective } from './add-file-modal/upload-file.directive';
     SessionDetailsComponent,
     AddFileModalComponent,
     UploadFileDirective,
+    SetRequestHeaderIconDirective,
   ],
   exports: [
     PoolComponent,

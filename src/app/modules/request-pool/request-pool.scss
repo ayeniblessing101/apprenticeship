@@ -71,11 +71,22 @@ section {
     background-color: #f1f2f3;
     display: table-row;
     color: $primary-text-color;
+
     div {
       border-bottom: 1px solid #e0e0e0;
       display: table-cell;
       padding-left: 2%;
       padding-bottom: 15px;
+    }
+
+    span {
+      cursor: pointer;
+    }
+
+    img {
+      width: 18px;
+      height: 18px;
+      margin-bottom: -5px;
     }
   }
 
@@ -84,10 +95,12 @@ section {
     color: $primary-text-color;
     font-size: 13px;
     margin-top: 60px;
+
     .row {
       display: table-row;
       color: #2f2f2f;
       border: solid 1px #dddddd;
+
       div {
         background-color: #f9f9f9;
         border-radius: 2px;

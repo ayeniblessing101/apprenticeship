@@ -52,9 +52,11 @@ md-checkbox.mat-primary.mat-checkbox {
   .mat-radio-outer-circle {
     border-color: $andela-blue !important;
   }
+
   .mat-radio-inner-circle {
     background-color: $andela-blue !important;
   }
+
   .mat-radio-label-content {
     color: $andela-blue !important;
   }
@@ -80,23 +82,29 @@ md-checkbox.mat-primary.mat-checkbox {
   height: 2px;
   background-color: #d0d0d0 !important;
 }
+
 .rating.color-default .star-container .star {
   svg {
     fill: #3359db;
   }
+
   i {
     color: #3359db;
   }
 }
+
 .rating.color-negative .star-container .star svg {
     fill: #3359db;
 }
+
 .star-container {
   z-index: 0;
 }
+
 .rating.color-ok .star-container .star svg {
     fill: #3359db;
 }
+
 .rating.color-positive .star-container .star svg {
     fill: #3359db ;
 }
@@ -125,4 +133,8 @@ md-checkbox.mat-primary.mat-checkbox {
 
 .reqest-table-unset-position {
   position: unset;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

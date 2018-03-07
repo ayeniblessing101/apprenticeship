@@ -6,7 +6,6 @@ describe('Request Pool', () => {
 
   beforeAll(() => {
     requestPool.navigateToPoolPage();
-    browser.sleep(3000);
   });
 
   it('Should be on the request pool page', () => {
@@ -34,7 +33,6 @@ describe('Request Pool', () => {
 
     requestPool.getCloseAlertButton().click();
     browser.sleep(3000);
-
   });
 
   it('Should show notifications when user clicks on notifications icon', () => {

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
 import { Router } from '@angular/router';
 import { SessionService } from './../../../services/session.service';
+import { SortingHelper } from '../../../helpers/sorting.helper';
 
 @Component({
   selector: 'app-in-progress',
@@ -17,12 +18,25 @@ export class InProgressComponent implements OnInit {
   requests: any[];
   user;
   sessionDates: any;
+  rerender: boolean;
+
+  sortCategoryValues = {
+    title: 'asc',
+    duration: 'asc',
+    location:  'asc',
+    role: 'asc',
+    created_at: 'asc',
+  };
+
+  activeSortCategory = null;
 
   constructor(
     private requestService: RequestService,
     private sessionService: SessionService,
+    private sortingHelper: SortingHelper,
     private userService: UserService,
     private route: Router,
+    private changeDetector: ChangeDetectorRef,
   ) {
     this.requests = [];
   }
@@ -100,5 +114,31 @@ export class InProgressComponent implements OnInit {
           }
         });
     }
+  }
+
+  /**
+   * This method sorts in-progress requests based on the table header.
+   *
+   * @param {String} headerName - Name of the table column header
+   * @param {Boolean} headerIsDateType - whether the header is of type date or not
+   *
+   * @return {void}
+   */
+  sortInProgressRequestsByHeader(headerName, headerIsDateType = false) {
+    let sortingOrder = this.sortCategoryValues[headerName];
+
+    if (this.activeSortCategory === headerName) {
+      sortingOrder = this.sortCategoryValues[headerName] === 'asc' ? 'desc' : 'asc';
+    }
+
+    this.sortingHelper.sortRequestsByHeader(
+      this.requests, headerName, headerIsDateType, sortingOrder,
+    );
+
+    this.sortCategoryValues[headerName] = sortingOrder;
+    this.activeSortCategory = headerName;
+    this.rerender = true;
+    this.changeDetector.detectChanges();
+    this.rerender = false;
   }
 }

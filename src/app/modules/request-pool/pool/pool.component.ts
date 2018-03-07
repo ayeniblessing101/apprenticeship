@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
-
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
+import { SortingStatus } from '../../../interfaces/sorting.interface';
+import { SortingHelper } from '../../../helpers/sorting.helper';
 
 @Component({
   selector: 'app-pool',
@@ -23,9 +24,11 @@ export class PoolComponent implements OnInit {
   filterParams: any = {};
   sectionGridWidth = '71%';
   firstPageLoad: boolean;
+  sortingStatus: SortingStatus = null;
 
   constructor(
     private requestService: RequestService,
+    private sortingHelper: SortingHelper,
     private filterService: FilterService,
   ) {
   }
@@ -69,7 +72,8 @@ export class PoolComponent implements OnInit {
   }
 
   /**
-   * Fetches request on page scroll
+   * Fetches requests on page scroll and also sorts accordingly should a user
+   * already started sorting requests before scrolling.
    *
    * @return {void}
    */
@@ -84,6 +88,14 @@ export class PoolComponent implements OnInit {
           ...this.requests,
           ...response.requests,
         ];
+
+        if (this.sortingStatus) {
+          const { headerName, headerIsDateType, sortingOrder } = this.sortingStatus;
+          this.sortingHelper.sortRequestsByHeader(
+            this.requests, headerName, headerIsDateType, sortingOrder,
+          );
+        }
+
         this.loadingRequests = false;
       });
   }
@@ -138,5 +150,13 @@ export class PoolComponent implements OnInit {
     }
     this.filterService.setFilters(event);
     this.getRequests();
+  }
+
+  /**
+   * Updates the pool requests sorting status
+   * @param event - the event object containing the sorting status
+   */
+  updatePoolRequestsSortingStatus(event) {
+    this.sortingStatus = event;
   }
 }

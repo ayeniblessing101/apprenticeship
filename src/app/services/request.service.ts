@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/publishReplay';
+import * as moment from 'moment';
 
 @Injectable()
 export class RequestService {
@@ -17,6 +18,7 @@ export class RequestService {
   private statuses: any;
   updatePendingPoolRequestsTable = new Subject<any>();
   requestPool = new Subject<any>();
+
   constructor(
     private http: Http,
     private userService: UserService,

@@ -25,6 +25,8 @@ import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-dur
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
+import { SortingHelper } from '../../../helpers/sorting.helper';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -57,6 +59,7 @@ describe('PoolComponent', () => {
         RequestDurationPipe,
         RequestSkillPipe,
         SaveFiltersComponent,
+        SetRequestHeaderIconDirective,
       ],
       providers: [
         Http,
@@ -66,6 +69,7 @@ describe('PoolComponent', () => {
         UserService,
         SkillService,
         AlertService,
+        SortingHelper,
       ],
     })
       .compileComponents();

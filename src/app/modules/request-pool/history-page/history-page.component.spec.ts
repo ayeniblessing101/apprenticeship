@@ -16,6 +16,7 @@ import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SessionDetailsComponent } from '../session-details/session-details.component';
 import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
 import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
+import { SortingHelper } from '../../../helpers/sorting.helper';
 
 describe('HistoryPageComponent', () => {
   let component: HistoryPageComponent;
@@ -46,6 +47,7 @@ describe('HistoryPageComponent', () => {
         RequestService,
         FileService,
         UserService,
+        SortingHelper,
         Http,
         { provide: ActivatedRoute, useValue: { data: routeStub } },
       ],

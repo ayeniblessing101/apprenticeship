@@ -33,6 +33,7 @@ exports.config = {
     const expectedConditions = protractor.ExpectedConditions;
     jasmine.getEnv().addReporter(new SpecReporter());
     browser.manage().window().maximize();
+    browser.manage().window().setSize(1600,1000);
     browser.ignoreSynchronization = true;
 
     // login to the application before the test starts running

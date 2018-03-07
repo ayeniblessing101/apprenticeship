@@ -16,6 +16,8 @@ import { NoSearchResultComponent } from '../no-search-result/no-search-result.co
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SortingHelper } from '../../../helpers/sorting.helper';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
 describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
@@ -43,12 +45,14 @@ describe('PoolRecordsComponent', () => {
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
+        SetRequestHeaderIconDirective,
       ],
       providers: [
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         FilterService,
+        SortingHelper,
       ],
     })
       .compileComponents();
@@ -60,6 +64,13 @@ describe('PoolRecordsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PoolRecordsComponent);
     component = fixture.componentInstance;
+    component.activeSortCategory = {};
+    component.sortCategoryValues = {
+      title: 'asc',
+      duration: 'asc',
+      location: 'asc',
+      created_at: 'asc',
+    };
     fixture.detectChanges();
   });
 

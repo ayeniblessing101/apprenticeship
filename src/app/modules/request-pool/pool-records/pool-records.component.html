@@ -1,11 +1,53 @@
 <div class="table" *ngIf="requests.length > 0; else noRequest">
-  <div class="header" appMatchPoolHeaderWidthToParent>
-    <div>Request</div>
-    <div>Primary Skill</div>
-    <div>Secondary Skill</div>
-    <div>Preferred Duration</div>
-    <div>Date Added</div>
-    <div>Location</div>
+  <div *ngIf="!rerender" class="header pool-header" appMatchPoolHeaderWidthToParent>
+      <div>
+        <span (click)="sortPoolRequestsByHeader('title')">
+          Request
+          <img
+            appSetRequestHeaderIcon
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'title'"
+            src="../../../../assets/images/sort-a-z-inactive.png"/>
+        </span>
+      </div>
+      <div>Primary Skill</div>
+      <div>Secondary Skill</div>
+      <div>
+        <span (click)="sortPoolRequestsByHeader('duration')">
+          Duration
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon] = "false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'duration'"
+            src="../../../../assets/images/sort-desc-inactive.png"/>
+        </span>
+      </div>
+      <div>
+        <span (click)="sortPoolRequestsByHeader('created_at', true)">
+          Date Added
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon] = "false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'created_at'"
+            src="../../../../assets/images/sort-desc-inactive.png"/>
+        </span>
+      </div>
+      <div>
+        <span (click)="sortPoolRequestsByHeader('location')">
+          Location
+          <img
+            appSetRequestHeaderIcon
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'location'"
+            src="../../../../assets/images/sort-desc-inactive.png"/>
+        </span>
+      </div>
   </div>
   <div class="top-spacer"></div>
 

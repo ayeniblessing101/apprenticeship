@@ -1,8 +1,10 @@
 <div class="wrapper">
   <section [style.width]="sectionGridWidth" id="section-grid">
-    <app-pool-records [requests]="requests"></app-pool-records>
+    <app-pool-records
+      (updateSortingStatus)="updatePoolRequestsSortingStatus($event)"
+      [requests]="requests">
+    </app-pool-records>
   </section>
   <app-pool-filters *ngIf="showFilters" (applyFilters)="applyFilters($event)"> </app-pool-filters>
   <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="3000" (scrolled)="onScroll()">
   </div>
-

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
-import { CalendarDate } from '../../../../interfaces/calendar-date.interface';
+import { CalendarDate } from '../../../interfaces/calendar-date.interface';
 
 @Component({
   selector: 'app-calendar',

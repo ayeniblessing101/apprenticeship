@@ -26,6 +26,8 @@ import { SaveFiltersComponent } from '../../request-pool/save-filters/save-filte
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
+import { SortingHelper } from '../../../helpers/sorting.helper';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -60,6 +62,7 @@ describe('AllRequestsPageComponent', () => {
         CalendarPickerComponent,
         DropDownComponent,
         ExportButtonComponent,
+        SetRequestHeaderIconDirective,
       ],
       providers: [
         Http,
@@ -68,6 +71,7 @@ describe('AllRequestsPageComponent', () => {
         UserService,
         FilterService,
         AlertService,
+        SortingHelper,
       ],
     })
       .compileComponents();

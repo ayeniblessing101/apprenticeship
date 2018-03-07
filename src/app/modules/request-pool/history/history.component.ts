@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { SortingHelper } from '../../../helpers/sorting.helper';
 
 @Component({
   selector: 'app-history',
@@ -13,10 +14,25 @@ import { Router } from '@angular/router';
 export class HistoryComponent implements OnInit {
   loading: boolean;
   requests: any[];
+  rerender: boolean;
+
+  sortCategoryValues = {
+    title: 'asc',
+    duration: 'asc',
+    match_date: 'asc',
+    endDate: 'asc',
+    role: 'asc',
+    rating: 'asc',
+  };
+
+  activeSortCategory = null;
+
   constructor(
     private requestService: RequestService,
+    private sortingHelper: SortingHelper,
     private userService: UserService,
     private route: Router,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -70,4 +86,29 @@ export class HistoryComponent implements OnInit {
     this.route.navigate(['request-pool/history/', requestId]);
   }
 
+  /**
+   * Sorts history requests based on the table header
+   *
+   * @param {String} headerName - Name of the table column header
+   * @param {Boolean} headerIsDateType - whether the header is of type date or not
+   *
+   * @return {void}
+   */
+  sortHistoryRequestsByHeader(headerName, headerIsDateType = false) {
+    let sortingOrder = this.sortCategoryValues[headerName];
+
+    if (this.activeSortCategory === headerName) {
+      sortingOrder = this.sortCategoryValues[headerName] === 'asc' ? 'desc' : 'asc';
+    }
+
+    this.sortingHelper.sortRequestsByHeader(
+      this.requests, headerName, headerIsDateType, sortingOrder,
+    );
+
+    this.sortCategoryValues[headerName] = sortingOrder;
+    this.activeSortCategory = headerName;
+    this.rerender = true;
+    this.changeDetector.detectChanges();
+    this.rerender = false;
+  }
 }

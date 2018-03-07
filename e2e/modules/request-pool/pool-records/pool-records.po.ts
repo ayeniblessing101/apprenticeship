@@ -1,57 +1,22 @@
-import { browser, by, element, promise, ElementFinder, ElementArrayFinder } from 'protractor';
+import { by, browser, element, ElementFinder, ElementArrayFinder, promise } from 'protractor';
 
-export class RequestPoolRecordPage {
+export class PoolRecords {
+
   /**
-   * Navigates to the admin all requests page
+   * Navigates to the request pool page
    *
-   * @return {promise}
+   * @return {promise.Promise<any>}
    */
-  navigateToAllRequestsPage(): promise.Promise {
-    return browser.get('/all-requests');
+  navigateToPoolPage(): promise.Promise<any> {
+    return element(by.id('pool')).click();
   }
 
   /**
-   * Gets the table in the request pool
+   * Gets request headers in the requests pool page
    *
-   * @return {WebElement}
+   * @return {ElementFinder}
    */
-  getCalenderPicker(): ElementFinder {
-    return element(by.id('calender-picker'));
-  }
-
-  /**
-  * Gets the Dashboard button on the
-  * header
-  *
-  * @return {WebElement}
-  */
-  getDashboardButton(): ElementFinder {
-    return element(by.id('admin-button'));
-  }
-
-  /**
-   * Gets the All Requests button on the
-   * header
-   *
-   * @return {WebElement}
-   */
-  getAllRequests(): ElementFinder {
-    return element(by.id('requests-pool'));
-  }
-
-  /**
- * Gets the All requests page
- *
- */
-  getAllRequestsPage() {
-    this.getAllRequests().click();
-  }
-  /**
-   * Gets the div with an id of base
-   *
-   * @return {WebElement}
-   */
-  getDivId(): ElementFinder {
-    return element(by.id('base'));
+  getRequestsPoolTableHeaders(): ElementArrayFinder {
+    return element.all(by.css('.table .pool-header div'));
   }
 }

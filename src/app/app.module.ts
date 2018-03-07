@@ -33,7 +33,7 @@ import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
-
+import { SortingHelper } from './helpers/sorting.helper';
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -74,6 +74,7 @@ if (authToken) {
     SegmentService,
     NotificationService,
     FileService,
+    SortingHelper,
   ],
   bootstrap: [AppComponent],
 })

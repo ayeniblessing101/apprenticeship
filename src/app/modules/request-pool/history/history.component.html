@@ -1,14 +1,78 @@
 <div class="wrapper">
   <section id="section-grid">
       <div *ngIf="requests?.length > 0; else noRequest" class="table">
-        <div class="header" appMatchPoolHeaderWidthToParent>
-            <div>Request</div>
+        <div *ngIf="!rerender" class="header history-header" appMatchPoolHeaderWidthToParent>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('title')">
+                Request
+                <img
+                  appSetRequestHeaderIcon
+                  [sortCategoryValues]="sortCategoryValues"
+                  [activeSortCategory]="activeSortCategory"
+                  [headerName]="'title'"
+                  src="../../../../assets/images/sort-a-z-inactive.png"/>
+              </span>
+            </div>
             <div>Primary Skill</div>
-            <div>Date Added</div>
-            <div>Date Ended</div>
-            <div>Duration</div>
-            <div>Role</div>
-            <div>Rating</div>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('match_date', true)">
+                Date Started
+                <img
+                  appSetRequestHeaderIcon
+                  [showAlphabeticIcon] = "false"
+                  [sortCategoryValues]="sortCategoryValues"
+                  [activeSortCategory]="activeSortCategory"
+                  [headerName]="'match_date'"
+                  src="../../../../assets/images/sort-desc-inactive.png"/>
+              </span>
+            </div>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('endDate', true)">
+                Date Ended
+                 <img
+                   appSetRequestHeaderIcon
+                   [showAlphabeticIcon] = "false"
+                   [sortCategoryValues]="sortCategoryValues"
+                   [activeSortCategory]="activeSortCategory"
+                   [headerName]="'endDate'"
+                   src="../../../../assets/images/sort-desc-inactive.png"/>
+              </span>
+            </div>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('duration')">
+                Duration
+                 <img
+                   appSetRequestHeaderIcon
+                   [showAlphabeticIcon] = "false"
+                   [sortCategoryValues]="sortCategoryValues"
+                   [activeSortCategory]="activeSortCategory"
+                   [headerName]="'duration'"
+                   src="../../../../assets/images/sort-desc-inactive.png"/>
+              </span>
+            </div>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('role')">
+                Role
+                 <img
+                   appSetRequestHeaderIcon
+                   [sortCategoryValues]="sortCategoryValues"
+                   [activeSortCategory]="activeSortCategory"
+                   [headerName]="'role'"
+                   src="../../../../assets/images/sort-a-z-inactive.png"/>
+              </span>
+            </div>
+            <div>
+              <span (click)="sortHistoryRequestsByHeader('rating')">
+                Rating
+                 <img
+                   appSetRequestHeaderIcon
+                   [showAlphabeticIcon] = "false"
+                   [sortCategoryValues]="sortCategoryValues"
+                   [activeSortCategory]="activeSortCategory"
+                   [headerName]="'rating'"
+                   src="../../../../assets/images/sort-desc-inactive.png"/>
+              </span>
+            </div>
         </div>
         <div class="header-space"></div>
         <div *ngFor="let request of requests" class="body">
