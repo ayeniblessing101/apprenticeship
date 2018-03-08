@@ -24,8 +24,8 @@ export class SkillService {
   getSkills(): Observable<any> {
     if (!this.skills) {
       this.skills = this.http
-        .get(`${this.apiBaseUrl}/v1/skills`)
-        .map(this.extractData)
+        .get(`${this.apiBaseUrl}/v2/skills`)
+        .map((response: Response) => response.json())
         .publishReplay(1)
         .refCount()
         .catch(this.handleError);

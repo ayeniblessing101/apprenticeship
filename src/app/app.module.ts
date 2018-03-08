@@ -34,6 +34,8 @@ import { localStorage } from '../app/globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
 import { SortingHelper } from './helpers/sorting.helper';
+import { SkillsResolver } from './resolvers/skills.resolver';
+
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
   localStorage.setItem('id_token', authToken);
@@ -42,7 +44,7 @@ if (authToken) {
 @NgModule({
   declarations: [
     AppComponent,
-    ...INTERCOM_DIRECTIVES
+    ...INTERCOM_DIRECTIVES,
   ],
   imports: [
     AppRoutesModule,
@@ -56,7 +58,7 @@ if (authToken) {
     SharedModule,
     RequestPoolModule,
     AllRequestsModule,
-    IntercomModule
+    IntercomModule,
   ],
   providers: [
     {
@@ -74,6 +76,7 @@ if (authToken) {
     SegmentService,
     NotificationService,
     FileService,
+    SkillsResolver,
     SortingHelper,
   ],
   bootstrap: [AppComponent],

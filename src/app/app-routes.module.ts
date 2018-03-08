@@ -19,6 +19,7 @@ import {
   InProgressSingleViewComponent,
 } from './modules/request-pool/in-progress-single-view/in-progress-single-view.component';
 import { RequestResolver } from './resolvers/request.resolver';
+import { SkillsResolver } from './resolvers/skills.resolver';
 import { HistoryPageComponent } from './modules/request-pool/history-page/history-page.component';
 
 const appRoutes: Routes = [
@@ -63,7 +64,13 @@ const appRoutes: Routes = [
   { path: 'all-requests', loadChildren: './modules/all-requests/all-requests.module#AllRequestsModule',
     canActivate: [AuthGuard, AdminGuard] },
 
-  { path: 'admin/skills', component: PoolComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/skills',
+    loadChildren: './modules/skills/skills.module#SkillsModule',
+    canActivate: [AuthGuard, AdminGuard],
+    resolve: {
+      skills: SkillsResolver,
+    },
+  },
 
   { path: 'admin/reports', loadChildren: './modules/reports/reports.module#ReportsModule', canActivate: [AuthGuard, AdminGuard] },
 

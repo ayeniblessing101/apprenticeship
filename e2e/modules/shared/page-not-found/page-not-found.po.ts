@@ -13,5 +13,4 @@ export class PageNotFound {
   getPageNotFound(): ElementFinder {
     return element(by.id('page-not-found'));
   }
-
 }

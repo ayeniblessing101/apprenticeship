@@ -22,7 +22,7 @@ export class MatchPoolHeaderWidthToParentDirective implements AfterViewChecked {
    */
   matchWidth(element: HTMLElement) {
     const parent: any = element.parentNode;
-    element.style.width = `${parent.getBoundingClientRect().width}px`;
+    element.style.width = `${parent.getBoundingClientRect().width + 2}px`;
     const children: any = element.querySelectorAll('.header > div');
     children.forEach((child) => {
       child.style.width = `${Math.round(element.getBoundingClientRect().width * (1 / children.length))}px`;

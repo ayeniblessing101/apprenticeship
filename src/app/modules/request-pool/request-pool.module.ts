@@ -86,6 +86,10 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     PoolRecordsComponent,
     CalendarComponent,
     LogSessionModalComponent,
+    RequestSkillPipe,
+    MatchPoolHeaderWidthToParentDirective,
+    NoSearchResultComponent,
+    SetRequestHeaderIconDirective,
   ],
   providers: [
     SaveFiltersModalComponent,
