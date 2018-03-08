@@ -2,29 +2,90 @@
 @import '../request-pool';
 
 .title-container {
-    position: fixed;
-    margin-top: -40px;
-    padding-top: 52px;
-    width: 100%;
-    margin-bottom: 10px;
-    background: $primary-background-color;
+  position: fixed;
+  margin-top: -40px;
+  padding-top: 52px;
+  width: 100%;
+  margin-bottom: 10px;
+  background: $primary-background-color;
 }
 
 .content-container {
-    margin-top: 60px;
-    .table{
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-        width: $table-width;
-        .row {
-          cursor: pointer;
-          div {
-            max-width: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 17%;
-            padding-left: 2%;
-          }
-        }
+  .pool-header-wrapper {
+    flex: 0 0 auto;
+    width: 95%;
+    border-bottom: solid 1px #dddddd;
+  }
+
+  .header {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    color: #747474;
+    width: 100%;
+    padding: 0px 25px 0 36px;
+    font-size: 13px;
+    margin-bottom: 10px;
+
+    div {
+      width: 100px;
+      white-space: wrap;
     }
+  }
+  .space {
+    margin-bottom: 70px;
+  }
+  .pool-table {
+    flex: 1 1 auto;
+    height: 100%;
+
+    .pool-body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: scroll;
+      padding: 10px 25px;
+    }
+
+    .body-content {
+      width: 98%;
+      background-color: #f9f9f9;
+      display: flex;
+      padding: 15px;
+      margin: 3px 0;
+      border: solid 1px #dddddd;
+      justify-content: space-between;
+      color: #747474;
+      font-size: 13px;
+      box-shadow: 0 20px 80px 4px rgba(0, 0, 0, 0.02);
+      padding: 15px;
+      transition: 0.3s;
+      cursor: pointer;
+      flex-shrink: 0;
+
+      div {
+        width: 110px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+      }
+      &:active {
+        border-color: rgba(51, 89, 223, 0.2);
+      }
+
+      &:hover {
+        border: 1px solid rgba(51, 89, 223, 0.2);
+        box-shadow: 0 10px 30px 7px rgba(77, 14, 33, 0.03);
+        -webkit-transform: scale(1.03);
+        transform: scale(1.03);
+        z-index: 2;
+      }
+    }
+  }
 }

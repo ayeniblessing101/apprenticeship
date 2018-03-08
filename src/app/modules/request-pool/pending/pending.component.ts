@@ -8,10 +8,7 @@ import { RequestService } from './../../../services/request.service';
   styleUrls: ['./pending.component.scss'],
 })
 export class PendingComponent implements OnInit {
-  requests: any = {
-    awaitingYou: null,
-    awaitingResponse: null,
-  };
+  requests: any[] = []
   loading: boolean;
   request: object;
 
@@ -40,11 +37,11 @@ export class PendingComponent implements OnInit {
       .toPromise()
       .then(
         (response) => {
+          console.log(response);
           this.loading = false;
-          this.requests.awaitingYou = response.awaiting_you;
-          this.requests.awaitingResponse = response.awaiting_response;
+          this.requests = response;
         },
-      );
+    );
   }
 
   /**
@@ -53,14 +50,9 @@ export class PendingComponent implements OnInit {
    * @return {void}
    */
   removeRequestFromPendingPool() {
-    if (this.requests.awaitingYou.includes(this.request)) {
-      const requestLocation = this.requests.awaitingYou.indexOf(this.request);
-      this.requests.awaitingYou.splice(requestLocation, 1);
-    }
-
-    if (this.requests.awaitingResponse.includes(this.request)) {
-      const requestLocation = this.requests.awaitingResponse.indexOf(this.request);
-      this.requests.awaitingResponse.splice(requestLocation, 1);
+    if (this.requests.includes(this.request)) {
+      const requestLocation = this.requests.indexOf(this.request);
+      this.requests.splice(requestLocation, 1);
     }
   }
 

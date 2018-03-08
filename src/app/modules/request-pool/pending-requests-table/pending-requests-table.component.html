@@ -1,19 +1,19 @@
-<div class="title-container">
-  <h4 class="title">{{ title }}</h4>
-</div>
 <div class="content-container">
-  <div *ngIf="requests?.length > 0" class="table">
-    <div class="header" appMatchPoolHeaderWidthToParent>
-        <div>Request</div>
-        <div>Created By</div>
-        <div>Primary Skill</div>
-        <div>Preffered Duration</div>
-        <div>Date Added</div>
-        <div>Location</div>
+  <div class="pool-header-wrapper">
+    <div class="header">
+      <div>Request</div>
+      <div>Created By</div>
+      <div>Primary Skill</div>
+      <div>Preffered Duration</div>
+      <div>Date Added</div>
+      <div>Location</div>
+      <div>Interests</div>
+      <div>State</div>
     </div>
-    <div class="header-space"></div>
-    <div *ngFor="let request of requests" class="body">
-      <div class="row" (click)="openPendingModal(request)">
+  </div>
+  <div *ngIf="requests?.length > 0" class="pool-table">
+    <div class="pool-body">
+      <a *ngFor="let request of requests" class="body-content" (click)="openPendingModal(request)">
         <div>{{ request.title }}</div>
         <div>{{ request.mentee.fullname }}</div>
         <div>{{ request.request_skills|requestSkill: 'primary' }}</div>
@@ -21,7 +21,8 @@
         <div>{{ request.created_at | date:'longDate' }}</div>
         <div>{{ request.location }}</div>
         <div>{{ request.interested?.length || '0' }}</div>
-      </div>
+        <div>Awaiting {{request.awaited_user}}</div>
+      </a>
       <div class="space"></div>
     </div>
   </div>
@@ -32,7 +33,5 @@
 </div>
 <div *ngIf="!requests" class="loader"></div>
 
-<app-pending-modal *ngIf="openModal" #pendingModal
-  [request]="pendingRequest"
-  (closePendingModal)="closePendingModal()">
+<app-pending-modal *ngIf="openModal" #pendingModal [request]="pendingRequest" (closePendingModal)="closePendingModal()">
 </app-pending-modal>
