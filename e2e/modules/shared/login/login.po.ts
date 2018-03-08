@@ -38,18 +38,18 @@ export class LoginPage {
    *
    * @return {void}
    */
-  logInUsingGoogleAuth() {
+  logInUsingGoogleAuth(username, password) {
     this.getSignInButton().click();
     browser.sleep(3000);
     const emailInput = browser.driver.findElement(by.id('identifierId'));
-    emailInput.sendKeys('test-user-admin@andela.com');
+    emailInput.sendKeys(username);
 
     const nextButton = browser.driver.findElement(by.id('identifierNext'));
     nextButton.click();
     browser.sleep(3000);
 
     const passwordInput = browser.driver.findElement(by.css('input[type=password]'));
-    passwordInput.sendKeys('andela2015');
+    passwordInput.sendKeys(password);
 
     const passwordNextButton = browser.driver.findElement(by.id('passwordNext'));
     passwordNextButton.click();

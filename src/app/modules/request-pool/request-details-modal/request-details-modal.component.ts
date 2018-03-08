@@ -23,6 +23,7 @@ import { RequestService } from '../../../services/request.service';
 export class RequestDetailsModalComponent implements OnInit {
   @Input() selectedRequest;
   @Output() close = new EventEmitter();
+  @Output() filterRequestsPool = new EventEmitter();
   @ViewChild('requestModal') requestModal: ElementRef;
   userInfo: object;
   rating: number;
@@ -63,6 +64,7 @@ export class RequestDetailsModalComponent implements OnInit {
       .toPromise()
       .then(() => {
         this.currentUserIsInterested = true;
+        this.initiateRequestsPoolFilter();
         this.notifyMentee();
       });
   }
@@ -121,5 +123,16 @@ export class RequestDetailsModalComponent implements OnInit {
    */
   closeRequestModal() {
     this.close.emit();
+  }
+
+  /**
+   * Triggers the emitter event used by the
+   * pool records component to make the requests pool
+   * component update its requests pool
+   *
+   * @return {void}
+   */
+  initiateRequestsPoolFilter() {
+    this.filterRequestsPool.emit();
   }
 }

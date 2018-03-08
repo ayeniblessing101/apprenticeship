@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
+import { UserService } from '../../../services/user.service';
+
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { SortingStatus } from '../../../interfaces/sorting.interface';
 import { SortingHelper } from '../../../helpers/sorting.helper';
@@ -158,5 +160,18 @@ export class PoolComponent implements OnInit {
    */
   updatePoolRequestsSortingStatus(event) {
     this.sortingStatus = event;
+  }
+
+  /** Filter the passed in evented request
+   * from the request pool
+   *
+   * @param {object} event - contains dispatched request.
+   *
+   * @return {void}
+   */
+  filterCurrentRequestsPool(event) {
+    this.requests = this.requests.filter((request) => {
+      return request.id !== event.id;
+    });
   }
 }

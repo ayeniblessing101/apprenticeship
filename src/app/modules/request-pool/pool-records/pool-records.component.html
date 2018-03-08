@@ -63,7 +63,11 @@
     <div class="space"></div>
   </div>
 </div>
-<app-request-details *ngIf="showRequest" [selectedRequest]="selectedRequest" (close)="closeRequest()">
+<div class="line"></div>
+<app-request-details *ngIf="showRequest"
+  (filterRequestsPool)="initiateRequestsPoolFilter()"
+  [selectedRequest]="selectedRequest"
+  (close)="closeRequest()">
 </app-request-details>
 <ng-template #noRequest>
   <app-no-search-result></app-no-search-result>

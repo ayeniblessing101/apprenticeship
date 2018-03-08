@@ -11,6 +11,7 @@ export class PoolRecordsComponent {
   showRequest = false;
   @Input() requests = [];
   @Output() updateSortingStatus = new EventEmitter<any>();
+  @Output() filterRequestsPool: EventEmitter<object> = new EventEmitter();
   selectedRequest: object;
   rerender: boolean;
 
@@ -84,6 +85,16 @@ export class PoolRecordsComponent {
    * @param sortingOrder - The order in which the requests is sorted
    */
   updatePoolRequestsSortingStatus(headerName, headerIsDateType, sortingOrder) {
-    this.updateSortingStatus.emit({ headerName, headerIsDateType, sortingOrder })
+    this.updateSortingStatus.emit({ headerName, headerIsDateType, sortingOrder });
+  }
+
+  /** Triggers the emitter event used by the
+   * requests pool component in filtering
+   * its requests pool
+   *
+   * @return {void}
+   */
+  initiateRequestsPoolFilter() {
+    this.filterRequestsPool.emit(this.selectedRequest);
   }
 }

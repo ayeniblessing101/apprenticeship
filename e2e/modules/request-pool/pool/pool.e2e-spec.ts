@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, by } from 'protractor';
 import { RequestPoolPage } from './pool.po';
 
 describe('Request Pool', () => {
@@ -24,6 +24,25 @@ describe('Request Pool', () => {
     requestPool.getLocationFilter().click();
     requestPool.getLagosFilter().click();
     browser.sleep(3000);
+  })
+
+  it('Should remove requests shown interest in from the requests pool', () => {
+    let firstRequestText;
+    browser.sleep(2000);
+    requestPool.getFirstRequestTitle().getText()
+    .then((text) => {
+      firstRequestText = text;
+      requestPool.getRequestsInRequestPool().get(0).click();
+    });
+    browser.sleep(2000)
+    requestPool.getIAmInterestedButton().click();
+    browser.sleep(2000);
+    browser.driver.findElement(by.id('close-button')).click();
+    browser.sleep(1000);
+    browser.driver.findElement(by.id('back-modal-button')).click();
+    browser.sleep(3000);
+    expect(requestPool.getFirstRequestTitle())
+      .not.toContain(firstRequestText);
   });
 
   it('Should be able to request a mentor', () => {

@@ -66,6 +66,25 @@ export class RequestPoolPage {
   }
 
   /**
+   * Gets the request title of the first request
+   * on the request pool
+   *
+   * @return {WebElement}
+   */
+  getFirstRequestTitle(): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id('title'));
+  }
+
+  /** Gets the i'm interested button
+   * on the request modal
+   *
+   * @return {WebElement}
+   */
+  getIAmInterestedButton(): ElementFinder {
+    return element(by.id('btn-interested'));
+  }
+
+  /**
    * Gets the Request For button on the
    * header
    *
