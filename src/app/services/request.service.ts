@@ -93,7 +93,7 @@ export class RequestService {
    */
   createRequest(mentorshipDetails) {
     return this.http.post(`${this.apiBaseUrl}/v2/requests`, mentorshipDetails)
-      .map(this.extractData)
+      .map((response: Response) => response.json())
       .catch(error => Observable.throw(error.json()));
   }
 

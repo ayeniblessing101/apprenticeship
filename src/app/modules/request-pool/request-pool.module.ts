@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { StarRatingModule } from 'angular-star-rating';
 
 import { RequestService } from '../../services/request.service';
 import { SessionService } from '../../services/session.service';
@@ -18,7 +17,6 @@ import { PoolFiltersComponent } from './pool-filters/pool-filters.component';
 import { PendingComponent } from './pending/pending.component';
 import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
-import { RequestDetailsModalComponent } from './request-details-modal/request-details-modal.component';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
 import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
@@ -29,9 +27,7 @@ import { RequestDetailsPageComponent } from './request-details-page/request-deta
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { HistoryPageComponent } from './history-page/history-page.component';
-import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
-import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from './save-filters/save-filters.component';
 import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-pool-header-width-to-parent-directive';
 import { LogSessionModalComponent } from './log-session-modal/log-session-modal.component';
@@ -47,7 +43,6 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    StarRatingModule.forRoot(),
   ],
   declarations: [
     SaveFiltersModalComponent,
@@ -57,7 +52,6 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     HistoryComponent,
     PendingComponent,
     NoSearchResultComponent,
-    RequestDetailsModalComponent,
     PendingModalComponent,
     PendingRequestsTableComponent,
     PoolRecordsComponent,
@@ -68,9 +62,7 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     RequestSchedulePageComponent,
     FilterDropdownComponent,
     HistoryPageComponent,
-    ProposedRequestDurationPipe,
     RequestDurationPipe,
-    RequestSkillPipe,
     SaveFiltersComponent,
     MatchPoolHeaderWidthToParentDirective,
     LogSessionModalComponent,
@@ -86,7 +78,6 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     PoolRecordsComponent,
     CalendarComponent,
     LogSessionModalComponent,
-    RequestSkillPipe,
     MatchPoolHeaderWidthToParentDirective,
     NoSearchResultComponent,
     SetRequestHeaderIconDirective,

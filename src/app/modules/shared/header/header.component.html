@@ -1,6 +1,4 @@
 <header class="header-grid">
-
-
   <ul *ngIf='isLoggedIn'>
     <li>
       <a href="{{ redirectUrl }}" class="redirect-link">
@@ -52,4 +50,13 @@
     </a>
   </ul>
 </header>
-<app-create-request *ngIf="displayCreateRequestModal" [requestType]="requestType" (closeMentorshipModal)="closeMentorshipRequestModal()"></app-create-request>
+<app-create-request
+ *ngIf="displayCreateRequestModal" [requestType]="requestType"
+ (closeCreateRequestModal)="closeCreateRequestModal()"
+ (showRequestModal)= "showRequestDetailsModal($event)" >
+</app-create-request>
+<app-request-details
+*ngIf="showRequest"
+[selectedRequest]="selectedRequest"
+(close)="closeRequestDetailsModal()"
+></app-request-details>

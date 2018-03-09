@@ -1,11 +1,12 @@
 import { Component, EventEmitter, OnInit, Input, Output, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { SkillService } from '../../../services/skill.service';
 import { RequestService } from '../../../services/request.service';
-import { AlertService } from '../../../services/alert.service';
 import { UserService } from '../../../services/user.service';
 import { Skill } from '../../../interfaces/skill.interface';
 import { PairingDay } from '../../../interfaces/pairing-day.interface';
+import { AlertService } from '../../../services/alert.service';
 import * as moment from 'moment';
+import { ConfirmationAlertConfiguration } from '../../../interfaces/confirmation-alert-configuration.interface';
 
 @Component({
   selector: 'app-create-request',
@@ -18,7 +19,8 @@ export class CreateRequestComponent implements OnInit {
 
   @ViewChild('createRequestModal') createRequestModal: ElementRef;
 
-  @Output() closeMentorshipModal = new EventEmitter<boolean>();
+  @Output() closeCreateRequestModal = new EventEmitter<boolean>();
+  @Output() showRequestModal = new EventEmitter<string>();
 
   skills: any[] = [];
   skillNames: string[] = [];
@@ -128,17 +130,17 @@ export class CreateRequestComponent implements OnInit {
   @HostListener('click', ['$event'])
   onClick(event) {
     if (event.path[1].localName === 'app-create-request') {
-      this.closeMentorshipRequestModal();
+      this.closeCreateRequest();
     }
   }
 
   /**
-   * Closes the mentorship request modal
+   * Closes the create request modal
    *
    * @returns {void}
    */
-  closeMentorshipRequestModal() {
-    this.closeMentorshipModal.emit();
+  closeCreateRequest() {
+    this.closeCreateRequestModal.emit();
   }
 
   /**
@@ -196,24 +198,42 @@ export class CreateRequestComponent implements OnInit {
           timezone: this.selectedTimeZone,
         },
       };
+
       return this.requestService.createRequest(requestDetails)
         .toPromise()
         .then((response) => {
           this.requestService.requestPool.next();
-          this.closeMentorshipRequestModal();
-
-          const alertServiceConfig = {
-            abortActionText: 'CLOSE',
-            confirmActionText: 'VIEW',
-            canDisable: false,
-          };
-
-          return this.alertService.confirm('Your request was successfully created', this, alertServiceConfig);
+          this.showCreatedRequestConfirmation(response);
         })
         .catch((error) => {
           return this.alertService.showMessage(error.title[0]);
         });
     }
+  }
+
+  /**
+   * It emits an event that shows the modal that displays the details of
+   * the created request.
+   *
+   * @param {Object} request the request to emit
+   *
+   * @returns {Object}
+   */
+  showCreatedRequestConfirmation(request) {
+    const alertServiceConfig: ConfirmationAlertConfiguration = {
+      abortActionText: 'CLOSE',
+      confirmActionText: 'VIEW',
+      confirmAction: () => {
+        this.showRequestModal.emit(request);
+        this.closeCreateRequest();
+      },
+      afterClose: () => {
+        this.closeCreateRequest();
+      },
+      canDisable: false,
+    };
+
+    return this.alertService.confirm('Your request was successfully created.', this, alertServiceConfig);
   }
 
   /**

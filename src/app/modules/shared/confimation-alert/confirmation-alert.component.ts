@@ -47,7 +47,10 @@ export class ConfirmationAlertComponent {
    * @returns {void}
    */
   close(): void {
-    this.onClose.emit()
+    this.onClose.emit();
+    if (this.config.afterClose) {
+      this.config.afterClose();
+    }
   }
 
   /**

@@ -17,13 +17,10 @@ import { AlertService } from '../../../services/alert.service';
 import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 
-import { RequestDetailsModalComponent } from '../request-details-modal/request-details-modal.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
-import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
-import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
@@ -32,9 +29,7 @@ describe('PoolComponent', () => {
   let component: PoolComponent;
   let fixture: ComponentFixture<PoolComponent>;
   let pageTitle: HTMLElement;
-  let proposedRequestDuration: ProposedRequestDurationPipe;
   let requestDuration: RequestDurationPipe;
-  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,13 +46,10 @@ describe('PoolComponent', () => {
         PoolComponent,
         PoolFiltersComponent,
         SaveFiltersModalComponent,
-        RequestDetailsModalComponent,
         NoSearchResultComponent,
         PoolRecordsComponent,
         FilterDropdownComponent,
-        ProposedRequestDurationPipe,
         RequestDurationPipe,
-        RequestSkillPipe,
         SaveFiltersComponent,
         SetRequestHeaderIconDirective,
       ],
@@ -73,9 +65,7 @@ describe('PoolComponent', () => {
       ],
     })
       .compileComponents();
-    proposedRequestDuration = new ProposedRequestDurationPipe;
     requestDuration = new RequestDurationPipe;
-    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

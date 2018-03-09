@@ -1,4 +1,4 @@
-import { browser, by } from 'protractor';
+import { browser, $, by } from 'protractor';
 import { RequestPoolPage } from './pool.po';
 
 describe('Request Pool', () => {
@@ -7,6 +7,8 @@ describe('Request Pool', () => {
   beforeAll(() => {
     requestPool.navigateToPoolPage();
   });
+
+  const expectedConditions = browser.ExpectedConditions;
 
   it('Should be on the request pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/request-pool');
@@ -45,6 +47,20 @@ describe('Request Pool', () => {
       .not.toContain(firstRequestText);
   });
 
+  it('Should be able to view request details after requesting for mentor', () => {
+    browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
+    requestPool.requestAMentor();
+
+    browser.wait(expectedConditions.elementToBeClickable($('.blue-button')), 3000);
+    requestPool.getViewAlertButton().click();
+
+    browser.wait(expectedConditions.elementToBeClickable($('.request-modal')), 3000);
+    expect(requestPool.getSingleRequestModal().isDisplayed).toBeTruthy();
+
+    browser.wait(expectedConditions.elementToBeClickable($('#back-modal-button')), 3000);
+    requestPool.getBackButton().click();
+  });
+
   it('Should be able to request a mentor', () => {
     browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
     requestPool.requestAMentor();
@@ -71,5 +87,6 @@ describe('Request Pool', () => {
     browser.sleep(2000);
 
     expect(requestPool.userSkillsElement()).toBeTruthy();
+    browser.waitForAngularEnabled(false);
   });
 });

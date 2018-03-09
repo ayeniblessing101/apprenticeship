@@ -3,6 +3,7 @@ import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from 'app/services/notifications.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +18,16 @@ export class HeaderComponent implements OnInit {
   isAdmin = false;
   isLoggedIn = false;
   @Input() currentUser: any;
-  displayCreateRequestModal = false
+  displayCreateRequestModal = false;
   requestType: string;
+  selectedRequest: any[];
+  showRequest = false;
 
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
     private router: Router,
+    private alertService: AlertService,
   ) {
     if (!localStorage.getItem('id_token')) {
       this.showHeaderContent = false;
@@ -64,7 +68,7 @@ export class HeaderComponent implements OnInit {
    *
    * @return {void}
    */
-  closeMentorshipRequestModal() {
+  closeCreateRequestModal() {
     this.displayCreateRequestModal = false;
   }
 
@@ -89,10 +93,30 @@ export class HeaderComponent implements OnInit {
   }
 
   /**
+   * Closes the request details modal
+   *
+   * @param {$event} event onClose event for closing request details modal
+   * @return {void}
+   */
+  closeRequestDetailsModal() {
+    this.showRequest = false;
+  }
+
+  /**
    * Log out the user from the session
    */
   logoutUser() {
     this.authService.logOut();
     this.router.navigate(['/login']);
+  }
+
+  /**
+   * Shows the request details modal given the parameter is a request object.
+   *
+   * @param {Object} request - the request, whose details is to be displayed.
+   */
+  showRequestDetailsModal(request) {
+    this.selectedRequest = request;
+    this.showRequest = true;
   }
 }

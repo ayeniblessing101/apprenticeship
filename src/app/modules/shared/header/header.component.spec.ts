@@ -19,11 +19,18 @@ import { UserServiceStub } from 'app/stubs/user-stub.service';
 import { NotificationServiceStub } from 'app/stubs/notification-stub.service';
 import { DropDownComponent } from '../drop-down/drop-down.component';
 import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
+import { RequestDetailsModalComponent } from '../../request-pool/request-details-modal/request-details-modal.component';
+import { AlertService } from '../../../services/alert.service';
+import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { StarRatingModule } from 'angular-star-rating';
 
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let proposedRequestDuration: ProposedRequestDurationPipe;
+  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
 
@@ -35,8 +42,11 @@ describe('HeaderComponent', () => {
         RouterLinkStubDirective,
         DropDownComponent,
         SkillsDropdownComponent,
+        RequestDetailsModalComponent,
+        ProposedRequestDurationPipe,
+        RequestSkillPipe,
       ],
-      imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule],
+      imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule, StarRatingModule],
       providers: [
         Http,
         {
@@ -50,9 +60,12 @@ describe('HeaderComponent', () => {
         },
         { provide: UserService, useClass: UserServiceStub },
         { provide: NotificationService, useClass: NotificationServiceStub },
+        AlertService,
       ],
     })
       .compileComponents();
+    proposedRequestDuration = new ProposedRequestDurationPipe;
+    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

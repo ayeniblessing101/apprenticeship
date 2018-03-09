@@ -27,6 +27,7 @@ describe('Pool Records', () => {
     browser.sleep(2000);
     poolRecords.getRequestsPoolTableHeaders().get(3).$('span').click();
     browser.sleep(2000);
+  })
 
   it('Should sort requests by Date added in ascending and descending order', () => {
     expect(poolRecords.getRequestsPoolTableHeaders().get(4).getText()).toBe('Date Added');

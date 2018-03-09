@@ -11,11 +11,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { FilterService } from '../../../services/filter.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RequestDetailsModalComponent } from 'app/modules/request-pool/request-details-modal/request-details-modal.component';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
-import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
-import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
@@ -23,9 +20,7 @@ describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
   let fixture: ComponentFixture<PoolRecordsComponent>;
   let pageTitle: HTMLElement;
-  let proposedRequestDuration: ProposedRequestDurationPipe;
   let requestDuration: RequestDurationPipe;
-  let requestSkill: RequestSkillPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,11 +35,8 @@ describe('PoolRecordsComponent', () => {
       declarations: [
         PoolRecordsComponent,
         SaveFiltersModalComponent,
-        RequestDetailsModalComponent,
         NoSearchResultComponent,
-        ProposedRequestDurationPipe,
         RequestDurationPipe,
-        RequestSkillPipe,
         SetRequestHeaderIconDirective,
       ],
       providers: [
@@ -56,9 +48,7 @@ describe('PoolRecordsComponent', () => {
       ],
     })
       .compileComponents();
-    proposedRequestDuration = new ProposedRequestDurationPipe;
     requestDuration = new RequestDurationPipe;
-    requestSkill = new RequestSkillPipe;
   }));
 
   beforeEach(() => {

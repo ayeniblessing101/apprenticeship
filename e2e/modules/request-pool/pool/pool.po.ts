@@ -1,5 +1,6 @@
-import { browser, by, element, promise, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, by, element, promise, ElementFinder, ElementArrayFinder, $ } from 'protractor';
 
+const expectedConditions = browser.ExpectedConditions;
 export class RequestPoolPage {
 
   /**
@@ -129,6 +130,8 @@ export class RequestPoolPage {
    */
   requestAMentor() {
     this.getRequestMentorButton().click();
+    browser.wait(expectedConditions.elementToBeClickable($('.mentor-request-modal')), 3000);
+
     const neededSkill = element(by.id('needed-skill'));
     neededSkill.sendKeys('Angular e2e');
 
@@ -149,6 +152,27 @@ export class RequestPoolPage {
     requestMentorButton.click();
     browser.sleep(2000);
   }
+
+  /**
+   * Gets the view button when an
+   * alert pops up
+   *
+   * @return {WebElement}
+   */
+  getViewAlertButton(): ElementFinder {
+    return element(by.css('.blue-button'));
+  }
+
+  /**
+   * Gets the view button when an
+   * alert pops up
+   *
+   * @return {WebElement}
+   */
+  getBackButton(): ElementFinder {
+    return element(by.id('back-modal-button'));
+  }
+
 
   /**
    * Gets the close button when an
