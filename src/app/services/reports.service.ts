@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
+import { Response, URLSearchParams } from '@angular/http';
 import { environment } from 'environments/environment';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { RequestService } from './request.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 

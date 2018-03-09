@@ -6,9 +6,29 @@
     <div class="calendar">
       <img src="../../assets/images/calendar.svg" alt="calendar">
     </div>
+    <span class="chart-calendar-label">
+        <label class="report-label-text">Locations</label>
+      <app-drop-down
+        [list]="location"
+        [defaultValue]="selectedLocation"
+        (changes)="setLocation($event)"
+        [ngStyle]="{'margin-top': '5px', 'margin-left': '20px', 'width': '152px'}"
+      ></app-drop-down>
+    </span>
   </div>
 
-  <app-inactive-mentorship-graph
-    [startDate]="startDate"
-    [endDate]="endDate"></app-inactive-mentorship-graph>
+  <div>
+    <app-request-count-bar-chart
+      [startDate]="startDate"
+      [endDate]="endDate"
+      [location]="selectedLocation"
+    >
+    </app-request-count-bar-chart>
+  
+    <app-inactive-mentorship-graph
+      [startDate]="startDate"
+      [endDate]="endDate">
+    </app-inactive-mentorship-graph>
+
+  </div>
 </div>

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpService as Http } from './http.service';
+import { HttpService as Http, HttpService } from './http.service';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
+import { BaseService } from './base.service';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -13,16 +14,17 @@ import 'rxjs/add/operator/publishReplay';
 import * as moment from 'moment';
 
 @Injectable()
-export class RequestService {
+export class RequestService extends BaseService {
   private apiBaseUrl: string = environment.apiBaseUrl;
-  private statuses: any;
   updatePendingPoolRequestsTable = new Subject<any>();
   requestPool = new Subject<any>();
 
   constructor(
-    private http: Http,
     private userService: UserService,
-  ) { }
+    private httpService: Http,
+  ) {
+    super(httpService);
+  }
 
   /**
    * Return details of a particular request
@@ -53,22 +55,6 @@ export class RequestService {
       .catch(error => Observable.throw(error.json()),
       );
   }
-
-  /**
-   * Return encoded GET querystring
-   *
-   * @param Object data parameters
-   *
-   * @return String
-   */
-  getEncodedParameters(params) {
-    const paramValues = new URLSearchParams();
-    for (const key in params) {
-      paramValues.set(key, params[key])
-    }
-    return paramValues.toString();
-  }
-
 
   /**
    * Return latest mentorship create-request

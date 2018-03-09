@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { SkillService } from '../../../services/skill.service';
 
 @Component({
   selector: 'app-reports-page',
@@ -9,12 +10,31 @@ import * as moment from 'moment';
 export class ReportsPageComponent implements OnInit {
   startDate;
   endDate;
+  loading: boolean;
+  skillStatusCountReport: any[];
+  selectedLocation: string;
+  location: any[];
 
-  constructor() { }
+  constructor() {
+    this.location = ['All', 'Lagos', 'Nairobi'];
+    this.selectedLocation = 'All';
+  }
 
   ngOnInit() {
     this.startDate = moment().subtract(1, 'month').format('YYYY-MM-DD');
-    this.endDate = moment().format('YYYY-MM-DD')
+    this.endDate = moment().format('YYYY-MM-DD');
+  }
+
+
+  /**
+   * Sets the location of the requests
+   *
+   * @param {Event} value - change event
+   *
+   * @return {Void}
+   */
+  setLocation(value): void {
+    this.selectedLocation = value;
   }
 
   /**

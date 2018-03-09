@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
+import { BaseService } from './base.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -10,11 +11,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
 
 @Injectable()
-export class SkillService {
+export class SkillService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
   private skills: any;
-
-  constructor(private http: Http) { }
 
   /**
    * Return all skills in the database
@@ -65,6 +64,21 @@ export class SkillService {
       .catch(
       error => Observable.throw(error.json()),
     );
+  }
+
+
+  /**
+   * Get reports of status counts for all skills requested
+   * within a period and location
+   *
+   * @param  {object} params All skills requested within that period and count
+   *
+   * @return {Observable} Observable with the requests based on location, start date and end date
+   */
+  getSkillStatusCount(params: {}) {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/skill/status-report?${this.getEncodedParameters(params)}`)
+      .map((res: Response) => res.json())
   }
 
   /**

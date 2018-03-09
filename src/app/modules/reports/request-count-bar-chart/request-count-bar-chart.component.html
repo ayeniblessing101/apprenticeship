@@ -1,0 +1,15 @@
+<div *ngIf="error">
+  <p class="error">{{error}}</p>
+</div>
+
+<div *ngIf="loading" class="loader"></div>
+<div [style.display]="displayChart" class="chart-area">
+  <div class="chart">
+    <div class="chart-header">Requested Skills</div>
+    <canvas
+      height="300"
+      width="7500"
+      id="bar-chart"
+    >{{ barChart }}</canvas>
+  </div>
+</div>

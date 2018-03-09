@@ -72,7 +72,8 @@ const appRoutes: Routes = [
     },
   },
 
-  { path: 'admin/reports', loadChildren: './modules/reports/reports.module#ReportsModule', canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/reports', loadChildren: './modules/reports/reports.module#ReportsModule',
+    canActivate: [AuthGuard, AdminGuard] },
 
   { path: 'unauthorized', component: UnauthorizedPageComponent },
 
@@ -88,3 +89,4 @@ const appRoutes: Routes = [
 })
 
 export class AppRoutesModule {}
+

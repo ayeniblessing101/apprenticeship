@@ -1,12 +1,13 @@
 @import '../../../../assets/scss/fonts';
 @import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/loaders';
+
 
 .wrapper {
+  position: absolute;
   width: 100%;
-  height: 100%;
+  margin: auto;
   background: $primary-background-color;
-  padding-right: 44px;
-  box-sizing: border-box;
 
   .date-picker {
     margin-left: 30px;
@@ -33,3 +34,86 @@
   clear: both;
   display: block;
 }
+
+#section {
+  min-height: 25.35vh;
+  padding: 10px 30px 5px;
+  float: left;
+  margin-left: 6em;
+  margin-top: 6em;
+  position: absolute;
+  background: $primary-background-color;
+}
+
+.report-location {
+  display: -webkit-inline-box;
+}
+
+.location {
+  margin-left: 10px;
+}
+
+.dropdown {
+  margin-top: 14px;
+  margin-left: 20px;
+  width: 152px;
+  height: 46px;
+}
+
+.report-date {
+  width: 200px;
+  border: none;
+  height: 46px;
+}
+
+.chart-calendar {
+  display: inline-flex;
+}
+
+.report-calendar-btn {
+  margin-top: 26px;
+  margin-left: 20px;
+  height: 47px;
+  width: 40px;
+  height: 46px;
+  margin-top: 22px;
+  border: none;
+  background-color: $primary-background-color;
+  border-radius: 5px;
+  border: solid 1px;
+}
+
+.chart-calendar-label {
+  display: grid;
+}
+
+.report-label-text {
+  margin-left: 14px;
+}
+
+.input-icon-wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-icon {
+  background: #f1f2f3;
+  width: 40px;
+  height: 45px;
+  margin-top: 27px;
+  border: solid 1px #d6e3ef;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+span.fas.fa-calendar-alt {
+  margin-top: 6px;
+  margin-left: 7px;
+  font-size: 35px;
+}
+
+.report-calendar-image {
+  margin-top: 10px;
+  height: 25px;
+}
+
