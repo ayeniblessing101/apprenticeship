@@ -17,4 +17,13 @@ export class SkillServiceStub {
   getSkills(): Observable<any> {
     return Observable.of(mockSkills);
   }
+  /**
+   * Return skills status count
+   *
+   * @return Observable collection of skills
+   */
+  getSkillStatusCount(params: {}): Observable<any> {
+    const skillStatusCount = [];
+    return Observable.of(skillStatusCount);
+  }
 }

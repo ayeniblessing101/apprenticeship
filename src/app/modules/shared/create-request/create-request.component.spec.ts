@@ -11,6 +11,7 @@ import { HttpService as Http } from '../../../services/http.service';
 import { SkillService } from '../../../services/skill.service';
 import { DropDownComponent } from 'app/modules/shared/drop-down/drop-down.component';
 import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
+import { SkillServiceStub } from '../../../stubs/skill-stub.service';
 
 
 describe('CreateRequestComponent', () => {
@@ -33,7 +34,7 @@ describe('CreateRequestComponent', () => {
         Http,
         UserService,
         AlertService,
-        SkillService,
+        { provide: SkillService, useClass: SkillServiceStub },
         RequestService,
       ],
     })

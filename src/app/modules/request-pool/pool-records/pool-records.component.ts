@@ -52,7 +52,7 @@ export class PoolRecordsComponent {
   }
 
   /**
-   * Sorts pool requests based on the table header
+   * Sorts pool requests based on the table header if the column has values
    *
    * @param {String} headerName - Name of the table column header
    * @param {Boolean} headerIsDateType - whether the header is of type date or not
@@ -60,6 +60,11 @@ export class PoolRecordsComponent {
    * @return {void}
    */
   sortPoolRequestsByHeader(headerName, headerIsDateType = false) {
+
+    if (this.activeSortCategory !== headerName && !this.checkRequestHeaderHasValue(headerName)) {
+      return;
+    }
+
     let sortingOrder = this.sortCategoryValues[headerName];
 
     if (this.activeSortCategory === headerName) {
@@ -96,5 +101,17 @@ export class PoolRecordsComponent {
    */
   initiateRequestsPoolFilter() {
     this.filterRequestsPool.emit(this.selectedRequest);
+  }
+
+  /** Checks whether the column of a request table header is not null
+   *
+   * @return {Boolean} - Result of whether the table header has column value or not
+   */
+  checkRequestHeaderHasValue(headerName) {
+    const headerValueIndex = this.requests.findIndex((request) => {
+      return !!request[headerName];
+    });
+
+    return headerValueIndex !== -1;
   }
 }

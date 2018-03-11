@@ -125,6 +125,11 @@ export class InProgressComponent implements OnInit {
    * @return {void}
    */
   sortInProgressRequestsByHeader(headerName, headerIsDateType = false) {
+
+    if (this.activeSortCategory !== headerName && !this.checkRequestHeaderHasValue(headerName)) {
+      return;
+    }
+
     let sortingOrder = this.sortCategoryValues[headerName];
 
     if (this.activeSortCategory === headerName) {
@@ -140,5 +145,18 @@ export class InProgressComponent implements OnInit {
     this.rerender = true;
     this.changeDetector.detectChanges();
     this.rerender = false;
+  }
+
+  /**
+   * Checks whether the column of a request table header is not null
+   *
+   * @return {Boolean} - Result of whether the table header has column value or not
+   */
+  checkRequestHeaderHasValue(headerName) {
+    const headerValueIndex = this.requests.findIndex((request) => {
+      return !!request[headerName];
+    });
+
+    return headerValueIndex !== -1;
   }
 }

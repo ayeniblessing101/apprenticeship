@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { InactiveMentorshipGraphComponent } from './inactive-mentorship-graph.component';
-import { ReportsService } from 'app/services/skill.service';
+import { ReportsService } from 'app/services/reports.service';
+import { SkillService } from 'app/services/skill.service';
 import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service'
 import { HttpService as Http } from '../../../services/http.service';
@@ -20,7 +21,8 @@ describe('InactiveMentorshipGraphComponent', () => {
         Http,
         ReportsService,
         RequestService,
-        UserService
+        UserService,
+        SkillService,
       ],
     })
     .compileComponents();

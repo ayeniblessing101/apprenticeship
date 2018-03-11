@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { RequestService } from '../../../services/request.service'
-import { ReportsService } from '../../../services/skill.service';
+import { SkillService } from '../../../services/skill.service';
+import { ReportsService } from '../../../services/reports.service';
 import { UserService } from '../../../services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
 
@@ -11,6 +12,7 @@ import { RequestCountBarChartComponent } from '../request-count-bar-chart/reques
 import { InactiveMentorshipGraphComponent } from '../inactive-mentorship/inactive-mentorship-graph.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
+import { SkillServiceStub } from '../../../stubs/skill-stub.service';
 
 describe('RequestSkillsReportComponent', () => {
   let component: ReportsPageComponent;
@@ -33,7 +35,8 @@ describe('RequestSkillsReportComponent', () => {
         Http,
         ReportsService,
         UserService,
-        RequestService
+        RequestService,
+        { provide: SkillService, useClass: SkillServiceStub },
       ],
     })
     .compileComponents();
@@ -43,8 +46,8 @@ describe('RequestSkillsReportComponent', () => {
     fixture = TestBed.createComponent(ReportsPageComponent);
     component = fixture.componentInstance;
     component.skillStatusCountReport = [];
-    component.startDate='';
-    component.endDate='';
+    component.startDate = '';
+    component.endDate = '';
     fixture.detectChanges();
   });
 

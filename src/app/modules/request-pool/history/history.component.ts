@@ -59,7 +59,9 @@ export class HistoryComponent implements OnInit {
   /**
    * Formats the data from the api to caluculate the mentorship end date,
    * get the primary skills and to check the role of the user per request
+   *
    * @param {Object} usersRequests
+   *
    * @return {Object} create-request
    */
   formatRequests(usersRequests) {
@@ -95,6 +97,11 @@ export class HistoryComponent implements OnInit {
    * @return {void}
    */
   sortHistoryRequestsByHeader(headerName, headerIsDateType = false) {
+
+    if (this.activeSortCategory !== headerName && !this.checkRequestHeaderHasValue(headerName)) {
+      return;
+    }
+
     let sortingOrder = this.sortCategoryValues[headerName];
 
     if (this.activeSortCategory === headerName) {
@@ -110,5 +117,18 @@ export class HistoryComponent implements OnInit {
     this.rerender = true;
     this.changeDetector.detectChanges();
     this.rerender = false;
+  }
+
+  /**
+   * Checks whether the column of a request table header is not null
+   *
+   * @return {Boolean} - Result of whether the table header has column value or not
+   */
+  checkRequestHeaderHasValue(headerName) {
+    const headerValueIndex = this.requests.findIndex((request) => {
+      return !!request[headerName];
+    });
+
+    return headerValueIndex !== -1;
   }
 }
