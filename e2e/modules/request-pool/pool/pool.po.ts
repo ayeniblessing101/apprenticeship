@@ -1,8 +1,9 @@
-import { browser, by, element, promise, ElementFinder, ElementArrayFinder, $ } from 'protractor';
+import { browser, by, element, promise, ElementFinder, ElementArrayFinder, $, protractor } from 'protractor';
 
 const expectedConditions = browser.ExpectedConditions;
 export class RequestPoolPage {
 
+  expectedConditions = protractor.ExpectedConditions;
   /**
    * Navigates to the request pool page
    *
@@ -37,6 +38,42 @@ export class RequestPoolPage {
    */
   getLagosFilter(): ElementFinder {
     return this.getLocationFilter().all(by.css('.drop-show label')).get(2);
+  }
+
+  /**
+   * Gets the length filter in the request pool
+   *
+   * @return {WebElement}
+   */
+  getLengthFilter(): ElementFinder {
+    return element(by.id('length-filter'));
+  }
+
+  /**
+   * Gets the one month filter checkbox in the request pool
+   *
+   * @return {WebElement}
+   */
+  getMonthsFilter(): ElementFinder {
+    return this.getLengthFilter().all(by.css('.drop-show label')).get(2);
+  }
+
+  /**
+   * Gets the skills filter in the request pool
+   *
+   * @return {WebElement}
+   */
+  getSkillsFilter(): ElementFinder {
+    return element(by.id('skill-set'));
+  }
+
+  /**
+   * Gets the skills filter in the request pool
+   *
+   * @return {WebElement}
+   */
+  getSkillsFilterCheckbox(): ElementFinder {
+    return this.getSkillsFilter().all(by.css('.drop-show label')).get(2);
   }
 
   /**
@@ -105,12 +142,30 @@ export class RequestPoolPage {
   }
 
   /**
-   * Gets the first row element with id 'title'
+   * Gets the first row element with id 'request-location'
    *
    * @return {WebElement}
    */
-  getFirstRowMentorshipRequest(): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id('title'));
+  getFirstRowMentorshipRequestLocation(): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id('request-location'));
+  }
+
+  /**
+   * Gets the first row element with id 'duration'
+   *
+   * @return {WebElement}
+   */
+  getFirstRowMentorshipRequestDuration(): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id('duration'));
+  }
+
+  /**
+   * Gets the first row element with id 'primary-skill'
+   *
+   * @return {WebElement}
+   */
+  getFirstRowMentorshipRequestSkill(): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id('primary-skill'));
   }
 
   /**

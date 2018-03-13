@@ -1,4 +1,4 @@
-import { browser, $, by } from 'protractor';
+import { browser, by } from 'protractor';
 import { RequestPoolPage } from './pool.po';
 
 describe('Request Pool', () => {
@@ -8,7 +8,7 @@ describe('Request Pool', () => {
     requestPool.navigateToPoolPage();
   });
 
-  const expectedConditions = browser.ExpectedConditions;
+  const EC = browser.ExpectedConditions;
 
   it('Should be on the request pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/request-pool');
@@ -22,11 +22,48 @@ describe('Request Pool', () => {
     browser.sleep(3000);
   });
 
+  it('Should be able to request a mentor', () => {
+    browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
+    requestPool.requestAMentor();
+    browser.wait(EC.visibilityOf(requestPool.getCloseAlertButton()),
+                 3000, '.white-button should be visible');
+
+    requestPool.getCloseAlertButton().click();
+    browser.wait(EC.visibilityOf(requestPool.getAllRequestsRadioButton()),
+                 3000, 'all-requests-label should be visible');
+    requestPool.getAllRequestsRadioButton().click();
+    expect(requestPool.getFirstRequestTitle().getText()).toContain('Angular e2e');
+    browser.sleep(2000);
+  });
+
   it('Should filter the request pool by location', () => {
     requestPool.getLocationFilter().click();
     requestPool.getLagosFilter().click();
     browser.sleep(3000);
-  })
+  });
+
+  it('Should filter the request pool by duration', () => {
+    requestPool.getAllRequestsRadioButton().click();
+    browser.wait(EC.visibilityOf(requestPool.getLengthFilter()),
+                 5000, 'length element should be visible');
+    requestPool.getLengthFilter().click();
+    browser.wait(EC.elementToBeClickable(requestPool.getMonthsFilter()),
+                 5000, 'months element should be clickable');
+    requestPool.getMonthsFilter().click();
+    expect(requestPool.getFirstRowMentorshipRequestDuration().getText()).toContain('2 Months')
+    browser.sleep(2000);
+  });
+
+  it('Should filter the request pool by skill', () => {
+    requestPool.getAllRequestsRadioButton().click();
+    browser.wait(EC.visibilityOf(requestPool.getSkillsFilter()),
+                 5000, 'skill-set element should be clickable');
+    requestPool.getSkillsFilter().click();
+    browser.wait(EC.elementToBeClickable(requestPool.getSkillsFilterCheckbox()),
+                 5000, 'skills element should be clickable');
+    requestPool.getSkillsFilterCheckbox().click();
+    browser.sleep(2000);
+  });
 
   it('Should remove requests shown interest in from the requests pool', () => {
     let firstRequestText;
@@ -51,23 +88,14 @@ describe('Request Pool', () => {
     browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
     requestPool.requestAMentor();
 
-    browser.wait(expectedConditions.elementToBeClickable($('.blue-button')), 3000);
+    browser.wait(EC.elementToBeClickable(requestPool.getViewAlertButton()), 3000);
     requestPool.getViewAlertButton().click();
 
-    browser.wait(expectedConditions.elementToBeClickable($('.request-modal')), 3000);
+    browser.wait(EC.elementToBeClickable(requestPool.getSingleRequestModal()), 3000);
     expect(requestPool.getSingleRequestModal().isDisplayed).toBeTruthy();
 
-    browser.wait(expectedConditions.elementToBeClickable($('#back-modal-button')), 3000);
+    browser.wait(EC.elementToBeClickable(requestPool.getBackButton()), 3000);
     requestPool.getBackButton().click();
-  });
-
-  it('Should be able to request a mentor', () => {
-    browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
-    requestPool.requestAMentor();
-    browser.sleep(3000);
-
-    requestPool.getCloseAlertButton().click();
-    browser.sleep(3000);
   });
 
   it('Should show notifications when user clicks on notifications icon', () => {
