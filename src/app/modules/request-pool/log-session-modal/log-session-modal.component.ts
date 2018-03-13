@@ -115,7 +115,7 @@ export class LogSessionModalComponent implements OnInit {
    */
   logSession() {
     if (this.sessionForm.value.startTime === this.sessionForm.value.endTime) {
-      return this.alertService.showMessage('The time session started and ended can\'t be the same.');
+      return this.alertService.showMessage('The session start and end times can\'t be the same');
     }
 
     let ratingValues: Rating = null;
