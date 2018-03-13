@@ -106,7 +106,7 @@ export class RequestDetailsModalComponent implements OnInit {
     })
       .then(() => {
         this.alertService.showMessage(`
-      We have sent notification to the mentee about your interest in the mentorship request.
+      We have sent a notification to the mentee about your interest in this mentorship request.
       You will be notified when your interest is approved.
       `);
       })
