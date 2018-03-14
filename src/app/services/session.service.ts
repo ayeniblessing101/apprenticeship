@@ -68,6 +68,21 @@ export class SessionService {
   }
 
   /**
+   * Confirms an already logged session.
+   *
+   * @param sessionId - ID of the session
+   * @param payload - Payload object containing the confirmaiton details
+   *
+   * @returns {Observable} - The confirmed session details
+   */
+  confirmSession(sessionId: number, payload: any): Observable<any> {
+    return this.http
+      .patch(`${this.apiBaseUrl}/v2/sessions/${sessionId}/confirm`, payload)
+      .map((response: Response) => response.json())
+      .catch(this.handleError)
+  }
+
+  /**
    * rejects a session
    *
    * @param {Number} - requestId
@@ -77,7 +92,7 @@ export class SessionService {
   rejectSession(sessionId: number, payload: any): Observable<any> {
     return this.http
       .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/reject`, payload)
-      .map((response) => response.json())
+      .map(response => response.json())
       .catch(this.handleError);
   }
 

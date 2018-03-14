@@ -12,13 +12,14 @@ import { SessionService } from '../../../services/session.service';
 import { FileService } from '../../../services/files.service';
 import { InProgressSingleViewComponent } from './in-progress-single-view.component';
 import { StarRatingModule } from 'angular-star-rating';
-import { RequestDetailsPageComponent } from '../request-details-page/request-details-page.component';
-import { RequestSchedulePageComponent } from '../request-schedule-page/request-schedule-page.component';
-import { SessionDetailsComponent } from '../session-details/session-details.component';
-import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { RequestDetailsPageComponent } from '../request-details-page/request-details-page.component';
+import { RequestSchedulePageComponent } from '../request-schedule-page/request-schedule-page.component';
 import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
+import { SessionDetailsComponent } from '../session-details/session-details.component';
+import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
+import { ConfirmSessionModalComponent } from '../confirm-session-modal/confirm-session-modal.component';
 
 describe('InProgressSingleViewComponent', () => {
   let component: InProgressSingleViewComponent;
@@ -39,6 +40,7 @@ describe('InProgressSingleViewComponent', () => {
         RequestSkillPipe,
         SessionDetailsComponent,
         LogSessionModalComponent,
+        ConfirmSessionModalComponent,
       ],
       imports: [
         HttpModule,

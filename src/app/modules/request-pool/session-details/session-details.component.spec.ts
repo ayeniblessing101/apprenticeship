@@ -49,6 +49,7 @@ describe('SessionDetailsComponent', () => {
       files: [],
     };
     component.request = {
+      id: 2,
       mentee_id: 1,
       mentor_id: 2,
     };

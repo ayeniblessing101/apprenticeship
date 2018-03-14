@@ -17,6 +17,7 @@ import { SessionDetailsComponent } from '../session-details/session-details.comp
 import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
 import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
 import { SortingHelper } from '../../../helpers/sorting.helper';
+import { ConfirmSessionModalComponent } from '../confirm-session-modal/confirm-session-modal.component';
 
 describe('HistoryPageComponent', () => {
   let component: HistoryPageComponent;
@@ -33,6 +34,7 @@ describe('HistoryPageComponent', () => {
         SessionDetailsComponent,
         RequestDetailsPageComponent,
         RequestSchedulePageComponent,
+        ConfirmSessionModalComponent,
         ProposedRequestDurationPipe,
         RequestSkillPipe,
         AddFileModalComponent,

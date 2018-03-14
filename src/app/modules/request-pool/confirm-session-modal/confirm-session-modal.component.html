@@ -1,0 +1,60 @@
+<div class="confirm-session-modal">
+  <div class="confirmation-details" #confirmSessionModal>
+    <div class="confirmation-heading">
+      <h4>Confirm Session</h4>
+      <div class="underline"></div>
+    </div>
+
+    <div class="confirmation-body">
+      <div class="session px-12 inline-block">
+        <p class="session-title">Session started</p>
+        <div class="session-time">{{startTime}}</div>
+      </div>
+
+      <div class="session px-12 inline-block">
+        <p class="session-title">Session ended</p>
+        <div class="session-time">{{endTime}}</div>
+      </div>
+
+      <div></div>
+
+      <div class="bullet inline-block"></div>
+      <p class="bullet-text inline-block">If this session didn’t last for {{hours}}, please reject the session</p>
+      <p class="px-12">Rate the mentor/mentee in the following criteria</p>
+
+      <form class="comment" [formGroup]="confirmSessionForm" (ngSubmit)="confirmSession()">
+        <div class="ratings">
+          <div class="criteria inline-block px-12">Availability</div>
+          <div class="criteria-score inline-block">
+            <star-rating-comp [starType]="'svg'" formControlName="availability"></star-rating-comp>
+          </div>
+          <div></div>
+          <div class="criteria inline-block px-12">Reliability</div>
+          <div class="criteria-score inline-block">
+            <star-rating-comp [starType]="'svg'" formControlName="reliability"></star-rating-comp>
+          </div>
+          <div></div>
+          <div class="criteria inline-block px-12">Knowledge</div>
+          <div class="criteria-score inline-block">
+            <star-rating-comp [starType]="'svg'" formControlName="knowledge"></star-rating-comp>
+          </div>
+          <div></div>
+          <div class="criteria inline-block px-12">Teaching</div>
+          <div class="criteria-score inline-block">
+            <star-rating-comp [starType]="'svg'" formControlName="teaching"></star-rating-comp>
+          </div>
+          <div></div>
+          <div class="criteria inline-block px-12">Usefulness</div>
+          <div class="criteria-score inline-block">
+            <star-rating-comp [starType]="'svg'" formControlName="usefulness"></star-rating-comp>
+          </div>
+
+        </div>
+        <p>Comment feedback (optional)</p>
+        <input type="text" placeholder="Start Typing" name="comment" formControlName="comment">
+        <button type="submit">Submit</button>
+        <button (click)="closeConfirmSession()">Reject</button>
+      </form>
+    </div>
+  </div>
+</div>

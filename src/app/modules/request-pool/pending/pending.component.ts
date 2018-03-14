@@ -37,7 +37,6 @@ export class PendingComponent implements OnInit {
       .toPromise()
       .then(
         (response) => {
-          console.log(response);
           this.loading = false;
           this.requests = response;
         },

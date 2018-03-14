@@ -7,13 +7,14 @@
     <div>
       <button *ngIf="showAddFileButton" class="add-file" (click)="openAddFileModal(session)">Add file</button>
       <button
-        *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
+      *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
         class="log-session"
         [ngClass]="{'active': sessionIsEnabled, 'inactive': sessionIsDisabled}"
         [disabled]="sessionIsDisabled"
         (click)="openSessionModal()">Log Session</button>
-      <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
-              class="confirm-session">Confirm Session</button>
+        <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
+          class="confirm-session"
+          (click)="openConfirmSession()">Confirm Session</button>
     </div>
   </div>
   <div class="card-body" *ngIf="session.files.length > 0">

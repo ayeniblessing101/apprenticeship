@@ -13,8 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { UserServiceStub } from '../../../stubs/user-stub.service';
 import { FileService } from '../../../services/files.service';
 import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
-
-
+import { ConfirmSessionModalComponent } from '../confirm-session-modal/confirm-session-modal.component';
 
 describe('SessionDetailsComponent', () => {
   let component: RequestSchedulePageComponent;
@@ -34,13 +33,14 @@ describe('SessionDetailsComponent', () => {
         SessionDetailsComponent,
         LogSessionModalComponent,
         AddFileModalComponent,
+        ConfirmSessionModalComponent,
       ],
       providers: [
         Http,
         { provide: UserService, useClass: UserServiceStub },
         RequestService,
         FileService,
-        UserService
+        UserService,
       ],
     })
       .compileComponents();
@@ -56,6 +56,8 @@ describe('SessionDetailsComponent', () => {
       request_skills : [{ id : 1, primary: 'Angular' }],
       location : 'Nairobi',
       pairing: { days: ['monday'] },
+      mentee_id: 1,
+      mentor_id: 2,
     };
     fixture.detectChanges();
   });

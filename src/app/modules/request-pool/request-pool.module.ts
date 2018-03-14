@@ -35,6 +35,7 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
 import { AddFileModalComponent } from './add-file-modal/add-file-modal.component';
 import { UploadFileDirective } from './add-file-modal/upload-file.directive';
 import { SetRequestHeaderIconDirective } from '../../directives/set-request-header-icon.directive';
+import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-session-modal.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { SetRequestHeaderIconDirective } from '../../directives/set-request-head
     AddFileModalComponent,
     UploadFileDirective,
     SetRequestHeaderIconDirective,
+    ConfirmSessionModalComponent,
   ],
   exports: [
     PoolComponent,

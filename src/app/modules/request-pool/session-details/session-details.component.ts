@@ -12,6 +12,7 @@ import { FileService } from '../../../services/files.service';
 })
 export class SessionDetailsComponent implements OnInit {
   @Output() openLogSessionModal = new EventEmitter<number>();
+  @Output() openConfirmSessionModal = new EventEmitter<string>();
   @Output() removeDeletedFile = new EventEmitter<any>();
   @Input() showAddFileButton;
   @Input() showLogSessionButton;
@@ -69,13 +70,22 @@ export class SessionDetailsComponent implements OnInit {
   }
 
   /**
+   * Emits event that opens the log session modal
+   *
+   * @returns {void}
+  */
+  openConfirmSession() {
+    this.openConfirmSessionModal.emit();
+  }
+
+  /**
    * Checks if a session has not been logged. If true, This makes the session active
    * for the user to log
    *
    * @return {boolean}
    */
   checkSessionIsNotLogged() {
-    return !this.session.mentor_logged && !this.session.mentee_logged
+    return !this.session.mentor_logged && !this.session.mentee_logged;
   }
 
   /**

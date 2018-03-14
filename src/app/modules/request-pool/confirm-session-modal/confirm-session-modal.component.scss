@@ -1,0 +1,145 @@
+.confirm-session-modal {
+  z-index: 1000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: #303030;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  visibility: visible;
+
+  .confirmation-details {
+    margin: 95px auto;
+    margin-bottom: 0;
+    padding: 60px;
+    width: 35%;
+    height: 670px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-sizing: content-box;
+    box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+
+    h4 {
+      color: #3359db;
+      font-size: 20px;
+      line-height: 28px;
+      margin: 0;
+      margin-bottom: 15px;
+    }
+
+    .underline {
+      background: #3359db;
+      height: 6px;
+      width: 70px;
+      border-radius: 100px;
+    }
+  }
+
+  .confirmation-body {
+    margin-top: 40px;
+
+    .session {
+      margin-right: 30px;
+
+      .session-time {
+        padding: 15px 0;
+        text-align: center;
+        width: 120px;
+        border-radius: 4px;
+        color: #323c47;
+        border: solid 1px #e9eff4;
+      }
+
+      .session-title {
+        color: #303030;
+      }
+    }
+
+    .bullet {
+      width: 11px;
+      height: 11px;
+      background-color: #ffaf30;
+      border-radius: 100%;
+      margin-top: 15px;
+      margin-right: 5px;
+    }
+
+    .bullet-text {
+      font-size: 13px;
+      color: rgba(50, 60, 71, 0.7);
+      margin-bottom: 30px;
+    }
+
+    .ratings {
+      width: 35%;
+      
+      .criteria {
+        margin-bottom: 15px;
+        color: rgba(48, 48, 48, 0.6);
+        font-size: 13px;
+      }
+
+      .criteria-score {
+        position: relative;
+        top: -2px;
+        float: right;
+      }
+    }
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+input[type="text"] {
+  width: 100%;
+  height: 45px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #e9eff4;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+
+button {
+  width: 130px;
+  height: 44px;
+  border: solid 1px #3359db;
+  font-size: 15px;
+  font-weight: 500;
+  color: #3359db;
+  text-transform: uppercase;
+  float: right;
+
+  &[type="submit"] {
+    background: #3359db;
+    color: #fff;
+    margin-left: 10px;
+    margin-right: 0;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: rgba(50, 60, 71, 0.3);
+  line-height: 2.08;
+  letter-spacing: -0.2px;
+}
+
+.comment {
+  margin-top: 32px;
+
+  p {
+    font-size: 12px;
+  }
+}
+
+.px-12 {
+  font-size: 12px;
+}

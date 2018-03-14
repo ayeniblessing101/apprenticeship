@@ -16,6 +16,7 @@ export class RequestSchedulePageComponent implements OnInit {
   sessions: any[];
   currentUser: any;
   showLogSessionModal: boolean;
+  showConfirmSessionModal: boolean;
   modalSession: any;
   rerender: boolean;
 
@@ -48,6 +49,27 @@ export class RequestSchedulePageComponent implements OnInit {
    */
   closeSessionModal() {
     this.showLogSessionModal = false;
+  }
+
+  /**
+   * Opens the confirm session modal
+   *
+   * @param {Object} session - session to be confirmed
+   *
+   * @return {void}
+  */
+  openConfirmSessionModal(session) {
+    this.modalSession = session;
+    this.showConfirmSessionModal = true;
+  }
+
+  /**
+   * Closes the confirm session modal
+   *
+   * @return {void}
+  */
+  closeConfirmSessionModal() {
+    this.showConfirmSessionModal = false;
   }
 
   /**
