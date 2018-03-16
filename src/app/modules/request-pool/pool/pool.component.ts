@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
-import { UserService } from '../../../services/user.service';
 
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { SortingStatus } from '../../../interfaces/sorting.interface';
@@ -17,6 +16,8 @@ export class PoolComponent implements OnInit {
   @ViewChild(PoolFiltersComponent) poolFilterComponent;
   @Input() showFilters = true;
   @Input() showOpenRequests = true;
+  @Input() includeInterestedRequests = false;
+
   currentPage = 1;
   limit = 20;
   loading: boolean;
@@ -28,39 +29,37 @@ export class PoolComponent implements OnInit {
   firstPageLoad: boolean;
   sortingStatus: SortingStatus = null;
 
-  constructor(
-    private requestService: RequestService,
-    private sortingHelper: SortingHelper,
-    private filterService: FilterService,
-  ) {
+  constructor(private requestService: RequestService,
+              private sortingHelper: SortingHelper,
+              private filterService: FilterService) {
   }
 
   ngOnInit() {
     this.isSaveFiltersModalOpened = false;
     this.firstPageLoad = true;
     this.filterParams = this.filterService.getFilters();
-    this.getRequests();
+    this.loadRequests();
     if (!this.showFilters) {
       this.sectionGridWidth = '90%';
     }
     this.requestService.requestPool.subscribe(() => {
-      this.getRequests();
+      this.loadRequests();
     });
   }
 
   /**
-   * Get create-request from the Lenken API service
+   * Get request from the Lenken API service
    *
    * @return {void}
    */
-  getRequests(): void {
+  loadRequests(): void {
     this.loadingRequests = true;
     this.currentPage = 1;
     if (this.showOpenRequests) {
       this.filterParams['status'] = 1;
     }
-    this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
-      .toPromise()
+
+    this.getRequests(this.limit, this.currentPage, this.filterParams)
       .then((response) => {
         this.requests = response.requests;
         this.loadingRequests = false;
@@ -69,8 +68,34 @@ export class PoolComponent implements OnInit {
           this.firstPageLoad = false;
           this.poolFilterComponent.applySelectedFilters({ type: 'category', value: 'all' });
         }
-      },
-    );
+      });
+  }
+
+  /**
+   * This function makes the decision between which API to call because
+   * the request pool can either display all records or pool related records
+   * which is based on the user's interest.
+   *
+   * @param {Number} limit - the number of requests to be gotten
+   * @param {Number} page - the page of the requests to be gotten
+   * @param {Object} filters - the parameters to apply to API call
+   *
+   * @return {Promise<any>}
+   */
+  getRequests(limit, page, filters): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      if (this.includeInterestedRequests) {
+        this.requestService.getRequests(limit, page, filters)
+          .toPromise()
+          .then(response => resolve(response))
+          .catch(error => reject(error));
+      } else {
+        this.requestService.getPoolRequests(limit, page, filters)
+          .toPromise()
+          .then(response => resolve(response))
+          .catch(error => reject(error));
+      }
+    });
   }
 
   /**
@@ -82,8 +107,7 @@ export class PoolComponent implements OnInit {
   onScroll(): void {
     this.loadingRequests = true;
     this.currentPage += 1;
-    this.requestService.getRequests(this.limit, this.currentPage, this.filterParams)
-      .toPromise()
+    this.getRequests(this.limit, this.currentPage, this.filterParams)
       .then((response) => {
         // concatenate new request data with previous data
         this.requests = [
@@ -115,7 +139,7 @@ export class PoolComponent implements OnInit {
       return;
     }
 
-    this.filterParams = {}
+    this.filterParams = {};
     this.filterParams['category'] = event.category;
     if (event.ratings) {
       this.filterParams['ratings'] = event.ratings;
@@ -151,7 +175,7 @@ export class PoolComponent implements OnInit {
       this.filterParams['endDate'] = event.endDate;
     }
     this.filterService.setFilters(event);
-    this.getRequests();
+    this.loadRequests();
   }
 
   /**

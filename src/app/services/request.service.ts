@@ -48,13 +48,46 @@ export class RequestService extends BaseService {
    *
    * @return Observable containing latest create-request
    */
-  getRequests(limit: number, page = null, params = null): Observable<any> {
+  getPoolRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/pool?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()),
       );
   }
+
+  /**
+   * Return all mentorship requests
+   *
+   * @param {number} limit - number of requests to return
+   * @param {number} page - current pagination page
+   * @param {object} params - get parameters
+   *
+   * @return Observable containing all mentorship requests
+   */
+  getRequests(limit: number, page = null, params = null): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/requests?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
+      .map((res: Response) => res.json())
+      .catch(error => Observable.throw(error.json()),
+      );
+  }
+
+  /**
+   * Return encoded GET querystring
+   *
+   * @param Object data parameters
+   *
+   * @return String
+   */
+  getEncodedParameters(params) {
+    const paramValues = new URLSearchParams();
+    for (const key in params) {
+      paramValues.set(key, params[key])
+    }
+    return paramValues.toString();
+  }
+
 
   /**
    * Return latest mentorship create-request
