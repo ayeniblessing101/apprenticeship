@@ -231,3 +231,18 @@ a {
   display: inline-block;
   margin-right: 30px;
 }
+
+.request-schedule-wrapper {
+	width: calc(100vw - 12%);
+	height: 100%;
+	overflow-x: scroll;
+}
+
+.request-schedule-wrapper::-webkit-scrollbar {
+	height: 8px;
+}
+
+.request-schedule-wrapper::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: $scroll-bar-color;
+}

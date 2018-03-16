@@ -232,22 +232,22 @@ a {
   background-color: transparent !important;
 }
 
-.request-details-wrapper , .inprogress-request-schedule-wrapper {
+.request-details-wrapper , .request-schedule-wrapper {
   display: inline-block;
   margin-right: 290px;
 }
 
-.inprogress-request-schedule-wrapper {
+.request-schedule-wrapper {
 	width: calc(100vw - 28%);
 	height: 100%;
 	overflow-x: scroll;
 }
 
-.inprogress-request-schedule-wrapper::-webkit-scrollbar {
+.request-schedule-wrapper::-webkit-scrollbar {
 	height: 8px;
 }
 
-.inprogress-request-schedule-wrapper::-webkit-scrollbar-thumb {
+.request-schedule-wrapper::-webkit-scrollbar-thumb {
 	border-radius: 5px;
 	background: $scroll-bar-color;
 }
