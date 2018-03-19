@@ -111,14 +111,4 @@ describe('Request Pool', () => {
     requestPool.closeNotificationsIcon().click();
     browser.sleep(1500);
   });
-
-  it('Should show the user profile when a user clicks on \'view profile\'', () => {
-    browser.actions().mouseMove(requestPool.userIcon()).perform();
-
-    requestPool.viewProfileButton().click();
-    browser.sleep(2000);
-
-    expect(requestPool.userSkillsElement()).toBeTruthy();
-    browser.waitForAngularEnabled(false);
-  });
 });

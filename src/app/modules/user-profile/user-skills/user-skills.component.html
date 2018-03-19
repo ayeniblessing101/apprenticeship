@@ -6,7 +6,7 @@
     <div class="add-skill-form">
       <span class="skill-header">Add your skills</span>
       <div class="auto-complete-input-wrapper">
-        <input placeholder="Start Typing"
+        <input placeholder="Start Typing" id="input-skill"
                ng2-auto-complete [source]="skills" [formControl]="skillControl"
                [list-formatter]="autocompleListFormatter" value-property-name="id"
                display-property-name="name" autocomplete="true"
@@ -19,7 +19,7 @@
     </div>
     <div class="skills" *ngIf="currentUser.skills.length">
       <span class="chip" *ngFor="let skill of currentUser.skills">{{ skill.name }}
-        <span class="close" (click)="deleteUserSkill(skill.id)">&times;</span>
+        <span class="close" id="{{ skill.name }}"(click)="deleteUserSkill(skill.id)">&times;</span>
       </span>
     </div>
   </div>

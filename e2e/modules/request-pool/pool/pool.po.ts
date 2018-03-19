@@ -275,32 +275,4 @@ export class RequestPoolPage {
   closeNotificationsIcon(): ElementFinder {
     return element(by.id('notification-close-x'));
   }
-
-  /**
-   * Gets the user icon on the header
-   *
-   * @return {WebElement}
-   */
-  userIcon(): ElementFinder {
-    return element(by.css('.user-icon'));
-  }
-
-  /**
-   * Gets the view profile icon after
-   * hovering over the user icon
-   *
-   * @return {WebElement}
-   */
-  viewProfileButton(): ElementFinder {
-    return element(by.id('view-profile'));
-  }
-
-  /**
-   * Gets the user skills element
-   *
-   * @return {WebElement}
-   */
-  userSkillsElement(): ElementFinder {
-    return element(by.tagName('app-user-skills'));
-  }
 }
