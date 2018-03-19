@@ -122,6 +122,15 @@ export class RequestPoolPage {
     return element(by.id('btn-interested'));
   }
 
+  /** Gets the notification close button
+   * on the request modal
+   *
+   * @return {WebElement}
+   */
+  getNotificationCloseButton(): ElementFinder {
+    return element(by.id('close-button'));
+  }
+
   /**
    * Gets the Request For button on the
    * header

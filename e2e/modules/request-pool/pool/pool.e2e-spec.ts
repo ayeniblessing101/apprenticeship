@@ -1,4 +1,4 @@
-import { browser, by } from 'protractor';
+import { browser, by, $ } from 'protractor';
 import { RequestPoolPage } from './pool.po';
 
 describe('Request Pool', () => {
@@ -63,25 +63,29 @@ describe('Request Pool', () => {
                  5000, 'skills element should be clickable');
     requestPool.getSkillsFilterCheckbox().click();
     browser.sleep(2000);
+    browser.waitForAngularEnabled(false);
   });
 
   it('Should remove requests shown interest in from the requests pool', () => {
-    let firstRequestText;
-    browser.sleep(2000);
+    let newFirstRequestText;
+    browser.wait(requestPool.getFirstRequestTitle().isDisplayed, 3000);
     requestPool.getFirstRequestTitle().getText()
     .then((text) => {
-      firstRequestText = text;
+      newFirstRequestText = text;
       requestPool.getRequestsInRequestPool().get(0).click();
+      browser.wait(EC.visibilityOf(requestPool.getIAmInterestedButton()),
+                   3000, 'this time i\'m interested button should be visible')
+      requestPool.getIAmInterestedButton().click();
+      browser.wait(EC.visibilityOf(requestPool.getNotificationCloseButton()),
+                   3000, 'this time notification close button should be visible');
+      requestPool.getNotificationCloseButton();
+      browser.driver.findElement(by.id('close-button')).click();
+      browser.sleep(1000);
+      browser.driver.findElement(by.id('back-modal-button')).click();
+      browser.sleep(3000);
+      expect(requestPool.getFirstRequestTitle())
+        .not.toContain(newFirstRequestText);
     });
-    browser.sleep(2000)
-    requestPool.getIAmInterestedButton().click();
-    browser.sleep(2000);
-    browser.driver.findElement(by.id('close-button')).click();
-    browser.sleep(1000);
-    browser.driver.findElement(by.id('back-modal-button')).click();
-    browser.sleep(3000);
-    expect(requestPool.getFirstRequestTitle())
-      .not.toContain(firstRequestText);
   });
 
   it('Should be able to view request details after requesting for mentor', () => {
