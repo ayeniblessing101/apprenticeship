@@ -11,6 +11,7 @@ export class PendingComponent implements OnInit {
   requests: any[] = []
   loading: boolean;
   request: object;
+  sectionGridWidth = '90%';
 
   constructor(
     private requestService: RequestService,

@@ -20,6 +20,10 @@ body {
   overflow-x: hidden;
 }
 
+.main-wrapper {
+  overflow-y: hidden !important;
+}
+
 .app-root {
   height: 100%;
 }

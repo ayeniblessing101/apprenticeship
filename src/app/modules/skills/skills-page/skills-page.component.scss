@@ -1,21 +1,22 @@
 @import '../../../../assets/scss/fonts';
 @import '../../../../assets/scss/colors';
 @import '../../../../assets/scss/loaders';
+@import '../../request-pool/pool-records/pool-records.component';
 
 #section-grid {
   width: 92%;
-  min-height: 99vh;
-  float: left;
+  height: 100%;
+  overflow: hidden;
 
   @media (max-width: 900px) {
     margin-left: 2%;
   }
-  margin-top: -20px;
 }
 
 /* Structure */
 .wrapper {
   width: 100%;
+  height: 100%;
   margin: auto;
   background: $primary-background-color;
   overflow: hidden;

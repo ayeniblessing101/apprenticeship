@@ -1,9 +1,9 @@
-@import '../request-pool';
+@import "../request-pool";
 
 #section-grid {
   width: 71%;
   min-height: unset;
-  overflow-y: scroll;
+  overflow-y: hidden;
   padding: 0 5px 5px;
   float: none;
   margin-left: 0;
@@ -15,5 +15,4 @@
   display: flex;
   flex: 1 1 auto;
   height: 100%;
-  position: static;
 }

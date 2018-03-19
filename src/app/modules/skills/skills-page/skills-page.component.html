@@ -1,8 +1,6 @@
 <div class="wrapper">
-  <section id="section-grid">
-    <app-skill-records *ngIf="skills.length > 0"
-      [skills] = "skills"
-    ></app-skill-records>
-      <app-no-search-result *ngIf="skills.length === 0"></app-no-search-result>
+  <section id="section-grid" [style.width]="sectionGridWidth">
+    <app-skill-records *ngIf="skills.length > 0" [skills]="skills"></app-skill-records>
+    <app-no-search-result *ngIf="skills.length === 0"></app-no-search-result>
   </section>
 </div>

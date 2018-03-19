@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <section id="section-grid">
+  <section [style.width]="sectionGridWidth" id="section-grid">
     <div class="container">
       <app-pending-requests-table [requests]="requests" (request)="setRequest($event)" (reload)="getPendingRequests()">
       </app-pending-requests-table>

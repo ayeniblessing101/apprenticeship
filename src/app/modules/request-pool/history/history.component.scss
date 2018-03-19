@@ -1,5 +1,16 @@
-@import '../request-pool';
+@import "../request-pool";
+@import "../pool-records/pool-records.component";
 
 #section-grid {
-  width: 93%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wrapper {
+  height: 100%;
+}
+
+.pool-header-wrapper {
+  text-align: left !important;
+  padding-left: 30px;
 }

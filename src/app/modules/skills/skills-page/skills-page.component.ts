@@ -9,8 +9,9 @@ import * as moment from 'moment';
 })
 export class SkillsPageComponent implements OnInit {
   skills: any;
+  sectionGridWidth = '90%';
   constructor(
-     private route: ActivatedRoute,
+    private route: ActivatedRoute,
   ) {
     this.route.data.subscribe((value) => {
       this.skills = value.skills;
@@ -22,11 +23,11 @@ export class SkillsPageComponent implements OnInit {
     this.addRequestsPropertyToSkills()
   }
 
-/**
-  * It adds lastRequested property to each skill object.
-  *
-  * @returns {void}
-  */
+  /**
+    * It adds lastRequested property to each skill object.
+    *
+    * @returns {void}
+    */
   addLastRequestedPropertyToSkills() {
     this.skills.forEach((skill) => {
       if (skill.request_skills.length === 0) {
@@ -37,12 +38,12 @@ export class SkillsPageComponent implements OnInit {
     });
   }
 
-/**
-  * It gets the last rested skill.
-  *
-  * @param requestSkills the request skills.
-  * @returns {void}
-  */
+  /**
+    * It gets the last rested skill.
+    *
+    * @param requestSkills the request skills.
+    * @returns {void}
+    */
   getLastRequestedSkill(requestSkills) {
     let lastRequestedSkill = requestSkills[0];
 

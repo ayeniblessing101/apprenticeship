@@ -1,68 +1,46 @@
-<div class="skill-table">
-  <div *ngIf="!rerender" class="header"  appMatchPoolHeaderWidthToParent>
-      <div>
+<div class="content-container">
+  <div *ngIf="!rerender" class="pool-header-wrapper">
+    <div class="header custom-row">
+      <div class="custom-col-4">
         <span id="skill" (click)="sortSkills('name')">Skill
-          <img 
-             appSetRequestHeaderIcon
-             [sortCategoryValues]="sortCategoryValues"
-              [activeSortCategory]="activeSortCategory"
-             [headerName]="'name'"
-            src="../../../../assets/images/sort-a-z-inactive.png"
-          />
+          <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'name'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
         </span>
       </div>
-      <div >
-        <span id = "status" (click)="sortSkills('active')">Status
-          <img 
-                  appSetRequestHeaderIcon
-                  [showAlphabeticIcon]="false"
-                  [sortCategoryValues]="sortCategoryValues"
-                  [activeSortCategory]="activeSortCategory"
-                  [headerName]="'active'"
-                
-          />
+      <div class="custom-col-3">
+        <span id="status" (click)="sortSkills('active')">Status
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'active'" />
         </span>
       </div>
-      <div>
+      <div class="custom-col-3">
         <span id="requests" (click)="sortSkills('number_of_requests')">Requests
-          <img 
-                  appSetRequestHeaderIcon
-                  [showAlphabeticIcon]="false"
-                  [sortCategoryValues]="sortCategoryValues"
-                  [activeSortCategory]="activeSortCategory"
-                  [headerName]="'number_of_requests'"
-                  
-          />
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'number_of_requests'" />
         </span>
       </div>
-      <div>
+      <div class="custom-col-3">
         <span id="last-requested" (click)="sortSkills('last_requested', true)">Last requested
-          <img 
-                  appSetRequestHeaderIcon
-                  [showAlphabeticIcon]="false"
-                  [sortCategoryValues]="sortCategoryValues"
-                  [activeSortCategory]="activeSortCategory"
-                  [headerName]="'last_requested'"
-                
-          />
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'last_requested'" />
         </span>
       </div>
-      <div>Action</div>
+      <div class="custom-col-3">Action</div>
+    </div>
   </div>
-  <div class="header-space"></div>
-    <div *ngFor="let skill of skills" class="body" id="skill-pool">
-      <div class = "row">
-      <div>
-        {{ skill.name }}
-      </div>
-      <div>{{ !skill.deleted_at ? 'Active' : 'Inactive' }}</div>
-      <div>{{ skill.number_of_requests }}</div>
-      <div>{{ skill.last_requested === null ? 'No Request' : skill.last_requested| date:"longDate" }}</div>
-      <div>
-        <span class="edit-skill">Edit</span>
-        <span>Disable</span>
-      </div>
+  <div class="pool-table">
+    <div class="pool-body">
+      <a *ngFor="let skill of skills" class="body-content custom-row" id="skill-pool">
+        <div class="custom-col-4">{{ skill.name }} </div>
+        <div class="custom-col-3">{{ !skill.deleted_at ? 'Active' : 'Inactive' }}</div>
+        <div class="custom-col-3">{{ skill.number_of_requests }}</div>
+        <div class="custom-col-3">{{ skill.last_requested === null ? 'No Request' : skill.last_requested| date:"longDate" }}</div>
+        <div class="custom-col-3">
+          <span class="edit-skill">Edit</span>
+          <span>Disable</span>
+        </div>
+      </a>
+      <div class="space"></div>
     </div>
-        <div class="space"></div>
-    </div>
+  </div>
 </div>

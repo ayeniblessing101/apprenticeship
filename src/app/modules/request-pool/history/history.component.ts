@@ -15,6 +15,7 @@ export class HistoryComponent implements OnInit {
   loading: boolean;
   requests: any[];
   rerender: boolean;
+  sectionGridWidth = '90%';
 
   sortCategoryValues = {
     title: 'asc',
@@ -49,10 +50,10 @@ export class HistoryComponent implements OnInit {
     this.requestService.getUserHistory()
       .toPromise()
       .then(
-      (response) => {
-        this.loading = false;
-        this.requests = this.formatRequests(response);
-      },
+        (response) => {
+          this.loading = false;
+          this.requests = this.formatRequests(response);
+        },
     )
   }
 

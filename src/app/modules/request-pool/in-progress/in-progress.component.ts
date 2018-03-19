@@ -19,11 +19,12 @@ export class InProgressComponent implements OnInit {
   user;
   sessionDates: any;
   rerender: boolean;
+  sectionGridWidth = '75%';
 
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
-    location:  'asc',
+    location: 'asc',
     role: 'asc',
     created_at: 'asc',
   };

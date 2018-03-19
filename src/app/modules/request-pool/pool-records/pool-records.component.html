@@ -1,72 +1,54 @@
-<div class="table" *ngIf="requests.length > 0; else noRequest">
-  <div *ngIf="!rerender" class="header pool-header" appMatchPoolHeaderWidthToParent>
-      <div>
+<div class="content-container">
+  <div *ngIf="!rerender" class="pool-header-wrapper">
+    <div class="header custom-row">
+      <div class="custom-col-3">
         <span (click)="sortPoolRequestsByHeader('title')">
           Request
-          <img
-            appSetRequestHeaderIcon
-            [sortCategoryValues]="sortCategoryValues"
-            [activeSortCategory]="activeSortCategory"
-            [headerName]="'title'"
-            src="../../../../assets/images/sort-a-z-inactive.png"/>
+          <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'title'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
         </span>
       </div>
-      <div>Primary Skill</div>
-      <div>Secondary Skill</div>
-      <div>
+      <div class="custom-col-3">Primary Skill</div>
+      <div class="custom-col-4">Secondary Skill</div>
+      <div class="custom-col-2">
         <span (click)="sortPoolRequestsByHeader('duration')">
           Duration
-          <img
-            appSetRequestHeaderIcon
-            [showAlphabeticIcon] = "false"
-            [sortCategoryValues]="sortCategoryValues"
-            [activeSortCategory]="activeSortCategory"
-            [headerName]="'duration'"
-            src="../../../../assets/images/sort-desc-inactive.png"/>
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'duration'" src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
-      <div>
+      <div class="custom-col-2">
         <span (click)="sortPoolRequestsByHeader('created_at', true)">
           Date Added
-          <img
-            appSetRequestHeaderIcon
-            [showAlphabeticIcon] = "false"
-            [sortCategoryValues]="sortCategoryValues"
-            [activeSortCategory]="activeSortCategory"
-            [headerName]="'created_at'"
-            src="../../../../assets/images/sort-desc-inactive.png"/>
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'created_at'" src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
-      <div>
+      <div class="custom-col-2">
         <span (click)="sortPoolRequestsByHeader('location')">
           Location
-          <img
-            appSetRequestHeaderIcon
-            [sortCategoryValues]="sortCategoryValues"
-            [activeSortCategory]="activeSortCategory"
-            [headerName]="'location'"
-            src="../../../../assets/images/sort-desc-inactive.png"/>
+          <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'location'"
+            src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
-  </div>
-  <div class="top-spacer"></div>
-
-  <div *ngFor="let request of requests" class="body" id="request-pool">
-    <div class="row" (click)="showRequestDetails(request)">
-      <div id="title">{{ request.title }}</div>
-      <div id="primary-skill">{{ request.request_skills|requestSkill: 'primary' }}</div>
-      <div id="secondary-skill">{{ request.request_skills|requestSkill: 'secondary' }}</div>
-      <div id="duration">{{ request.duration|requestDuration }}</div>
-      <div id="created-at">{{ request.created_at|date: 'longDate' }}</div>
-      <div id="request-location">{{ request.location }}</div>
     </div>
-    <div class="space"></div>
+  </div>
+  <div class="pool-table" *ngIf="requests.length > 0; else noRequest">
+    <div class="pool-body">
+      <a *ngFor="let request of requests" class="body-content custom-row" id="request-pool" (click)="showRequestDetails(request)">
+        <div id="title" class="custom-col-3">{{ request.title }}</div>
+        <div id="primary-skill" class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
+        <div id="secondary-skill" class="custom-col-4">{{ request.request_skills|requestSkill: 'secondary' }}</div>
+        <div id="duration" class="custom-col-2">{{ request.duration|requestDuration }}</div>
+        <div id="created-at" class="custom-col-2">{{ request.created_at|date: 'longDate' }}</div>
+        <div id="request-location" class="custom-col-2">{{ request.location }}</div>
+      </a>
+      <div class="space"></div>
+    </div>
   </div>
 </div>
 <div class="line"></div>
-<app-request-details *ngIf="showRequest"
-  (filterRequestsPool)="initiateRequestsPoolFilter()"
-  [selectedRequest]="selectedRequest"
+<app-request-details *ngIf="showRequest" (filterRequestsPool)="initiateRequestsPoolFilter()" [selectedRequest]="selectedRequest"
   (close)="closeRequest()">
 </app-request-details>
 <ng-template #noRequest>

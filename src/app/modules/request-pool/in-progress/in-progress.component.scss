@@ -1,1 +1,7 @@
-@import '../request-pool';
+@import "../request-pool";
+@import "../pool-records/pool-records.component";
+
+.pool-header-wrapper {
+  text-align: left !important;
+  padding-left: 30px;
+}
