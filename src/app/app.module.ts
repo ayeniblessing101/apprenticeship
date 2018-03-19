@@ -26,8 +26,6 @@ import { AppComponent } from './app.component';
 
 import { SharedModule } from './modules/shared/shared.module';
 import { RequestPoolModule } from './modules/request-pool/request-pool.module';
-import { AllRequestsModule } from './modules/all-requests/all-requests.module';
-import { ReportsModule } from './modules/reports/reports.module';
 
 // environment
 import { environment } from '../environments/environment';
@@ -58,9 +56,7 @@ if (authToken) {
     MomentModule,
     SharedModule,
     RequestPoolModule,
-    AllRequestsModule,
     IntercomModule,
-    ReportsModule,
   ],
   providers: [
     {
