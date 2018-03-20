@@ -6,6 +6,7 @@
   height: 100%;
   margin: auto;
   background: $primary-background-color;
+  overflow-y: hidden;
 }
 
 .wrapper::after {
