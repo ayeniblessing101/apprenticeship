@@ -4,7 +4,7 @@
 @import '../../request-pool/pool-records/pool-records.component';
 
 #section-grid {
-  width: 92%;
+  width: 94%;
   height: 100%;
   overflow: hidden;
 
@@ -20,4 +20,54 @@
   margin: auto;
   background: $primary-background-color;
   overflow: hidden;
+}
+
+.all-skill-wrapper {
+  display: flex;
+  width: 92%;
+  margin-top: 30px;
+}
+
+.all-skill-header {
+    flex: 1 1 auto;
+    font-family: $font-family-1;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    margin-left: 32px;
+    margin-bottom: 15px;
+    color: $andela-blue;
+}
+
+.add-skill-button {
+    flex: 0 0 auto;
+  button {
+    line-height: 36px;
+    display: inline-block;
+    width: 160px;
+    height: 44px;
+    border: solid 1px;
+    border-color: $andela-blue-light;
+    background: transparent;
+    color: $andela-blue;
+    font-family: $font-family-1;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+  }
+      :hover{
+        cursor: pointer;
+    }
+}
+
+
+.underline {
+  width: 70px;
+  height: 6px;
+  border-radius: 100px;
+  background-color: $andela-blue-light;
+  margin: 15px 0 30px 0;
 }

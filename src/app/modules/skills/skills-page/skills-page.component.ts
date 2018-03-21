@@ -9,7 +9,7 @@ import * as moment from 'moment';
 })
 export class SkillsPageComponent implements OnInit {
   skills: any;
-  sectionGridWidth = '90%';
+  addSkillModal: boolean;
   constructor(
     private route: ActivatedRoute,
   ) {
@@ -19,23 +19,49 @@ export class SkillsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.addLastRequestedPropertyToSkills();
-    this.addRequestsPropertyToSkills()
+    this.addLastRequestedPropertyToSkills(this.skills);
+    this.addRequestsPropertyToSkills(this.skills)
   }
 
   /**
     * It adds lastRequested property to each skill object.
     *
+    * @param {array} skills array of objects
+    *
     * @returns {void}
     */
-  addLastRequestedPropertyToSkills() {
-    this.skills.forEach((skill) => {
+  addLastRequestedPropertyToSkills(skills) {
+    skills.forEach((skill) => {
       if (skill.request_skills.length === 0) {
         skill.last_requested = -1;
       } else {
         skill.last_requested = this.getLastRequestedSkill(skill.request_skills).created_at || null;
       }
     });
+  }
+  /**
+   *  Add the new skill to the skills' pool
+   *
+   * @param {object} newSkill response object from child component
+   *
+   * @memberof SkillsPageComponent
+   */
+  addNewSkillToPool(newSkill) {
+    newSkill.deleted_at = null;
+    newSkill.request_skills = [];
+    this.skills.unshift(newSkill);
+    this.addLastRequestedPropertyToSkills(this.skills);
+    this.addRequestsPropertyToSkills(this.skills);
+  }
+  /**
+   * It displays the add skill modal.
+   *
+   * @memberof SkillsPageComponent
+   *
+   * @returns {void}
+   */
+  toggleAddSkillModal() {
+    this.addSkillModal = !this.addSkillModal;
   }
 
   /**
@@ -60,10 +86,11 @@ export class SkillsPageComponent implements OnInit {
   /**
   * It adds requests property to each skill object.
   *
+  * @param {array} skills
   * @returns {void}
   */
-  addRequestsPropertyToSkills() {
-    this.skills.forEach((skill) => {
+  addRequestsPropertyToSkills(skills) {
+    skills.forEach((skill) => {
       let numberOfRequests = 0;
       skill.request_skills.forEach((requestSkill) => {
         if (requestSkill.type === 'primary') {

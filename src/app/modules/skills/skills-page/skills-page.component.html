@@ -1,6 +1,19 @@
 <div class="wrapper">
-  <section id="section-grid" [style.width]="sectionGridWidth">
+  <div class="all-skill-wrapper">
+    <div class="all-skill-header">
+      ALL SKILLS
+      <hr class="underline"/>
+    </div>
+    <div class="add-skill-button">
+      <button (click)="toggleAddSkillModal()" id="add-skill-button">
+        ADD NEW SKILL
+      </button>
+    </div>
+  </div>
+  <section id="section-grid">
     <app-skill-records *ngIf="skills.length > 0" [skills]="skills"></app-skill-records>
     <app-no-search-result *ngIf="skills.length === 0"></app-no-search-result>
   </section>
 </div>
+<app-add-skill-modal *ngIf="addSkillModal" (closeSkillModal)="toggleAddSkillModal()"
+                     (newSkillAdded)="addNewSkillToPool($event)"></app-add-skill-modal>

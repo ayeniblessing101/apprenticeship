@@ -1,0 +1,29 @@
+<div #requestModal class="add-skill-modal" #addSkillModal>
+  <div class="modal-heading">
+    Add New Skill
+    <hr class="underline">
+  </div>
+  <form #addSkillForm="ngForm" (ngSubmit)=saveSkill()>
+    <div class="add-skill-body">
+      <div class="form-group">
+        <label for="skillName" class="skill-name-label">Skill Name</label>
+        <input required [(ngModel)]="skillName" id="skillName" name="skillName" type="text" class="skill-name" placeholder="e.g CSS" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="buttons-wrapper">
+        <div class="cancel-button">
+          <button type="button" (click) = "closeAddSkillsModal()">DISCARD</button>
+        </div>
+        <div class="save-button">
+          <button
+            id="save-button"
+            type="submit"
+            [disabled]="!addSkillForm.form.valid"
+          >SAVE</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-background"></div>

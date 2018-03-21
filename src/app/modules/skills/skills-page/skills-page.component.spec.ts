@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, XHRBackend, BrowserXhr, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -5,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { SkillsPageComponent } from './skills-page.component';
 import { SkillRecordsComponent } from '../skill-records/skill-records.component';
+import { AddSkillModalComponent } from './../add-skill-modal/add-skill-modal.component';
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { HttpService as Http } from '../../../services/http.service';
 import { ActivatedRoute } from '@angular/router';
@@ -25,10 +27,12 @@ describe('SkillsPageComponent', () => {
         SkillRecordsComponent,
         NoSearchResultComponent,
         SetRequestHeaderIconDirective,
+        AddSkillModalComponent,
       ],
       imports: [
         HttpModule,
         SharedModule,
+        FormsModule,
       ],
       providers: [
         SortingHelper,

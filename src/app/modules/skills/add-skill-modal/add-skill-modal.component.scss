@@ -1,0 +1,129 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/_colors.scss';
+
+.add-skill-modal {
+  font-family: $font-family-1;
+  box-sizing: content-box;
+  position: fixed;
+  z-index: 1000;
+  top: 30%;
+  left: 30%;
+  border-radius: 4px;
+  width: 509px;
+  height: 250px;
+  background-color: $white;
+  box-shadow: 0 2px 40px 10px rgba(0, 0, 0, 0.2);
+  padding: 4%;
+  overflow-y: auto;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  @mixin button-style {
+    @content;
+    width: 130px;
+    height: 44px;
+    border: solid 1px;
+    border-color: $andela-blue-light;
+    font-family: $font-family-1;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    text-align: center;
+  }
+  .cancel-button {
+    margin-right: 5px;
+    button {
+      @include button-style {
+        color: $andela-blue-light;
+      }
+    }
+    :hover {
+      cursor: pointer;
+    }
+  }
+  .save-button {
+    button {
+      @include button-style {
+        color: $white;
+        background-color: $andela-blue-light;
+        outline: none;
+      }
+
+    }
+    button:hover {
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: rgba(152, 152, 152, 0.2);
+      border: none;
+      cursor: not-allowed;
+    }
+  }
+  .skill-name-label {
+    width: 59px;
+    height: 15px;
+    font-family: $font-family-1;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #303030;
+  }
+  .skill-name {
+    width: 494px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: $white;
+    border: solid 1px #e9eff4;
+  }
+
+  .modal-heading {
+    font-family: $font-family-1;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    color: $andela-blue-light;
+  }
+
+  .underline {
+    width: 70px;
+    height: 6px;
+    border-radius: 100px;
+    background-color: $andela-blue-light;
+    margin: 15px 0 30px 0;
+    border: none;
+  }
+
+  .modal-footer {
+    display: inline-block;
+    margin-top: 14%;
+    margin-left: 50%;
+  }
+  .skill-name.ng-touched.ng-invalid {
+    border: solid 1px red;
+  }
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $black;
+  opacity: 0.5;
+  z-index: 900
+}
