@@ -1,57 +1,87 @@
-import { browser, by, element, promise, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, promise, ElementFinder, element, by, ElementArrayFinder, $, protractor, WebElement } from 'protractor';
 
 export class AllRequestsPage {
-  /**
-   * Navigates to the admin all requests page
+
+/**
+   * Navigates to the all request page
    *
-   * @return {promise}
+   * @return {promise.Promise<any>}
    */
-  navigateToAllRequestsPage(): promise.Promise {
+  navigateToAllRequestsPage(): promise.Promise<any> {
     return browser.get('/all-requests');
   }
 
   /**
-   * Gets the table in the request pool
+   * get requests filters card container
    *
    * @return {WebElement}
    */
-  getCalenderPicker(): ElementFinder {
-    return element(by.id('calender-picker'));
+  getRequestsStatistics(): ElementFinder {
+    return element(by.css('.card-container'));
   }
 
   /**
-   * Gets the Dashboard button on the
-   * header
+   * Gets the an array all the request filters
    *
-   * @return {WebElement}
+   * @return {WebElement[]}
    */
-  getDashboardButton(): ElementFinder {
-    return element(by.id('admin-button'));
+  getRequestFilters(): ElementArrayFinder {
+    return this.getRequestsStatistics().all(by.css('.card'));
   }
 
   /**
-   * Gets the All Requests button on the
-   * header
+   * Get the all requests
    *
    * @return {WebElement}
    */
-  getAllRequests(): ElementFinder {
-    return element(by.id('requests-pool'));
+  getAllRequestsFilter() {
+    return this.getRequestFilters().get(0);
   }
 
   /**
-   * Gets the All requests page
-   *
-   */
-  getAllRequestsPage() {
-    this.getAllRequests().click();
-  }
-  /**
-   * Gets the div with an id of base
+   * Get the open requests filter
    *
    * @return {WebElement}
    */
-  getDivId(): ElementFinder {
-    return element(by.id('base'));
+  getOpenRequestsFilter() {
+    return this.getRequestFilters().get(1);
   }
+
+  /**
+   * get all thet date filters wrapped in a promise
+   *
+   * @return {Promise<WebElement[]>}
+   */
+  getCalenderFilterDatePickers(): promise.Promise<WebElement[]> {
+    return browser.driver.findElements(by.id('calendar-picker'));
+  }
+
+
+  /**
+   * get all available dates wrapped in a promise
+   *
+   * @return {Promise<WebElement[]>}
+   */
+  getDates(): promise.Promise<WebElement[]> {
+    return browser.driver.findElements(by.css('.week-date'));
+  }
+
+  /**
+   * Gets the dates in the request table
+   *
+   * @return {WebElement[]}
+   */
+  getDateCells(): ElementArrayFinder {
+    return element.all(by.id('created-at'));
+  }
+
+  /**
+   * Get the statistics elements inside of the card filders
+   *
+   * @return {WebElement[]}
+   */
+  getStatisticsElements(): ElementArrayFinder {
+    return element.all(by.className('statistics'));
+  }
+
 }
