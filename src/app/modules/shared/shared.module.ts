@@ -24,6 +24,7 @@ import { CalendarPickerComponent } from './calendar/calendar-picker.component';
 import { ExportButtonComponent } from './export-button/export-button.component';
 import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
+import { CharacterCountDownComponent } from './character-count-down/character-count-down.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-durati
     StarRatingModule.forRoot(),
   ],
   declarations: [
+    CharacterCountDownComponent,
     HeaderComponent,
     NavBarComponent,
     LoginComponent,

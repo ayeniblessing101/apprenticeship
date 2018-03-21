@@ -18,16 +18,36 @@
 
         <div class="form-group">
           <label for="description">Description</label>
-          <input ngModel class="description" maxlength="100" placeholder="Enter a short description of what you plan to achieve"
-                 id="description" name="description" required/>
+          <div class="textarea-container">
+            <textarea placeholder="Enter a short description of what you plan to achieve"
+              ngModel
+              [maxlength]="maxLength"
+              class="description"
+              id="description"
+              name="description"
+              (keyup)="calculateCharacterCountDown($event.target.value.length)"></textarea>
+            <div
+              class="character-counter"
+              id="counter"
+            >
+              <app-character-count-down
+                [strokeDashOffset]="strokeDashOffset"
+                [isCharacterLimitClose]="isCharacterLimitClose"
+                [isStrokeDashOffsetLimitClose]="isStrokeDashOffsetLimitClose"
+                [isStrokeDashOffsetEqualZero]="isStrokeDashOffsetEqualZero"
+                [radius]="radius"
+                [charactersLeft]="charactersLeft">
+              </app-character-count-down>
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
           <label>Basic Skills</label>
           <app-skills-dropdown [list]="skillNames"
-                         [skillsLength]="basicSkills.length" (changes)="saveSkills('basic', $event)"
-                         [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills"
-                         id="basic-skills">
+             [skillsLength]="basicSkills.length" (changes)="saveSkills('basic', $event)"
+             [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills"
+             id="basic-skills">
           </app-skills-dropdown>
         </div>
         <div class="skill-list" *ngIf="basicSkills.length">

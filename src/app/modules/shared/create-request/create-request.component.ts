@@ -21,6 +21,7 @@ export class CreateRequestComponent implements OnInit {
 
   @Output() closeCreateRequestModal = new EventEmitter<boolean>();
   @Output() showRequestModal = new EventEmitter<string>();
+  @Output() closeMentorshipModal = new EventEmitter<boolean>();
 
   skills: any[] = [];
   skillNames: string[] = [];
@@ -50,21 +51,27 @@ export class CreateRequestComponent implements OnInit {
   complementarySkillsPlaceholder: string;
   primarySkillsPlaceholder: string;
   isEmptyBasicSkills: boolean;
+  readonly maxLength: number = 140;
+  readonly radius: number = 8;
+  charactersLeft: number;
+  strokeDashOffset: number;
+  isCharacterLimitClose: boolean;
+  isStrokeDashOffsetLimitClose: boolean;
+  isStrokeDashOffsetEqualZero: boolean;
 
-  constructor(
-    private skillService: SkillService,
-    private requestService: RequestService,
-    private alertService: AlertService,
-    private userService: UserService,
-  ) { }
+  constructor(private skillService: SkillService,
+              private requestService: RequestService,
+              private alertService: AlertService,
+              private userService: UserService) {
+  }
 
   ngOnInit() {
     this.daysOfAvailability = [
-      { name: 'Mon', value: 'monday', checked: false },
-      { name: 'Tue', value: 'tuesday', checked: false },
-      { name: 'Wed', value: 'wednesday', checked: false },
-      { name: 'Thur', value: 'thursday', checked: false },
-      { name: 'Fri', value: 'friday', checked: false },
+      {name: 'Mon', value: 'monday', checked: false},
+      {name: 'Tue', value: 'tuesday', checked: false},
+      {name: 'Wed', value: 'wednesday', checked: false},
+      {name: 'Thur', value: 'thursday', checked: false},
+      {name: 'Fri', value: 'friday', checked: false},
     ];
 
     this.lengthOfMentorship = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -87,6 +94,8 @@ export class CreateRequestComponent implements OnInit {
     this.primarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MUST have`;
 
     this.isAllDaysChecked = false;
+
+    this.strokeDashOffset =  (2 * Math.PI * this.radius);
   }
 
   /**
@@ -156,7 +165,8 @@ export class CreateRequestComponent implements OnInit {
       return this.alertService.showMessage(
         '0hr 00mins is an invalid session duration',
       );
-    };
+    }
+    ;
 
     const selectedDays = this.getSelectedDays();
 
@@ -182,7 +192,7 @@ export class CreateRequestComponent implements OnInit {
       const basicSkillIds = this.basicSkills.map(skill => skill.id);
       const complementarySkillIds = this.complementarySkills.map(skill => skill.id);
       const sessionEndTime = this.calculateSessionEndTime(this.startTime,
-                                                          this.removeHrsMinsStrings(this.duration));
+        this.removeHrsMinsStrings(this.duration));
       const requestDetails = {
         isMentor,
         title: form.value.neededSkill,
@@ -337,7 +347,7 @@ export class CreateRequestComponent implements OnInit {
           name: skill.name,
           id: skill.id,
         })),
-        this.skillNames = res.map(skill => skill.name);
+          this.skillNames = res.map(skill => skill.name);
       });
   }
 
@@ -394,7 +404,7 @@ export class CreateRequestComponent implements OnInit {
     }
   }
 
-   /**
+  /**
    * Checks the all days checkbox, when all the days has been checked
    * or unchecks it whenever the allDays checkbox is checked.
    *
@@ -475,7 +485,7 @@ export class CreateRequestComponent implements OnInit {
     let selectedDays = days.length > 1 ? days.join(', ') : days[0];
     const commaIndex = selectedDays.lastIndexOf(', ');
     selectedDays = commaIndex !== -1 ?
-        selectedDays.substring(0, commaIndex) + ' & ' + selectedDays.substring(commaIndex + 1) : selectedDays;
+      selectedDays.substring(0, commaIndex) + ' & ' + selectedDays.substring(commaIndex + 1) : selectedDays;
     return selectedDays;
   }
 
@@ -500,7 +510,26 @@ export class CreateRequestComponent implements OnInit {
    */
   displayDurationOfMonths() {
     const formattedMonthDuration = this.durationOfMonths === 1 ?
-        `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
+      `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
     return formattedMonthDuration;
   }
+
+  /**
+   * Counts the number of characters in the description text field and represents its
+   * value using the SVG circle
+   *
+   * @param {number} length This is the data emitted with the keyup event
+   *
+   * @return {void}
+   */
+  calculateCharacterCountDown(length) {
+    const characterLength = length;
+    this.charactersLeft = this.maxLength - characterLength;
+    const strokePerWord = characterLength / this.maxLength;
+    this.strokeDashOffset = ((2 * Math.PI * this.radius) * (1 - strokePerWord));
+    this.isCharacterLimitClose = this.charactersLeft <= 20;
+    this.isStrokeDashOffsetLimitClose = this.strokeDashOffset <= 7.1829;
+    this.isStrokeDashOffsetEqualZero = this.strokeDashOffset === 0;
+  }
 }
+

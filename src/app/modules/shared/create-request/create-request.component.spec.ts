@@ -12,11 +12,12 @@ import { SkillService } from '../../../services/skill.service';
 import { DropDownComponent } from 'app/modules/shared/drop-down/drop-down.component';
 import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
 import { SkillServiceStub } from '../../../stubs/skill-stub.service';
-
+import { CharacterCountDownComponent} from 'app/modules/shared/character-count-down/character-count-down.component';
 
 describe('CreateRequestComponent', () => {
   let component: CreateRequestComponent;
   let fixture: ComponentFixture<CreateRequestComponent>;
+  let strokeDashOffset: number;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,6 +30,7 @@ describe('CreateRequestComponent', () => {
         CreateRequestComponent,
         DropDownComponent,
         SkillsDropdownComponent,
+        CharacterCountDownComponent
       ],
       providers: [
         Http,

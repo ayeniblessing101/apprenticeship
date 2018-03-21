@@ -24,7 +24,7 @@ import { AlertService } from '../../../services/alert.service';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { StarRatingModule } from 'angular-star-rating';
-
+import { CharacterCountDownComponent } from '../character-count-down/character-count-down.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -45,6 +45,7 @@ describe('HeaderComponent', () => {
         RequestDetailsModalComponent,
         ProposedRequestDurationPipe,
         RequestSkillPipe,
+        CharacterCountDownComponent,
       ],
       imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule, StarRatingModule],
       providers: [

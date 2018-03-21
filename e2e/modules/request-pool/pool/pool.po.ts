@@ -103,16 +103,6 @@ export class RequestPoolPage {
     return element(by.id('back-modal-button'));
   }
 
-  /**
-   * Gets the request title of the first request
-   * on the request pool
-   *
-   * @return {WebElement}
-   */
-  getFirstRequestTitle(): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id('title'));
-  }
-
   /** Gets the i'm interested button
    * on the request modal
    *
@@ -151,56 +141,40 @@ export class RequestPoolPage {
   }
 
   /**
-   * Gets the first row element with id 'request-location'
+   * Gets the row element of the first request
+   *
+   * @param {string} id - The id of the element
    *
    * @return {WebElement}
    */
-  getFirstRowMentorshipRequestLocation(): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id('request-location'));
+  getFirstRowMentorshipRequest(id): ElementFinder {
+    return this.getRequestsInRequestPool().get(0).element(by.id(id))
   }
 
-  /**
-   * Gets the first row element with id 'duration'
-   *
-   * @return {WebElement}
-   */
-  getFirstRowMentorshipRequestDuration(): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id('duration'));
-  }
-
-  /**
-   * Gets the first row element with id 'primary-skill'
-   *
-   * @return {WebElement}
-   */
-  getFirstRowMentorshipRequestSkill(): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id('primary-skill'));
-  }
-
-  /**
-   * Gets the mentor button after hovering
-   * over the Request For button
-   *
-   * @return {WebElement}
-   */
+  /* Gets the mentor button after hovering
+  * over the Request For button
+  *
+  * @return {WebElement}
+  */
   getRequestMentorButton(): ElementFinder {
     return element(by.id('mentor'));
   }
 
   /**
-   * Fills the request a mentor form
+   * Fills the request mentor form.
    *
    * @return {void}
    */
-  requestAMentor() {
+  requestAMentor(request) {
+
     this.getRequestMentorButton().click();
     browser.wait(expectedConditions.elementToBeClickable($('.mentor-request-modal')), 3000);
 
     const neededSkill = element(by.id('needed-skill'));
-    neededSkill.sendKeys('Angular e2e');
+    neededSkill.sendKeys(request.title);
 
     const description = element(by.id('description'));
-    description.sendKeys('I\'d like to write angular e2e tests like a pro');
+    description.sendKeys(request.description);
 
     const basicSkills = element(by.id('basic-skills'));
     basicSkills.click();
@@ -236,7 +210,6 @@ export class RequestPoolPage {
   getBackButton(): ElementFinder {
     return element(by.id('back-modal-button'));
   }
-
 
   /**
    * Gets the close button when an
