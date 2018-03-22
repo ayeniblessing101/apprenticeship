@@ -1,0 +1,53 @@
+version: 2
+jobs:
+  unit-tests:
+    working_directory: ~/app
+    docker:
+    # Use a custom docker image with node 7.7.2 and chromium installed
+      - image: gcr.io/lenken-app/lenken-frontend:test-env
+        parallelism: 3
+        auth:
+            username: _json_key
+            password: $GCLOUD_SERVICE_KEY_TESTING
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install
+          
+      - run:
+          name: Install code climate-test-reporter
+          command: sudo yarn global add codeclimate-test-reporter
+      
+      - save_cache:
+          key: lenken-cache-{{ .BuildNum }}
+          paths:
+            - ~/.yarn-cache   
+      - run:
+          name: Run tests
+          command: xvfb-run yarn test 
+  deploy_to_staging:
+    working_directory: /tmp/lenken
+    docker:
+      - image: google/cloud-sdk
+    steps: 
+      - checkout
+      - run:
+          name: Add GCloud key to JSON file
+          command: echo $GCLOUD_SERVICE_KEY_TESTING > ${HOME}/auth_lenken_app.json
+      - run:
+          name: Deploy to Staging GCP VMs
+          command: .circleci/deploy_lenken.sh
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - unit-tests
+      - deploy_to_staging:
+          requires:
+            - unit-tests
+          filters:
+            branches:
+              only: develop-v2
+
