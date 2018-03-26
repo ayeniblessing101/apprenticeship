@@ -28,13 +28,15 @@ export class PendingModalComponent implements OnInit {
   @Output() closePendingModal = new EventEmitter();
   @ViewChild('pendingModal') pendingModal: ElementRef;
 
-  mentee: User;
-  mentors: User[] = [];
+  userWhoMadeTheRequest: User;
+  interestedUsers: User[] = [];
   userIds: string[] = [];
-  mentor: User;
+  interestedUser: User;
   showCancelRequestModal = false;
   requestToCancel: any;
   currentUserId: string;
+  requestedBy: string;
+  rating: number;
 
   alertServiceConfig = {
     abortActionText: 'BACK',
@@ -48,20 +50,24 @@ export class PendingModalComponent implements OnInit {
     private alertService: AlertService,
     private requestService: RequestService,
   ) {
-    this.acceptMentor = this.acceptMentor.bind(this);
-    this.rejectMentor = this.rejectMentor.bind(this);
+    this.acceptInterestedUser = this.acceptInterestedUser.bind(this);
+    this.rejectInterestedUser = this.rejectInterestedUser.bind(this);
     this.withdrawInterest = this.withdrawInterest.bind(this);
   }
 
   ngOnInit() {
-    this.userIds = [this.request.mentee_id];
+    this.userIds = [this.request.created_by];
     this.currentUserId = this.userService.getCurrentUser().id;
 
-    if (this.request.mentee_id === this.currentUserId) {
+    if (this.request.created_by === this.currentUserId) {
       if (this.request.interested) {
-        this.userIds = this.request.interested.concat([this.request.mentee_id]);
+        this.userIds = this.request.interested.concat([this.request.created_by]);
       }
     }
+    this.requestedBy = this.request.request_type_id === 2 ? this.request.mentee.fullname :
+      this.request.mentor.fullname;
+
+    this.rating = this.request.rating ? this.request.rating : 0;
 
     this.getUsersByIds(this.userIds);
   }
@@ -95,21 +101,22 @@ export class PendingModalComponent implements OnInit {
       .toPromise()
       .then((users: User[]) => {
         const formattedUsers = this.formatUserSkills(users);
-        this.separateMenteeAndMentors(formattedUsers);
+        this.separateUserWhoMadeTheRequestFromInterestedUsers(formattedUsers);
       });
   }
 
   /**
-   * Separate mentee and interested mentors from users array
+   * Separate user from interested users in the users array
    *
-   * @param {Array} users - array of all users, mentee and interested mentors
+   * @param {Array} users - array of all users, user who made the request
+   * and interested users
    */
-  separateMenteeAndMentors(users: User[]) {
+  separateUserWhoMadeTheRequestFromInterestedUsers(users: User[]) {
     users.forEach((user) => {
-      if (user.id === this.request.mentee_id) {
-        this.mentee = user;
+      if (user.id === this.request.created_by) {
+        this.userWhoMadeTheRequest = user;
       } else {
-        this.mentors.push(user);
+        this.interestedUsers.push(user);
       }
     });
   }
@@ -136,14 +143,14 @@ export class PendingModalComponent implements OnInit {
   }
 
   /**
-   * Pop up confirmation modal for accepting a mentor
+   * Pop up confirmation modal for accepting an interested user
    *
-   * @param {User} mentor - the mentor to be accepted
+   * @param {User} interestedUser - the user to be accepted
    */
-  confirmAcceptMentor(mentor) {
-    this.mentor = mentor;
+  confirmAcceptInterestedUser(interestedUser) {
+    this.interestedUser = interestedUser;
 
-    this.alertServiceConfig.confirmAction = this.acceptMentor;
+    this.alertServiceConfig.confirmAction = this.acceptInterestedUser;
 
     const confirmationMessage = `Accepting this mentor means he/she will mentor you on this
       particular request and others will not be able to mentor you`;
@@ -152,14 +159,14 @@ export class PendingModalComponent implements OnInit {
   }
 
   /**
-   * Pop up confirmation modal to reject mentor
+   * Pop up confirmation modal to reject an interested user
    *
-   * @param {User} mentor - the mentor to be rejected
+   * @param {User} interestedUser - the user to be rejected
    */
-  confirmRejectMentor(mentor) {
-    this.mentor = mentor;
+  confirmRejectInterestedUser(interestedUser) {
+    this.interestedUser = interestedUser;
 
-    this.alertServiceConfig.confirmAction = this.rejectMentor;
+    this.alertServiceConfig.confirmAction = this.rejectInterestedUser;
 
     const confirmationMessage = `Rejecting this mentor means he/she will not mentor you on this
       particular request`;
@@ -168,15 +175,15 @@ export class PendingModalComponent implements OnInit {
   }
 
   /**
-   * Calls service to accept mentor and close modal
+   * Calls service to accept an interested user and close modal
    *
    * @param {Object} mentorData - contains mentor id and name
    *
    * @return {void}
    */
-  acceptMentor() {
-    const { id: mentorId, name: mentorName } = this.mentor;
-    this.requestService.acceptInterestedMentor(this.request.id, { mentorId, mentorName })
+  acceptInterestedUser() {
+    const { id: interestedUserId, name: interestedUserName } = this.interestedUser;
+    this.requestService.acceptInterestedUser(this.request.id, { interestedUserId, interestedUserName })
       .toPromise().then((response) => {
         this.closePendingModal.emit();
         this.requestService.updatePendingPoolRequests();
@@ -188,9 +195,9 @@ export class PendingModalComponent implements OnInit {
    *
    * @return {void}
    */
-  rejectMentor() {
-    const { id: mentorId, name: mentorName } = this.mentor;
-    this.requestService.rejectInterestedMentor(this.request.id, { mentorId, mentorName })
+  rejectInterestedUser() {
+    const { id: interestedUserId, name: interestedUserName } = this.interestedUser;
+    this.requestService.rejectInterestedUser(this.request.id, { interestedUserId, interestedUserName })
       .toPromise().then((response) => {
         this.request.interested = response.interested;
 
@@ -199,7 +206,7 @@ export class PendingModalComponent implements OnInit {
           this.requestService.updatePendingPoolRequests();
           return;
         }
-        this.removeRejectedMentor();
+        this.removeRejectedInterestedUser();
       });
   }
 
@@ -208,11 +215,11 @@ export class PendingModalComponent implements OnInit {
    *
    * @return {void}
    */
-  removeRejectedMentor() {
-    for (const mentor of this.mentors) {
-      if (this.request.interested.indexOf(mentor.id) < 0) {
-        const mentorIndex = this.mentors.indexOf(mentor);
-        this.mentors.splice(mentorIndex, 1);
+  removeRejectedInterestedUser() {
+    for (const interestedUser of this.interestedUsers) {
+      if (this.request.interested.indexOf(interestedUser.id) < 0) {
+        const interestedUserIndex = this.interestedUsers.indexOf(interestedUser);
+        this.interestedUsers.splice(interestedUserIndex, 1);
         break;
       }
     }

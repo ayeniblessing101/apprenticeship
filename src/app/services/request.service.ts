@@ -259,28 +259,29 @@ export class RequestService extends BaseService {
    * Send request to accept an interested mentor
    *
    * @param {number} requestId - a mentorship request id
-   * @param {Object} data - json object containing mentor name and id
+   * @param {Object} data - json object containing interested user
+   * name and id
    *
    * @return {Observable} response object
    */
-  acceptInterestedMentor(requestId, data) {
+  acceptInterestedUser(requestId, data) {
     return this.http
-      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/accept-mentor`, data)
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/accept-user`, data)
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()));
   }
 
   /**
-   * Send request to reject an interested mentor
+   * Send request to reject an interested user
    *
    * @param {number} requestId - a mentorship request id
-   * @param {Object} data - json object containing mentor name and id
+   * @param {Object} data - json object containing user name and id
    *
    * @return {Observable} response object
    */
-  rejectInterestedMentor(requestId, data) {
+  rejectInterestedUser(requestId, data) {
     return this.http
-      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/reject-mentor`, data)
+      .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/reject-user`, data)
       .map((res: Response) => res.json())
       .catch(error => Observable.throw(error.json()));
   }

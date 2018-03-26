@@ -50,8 +50,8 @@ describe('SessionDetailsComponent', () => {
     };
     component.request = {
       id: 2,
-      mentee_id: 1,
-      mentor_id: 2,
+      mentee: { id: 1 },
+      mentor: { id: 1 },
     };
     fixture.detectChanges();
   });

@@ -142,7 +142,7 @@ export class LogSessionModalComponent implements OnInit {
     this.sessionService.logSession(sessionPayload, this.request.id, this.sessionId)
       .toPromise()
       .then((response) => {
-        if (this.userId === this.request.mentor_id) {
+        if (this.userId === this.request.mentor.id) {
           this.alertService.showMessage(`Your session has been logged
             successfully but your rating is not recorded. Only a Mentee can rate for now.`);
         }

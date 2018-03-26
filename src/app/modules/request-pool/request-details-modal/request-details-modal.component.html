@@ -6,7 +6,7 @@
   <div class="request-body">
     <p class="request-description">{{ selectedRequest.description }}</p>
     <p class="request-content">Requested by -
-      <span> {{ userInfo ? userInfo.name : null }} </span>
+      <span> {{ requestedBy }} </span>
       <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"></star-rating-comp>
     </p>
     <p class="request-content">Primary Skills -

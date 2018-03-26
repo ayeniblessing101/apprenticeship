@@ -72,7 +72,7 @@ export class HistoryComponent implements OnInit {
       const startDate = new Date(request.match_date.split(' ')[0]);
       const mentorshipEndDate = new Date(duration * oneDay + startDate.getTime());
       request.endDate = mentorshipEndDate;
-      request.role = request.mentee_id === this.userService.getCurrentUser().id ? 'Mentee' : 'Mentor';
+      request.role = request.request_type_id === 2 ? 'Mentee' : 'Mentor';
       return request;
     });
     return requests;

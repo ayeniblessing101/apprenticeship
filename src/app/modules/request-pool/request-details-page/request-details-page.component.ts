@@ -30,7 +30,7 @@ export class RequestDetailsPageComponent implements OnInit {
    * @return {void}
    */
   getMentee() {
-    this.userService.getUserInfo(this.request.mentee_id)
+    this.userService.getUserInfo(this.request.mentee.id)
       .toPromise().then((user) => {
         this.mentee.name = user.name;
         this.mentee.rating = user.rating;

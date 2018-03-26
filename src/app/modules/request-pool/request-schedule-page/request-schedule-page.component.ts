@@ -83,10 +83,10 @@ export class RequestSchedulePageComponent implements OnInit {
   updateSession(event) {
     const loggedSessionPosition = this.sessions.indexOf(event);
 
-    if (this.currentUser.id === this.request.mentor_id) {
+    if (this.currentUser.id === this.request.mentor.id) {
       event['mentor_logged'] = true;
     }
-    if (this.currentUser.id === this.request.mentee_id) {
+    if (this.currentUser.id === this.request.mentee.id) {
       event['mentee_logged'] = true;
     }
 

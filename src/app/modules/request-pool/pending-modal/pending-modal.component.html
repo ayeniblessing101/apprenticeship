@@ -6,6 +6,7 @@
                 <div class="underline"></div>
                 <button *ngIf="this.request.created_by == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
                 <button *ngIf="this.request.created_by !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW REQUEST</button>
+
             </div>
             <div class="modal-content">
                 <div class="request-description">

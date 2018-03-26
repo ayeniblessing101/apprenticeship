@@ -35,8 +35,8 @@ export class SessionDetailsComponent implements OnInit {
 
   ngOnInit() {
     const userId = this.userService.getCurrentUser().id;
-    this.isMentor = (userId === this.request.mentor_id);
-    this.isMentee = (userId === this.request.mentee_id);
+    this.isMentor = (userId === this.request.mentor.id);
+    this.isMentee = (userId === this.request.mentee.id);
     this.sessionIsDisabled = this.checkCurrentUserLoggedSession() ||
       this.checkSessionIsUpcoming();
     this.sessionIsEnabled = this.checkSessionIsNotLogged() &&

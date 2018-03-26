@@ -68,7 +68,7 @@ export class ConfirmSessionModalComponent implements OnInit {
   */
   confirmSession() {
     const approver = this.session.mentor_logged ?
-      this.request.mentee_id : this.request.mentor_id;
+      this.request.mentee.id : this.request.mentor.id;
 
     const payload = {
       user_id: approver,

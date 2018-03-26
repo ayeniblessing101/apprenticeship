@@ -77,10 +77,10 @@ export class InProgressComponent implements OnInit {
     const requestsInProgress = requests.map((request) => {
       this.user = this.userService.getCurrentUser();
 
-      if (request.mentor_id === this.user.id) {
-        request.role = 'Mentor'
-      } else if (request.mentee_id === this.user.id) {
+      if (request.request_type_id === 2) {
         request.role = 'Mentee'
+      } else if (request.request_type_id === 1) {
+        request.role = 'Mentor'
       }
 
       return request;
