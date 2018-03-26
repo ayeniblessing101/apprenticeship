@@ -4,8 +4,8 @@
             <div class="modal-heading">
                 <h4 class="title"> {{ request.title }} MENTOR</h4>
                 <div class="underline"></div>
-                <button *ngIf="this.request.mentee_id == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
-                <button *ngIf="this.request.mentee_id !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW INTEREST</button>
+                <button *ngIf="this.request.created_by == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
+                <button *ngIf="this.request.created_by !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW REQUEST</button>
             </div>
             <div class="modal-content">
                 <div class="request-description">
@@ -15,11 +15,11 @@
                     <ul>
                         <li>
                             <strong>Request by</strong> -
-                            <span>{{ mentee ? mentee.name : null }}
+                            <span>{{ requestedBy }}
                                 <span class="rating-stars">
                                     <star-rating-comp
                                         [starType]="'svg'"
-                                        [rating]="mentee ? mentee.rating : 0"
+                                        [rating]="rating"
                                         [staticColor]="'default'"
                                         [readOnly]="true"></star-rating-comp>
                                 </span>
@@ -43,25 +43,25 @@
                         </li>
                     </ul>
                 </div>
-                <div *ngIf="mentors" class="interested">
+                <div *ngIf="interestedUsers" class="interested">
                     <div class="table">
-                        <div *ngFor="let mentor of mentors" class="body">
+                        <div *ngFor="let user of interestedUsers" class="body">
                             <div class="row">
-                                <div> {{ mentor.name }}
+                                <div> {{ user.name }}
                                     <span class="rating-stars">
                                         <star-rating-comp
                                             [staticColor]="'default'"
                                             [starType]="'svg'"
-                                            [rating]="mentor.rating"
+                                            [rating]="user.rating"
                                             [readOnly]="true">
                                         </star-rating-comp>
                                     </span>
                                 </div>
-                                <div>{{ mentor.skills }}</div>
-                                <div (click)="confirmAcceptMentor(mentor)" class="choice">Accept
+                                <div>{{ user.skills }}</div>
+                                <div (click)="confirmAcceptInterestedUser(user)" class="choice">Accept
                                     <span class="icon accept-icon"></span>
                                 </div>
-                                <div (click)="confirmRejectMentor(mentor)" class="choice">Reject
+                                <div (click)="confirmRejectInterestedUser(user)" class="choice">Reject
                                     <span class="icon reject-icon"></span>
                                 </div>
                             </div>
