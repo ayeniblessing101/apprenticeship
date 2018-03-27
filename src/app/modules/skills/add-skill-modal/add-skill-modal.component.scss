@@ -80,13 +80,16 @@
     letter-spacing: normal;
     text-align: left;
     color: #303030;
+    margin-bottom: 12px;
   }
   .skill-name {
     width: 494px;
     height: 45px;
     border-radius: 4px;
+    font-size: 12px;
     background-color: $white;
     border: solid 1px #e9eff4;
+    padding-left: 20px;
   }
 
   .modal-heading {

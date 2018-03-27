@@ -31,11 +31,11 @@
   <div class="pool-table">
     <div class="pool-body">
       <a *ngFor="let skill of skills" class="body-content custom-row" id="skill-pool">
-        <div class="custom-col-4">{{ skill.name }} </div>
-        <div class="custom-col-3">{{ !skill.deleted_at ? 'Active' : 'Inactive' }}</div>
-        <div class="custom-col-3">{{ skill.number_of_requests }}</div>
-        <div class="custom-col-3">{{ skill.last_requested === null ? 'No Request' : skill.last_requested| date:"longDate" }}</div>
-        <div class="custom-col-3">
+        <div attribute="skill-name" class="custom-col-4">{{ skill.name }} </div>
+        <div attribute="skill-status" class="custom-col-3">{{ !skill.deleted_at ? 'Active' : 'Inactive' }}</div>
+        <div attribute="skill-requests" class="custom-col-3">{{ skill.number_of_requests }}</div>
+        <div attribute="skill-last-requested" class="custom-col-3">{{ skill.last_requested === null ? 'No Request' : skill.last_requested| date:"longDate" }}</div>
+        <div attribute="skill-action" class="custom-col-3">
           <span class="edit-skill">Edit</span>
           <span>Disable</span>
         </div>

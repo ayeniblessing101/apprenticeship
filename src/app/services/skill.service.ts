@@ -1,3 +1,4 @@
+import { Message } from './../interfaces/message.interface';
 import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { BaseService } from './base.service';
@@ -18,14 +19,14 @@ export class SkillService extends BaseService {
   /**
    * Create a new skill
    *
-   * @param name name of new skill
+   * @param {string} name name of new skill
    *
    * @return {Reponse} object containing details of the just created skill
    */
   addSkill(name: string) {
     return this.http.post(`${this.apiBaseUrl}/v2/skills`, { name })
-      .map((response: Response) => response.json())
-      .catch(error => Observable.throw(error.json().message));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -37,21 +38,15 @@ export class SkillService extends BaseService {
     if (!this.skills) {
       this.skills = this.http
         .get(`${this.apiBaseUrl}/v2/skills`)
-        .map((response: Response) => response.json())
+        .map(this.handleResponse)
         .publishReplay(1)
         .refCount()
         .catch(this.handleError);
     }
-
     return this.skills;
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || {};
-  }
-
-  /**
+/**
   * Deletes an existing user skill
   *
   * @param {integer} id - id of the user skill to be deleted
@@ -60,9 +55,7 @@ export class SkillService extends BaseService {
   deleteUserSkill(userId, skillId) {
     return this.http
       .delete(`${this.apiBaseUrl}/v2/users/${userId}/skills/${skillId}`)
-      .catch(
-        error => Observable.throw(error.json()),
-    );
+      .catch(this.handleError);
   }
 
   /**
@@ -74,10 +67,8 @@ export class SkillService extends BaseService {
   addUserSkill(userId, skillId): Observable<any> {
     return this.http
       .post(`${this.apiBaseUrl}/v2/users/${userId}/skills`, { skill_id: skillId })
-      .catch(error => Observable.throw(error.json()),
-    );
+      .catch(this.handleError);
   }
-
 
   /**
    * Get reports of status counts for all skills requested
@@ -90,29 +81,7 @@ export class SkillService extends BaseService {
   getSkillStatusCount(params: {}) {
     return this.http
       .get(`${this.apiBaseUrl}/v2/skill/status-report?${this.getEncodedParameters(params)}`)
-      .map((res: Response) => res.json())
-  }
-
-  /**
-   * Handle errors
-   *
-   * @param Response http error
-   *
-   * @return ErrorObservable
-   */
-  private handleError(error: Response | any) {
-    let errMsg: string;
-
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-
-    return Observable.throw(errMsg);
+      .map(this.handleResponse)
   }
 
   /**
@@ -143,5 +112,30 @@ export class SkillService extends BaseService {
    */
   joinSkills(arrayOfSkillsNames: any[], skilltype: string): string {
     return this.extractSkills(arrayOfSkillsNames, skilltype).join(', ');
+  }
+
+  /**
+   * Handle response from server.
+   *
+   * @param {Response} res - created skill
+   *
+   * @returns {object} - response object of created skill
+   *
+   */
+  private handleResponse(res: Response) {
+    const response = res.json();
+    return response || {};
+  }
+
+  /**
+   * Handle errors from server
+   *
+   * @param {Response} error http error
+   *
+   * @return {Observable} ErrorObservable
+   */
+  private handleError(error: Response | any) {
+    const message = error.json().message;
+    return Observable.throw(message);
   }
 }
