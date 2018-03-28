@@ -8,6 +8,7 @@
         <div class="display-inline-block select-wrapper">
           <label class="display-block start-label" for="startTime">Session began</label>
           <span class="select-menu">
+            <span class="arrow-down"><b>&or;</b></span>
             <select [(ngModel)] = "defaultStartTime" #startTime
                     (ngModelChange)="calculateSessionTimeDifference(startTime.value, endTime.value)"
                     formControlName="startTime" id="startTime">
@@ -18,6 +19,7 @@
         <div class="display-inline-block select-wrapper">
           <label class="display-block" for="endTime">Session ended</label>
           <span class="select-menu">
+            <span class="arrow-down"><b>&or;</b></span>
             <select [(ngModel)] = "defaultEndTime" #endTime
                     (ngModelChange)="calculateSessionTimeDifference(startTime.value, endTime.value)"
                     formControlName="endTime" id="endTime">

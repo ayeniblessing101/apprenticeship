@@ -1,3 +1,5 @@
+@import '../../../../assets/scss/colors';
+
 @mixin appearance-button {
   -webkit-appearance: button;
   -moz-appearance: button;
@@ -216,7 +218,7 @@
   margin-top: 8px;
 
   select {
-    background-color: #fff;
+    background-color: transparent;
     color: #323c47;
     font-size: 12px;
     font-family: DINPro;
@@ -233,36 +235,22 @@
     @include appearance-button;
   }
 
-  &::before,
-  &::after {
-    content: "";
+  .arrow-down {
+    background-color: #888888;
+    border: solid 1px $primary-border-color;
+    border-radius: 0 3px 3px 0;
+    bottom: 0;
     position: absolute;
-  }
-
-  &::after {
-    content: "\221F";
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    text-align: center;
-    height: 1em;
-    font-size: 1em;
-    line-height: 1;
-    right: 1.2em;
-    top: 50%;
-    margin-top: -.55em;
-    margin-right: -.3em;
-    padding-right: .25em;
-  }
-  /*  Custom dropdown arrow cover */
-  &::before {
-    width: 2.8em;
     right: 0;
     top: 0;
-    bottom: 0;
-    border-radius: 0 3px 3px 0;
-    background-color: rgba(244, 247, 249, 0.4);
-    border: solid 1px #e9eff4;
+    width: 2.8em;
+    z-index: -1;
+
+    b {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
   }
 }
 
