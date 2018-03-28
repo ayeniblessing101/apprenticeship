@@ -34,7 +34,7 @@ export class RequestService extends BaseService {
    * @return Observable containing details of request
    */
   getRequest(requestId: number) {
-    return this.http.get(`${this.apiBaseUrl}/v1/requests/${requestId}`)
+    return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}`)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
