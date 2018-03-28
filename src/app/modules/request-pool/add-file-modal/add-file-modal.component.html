@@ -16,18 +16,20 @@
                    name="fileTitle"
             />
           </div>
+            <input type="file" class='file-input' #fileInput (change)="fileInputChange($event)">
             <div draggable="true"
                  #fileToUpload
                  class="upload-file-area"
                  appUploadFile
+                 (click)="fileInput.click()"
                  (fileAddedEmitter)="file = $event">
                 <img class="upload-icon-svg" src="/assets/images/upload-icon.svg"/>
-                <span class="upload-information">You can drop your file here</span>
+                <span class="upload-information">You can drop your file here or click here to upload</span>
             </div>
 
         <div *ngIf="file; else noFileUploaded" class="uploaded-file-name">
           <img class="file-icon-svg" src="/assets/images/file-icon.svg"/>
-          <span class="file-name" #fileToUpload> {{ file?.name}} </span>
+          <span class="file-name" #fileToUpload> {{ file?.name }} </span>
           <span><a type="button" class="remove-file" (click)="removeUploadedFile()">Remove</a></span>
         </div>
         <ng-template #noFileUploaded> </ng-template>

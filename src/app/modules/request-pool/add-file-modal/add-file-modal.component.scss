@@ -1,5 +1,6 @@
-@import '../request-pool';
-@import '../../../../assets/scss/fonts';
+@import "../request-pool";
+@import "../../../../assets/scss/fonts";
+@import "../../../../assets/scss/_colors";
 
 .modal-container {
   .modal {
@@ -16,6 +17,10 @@
   }
 }
 
+.file-input {
+  visibility: hidden;
+}
+
 .title {
   text-transform: none;
 }
@@ -27,30 +32,29 @@
 .form-group {
   margin-bottom: 2%;
 
-  &>label {
+  & > label {
     display: block;
     font-family: $font-family-1;
     font-size: 0.8em;
     text-align: left;
-    color: #303030;
+    color: $black;
     margin-bottom: 1%;
     clear: both;
   }
 
-  &>input {
+  & > input {
     display: inline-block;
     height: 45px;
     width: 300px;
     border-radius: 4px;
-    background-color: #ffffff;
-    border: solid 1px #e9eff4;
+    background-color: $white;
+    border: solid 1px $grey-light-500;
     padding-left: 2em;
   }
 }
 
-
 ::placeholder {
-  color: rgba(50, 60, 71, 0.3)
+  color: rgba(50, 60, 71, 0.3);
 }
 
 .modal-footer {
@@ -61,13 +65,13 @@
     all: unset;
     width: 130px;
     height: 44px;
-    border: solid 1px #3359db;
+    border: solid 1px $andela-blue;
     font-family: $font-family-1;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.3px;
     text-align: center;
-    color: #3359db;
+    color: $andela-blue;
     margin-right: 10px;
     cursor: pointer;
   }
@@ -76,19 +80,19 @@
     all: unset;
     width: 130px;
     height: 44px;
-    border: solid 1px #3359db;
-    background-color: #3359db;
+    border: solid 1px $andela-blue;
+    background-color: $andela-blue;
     font-family: $font-family-1;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.3px;
     text-align: center;
-    color: #ffffff;
+    color: $white;
     cursor: pointer;
   }
 
   .button-group {
-    all:unset;
+    all: unset;
     margin-top: 70px;
     float: right;
   }
@@ -98,9 +102,10 @@
   margin-top: 20px;
   height: 87px;
   border-radius: 6px;
-  background-color: #ffffff;
-  border: dashed 1px #3359db;
+  background-color: $white;
+  border: dashed 1px $andela-blue;
   text-align: center;
+  cursor: pointer;
 }
 
 .upload-information {
@@ -109,11 +114,11 @@
   font-family: $font-family-1;
   font-size: 11px;
   letter-spacing: -0.1px;
-  color: #3359db;
+  color: $andela-blue;
 }
 
 .uploaded-file-name {
-  display:inline-flex;
+  display: inline-flex;
   margin-top: 15px;
   font-family: $font-family-1;
   font-size: 12px;
@@ -131,7 +136,7 @@
   font-size: 10px;
   font-weight: 500;
   text-align: left;
-  color: #989898;
+  color: $grey-light-400;
   margin-left: 5px;
   padding-top: 2px;
 }
@@ -146,7 +151,7 @@
   font-family: $font-family-1;
   font-size: 12px;
   font-weight: 500;
-  color: #323c47;
+  color: $black;
   margin-top: 5px;
 }
 
@@ -163,18 +168,17 @@
   margin-bottom: 0px;
   width: 100%;
   height: 5px;
-  border: 1px solid #2980b9;
+  border: 1px solid $file-loader-bar;
   border-radius: 3px;
-  background-image:
-    repeating-linear-gradient(
-        -45deg,
-        #0459e4,
-        #0459e4 11px,
-        #fff 10px,
-        #fff 20px
-    );
+  background-image: repeating-linear-gradient(
+    -45deg,
+    $file-linear-gradient,
+    $file-linear-gradient 11px,
+    $white 10px,
+    $white 20px
+  );
   background-size: 28px 28px;
-  animation: move .5s linear infinite;
+  animation: move 0.5s linear infinite;
 }
 
 @keyframes move {

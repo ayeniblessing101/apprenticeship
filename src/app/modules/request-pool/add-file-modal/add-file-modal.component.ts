@@ -14,6 +14,7 @@ export class AddFileModalComponent {
   @Output() closeFileModal = new EventEmitter();
   @Output() modifiedSession = new EventEmitter();
   @ViewChild('fileToUpload') fileToUploadElementRef: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
   @Input() sessionId;
   @Input() requestId;
   @Input() sessionDate;
@@ -28,13 +29,27 @@ export class AddFileModalComponent {
     private alertService: AlertService) { }
 
   /**
+   * This method is called when a file is added on the file input.
+   *
+   * @param event - html event from the file input containing the file
+   *
+   * @return {void}
+   */
+  fileInputChange(event) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
+
+  /**
    * Handle the submission of the form.
-   * @param form
+   *
+   * @param form - form containing the file detils
    *
    * @return {void}
    */
   submitForm(form) {
-   const uploadedFileName = form.value['fileTitle'];
+    const uploadedFileName = form.value['fileTitle'];
     this.uploadedFileName = uploadedFileName.trim();
     if (this.sessionId  === null) {
       const formData = new FormData();
@@ -89,11 +104,12 @@ export class AddFileModalComponent {
   }
 
   /**
-  *Removes the file object from the component
+  *Removes the file object from the component and removes the file added to input file element
   *
   * @return {void}
   */
   removeUploadedFile() {
     this.file = null;
+    this.fileInput.nativeElement.value = '';
   }
 }
