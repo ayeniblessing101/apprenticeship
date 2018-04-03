@@ -16,9 +16,9 @@ import { ReportsService } from 'app/services/reports.service';
     ReactiveFormsModule,
     FormsModule,
     ReportsRoutesModule,
-    SharedModule
+    SharedModule,
   ],
-  providers: [SkillService, ReportsService],
+  providers: [ReportsService, SkillService],
   declarations: [
     RequestCountBarChartComponent,
     ReportsPageComponent,

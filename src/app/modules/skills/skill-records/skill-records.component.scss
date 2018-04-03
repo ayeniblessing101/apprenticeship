@@ -6,7 +6,18 @@
 
 .edit-skill {
    cursor: pointer;
-   :hover {
-    font-size: 25px;
-   }
 }
+
+.disable-skill {
+  margin-left: 7px !important;
+}
+.edit-skill:hover {
+     font-size: 17px !important;
+}
+img {
+  margin-bottom: -4px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+

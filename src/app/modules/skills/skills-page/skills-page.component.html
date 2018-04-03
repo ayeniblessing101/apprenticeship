@@ -14,6 +14,7 @@
     <app-skill-records *ngIf="skills.length > 0" [skills]="skills"></app-skill-records>
     <app-no-search-result *ngIf="skills.length === 0"></app-no-search-result>
   </section>
+  <div *ngIf="loading" class="loader"> </div>
 </div>
 <app-add-skill-modal *ngIf="addSkillModal" (closeSkillModal)="toggleAddSkillModal()"
                      (newSkillAdded)="addNewSkillToPool($event)"></app-add-skill-modal>

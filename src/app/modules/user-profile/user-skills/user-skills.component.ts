@@ -36,7 +36,7 @@ export class UserSkillsComponent implements OnInit {
    *
    */
   getSkills() {
-    this.skillService.getSkills()
+    this.skillService.getSkills({ includeTrashed: false })
       .toPromise()
       .then((skills) => {
         this.skills = skills;

@@ -29,9 +29,10 @@ describe('RequestSkillsReportComponent', () => {
         RequestCountBarChartComponent,
         DropDownComponent,
         CalendarPickerComponent,
-        InactiveMentorshipGraphComponent
+        InactiveMentorshipGraphComponent,
       ],
       providers: [
+        SkillService,
         Http,
         ReportsService,
         UserService,

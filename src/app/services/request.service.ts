@@ -189,6 +189,7 @@ export class RequestService extends BaseService {
    * @return {Object} containing data from Observable
    */
   extractData(res: Response) {
+
     const body = res.json();
     return body.data || [];
   }

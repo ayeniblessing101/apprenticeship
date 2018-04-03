@@ -8,6 +8,7 @@ import { SkillsPageComponent } from './skills-page.component';
 import { SkillRecordsComponent } from '../skill-records/skill-records.component';
 import { AddSkillModalComponent } from './../add-skill-modal/add-skill-modal.component';
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
+import { EditSkillModalComponent } from '../edit-skill-modal/edit-skill-modal.component';
 import { HttpService as Http } from '../../../services/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { SkillService } from '../../../services/skill.service';
@@ -26,6 +27,7 @@ describe('SkillsPageComponent', () => {
         SkillsPageComponent,
         SkillRecordsComponent,
         NoSearchResultComponent,
+        EditSkillModalComponent,
         SetRequestHeaderIconDirective,
         AddSkillModalComponent,
       ],

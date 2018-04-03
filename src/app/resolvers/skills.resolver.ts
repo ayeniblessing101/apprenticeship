@@ -13,6 +13,6 @@ export class SkillsResolver implements Resolve<any> {
    * @return {Observable}
    */
   resolve(): Observable<any> {
-    return this.skillService.getSkills();
+    return this.skillService.getSkills({ includeTrashed: true });
   }
 }

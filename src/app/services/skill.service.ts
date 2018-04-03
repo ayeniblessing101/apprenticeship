@@ -30,15 +30,18 @@ export class SkillService extends BaseService {
   }
 
   /**
-   * Return all skills in the database
+   * Return all skills in the database that are enabled.
+   * Meaning skills that are not been disabled by an admin user.
+   *
+   * @param params skills parameter.
    *
    * @return Observable collection of skills
    */
-  getSkills(): Observable<any> {
+  getSkills(params): Observable<any> {
     if (!this.skills) {
       this.skills = this.http
-        .get(`${this.apiBaseUrl}/v2/skills`)
-        .map(this.handleResponse)
+        .get(`${this.apiBaseUrl}/v2/skills?isTrashed=${params.includeTrashed}`)
+        .map((response: Response) => response.json())
         .publishReplay(1)
         .refCount()
         .catch(this.handleError);
@@ -82,7 +85,42 @@ export class SkillService extends BaseService {
     return this.http
       .get(`${this.apiBaseUrl}/v2/skill/status-report?${this.getEncodedParameters(params)}`)
       .map(this.handleResponse)
+      .map((res: Response) => res.json())
   }
+
+   /**
+   * Update the name of a particular skill
+   *
+   * @param {Number} skillId - the id of the skill.
+   * @param {String} skillName - the name of the skill to be updated.
+   *
+   * @return Observable of the newly added user skill
+   */
+  updateSkillName(skillName, skillId): Observable<any> {
+    return this.http.put(`${this.apiBaseUrl}/v1/skills/${skillId}`,
+                         { name: skillName })
+      .catch(
+      error => Observable.throw(error.json()),
+    );
+  }
+
+
+   /**
+   * Update the status of a particular skill.
+   *
+   * @param {Number} skillId - the id of the skill.
+   * @param {String} active - the skill status.
+   *
+   * @return Observable of the newly added user skill
+   */
+  updateSkillStatus(skillId, status) {
+    return this.http.patch(`${this.apiBaseUrl}/v2/skills/${skillId}/update-status`,
+                           { status })
+      .catch(
+      error => Observable.throw(error.json()),
+      );
+  }
+
 
   /**
    *  extracts the names of skills from an array of skill objects

@@ -340,7 +340,7 @@ export class CreateRequestComponent implements OnInit {
    * @return {void}
    */
   fetchSkills() {
-    this.skillService.getSkills()
+    this.skillService.getSkills({ includeTrashed: false })
       .toPromise()
       .then((res) => {
         this.skills = res.map(skill => ({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd, Event, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, Event, NavigationStart, NavigationError, NavigationCancel } from '@angular/router';
 import { Intercom } from 'ng2-intercom/intercom';
 import { SegmentService } from './services/segment.service';
 import { UserService } from './services/user.service';
@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   showNavAndHeader = true;
   currentUser: any;
+  loading = true;
   constructor(
     router: Router,
     private segmentService: SegmentService,
@@ -22,6 +23,9 @@ export class AppComponent {
     private authService: AuthService,
     private intercom: Intercom,
   ) {
+    router.events.subscribe((routerEvent) => {
+      this.checkRouterEvent(routerEvent);
+    });
     if (localStorage.getItem('id_token')) {
       this.authService.decodeToken();
       const userId  = this.authService.userInfo.id;
@@ -71,6 +75,24 @@ export class AppComponent {
       });
     } else {
       this.intercom.init(config);
+    }
+  }
+
+  /**
+   * It shows up a loader when a route is been processed and removes
+   * the loader when the routes is fully a resolved.
+   *
+   * @param routerEvent the router event to be checked.
+   *
+   * @return {Void}
+   */
+  checkRouterEvent(routerEvent) {
+    if (routerEvent instanceof NavigationStart) {
+      this.loading = true;
+    }
+    if (routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationEnd
+    || routerEvent instanceof NavigationError) {
+      this.loading = false;
     }
   }
 }

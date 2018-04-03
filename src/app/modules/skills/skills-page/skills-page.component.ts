@@ -20,7 +20,7 @@ export class SkillsPageComponent implements OnInit {
 
   ngOnInit() {
     this.addLastRequestedPropertyToSkills(this.skills);
-    this.addRequestsPropertyToSkills(this.skills)
+    this.addRequestsPropertyToSkills(this.skills);
   }
 
   /**
