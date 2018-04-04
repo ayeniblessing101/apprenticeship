@@ -20,7 +20,6 @@ import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters
 import { StarRatingModule } from 'angular-star-rating';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
-import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
@@ -29,7 +28,6 @@ describe('PoolComponent', () => {
   let component: PoolComponent;
   let fixture: ComponentFixture<PoolComponent>;
   let pageTitle: HTMLElement;
-  let requestDuration: RequestDurationPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -49,7 +47,6 @@ describe('PoolComponent', () => {
         NoSearchResultComponent,
         PoolRecordsComponent,
         FilterDropdownComponent,
-        RequestDurationPipe,
         SaveFiltersComponent,
         SetRequestHeaderIconDirective,
       ],
@@ -65,7 +62,6 @@ describe('PoolComponent', () => {
       ],
     })
       .compileComponents();
-    requestDuration = new RequestDurationPipe;
   }));
 
   beforeEach(() => {

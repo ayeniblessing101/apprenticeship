@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="title-column">
+    <h3 class="skill-requests-title">{{skillName}} REQUESTS</h3>
+    <hr class="indicator-active">
+  </div>
+  <div class="button-column">
+    <app-export-button
+      class="export-button"
+      (click)="exportSkillRequestsToCSV()">
+    </app-export-button>
+  </div>
+</div>
+<div>
+  <div class="skill-request-header-wrapper">
+    <div *ngIf="!rerender" class="custom-row header">
+      <div class="custom-col-2">
+        <span
+        (click)="sortTableHeader('createdBy')"
+        >Created by
+          <img
+            appSetRequestHeaderIcon
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'createdBy'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortTableHeader('dateAdded', true)"
+        >Date Added
+            <img
+              appSetRequestHeaderIcon
+              [showAlphabeticIcon]="false"
+              [sortCategoryValues]="sortCategoryValues"
+              [activeSortCategory]="activeSortCategory"
+              [headerName]="'dateAdded'"
+              src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortTableHeader('duration')"
+        >Duration
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon]="false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'duration'"
+            src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortTableHeader('location')"
+        >Location
+        <img
+          appSetRequestHeaderIcon
+          [showAlphabeticIcon]="true"
+          [sortCategoryValues]="sortCategoryValues"
+          [activeSortCategory]="activeSortCategory"
+          [headerName]="'location'"
+          src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortTableHeader('sessionCount')"
+        >Number of Sessions
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon]="false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'sessionCount'"
+            src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+          (click)="sortTableHeader('status')"
+          >Status
+            <img
+              appSetRequestHeaderIcon
+              [sortCategoryValues]="sortCategoryValues"
+              [activeSortCategory]="activeSortCategory"
+              [headerName]="'status'"
+              src="../../../../assets/images/sort-a-z-inactive.png" />
+          </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="skillRequests.length == 0 && !loadingRequests">
+    <app-no-search-result></app-no-search-result>
+  </div>
+  <div class="skill-table">
+    <div class="skill-body">
+        <div *ngIf="loadingRequests" class="loader"> </div>
+      <a *ngFor="let request of skillRequests" class="body-content custom-row">
+        <div class="custom-col-2">{{request.createdBy}}</div>
+        <div class="custom-col-2">{{request.dateAdded | date: 'longDate'}}</div>
+        <div class="custom-col-2">{{request.duration | requestDuration}}</div>
+        <div class="custom-col-2">{{request.location}}</div>
+        <div class="custom-col-2">{{request.sessionCount}}</div>
+        <div class="custom-col-2">{{request.status | requestStatus}}</div>
+      </a>
+      <div class="space"></div>
+    </div>
+  </div>
+</div>

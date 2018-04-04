@@ -10,7 +10,7 @@ import { AddSkillModalComponent } from './../add-skill-modal/add-skill-modal.com
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { EditSkillModalComponent } from '../edit-skill-modal/edit-skill-modal.component';
 import { HttpService as Http } from '../../../services/http.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SkillService } from '../../../services/skill.service';
 import { AlertService } from '../../../services/alert.service';
 import { SortingHelper } from '../../../helpers/sorting.helper';
@@ -20,6 +20,9 @@ describe('SkillsPageComponent', () => {
   let component: SkillsPageComponent;
   let fixture: ComponentFixture<SkillsPageComponent>;
   const routeStub = new Observable((data) => { });
+  const mockRouter = {
+    navigate: jasmine.createSpy('navigate'),
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,9 +42,10 @@ describe('SkillsPageComponent', () => {
       providers: [
         SortingHelper,
         Http,
-        {provide: ActivatedRoute, useValue: {
+        { provide: ActivatedRoute, useValue: {
           data: routeStub,
         }},
+        { provide: Router, useValue: mockRouter },
         SkillService,
         AlertService,
       ],

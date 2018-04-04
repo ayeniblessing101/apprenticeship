@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { AlertService } from 'app/services/alert.service';
@@ -9,10 +10,16 @@ import { SkillService } from './../../../services/skill.service';
   templateUrl: './skill-records.component.html',
   styleUrls: ['./skill-records.component.scss'],
 })
-
 export class SkillRecordsComponent {
   @Input() skills: any[];
   rerender: boolean;
+  showSkillDetails = false;
+  toggleStatus: boolean;
+  activeSortCategory = null;
+  lastSortedCategory: string;
+  isEditSkillModalOpen: boolean;
+  skillToUpdate: any;
+  skill
 
   sortCategoryValues = {
     name: 'asc',
@@ -21,23 +28,28 @@ export class SkillRecordsComponent {
     last_requested: 'asc',
   }
 
-  activeSortCategory = null;
-  lastSortedCategory: string;
-  isEditSkillModalOpen: boolean;
-  skillToUpdate: any;
-  skill
-
   constructor(
      private sortingHelper: SortingHelper,
      private changeDetector: ChangeDetectorRef,
      private skillService: SkillService,
      private alertService: AlertService,
-  ) {
+     private router: Router,
+  ) {}
 
+/**
+  * Redirects to skill details page when condition is true
+  *
+  * @param {string} skill The selected skill
+  *
+  * @returns {void}
+  */
+  handleSkillClick(skill) {
+    if (!this.isEditSkillModalOpen && !this.toggleStatus) {
+      return this.router.navigate(['/admin/skills/', skill.id]);
+    }
   }
 
-
-  /**
+/**
   * It sorts skills base on the skills headers.
   *
   * @param {string} headerName The name of the skill header to be sorted by skills.
@@ -63,7 +75,7 @@ export class SkillRecordsComponent {
     this.rerender = false;
   }
 
-  /**
+/**
   * It opens the modal that enable admin to edit a skill
   *
   * @param {string} skill The skill to edit.
@@ -75,7 +87,7 @@ export class SkillRecordsComponent {
     this.skillToUpdate = skill;
   }
 
-  /**
+/**
   * It closes the edit skill modal.
   *
   * @param {boolean} event It determines sorting of skills after skill has been updated.
@@ -89,9 +101,10 @@ export class SkillRecordsComponent {
     }
 
     this.isEditSkillModalOpen = false;
+    this.toggleStatus = false;
   }
 
-  /**
+/**
   * It enables a skill if the skill selected is disabled or disabled it
   * if it is enabled.
   *
@@ -100,6 +113,7 @@ export class SkillRecordsComponent {
   * @returns {void}
   */
   toggleSkillStatus(skill) {
+    this.toggleStatus = true;
     this.alertService
       .confirm(
         `Are you sure want to  ${skill.deleted_at ? 'enable' : 'disable'} ${skill.name} skill`,
@@ -116,7 +130,7 @@ export class SkillRecordsComponent {
         });
   }
 
-  /**
+/**
   * It triggers an API call that updates the skill status.
   *
   * @param {Object} skill The skill whose status is to be updated.

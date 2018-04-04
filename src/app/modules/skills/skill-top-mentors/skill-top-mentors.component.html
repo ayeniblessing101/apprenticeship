@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="title-column">
+    <h3 class="title">TOP {{skillName}} MENTORS</h3>
+    <hr class="indicator-active">
+  </div>
+  <div class="button-column">
+    <button class="view-all-mentors">VIEW ALL MENTORS</button>
+  </div>
+</div>
+
+<div *ngIf="loadingRequests" class="loader">
+</div>
+
+<div *ngIf="skillMentors.length == 0 && !loadingRequests">
+  <app-no-search-result></app-no-search-result>
+</div>
+
+<div class="row">
+  <div *ngFor="let mentor of skillMentors" class="card">
+    <div class="inner-row">
+      <div class="user-image-column">
+        <img class="user-image" src="{{mentor.picture}}" alt="">
+      </div>
+      <div class="user-details-column">
+        <div class="full-name">{{mentor.name}}</div>
+        <div class="mentorship-session">{{mentor.session_count}} Mentorship Sessions</div>
+        <div class="ratings">{{mentor.average_rating}}/{{scale}} Stars</div>
+      </div>
+    </div>
+  </div>
+</div>

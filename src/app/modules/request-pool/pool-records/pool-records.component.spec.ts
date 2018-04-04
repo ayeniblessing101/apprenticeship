@@ -12,7 +12,6 @@ import { FilterService } from '../../../services/filter.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
-import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 
@@ -20,7 +19,6 @@ describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
   let fixture: ComponentFixture<PoolRecordsComponent>;
   let pageTitle: HTMLElement;
-  let requestDuration: RequestDurationPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,7 +34,6 @@ describe('PoolRecordsComponent', () => {
         PoolRecordsComponent,
         SaveFiltersModalComponent,
         NoSearchResultComponent,
-        RequestDurationPipe,
         SetRequestHeaderIconDirective,
       ],
       providers: [
@@ -48,7 +45,6 @@ describe('PoolRecordsComponent', () => {
       ],
     })
       .compileComponents();
-    requestDuration = new RequestDurationPipe;
   }));
 
   beforeEach(() => {

@@ -5,7 +5,6 @@ import { BaseService } from './base.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -15,6 +14,8 @@ import 'rxjs/add/operator/publishReplay';
 export class SkillService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
   private skills: any;
+  private formattedRequest = [];
+  private skillName: string;
 
   /**
    * Create a new skill
@@ -119,6 +120,75 @@ export class SkillService extends BaseService {
       .catch(
       error => Observable.throw(error.json()),
       );
+  }
+
+
+  /**
+   * This fetches an array of requests for a particular skill
+   *
+   * @param {string} skillId
+   *
+   * @return {Array} An array of requests for the particular skill
+   */
+  getSkillRequests(skillId: number): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/v2/skills/${skillId}/requests`)
+      .map((response) => {
+        this.skillName = response.json().skill.name;
+        const requests = response.json().skill.requests.map((eachRequest) => {
+          let createdBy = '';
+          if (eachRequest.created_by === eachRequest.mentor.id) {
+            createdBy = eachRequest.mentor.fullname;
+          } else {
+            createdBy = eachRequest.mentee.fullname;
+          }
+
+          const {
+            duration,
+            created_at,
+            location,
+            session_count,
+            status_id,
+          } = eachRequest;
+
+          return {
+            duration,
+            location,
+            createdBy,
+            sessionCount: session_count,
+            dateAdded: created_at.split(' ')[0],
+            status: status_id,
+          }
+        });
+
+        return {
+          requests,
+          skillName: this.skillName,
+        }
+      })
+      .catch((error) => {
+        return Observable.throw(error.json());
+      });
+  }
+
+
+  /**
+   * This fetches an array of top mentors for a selected skill
+   *
+   * @param {number} skillId
+   *
+   * @return {Array} An array of top-mentors for the particular skill
+   */
+  getSkillTopMentors(skillId: number): Observable<any> {
+    return this.http.get(`${this.apiBaseUrl}/v2/skills/${skillId}/mentors`)
+      .map((response) => {
+        return {
+          skillName: response.json().skill.name,
+          mentors: response.json().skill.mentors,
+        }
+      })
+    .catch((error) => {
+      return Observable.throw(error.json());
+    });
   }
 
 

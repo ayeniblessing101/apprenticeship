@@ -26,6 +26,7 @@ import { AppComponent } from './app.component';
 
 import { SharedModule } from './modules/shared/shared.module';
 import { RequestPoolModule } from './modules/request-pool/request-pool.module';
+import { SkillsModule } from './modules/skills/skills.module';
 
 // environment
 import { environment } from '../environments/environment';
@@ -33,6 +34,7 @@ import { localStorage } from '../app/globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
 import { SortingHelper } from './helpers/sorting.helper';
+import { TableHeaderSorterHelper } from './helpers/table-header-sorter.helper';
 import { SkillsResolver } from './resolvers/skills.resolver';
 
 const authToken = Cookie.get('jwt-token');
@@ -56,6 +58,7 @@ if (authToken) {
     MomentModule,
     SharedModule,
     RequestPoolModule,
+    SkillsModule,
     IntercomModule,
   ],
   providers: [
@@ -76,6 +79,7 @@ if (authToken) {
     FileService,
     SkillsResolver,
     SortingHelper,
+    TableHeaderSorterHelper,
   ],
   bootstrap: [AppComponent],
 })

@@ -9,6 +9,7 @@ import { HistoryComponent } from './modules/request-pool/history/history.compone
 import { InProgressComponent } from './modules/request-pool/in-progress/in-progress.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { PendingComponent } from 'app/modules/request-pool/pending/pending.component';
+import { SkillDetailsPageComponent } from './modules/skills/skill-details-page/skill-details-page.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';

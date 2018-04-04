@@ -27,7 +27,6 @@ import { RequestDetailsPageComponent } from './request-details-page/request-deta
 import { RequestSchedulePageComponent } from './request-schedule-page/request-schedule-page.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { HistoryPageComponent } from './history-page/history-page.component';
-import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
 import { SaveFiltersComponent } from './save-filters/save-filters.component';
 import { MatchPoolHeaderWidthToParentDirective } from '../../directives/match-pool-header-width-to-parent-directive';
 import { LogSessionModalComponent } from './log-session-modal/log-session-modal.component';
@@ -63,7 +62,6 @@ import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-se
     RequestSchedulePageComponent,
     FilterDropdownComponent,
     HistoryPageComponent,
-    RequestDurationPipe,
     SaveFiltersComponent,
     MatchPoolHeaderWidthToParentDirective,
     LogSessionModalComponent,
