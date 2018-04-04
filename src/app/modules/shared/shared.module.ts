@@ -15,7 +15,7 @@ import { ConfirmationAlertComponent } from './confimation-alert/confirmation-ale
 import { MessageAlertComponent } from './message-alert/message-alert.component'
 import { RequestDetailsModalComponent } from '../request-pool/request-details-modal/request-details-modal.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { DropDownComponent } from './drop-down/drop-down.component';
@@ -32,6 +32,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
     CommonModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     Ng2AutoCompleteModule,
     StarRatingModule.forRoot(),
   ],

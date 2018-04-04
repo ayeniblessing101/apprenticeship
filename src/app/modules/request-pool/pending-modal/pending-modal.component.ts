@@ -13,8 +13,8 @@ import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-requ
 import { UserService } from './../../../services/user.service';
 import { AlertService } from './../../../services/alert.service';
 import { RequestService } from './../../../services/request.service';
-
 import { User } from './../../../interfaces/user.interface';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-pending-modal',
@@ -37,6 +37,7 @@ export class PendingModalComponent implements OnInit {
   currentUserId: string;
   requestedBy: string;
   rating: number;
+  requestTypes = RequestTypes;
 
   alertServiceConfig = {
     abortActionText: 'BACK',
@@ -64,7 +65,7 @@ export class PendingModalComponent implements OnInit {
         this.userIds = this.request.interested.concat([this.request.created_by]);
       }
     }
-    this.requestedBy = this.request.request_type_id === 2 ? this.request.mentee.fullname :
+    this.requestedBy = this.request.request_type_id === this.requestTypes.MENTEE_REQUEST ? this.request.mentee.fullname :
       this.request.mentor.fullname;
 
     this.rating = this.request.rating ? this.request.rating : 0;
@@ -152,8 +153,12 @@ export class PendingModalComponent implements OnInit {
 
     this.alertServiceConfig.confirmAction = this.acceptInterestedUser;
 
-    const confirmationMessage = `Accepting this mentor means he/she will mentor you on this
-      particular request and others will not be able to mentor you`;
+    const menteeMessage = `Accepting this mentor means he/she will mentor you on this
+    particular request and others will not be able to mentor you`;
+    const mentorMessage = `Accepting this mentee means you will mentor him/her on this
+    particular request and you will not be assigned other mentees on this request`;
+    const confirmationMessage = this.request.request_type_id === this.requestTypes.MENTEE_REQUEST ? mentorMessage :
+      menteeMessage;
 
     this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
   }
@@ -168,8 +173,9 @@ export class PendingModalComponent implements OnInit {
 
     this.alertServiceConfig.confirmAction = this.rejectInterestedUser;
 
-    const confirmationMessage = `Rejecting this mentor means he/she will not mentor you on this
-      particular request`;
+    const confirmationMessage = this.request.request_type_id === this.requestTypes.MENTEE_REQUEST ?
+      `Rejecting this mentor means he/she will not mentor you on this particular request` :
+      `Rejecting this mentee means he/she will not be your mentee on this particular session`;
 
     this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
   }
@@ -267,12 +273,12 @@ export class PendingModalComponent implements OnInit {
     this.requestToCancel = request;
   }
 
-   /** Close modal
-   *
-   * @param {event} modal - Modal to be closed
-   *
-   * @returns {void}
-   */
+  /** Close modal
+  *
+  * @param {event} modal - Modal to be closed
+  *
+  * @returns {void}
+  */
   closeModal(modal) {
     if (modal === 'cancelRequestModal') {
       this.showCancelRequestModal = false;

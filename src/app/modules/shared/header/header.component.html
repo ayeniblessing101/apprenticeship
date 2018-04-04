@@ -28,8 +28,8 @@
     <li class="dropdown">
       <button class="request-option" id="request-button"> REQUEST FOR</button>
       <div class="admin-content common-dropdown-styles">
-        <a id="mentor" (click)="showCreateRequestModal('mentor')">MENTOR</a>
-        <a id="mentee" (click)="showCreateRequestModal('mentee')">MENTEE</a>
+        <a id="mentor" (click)="showCreateRequestModal(requestTypes.MENTOR_REQUEST)">MENTOR</a>
+        <a id="mentee" (click)="showCreateRequestModal(requestTypes.MENTEE_REQUEST)">MENTEE</a>
       </div>
     </li>
     <app-notifications [state]="displayNotifications" (close)="closeNotifications($event)"></app-notifications>

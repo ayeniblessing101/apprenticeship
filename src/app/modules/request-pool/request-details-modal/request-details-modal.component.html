@@ -1,6 +1,6 @@
 <div #requestModal class="request-modal">
   <div class="modal-heading">
-    {{ selectedRequest.title|uppercase }} MENTOR
+    {{ selectedRequest.title|uppercase }} {{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'MENTEE' : 'MENTOR' }}
     <hr class="underline">
   </div>
   <div class="request-body">
@@ -12,8 +12,8 @@
     <p class="request-content">Primary Skills -
       <span> {{ selectedRequest.request_skills|requestSkill: 'primary'}} </span>
     </p>
-    <p class="request-content">Secondary Skills -
-      <span> {{ selectedRequest.request_skills|requestSkill: 'secondary' }} </span>
+    <p class="request-content">{{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'Pre-requisite Skills -' : 'Secondary Skills -' }}
+      <span> {{ selectedRequest.request_skills|requestSkill:  selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'preRequisite' : 'secondary' }} </span>
     </p>
     <p class="request-content">Preffered Location -
       <span> {{ selectedRequest.location || "Anywhere" }} </span>

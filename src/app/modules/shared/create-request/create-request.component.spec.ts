@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { CreateRequestComponent } from './create-request.component';
@@ -25,6 +25,7 @@ describe('CreateRequestComponent', () => {
         HttpModule,
         FormsModule,
         Ng2AutoCompleteModule,
+        ReactiveFormsModule,
       ],
       declarations: [
         CreateRequestComponent,

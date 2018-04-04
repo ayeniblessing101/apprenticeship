@@ -496,3 +496,58 @@
     overflow-x: scroll;
   }
 }
+
+.skill-needed {
+  width: 400px;
+  display: flex;
+
+  .needed-skill-input {
+    flex: 1 1 auto;
+    margin-right: 20px;
+    width: 345px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #e9eff4;
+    padding-left: 20px;
+    font-weight: 100;
+    font-size: 13px;
+    text-align: left;
+    line-height: 27px;
+    letter-spacing: -0.2px;
+  }
+  
+  .needed-skill-button {
+    padding: 10px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #ffaf30;
+    cursor: pointer;
+    margin-left: auto;
+    flex: 0 0 auto;
+    &:disabled {
+      padding: 10px;
+      width: 45px;
+      height: 45px;
+      border: none;
+      color: #ffffff;
+      border-radius: 4px;
+      background-color: #cccccc;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+:host /deep/ .ng2-auto-complete {
+  min-width: 400px;
+  max-height: 242px;
+  overflow-y: auto;
+}
+
+:host /deep/ .ng2-auto-complete .item {
+  padding: 15px;
+}

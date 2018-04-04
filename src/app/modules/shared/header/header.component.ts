@@ -4,6 +4,7 @@ import { NotificationService } from 'app/services/notifications.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   @Input() currentUser: any;
   displayCreateRequestModal = false;
-  requestType: string;
+  requestTypes = RequestTypes;
+  requestType: number;
   selectedRequest: any[];
   showRequest = false;
 
@@ -56,7 +58,7 @@ export class HeaderComponent implements OnInit {
    *
    * @return {void}
    */
-  showCreateRequestModal(requestType: string) {
+  showCreateRequestModal(requestType: number) {
     this.requestType = requestType;
     this.displayCreateRequestModal = true;
   }

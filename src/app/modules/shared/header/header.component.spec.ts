@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
@@ -47,7 +47,14 @@ describe('HeaderComponent', () => {
         RequestSkillPipe,
         CharacterCountDownComponent,
       ],
-      imports: [BrowserAnimationsModule, HttpModule, FormsModule, Ng2AutoCompleteModule, RouterTestingModule, StarRatingModule],
+      imports: [
+        BrowserAnimationsModule,
+        HttpModule, FormsModule,
+        ReactiveFormsModule,
+        Ng2AutoCompleteModule,
+        RouterTestingModule,
+        StarRatingModule,
+      ],
       providers: [
         Http,
         {

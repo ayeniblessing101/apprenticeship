@@ -6,8 +6,9 @@ import { Skill } from '../../../interfaces/skill.interface';
 import { PairingDay } from '../../../interfaces/pairing-day.interface';
 import { AlertService } from '../../../services/alert.service';
 import * as moment from 'moment';
+import { FormControl } from '@angular/forms';
 import { ConfirmationAlertConfiguration } from '../../../interfaces/confirmation-alert-configuration.interface';
-
+import { RequestTypes } from '../../../enums/request-types.enum';
 @Component({
   selector: 'app-create-request',
   templateUrl: './create-request.component.html',
@@ -23,14 +24,19 @@ export class CreateRequestComponent implements OnInit {
   @Output() showRequestModal = new EventEmitter<string>();
   @Output() closeMentorshipModal = new EventEmitter<boolean>();
 
+  skillControl: FormControl = new FormControl();
+
   skills: any[] = [];
   skillNames: string[] = [];
   basicSkills: Skill[] = [];
   complementarySkills: Skill[] = [];
+  preRequisteSkills: Skill[] = [];
   requestSkills: string[] = [];
   allTimeZones: string[] = ['WAT', 'EAT', 'CAT', 'EST', 'PST'];
   selectedTimeZone: string;
   durationOfMonths: number;
+  description: string;
+  requestTypes = RequestTypes;
 
   timeSlots: string[] = [];
   selectedDays: string[];
@@ -46,10 +52,11 @@ export class CreateRequestComponent implements OnInit {
   currentUser: any;
   displayedSessionDuration: string;
   title: string;
+  disabled = false;
   isAllDaysChecked: boolean;
 
   complementarySkillsPlaceholder: string;
-  primarySkillsPlaceholder: string;
+  prerequisiteSkillsPlaceholder: string;
   isEmptyBasicSkills: boolean;
   readonly maxLength: number = 140;
   readonly radius: number = 8;
@@ -67,11 +74,11 @@ export class CreateRequestComponent implements OnInit {
 
   ngOnInit() {
     this.daysOfAvailability = [
-      {name: 'Mon', value: 'monday', checked: false},
-      {name: 'Tue', value: 'tuesday', checked: false},
-      {name: 'Wed', value: 'wednesday', checked: false},
-      {name: 'Thur', value: 'thursday', checked: false},
-      {name: 'Fri', value: 'friday', checked: false},
+      { name: 'Mon', value: 'monday', checked: false },
+      { name: 'Tue', value: 'tuesday', checked: false },
+      { name: 'Wed', value: 'wednesday', checked: false },
+      { name: 'Thur', value: 'thursday', checked: false },
+      { name: 'Fri', value: 'friday', checked: false },
     ];
 
     this.lengthOfMentorship = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -82,19 +89,17 @@ export class CreateRequestComponent implements OnInit {
     this.sessionDuration = this.addHrsMinsStrings(this.duration);
     this.duration = this.sessionDuration;
     this.durationTime = moment(this.sessionDuration);
-
     this.displayedSessionDuration = this.addHrsMinsStrings(this.duration);
-
-    this.title = this.requestType;
+    this.title = this.requestType === this.requestTypes.MENTEE_REQUEST ? 'mentee' : 'mentor';
     this.selectedTimeZone = this.allTimeZones[0];
     this.startTime = this.timeSlots[0];
     this.durationOfMonths = this.lengthOfMentorship[0];
-
-    this.complementarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MAY have`;
-    this.primarySkillsPlaceholder = `Enter 3 prerequisite skills the ${this.title} MUST have`;
-
+    this.complementarySkillsPlaceholder = `Enter up to three skills related to the skill you want to acquire`;
+    this.prerequisiteSkillsPlaceholder = `Enter up to three skills the ${this.title} MUST already have`;
+    this.description = this.requestType === this.requestTypes.MENTEE_REQUEST ?
+     'Enter a short description of what the mentee will achieve' :
+     'Enter a short description of what you plan to achieve';
     this.isAllDaysChecked = false;
-
     this.strokeDashOffset =  (2 * Math.PI * this.radius);
   }
 
@@ -174,7 +179,7 @@ export class CreateRequestComponent implements OnInit {
       return this.alertService.showMessage(
         'Please fill in the compulsory fields to complete your request',
       );
-    } else if (form.value.neededSkill.trim() === '' || form.value.description.trim() === '') {
+    } else if (form.value.description.trim() === '') {
       return this.alertService.showMessage(
         'Please fill in the compulsory fields to complete your request',
       );
@@ -184,21 +189,21 @@ export class CreateRequestComponent implements OnInit {
 
       return this.alertService.showMessage('Please fill in the compulsory fields to complete your request');
     } else {
-      let isMentor = false;
-      if (this.requestType === 'mentee') {
-        isMentor = true;
-      }
-
+      const requestType = this.requestType
       const basicSkillIds = this.basicSkills.map(skill => skill.id);
+      const basicSkillNames = this.basicSkills.map(skill => skill.name);
       const complementarySkillIds = this.complementarySkills.map(skill => skill.id);
+      const preRequisiteSkillIds = this.preRequisteSkills.map(skill => skill.id);
       const sessionEndTime = this.calculateSessionEndTime(this.startTime,
-        this.removeHrsMinsStrings(this.duration));
+                                                          this.removeHrsMinsStrings(this.duration));
+
       const requestDetails = {
-        isMentor,
-        title: form.value.neededSkill,
-        description: form.value.description,
+        requestType,
+        title: basicSkillNames.join(', '),
         primary: basicSkillIds,
+        description: form.value.description,
         secondary: complementarySkillIds,
+        preRequisite: preRequisiteSkillIds,
         duration: this.durationOfMonths,
         location: this.currentUser ? this.currentUser.location : '',
         pairing: {
@@ -282,8 +287,8 @@ export class CreateRequestComponent implements OnInit {
    * @return {void}
    */
   saveSkills(type, insertedSkill) {
-    let selectedSkill;
 
+    let selectedSkill = null;
     for (const skill of this.skills) {
       if (skill.name === insertedSkill) {
         selectedSkill = skill;
@@ -291,22 +296,25 @@ export class CreateRequestComponent implements OnInit {
       }
     }
 
-    if (this.requestSkills.includes(selectedSkill)) {
+    if (this.requestSkills.includes(selectedSkill) || this.requestSkills.includes(this.skillControl.value)) {
+      this.skillControl.reset();
       return;
     }
 
     if (type === 'basic') {
-      if (selectedSkill) {
-        this.requestSkills.push(selectedSkill)
-        this.basicSkills.push(selectedSkill);
-      }
+      this.requestSkills.push(this.skillControl.value)
+      this.basicSkills.push(this.skillControl.value);
+      this.skillControl.reset();
     }
 
-    if (type === 'complementary') {
-      if (selectedSkill) {
-        this.requestSkills.push(selectedSkill);
-        this.complementarySkills.push(selectedSkill);
-      }
+    if (type === 'complementary' && selectedSkill) {
+      this.requestSkills.push(selectedSkill);
+      this.complementarySkills.push(selectedSkill);
+    }
+
+    if (type === 'preRequisite' && selectedSkill) {
+      this.requestSkills.push(selectedSkill);
+      this.preRequisteSkills.push(selectedSkill);
     }
   }
 
@@ -530,6 +538,15 @@ export class CreateRequestComponent implements OnInit {
     this.isCharacterLimitClose = this.charactersLeft <= 20;
     this.isStrokeDashOffsetLimitClose = this.strokeDashOffset <= 7.1829;
     this.isStrokeDashOffsetEqualZero = this.strokeDashOffset === 0;
+  }
+
+  /**
+   * Formats the autocomplete list
+   *
+   * @param {Object} skill skill object
+   */
+  autocompleListFormatter(skill) {
+    return skill.name;
   }
 }
 

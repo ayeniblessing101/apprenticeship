@@ -14,6 +14,7 @@ import { NotificationService } from 'app/services/notifications.service';
 import { environment } from '../../../../environments/environment';
 import { NotificationTypes } from 'app/enums/notification-types.enum';
 import { RequestService } from '../../../services/request.service';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-request-details',
@@ -30,6 +31,7 @@ export class RequestDetailsModalComponent implements OnInit {
   currentUserIsRequestOwner: boolean;
   currentUser: any;
   requestedBy: string;
+  requestTypes = RequestTypes;
 
   constructor(private userService: UserService,
               private alertService: AlertService,
@@ -47,8 +49,8 @@ export class RequestDetailsModalComponent implements OnInit {
 
     this.rating = this.selectedRequest.rating ? this.selectedRequest.rating : 0;
 
-    this.requestedBy = this.selectedRequest.request_type_id === 2 ? this.selectedRequest.mentee.fullname :
-      this.selectedRequest.mentor.fullname;
+    this.requestedBy = this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST
+      ? this.selectedRequest.mentee.fullname : this.selectedRequest.mentor.fullname;
   }
 
   /**
@@ -104,7 +106,9 @@ export class RequestDetailsModalComponent implements OnInit {
     })
       .then(() => {
         this.alertService.showMessage(`
-      We have sent a notification to the mentee about your interest in this mentorship request.
+      We have sent a notification to the
+      ${this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST
+        ? 'mentor' : 'mentee' } about your interest in this mentorship request.
       You will be notified when your interest is approved.
       `);
       })

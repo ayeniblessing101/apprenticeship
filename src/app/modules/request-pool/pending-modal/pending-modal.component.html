@@ -2,7 +2,7 @@
     <div #pendingModal class="modal">
         <div class="holder">
             <div class="modal-heading">
-                <h4 class="title"> {{ request.title }} MENTOR</h4>
+                <h4 class="title"> {{ request.title }} {{ request.request_type_id === requestTypes.MENTEE_REQUEST ? "MENTEE" : "MENTOR"}}</h4>
                 <div class="underline"></div>
                 <button *ngIf="this.request.created_by == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
                 <button *ngIf="this.request.created_by !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW REQUEST</button>
@@ -31,8 +31,8 @@
                             <span>{{ request.request_skills|requestSkill: 'primary' }}</span>
                         </li>
                         <li>
-                            <strong>Secondary Skills</strong> -
-                            <span>{{ request.request_skills|requestSkill: 'secondary' }}</span>
+                            <strong>{{ request.request_type_id === requestTypes.MENTOR_REQUEST ? 'Secondary Skills' : 'Pre-Requisite Skills' }}</strong> -
+                            <span>{{ request.request_skills|requestSkill: request.request_type_id === requestTypes.MENTOR_REQUEST ? 'secondary' : 'preRequisite' }}</span>
                         </li>
                         <li>
                             <strong>Preferred Location</strong> -

@@ -3,23 +3,41 @@
     <div class="modal-content" #createRequestModal>
 
       <div class="modal-heading">
-        REQUEST {{ title | uppercase }}
+        REQUEST {{ (requestType === requestTypes.MENTOR_REQUEST ?  "mentor" :  "mentee") | uppercase }}
         <hr class="underline"/>
       </div>
 
       <form (ngSubmit)="onSubmit(mentorshipForm)" class="mentorship-form" #mentorshipForm="ngForm">
 
         <div class="form-group">
-          <label for="needed-skill">Enter the skill you want to acquire</label>
-          <input ngModel class="needed-skill required-field" placeholder="e.g Swift"
-                 id="needed-skill" name="neededSkill" required/>
-          <label class="inline info additional-info">Displayed as; Swift Mentor</label>
-        </div>
+          <label>
+            {{requestType === requestTypes.MENTOR_REQUEST ? "Enter the skill you want to acquire" :
+            "Enter the skill you want to tutor" }}
+          </label>
+          <div class="skill-needed">
+            <input placeholder="Start Typing" id="input-skill"
+              class="needed-skill-input"
+              ng2-auto-complete [source]="skills"
+              [formControl]="skillControl"
+              [list-formatter]="autocompleListFormatter" value-property-name="id"
+              display-property-name="name" autocomplete="true"
+            />
+            <button type="button" class="needed-skill-button" (click)="saveSkills('basic', $event)"
+            [disabled]="skillControl.value == null || basicSkills.length ===1">
+              <span class="add">+</span>
+            </button>
+          </div>
 
+        </div>
+        <div class="skill-list" *ngIf="basicSkills.length">
+            <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill }}
+              <span (click)="deleteRequestSkill(skill.name, 'basic', position)" class="close">&times;</span>
+            </span>
+        </div>
         <div class="form-group">
           <label for="description">Description</label>
           <div class="textarea-container">
-            <textarea placeholder="Enter a short description of what you plan to achieve"
+            <textarea [placeholder]="description"
               ngModel
               [maxlength]="maxLength"
               class="description"
@@ -43,27 +61,22 @@
         </div>
 
         <div class="form-group">
-          <label>Basic Skills</label>
-          <app-skills-dropdown [list]="skillNames"
-             [skillsLength]="basicSkills.length" (changes)="saveSkills('basic', $event)"
-             [defaultValue]="primarySkillsPlaceholder" [isEmptyBasicSkills]="isEmptyBasicSkills"
-             id="basic-skills">
+          <label>{{requestType === requestTypes.MENTOR_REQUEST ? "Complementary Skills" : "Pre-requisite Skills" }}</label>
+          <app-skills-dropdown
+            [list]="skillNames"
+            [defaultValue]="requestType === requestTypes.MENTOR_REQUEST ? complementarySkillsPlaceholder : prerequisiteSkillsPlaceholder"
+            [skillsLength]="complementarySkills.length"
+            (changes)="saveSkills(requestType === requestTypes.MENTOR_REQUEST ? 'complementary' : 'preRequisite', $event)">
           </app-skills-dropdown>
-        </div>
-        <div class="skill-list" *ngIf="basicSkills.length">
-            <span class="chip" *ngFor="let skill of basicSkills; let position = index">{{ skill.name }}
-              <span (click)="deleteRequestSkill(skill.name, 'basic', position)" class="close">&times;</span>
-            </span>
-        </div>
-
-        <div class="form-group">
-          <label>Complementary Skills</label>
-          <app-skills-dropdown [list]="skillNames" [defaultValue]="complementarySkillsPlaceholder"
-                         [skillsLength]="complementarySkills.length" (changes)="saveSkills('complementary', $event)"></app-skills-dropdown>
         </div>
         <div class="skill-list" *ngIf="complementarySkills.length">
             <span class="chip" *ngFor="let skill of complementarySkills; let position = index">{{ skill.name }}
               <span (click)="deleteRequestSkill(skill.name, 'complementary', position)" class="close">&times;</span>
+            </span>
+        </div>
+        <div class="skill-list" *ngIf="preRequisteSkills.length">
+            <span class="chip" *ngFor="let skill of preRequisteSkills; let position = index">{{ skill.name }}
+              <span (click)="deleteRequestSkill(skill.name, 'preRequisite', position)" class="close">&times;</span>
             </span>
         </div>
 
