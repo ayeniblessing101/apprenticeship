@@ -18,6 +18,7 @@
             <input placeholder="Start Typing" id="input-skill"
               class="needed-skill-input"
               ng2-auto-complete [source]="skills"
+              no-match-found-text = "loading skills..."
               [formControl]="skillControl"
               [list-formatter]="autocompleListFormatter" value-property-name="id"
               display-property-name="name" autocomplete="true"
