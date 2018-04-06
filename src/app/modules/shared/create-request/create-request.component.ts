@@ -35,7 +35,6 @@ export class CreateRequestComponent implements OnInit {
   allTimeZones: string[] = ['WAT', 'EAT', 'CAT', 'EST', 'PST'];
   selectedTimeZone: string;
   durationOfMonths: number;
-  description: string;
   requestTypes = RequestTypes;
 
   timeSlots: string[] = [];
@@ -55,8 +54,6 @@ export class CreateRequestComponent implements OnInit {
   disabled = false;
   isAllDaysChecked: boolean;
 
-  complementarySkillsPlaceholder: string;
-  prerequisiteSkillsPlaceholder: string;
   isEmptyBasicSkills: boolean;
   readonly maxLength: number = 140;
   readonly radius: number = 8;
@@ -94,11 +91,6 @@ export class CreateRequestComponent implements OnInit {
     this.selectedTimeZone = this.allTimeZones[0];
     this.startTime = this.timeSlots[0];
     this.durationOfMonths = this.lengthOfMentorship[0];
-    this.complementarySkillsPlaceholder = `Enter up to three skills related to the skill you want to acquire`;
-    this.prerequisiteSkillsPlaceholder = `Enter up to three skills the ${this.title} MUST already have`;
-    this.description = this.requestType === this.requestTypes.MENTEE_REQUEST ?
-     'Enter a short description of what the mentee will achieve' :
-     'Enter a short description of what you plan to achieve';
     this.isAllDaysChecked = false;
     this.strokeDashOffset =  (2 * Math.PI * this.radius);
   }
