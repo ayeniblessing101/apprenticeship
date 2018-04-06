@@ -77,11 +77,10 @@ export class LogSessionModalComponent implements OnInit {
     const formattedStartTime = moment(startTime, 'HH:mm');
     const formattedEndTime = moment(endTime, 'HH:mm');
 
-    const timeDifference = moment(formattedEndTime.diff(formattedStartTime))
-      .subtract(1, 'hours')
-      .format('HH:mm')
-      .split(':')
-      .map(Number);
+    const timeDifference = moment.utc(formattedEndTime.diff(formattedStartTime))
+    .format('HH:mm')
+    .split(':')
+    .map(Number);
 
     this.hoursInSessionTimeDifference = timeDifference[0];
     this.minutesInSessionTimeDifference = timeDifference[1];
