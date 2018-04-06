@@ -19,7 +19,6 @@ export class SkillRecordsComponent {
   lastSortedCategory: string;
   isEditSkillModalOpen: boolean;
   skillToUpdate: any;
-  skill
 
   sortCategoryValues = {
     name: 'asc',
@@ -44,7 +43,7 @@ export class SkillRecordsComponent {
   * @returns {void}
   */
   handleSkillClick(skill) {
-    if (!this.isEditSkillModalOpen && !this.toggleStatus) {
+    if (!this.isEditSkillModalOpen && !this.alertService.isAlertOpen()) {
       return this.router.navigate(['/admin/skills/', skill.id]);
     }
   }
@@ -99,9 +98,7 @@ export class SkillRecordsComponent {
       this.sortCategoryValues.name = this.sortCategoryValues.name === 'asc' ? 'desc' : 'asc';
       this.sortSkills('name');
     }
-
     this.isEditSkillModalOpen = false;
-    this.toggleStatus = false;
   }
 
 /**
@@ -113,29 +110,28 @@ export class SkillRecordsComponent {
   * @returns {void}
   */
   toggleSkillStatus(skill) {
-    this.toggleStatus = true;
     this.alertService
-      .confirm(
-        `Are you sure want to  ${skill.deleted_at ? 'enable' : 'disable'} ${skill.name} skill`,
-        this, {
-          confirmActionText: ` ${skill.deleted_at ? 'ENABLE' : 'DISABLE'}`,
-          abortActionText: 'CANCEL',
-          confirmAction: () => {
-            if (skill.deleted_at) {
-              this.updateSkillStatus(skill, 'active')
-            } else {
-              this.updateSkillStatus(skill, 'inactive');
-            }
-          },
-        });
+    .confirm(
+      `Are you sure want to  ${skill.deleted_at ? 'enable' : 'disable'} ${skill.name} skill`,
+      this, {
+        confirmActionText: ` ${skill.deleted_at ? 'ENABLE' : 'DISABLE'}`,
+        abortActionText: 'CANCEL',
+        confirmAction: () => {
+          if (skill.deleted_at) {
+            this.updateSkillStatus(skill, 'active')
+          } else {
+            this.updateSkillStatus(skill, 'inactive');
+          }
+        },
+      });
   }
 
 /**
   * It triggers an API call that updates the skill status.
   *
   * @param {Object} skill The skill whose status is to be updated.
-  * @param {status} status The action to be performed on the skill. `0` to disable
-  * `1` to enable
+  * @param {status} status The action to be performed on the skill. `inactive` to disable
+  * `active` to enable
   *
   * @returns {void}
   */
@@ -144,7 +140,7 @@ export class SkillRecordsComponent {
         .toPromise()
         .then((res) => {
           this.alertService.showMessage(`${skill.name} skill has been ${skill.deleted_at ? 'enabled' : 'disabled'} successfully`);
-          skill.deleted_at = status === '0' ? new Date() : null;
+          skill.deleted_at = status === 'inactive' ? new Date() : null;
         })
         .catch((error) => {
           this.alertService.showMessage(error.message);

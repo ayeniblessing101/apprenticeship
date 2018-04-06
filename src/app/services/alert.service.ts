@@ -18,6 +18,15 @@ export class AlertService {
     this.alert = newAlert;
   }
 
+  /** Checks and return isConfirmation property
+   * if alert modal is open
+   *
+   * @return {Boolean}
+   */
+  isAlertOpen() {
+    return this.alert.isConfirmation;
+  }
+
   /**
    * Confirms an action being either by executing the action
    * or popping up a modal that allows a user to decide to
