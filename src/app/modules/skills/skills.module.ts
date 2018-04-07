@@ -12,25 +12,34 @@ import { EditSkillModalComponent } from './edit-skill-modal/edit-skill-modal.com
 import { SkillTopMentorsComponent } from './skill-top-mentors/skill-top-mentors.component';
 import { SkillRequestsComponent } from './skill-requests/skill-requests.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { SkillMentorsPageComponent } from './skill-mentors-page/skill-mentors-page.component';
+import { MentorRecordsComponent } from './mentor-records/mentor-records.component';
 import { RequestStatusPipe } from '../../pipes/requests-status.pipe';
+import { SkillMentorsResolver } from '../../resolvers/skill-mentors.resolver';
+
 @NgModule({
   imports: [
     SkillsRoutesModule,
     CommonModule,
     FormsModule,
     RequestPoolModule,
+    FormsModule,
     SharedModule,
   ],
   declarations: [
     SkillRecordsComponent,
     SkillsPageComponent,
+    SkillMentorsPageComponent,
+    MentorRecordsComponent,
     AddSkillModalComponent,
     EditSkillModalComponent,
     SkillDetailsPageComponent,
     SkillRequestsComponent,
     SkillTopMentorsComponent,
     RequestStatusPipe,
+  ],
+  providers: [
+    SkillMentorsResolver,
   ],
 })
 export class SkillsModule { }

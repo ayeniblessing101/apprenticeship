@@ -1,10 +1,7 @@
-import { Message } from './../interfaces/message.interface';
 import { Injectable } from '@angular/core';
-import { HttpService as Http } from './http.service';
 import { BaseService } from './base.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,7 +11,6 @@ import 'rxjs/add/operator/publishReplay';
 export class SkillService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
   private skills: any;
-  private formattedRequest = [];
   private skillName: string;
 
   /**

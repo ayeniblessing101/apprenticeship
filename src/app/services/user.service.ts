@@ -43,6 +43,25 @@ export class UserService {
   }
 
   /**
+   * This method gets details of all mentors in a particular skill
+   *
+   * @param {number} skillId - the id the skill
+   *
+   * @return Observable that contains the skill mentor details
+   */
+  getSkillMentors(skillId): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/skills/${skillId}/mentors`)
+      .map((response) => {
+        return {
+          skillName: response.json().skill.name,
+          mentors: response.json().skill.mentors,
+        }
+      })
+      .catch(this.handleError);
+  }
+
+  /**
    * Return data as JSON
    *
    * @param Response res an Observable

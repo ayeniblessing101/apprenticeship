@@ -1,0 +1,53 @@
+<div class="content-container" *ngIf="mentors?.length > 0; else noMentors">
+  <div *ngIf="!rerender" class="pool-header-wrapper">
+    <div class="header custom-row">
+      <div class="custom-col-4">
+        <span (click)="sortMentorsByHeader('name')">
+          Mentor
+          <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'name'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span (click)="sortMentorsByHeader('mentorships_count')">
+          Mentorships
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'mentorships_count'" src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span (click)="sortMentorsByHeader('average_rating')">
+          Rating
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
+            [headerName]="'average_rating'" src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span (click)="sortMentorsByHeader('last_active', true)">
+          Last Active
+          <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'last_active'"
+            src="../../../../assets/images/sort-asc-inactive.png" />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="pool-table">
+    <div class="pool-body">
+      <a *ngFor="let mentor of mentors" class="body-content custom-row" id="request-pool">
+        <div id="mentor" class="custom-col-5">{{ mentor.name }}</div>
+        <div id="mentorships" class="custom-col-2">{{ mentor.mentorships_count }}</div>
+        <div id="rating" class="custom-col-2">
+            {{mentor.average_rating | number : '1.1-1' }}/5
+        </div>
+        <div id="lastActive" class="custom-col-2">{{ mentor.last_active | date:'longDate' }}</div>
+      </a>
+      <div class="space"></div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noMentors>
+<div>
+  <app-no-search-result></app-no-search-result>
+</div>
+</ng-template>

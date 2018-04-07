@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="wrapper">
+    <section class="main-header" *ngIf="!loadingSkill">
+      <ul class="main-header-bar">
+        <div class='back-img' (click)="goToPreviousPage()">
+          <img src="assets/images/circled-left-ffffff-32 copy.png">
+        </div>
+        <li>
+          <span class="main-header-title">
+            ALL {{ skill | uppercase }} MENTORS
+            <hr class="indicator-active">
+          </span>
+        </li>
+        <li>
+          <div class="main-header-buttons" *ngIf="mentors?.length > 0">
+            <app-export-button (exportEvent)="exportMentorsToCsv()"></app-export-button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <app-mentor-records [mentors]="mentors"></app-mentor-records>
+    </section>
+  </div>
+</div>

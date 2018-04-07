@@ -4,6 +4,7 @@ import { SkillTopMentorsComponent } from './skill-top-mentors.component';
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { SkillService } from '../../../services/skill.service';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 describe('SkillTopMentorsComponent', () => {
   let component: SkillTopMentorsComponent;
@@ -11,6 +12,9 @@ describe('SkillTopMentorsComponent', () => {
   const skillService = {
     getSkillTopMentors: () => Observable.of({}),
   }
+  const routerStub = {
+    navigate: jasmine.createSpy('admin/skills/3/mentors'),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,6 +25,7 @@ describe('SkillTopMentorsComponent', () => {
       ],
       providers: [
         { provide: SkillService, useValue: skillService },
+        { provide: Router, useValue: routerStub },
       ],
     })
       .compileComponents();

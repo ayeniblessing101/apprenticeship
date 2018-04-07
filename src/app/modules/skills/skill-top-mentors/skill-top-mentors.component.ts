@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SkillService } from '../../../services/skill.service';
 @Component({
   selector: 'app-skill-top-mentors',
@@ -14,6 +15,7 @@ export class SkillTopMentorsComponent implements OnInit {
 
   constructor(
     private skillService: SkillService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -32,5 +34,9 @@ export class SkillTopMentorsComponent implements OnInit {
     .catch((error) => {
       this.loadingRequests = false;
     });
+  }
+
+  navigateToMentorsPage() {
+    this.router.navigate([`admin/skills/${this.skillId}/mentors`]);
   }
 }

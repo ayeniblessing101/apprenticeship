@@ -1,0 +1,73 @@
+@import "../../../../assets/scss/fonts";
+@import "../../../../assets/scss/colors";
+@import "../../../../assets/scss/loaders";
+
+@mixin indicator-active($width, $color) {
+  width: $width;
+  height: 5px;
+  border-radius: 11px;
+  border: solid 0;
+  background-color: $color;
+}
+
+.container {
+  width: 100%;
+}
+
+.main-header {
+  width: 100%;
+  margin-left: -25px;
+  background-color: $primary-background-color;
+  z-index: 1;
+  margin-top: -1.5%;
+  padding-top: 10px;
+}
+
+.main-header-bar {
+  margin-right: 30px;
+
+  li {
+    display: inline;
+    list-style: none;
+
+    .main-header-buttons {
+      float: right;
+    }
+
+    .main-header-title {
+      margin-left: 1%;
+      display: inline-block;
+      width: auto;
+      height: 50px;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: left;
+      color: #3359db;
+
+      .indicator-active {
+        @include indicator-active(70px, #3359db);
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.back-img {
+  float: left;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+section {
+  width: 100%;
+}
+
+#section-grid {
+  background-color: black;
+  margin-top: 300px;
+  min-height: unset;
+  padding: 0 5px 5px;
+}
