@@ -62,6 +62,8 @@ export class CreateRequestComponent implements OnInit {
   isCharacterLimitClose: boolean;
   isStrokeDashOffsetLimitClose: boolean;
   isStrokeDashOffsetEqualZero: boolean;
+  isMentorRequest: boolean;
+  isMenteeRequest: boolean;
 
   constructor(private skillService: SkillService,
               private requestService: RequestService,
@@ -92,7 +94,9 @@ export class CreateRequestComponent implements OnInit {
     this.startTime = this.timeSlots[0];
     this.durationOfMonths = this.lengthOfMentorship[0];
     this.isAllDaysChecked = false;
-    this.strokeDashOffset =  (2 * Math.PI * this.radius);
+    this.isMentorRequest = this.requestType === RequestTypes.MENTOR_REQUEST;
+    this.isMenteeRequest = this.requestType === RequestTypes.MENTEE_REQUEST;
+    this.strokeDashOffset = (2 * Math.PI * this.radius);
   }
 
   /**
@@ -162,8 +166,7 @@ export class CreateRequestComponent implements OnInit {
       return this.alertService.showMessage(
         '0hr 00mins is an invalid session duration',
       );
-    }
-    ;
+    };
 
     const selectedDays = this.getSelectedDays();
 
@@ -294,9 +297,8 @@ export class CreateRequestComponent implements OnInit {
     }
 
     if (type === 'basic') {
-      this.requestSkills.push(this.skillControl.value)
-      this.basicSkills.push(this.skillControl.value);
-      this.skillControl.reset();
+      this.requestSkills.push(selectedSkill)
+      this.basicSkills.push(selectedSkill);
     }
 
     if (type === 'complementary' && selectedSkill) {
@@ -327,9 +329,13 @@ export class CreateRequestComponent implements OnInit {
         this.isEmptyBasicSkills = this.basicSkills.length === 0 ? true : false;
       }
 
-    } else {
+    } else if (type === 'complementary') {
       if (this.complementarySkills[position].name === skill) {
         this.complementarySkills.splice(position, 1);
+      }
+    } else {
+      if (this.preRequisteSkills[position].name === skill) {
+        this.preRequisteSkills.splice(position, 1);
       }
     }
   }
