@@ -42,6 +42,7 @@
 
 .display-inline-block {
   display: inline-block;
+  margin-right: 20px;
 }
 
 .display-inline {
@@ -208,49 +209,6 @@
     letter-spacing: normal;
     text-align: left;
     color: rgba(48, 48, 48, 0.6);
-  }
-}
-
-.select-menu {
-  position: relative;
-  display: inline-block;
-  margin-right: 30px;
-  margin-top: 8px;
-
-  select {
-    background-color: transparent;
-    color: #323c47;
-    font-size: 12px;
-    font-family: DINPro;
-    padding-left: 20px;
-    height: 45px;
-    width: 127px;
-    border: solid 1px #e9eff4;
-    margin: 0;
-    border-radius: 4px;
-    text-indent: 0.01px;
-    text-overflow: '';
-    background-image: none;
-    cursor: pointer;
-    @include appearance-button;
-  }
-
-  .arrow-down {
-    background-color: #888888;
-    border: solid 1px $primary-border-color;
-    border-radius: 0 3px 3px 0;
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 2.8em;
-    z-index: -1;
-
-    b {
-      position: absolute;
-      right: 16px;
-      top: 16px;
-    }
   }
 }
 

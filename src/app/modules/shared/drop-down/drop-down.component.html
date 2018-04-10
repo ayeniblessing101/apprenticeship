@@ -4,7 +4,7 @@
             [disabled]="disabled">
       {{ formattedValue }}
     </button>
-    <div *ngIf="showDropDownContent" class="request-content common-dropdown-styles">
+    <div *ngIf="showDropDownContent" class="request-content common-dropdown-styles" [style.height]="height">
       <a *ngFor="let item of list" (click)="setSelectedValue(item)">{{ item }}</a>
     </div>
   </li>

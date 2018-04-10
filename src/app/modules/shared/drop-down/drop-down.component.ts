@@ -9,7 +9,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChange
 export class DropDownComponent implements OnInit, OnChanges {
   @Input() list: any[];
   @Input() defaultValue: string;
-
+  @Input() height: string;
   @Output() changes = new EventEmitter();
 
   formattedValue: string;
@@ -46,7 +46,6 @@ export class DropDownComponent implements OnInit, OnChanges {
    * return {void}
    */
   setSelectedValue(item) {
-
     this.showDropDownContent = false;
     this.changes.emit(item);
   }

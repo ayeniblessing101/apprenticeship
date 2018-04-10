@@ -22,7 +22,6 @@ import { Rating } from '../../../interfaces/rating.interface';
 export class LogSessionModalComponent implements OnInit {
   @Output() closeLogSessionModal = new EventEmitter<string>();
   @Output() updateLoggedSession = new EventEmitter<any>();
-  @ViewChild('sessionModal') sessionModal: ElementRef;
   @Input() session: any;
   @Input() request: any;
   @Input() userId: string;
@@ -31,9 +30,10 @@ export class LogSessionModalComponent implements OnInit {
   timeSlots: string[] = [];
   hoursInSessionTimeDifference: number;
   minutesInSessionTimeDifference: number;
-  defaultStartTime: string;
-  defaultEndTime: string;
   sessionId: number;
+  startTime:  string;
+  endTime: string;
+  dropdownHeight = '380px';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,13 +42,14 @@ export class LogSessionModalComponent implements OnInit {
 
   ngOnInit() {
     this.getTimeSlots();
-    this.defaultStartTime = this.request.pairing.start_time;
-    this.defaultEndTime = this.request.pairing.end_time;
+    this.startTime = this.request.pairing.start_time;
+    this.endTime = this.request.pairing.end_time;
+    this.calculateSessionTimeDifference(this.startTime, this.endTime);
 
     this.sessionForm = this.formBuilder.group({
       comment: '',
-      startTime: [this.defaultStartTime, [Validators.required]],
-      endTime: [this.defaultEndTime, [Validators.required]],
+      startTime: [this.startTime, [Validators.required]],
+      endTime: [this.endTime, [Validators.required]],
       availability: '',
       reliability: '',
       knowledge: '',
@@ -57,8 +58,15 @@ export class LogSessionModalComponent implements OnInit {
     });
   }
 
-  @HostListener('click') onClick() {
-    if (!this.sessionModal.nativeElement.contains(event.target)) {
+  /**
+   * Picks up click events from the Host Listener to determine if
+   * click was outside modal
+   *
+   * @param event
+   */
+  @HostListener('click', ['$event'])
+  onClick(event) {
+    if (event.path[1].localName === 'app-log-session') {
       this.closeSessionModal();
     }
   }
@@ -66,14 +74,15 @@ export class LogSessionModalComponent implements OnInit {
   /**
    * Calculates difference in the time session starts and ends
    *
-   * @param startTime - value of the startTime select kbox
+   * @param startTime - value of the startTime select box
    * @param endTime - value of the endTime select box
    *
    * @return {void}
    */
   calculateSessionTimeDifference(startTime, endTime) {
-    startTime = startTime ? startTime : this.defaultStartTime;
-    endTime = endTime ? endTime : this.defaultEndTime;
+    this.startTime = startTime ? startTime : this.startTime;
+    this.endTime = endTime ? endTime : this.endTime;
+
     const formattedStartTime = moment(startTime, 'HH:mm');
     const formattedEndTime = moment(endTime, 'HH:mm');
 

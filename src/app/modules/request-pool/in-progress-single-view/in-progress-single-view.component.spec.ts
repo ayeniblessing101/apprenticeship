@@ -20,6 +20,7 @@ import { AddFileModalComponent } from '../add-file-modal/add-file-modal.componen
 import { SessionDetailsComponent } from '../session-details/session-details.component';
 import { LogSessionModalComponent } from '../log-session-modal/log-session-modal.component';
 import { ConfirmSessionModalComponent } from '../confirm-session-modal/confirm-session-modal.component';
+import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 
 describe('InProgressSingleViewComponent', () => {
   let component: InProgressSingleViewComponent;
@@ -41,6 +42,7 @@ describe('InProgressSingleViewComponent', () => {
         SessionDetailsComponent,
         LogSessionModalComponent,
         ConfirmSessionModalComponent,
+        DropDownComponent,
       ],
       imports: [
         HttpModule,

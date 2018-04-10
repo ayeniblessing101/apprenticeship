@@ -18,6 +18,7 @@ import { LogSessionModalComponent } from '../log-session-modal/log-session-modal
 import { AddFileModalComponent } from '../add-file-modal/add-file-modal.component';
 import { SortingHelper } from '../../../helpers/sorting.helper';
 import { ConfirmSessionModalComponent } from '../confirm-session-modal/confirm-session-modal.component';
+import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 
 describe('HistoryPageComponent', () => {
   let component: HistoryPageComponent;
@@ -38,6 +39,7 @@ describe('HistoryPageComponent', () => {
         ProposedRequestDurationPipe,
         RequestSkillPipe,
         AddFileModalComponent,
+        DropDownComponent,
       ],
       imports: [
         StarRatingModule.forRoot(),
