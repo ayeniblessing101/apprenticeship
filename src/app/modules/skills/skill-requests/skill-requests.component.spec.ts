@@ -17,7 +17,7 @@ describe('SkillRequestsComponent', () => {
   let requestStatus: RequestStatusPipe;
   const skillService = {
     getSkillRequests : () => Observable.of({}),
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

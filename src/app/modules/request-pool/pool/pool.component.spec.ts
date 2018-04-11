@@ -25,7 +25,6 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
 describe('PoolComponent', () => {
   let component: PoolComponent;
   let fixture: ComponentFixture<PoolComponent>;
-  let pageTitle: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

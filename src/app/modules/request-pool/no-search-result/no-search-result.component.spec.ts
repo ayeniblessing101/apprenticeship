@@ -7,7 +7,7 @@ describe('NoSearchResultComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoSearchResultComponent ]
+      declarations: [NoSearchResultComponent],
     })
     .compileComponents();
   }));

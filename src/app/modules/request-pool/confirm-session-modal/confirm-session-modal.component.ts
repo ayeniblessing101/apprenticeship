@@ -75,7 +75,7 @@ export class ConfirmSessionModalComponent implements OnInit {
       comment: this.confirmSessionForm.value.comment,
       ratings: this.getRatings(),
       rating_scale: this.ratingScale,
-    }
+    };
 
     this.sessionService.confirmSession(this.session.id, payload).toPromise()
       .then((response) => {
@@ -106,7 +106,7 @@ export class ConfirmSessionModalComponent implements OnInit {
       knowledge,
       teaching,
       usefulness,
-    } = this.confirmSessionForm.value
+    } = this.confirmSessionForm.value;
 
     if (availability ||
       reliability ||

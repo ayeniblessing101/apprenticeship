@@ -100,7 +100,7 @@ export class UploadFileDirective {
    * @return {void}
    */
   @HostListener('drop', ['$event']) public onDrop(event) {
-    this.decreaseBorderThickness(event)
+    this.decreaseBorderThickness(event);
 
     const files = event.dataTransfer.files;
     if (files.length > 0) {

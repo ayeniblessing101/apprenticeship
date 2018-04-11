@@ -24,7 +24,7 @@ export class CancelRequestModalComponent implements OnInit {
   cancelRequestReason = [
     `Externally matched`,
     `Too long to match`,
-  ]
+  ];
 
   constructor(
     private requestService: RequestService,
@@ -32,7 +32,7 @@ export class CancelRequestModalComponent implements OnInit {
 
   ngOnInit() {
     this.message = `Are you sure you want to cancel your
-     "${this.request.title}" request? This can't be undone.`
+     "${this.request.title}" request? This can't be undone.`;
     this.requestId = this.request.id;
   }
 

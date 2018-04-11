@@ -11,7 +11,7 @@ describe('NavBarComponent', () => {
   let fixture: ComponentFixture<NavBarComponent>;
   const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

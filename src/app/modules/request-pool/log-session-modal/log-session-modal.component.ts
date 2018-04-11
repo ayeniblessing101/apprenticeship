@@ -146,7 +146,7 @@ export class LogSessionModalComponent implements OnInit {
       rating_scale: this.ratingScale,
       rating_values: ratingValues,
     };
-    this.sessionId = this.sessionId === undefined ? this.session.id : this.sessionId,
+    this.sessionId = this.sessionId === undefined ? this.session.id : this.sessionId;
     this.sessionService.logSession(sessionPayload, this.request.id, this.sessionId)
       .toPromise()
       .then((response) => {

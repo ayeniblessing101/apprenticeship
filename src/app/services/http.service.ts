@@ -15,7 +15,7 @@ import { localStorage } from '../../app/globals';
 
 @Injectable()
 export class HttpService extends Http {
-  private token: string;
+  private readonly token: string;
 
   static useFactory(backend: XHRBackend, options: RequestOptions) {
     return new HttpService(backend, options);

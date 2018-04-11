@@ -5,7 +5,7 @@
 export interface BarChart {
   data: {
     labels: any[]
-    datasets: any[]
+    datasets: any[],
   },
   destroy: any
 }

@@ -119,7 +119,7 @@ export class RequestStatisticsComponent implements OnInit {
         status_id = '';
     }
     this.appliedFilters.status = status_id;
-    this.applyFilters.emit(this.appliedFilters)
+    this.applyFilters.emit(this.appliedFilters);
     // sets the header name based on selected status
     if (this.selectedStatus === 'Total Requests') {
       this.headerName = 'All Requests'
@@ -191,8 +191,7 @@ export class RequestStatisticsComponent implements OnInit {
       .then((response) => {
         request = response.requests;
         const blob = new Blob([this.convertRequestToCsv(request)], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        downloadLink.href = url;
+        downloadLink.href = window.URL.createObjectURL(blob);
         downloadLink.download = `${this.createFileName()}`;
         downloadLink.click();
         this.isExportingRequestsCsv = false;

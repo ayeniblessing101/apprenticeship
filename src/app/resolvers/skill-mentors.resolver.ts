@@ -17,7 +17,7 @@ export class SkillMentorsResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     return this.userService.getSkillMentors(route.params['id'])
     .catch((error) => {
-      this.router.navigateByUrl('/page-not-found')
+      this.router.navigateByUrl('/page-not-found');
       return error;
     });
   }

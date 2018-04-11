@@ -144,11 +144,7 @@ export class AlertComponent implements OnInit {
    * @returns {boolean}
    */
   private isAlertInstanceDeactivated(): boolean {
-    if (this.disabledAlertsInstanceIds &&
-      this.disabledAlertsInstanceIds.includes(this.alertInstanceId)) {
-      return true;
-    }
-
-    return false;
+    return this.disabledAlertsInstanceIds &&
+      this.disabledAlertsInstanceIds.includes(this.alertInstanceId);
   }
 }

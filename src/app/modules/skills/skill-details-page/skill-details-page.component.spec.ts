@@ -18,7 +18,7 @@ describe('SkillDetailsPageComponent', () => {
   const skillService = {
     getSkillRequests : () => Observable.of({}),
     getSkillTopMentors: () => Observable.of({}),
-  }
+  };
 
   const routerStub = {
     navigate: jasmine.createSpy('admin/skills/3/mentors'),

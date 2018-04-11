@@ -43,7 +43,7 @@ describe('ConfirmSessionModalComponent', () => {
         start_time: '01:34',
         end_time: '03:00',
       },
-    }
+    };
     fixture.detectChanges();
   });
 

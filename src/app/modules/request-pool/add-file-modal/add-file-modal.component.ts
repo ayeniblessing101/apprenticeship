@@ -20,7 +20,7 @@ export class AddFileModalComponent {
   @Input() sessionDate;
   file: File;
   loading: boolean;
-  uploadedFileName
+  uploadedFileName;
   maxFileSize = (5 * Math.pow(1024, 2));
 
   constructor(

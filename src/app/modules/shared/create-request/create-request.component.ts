@@ -184,7 +184,7 @@ export class CreateRequestComponent implements OnInit {
 
       return this.alertService.showMessage('Please fill in the compulsory fields to complete your request');
     } else {
-      const requestType = this.requestType
+      const requestType = this.requestType;
       const basicSkillIds = this.basicSkills.map(skill => skill.id);
       const basicSkillNames = this.basicSkills.map(skill => skill.name);
       const complementarySkillIds = this.complementarySkills.map(skill => skill.id);
@@ -297,7 +297,7 @@ export class CreateRequestComponent implements OnInit {
     }
 
     if (type === 'basic') {
-      this.requestSkills.push(selectedSkill)
+      this.requestSkills.push(selectedSkill);
       this.basicSkills.push(selectedSkill);
     }
 
@@ -326,7 +326,7 @@ export class CreateRequestComponent implements OnInit {
     if (type === 'basic') {
       if (this.basicSkills[position].name === skill) {
         this.basicSkills.splice(position, 1);
-        this.isEmptyBasicSkills = this.basicSkills.length === 0 ? true : false;
+        this.isEmptyBasicSkills = this.basicSkills.length === 0;
       }
 
     } else if (type === 'complementary') {
@@ -352,8 +352,8 @@ export class CreateRequestComponent implements OnInit {
         this.skills = res.map(skill => ({
           name: skill.name,
           id: skill.id,
-        })),
-          this.skillNames = res.map(skill => skill.name);
+        }));
+        this.skillNames = res.map(skill => skill.name);
       });
   }
 
@@ -504,8 +504,7 @@ export class CreateRequestComponent implements OnInit {
    * @return {string} The time in 'am' or 'pm'
    */
   getAmPmTime(time: string) {
-    const formattedTime = moment(time, 'hh:mm').format('hh:mm a');
-    return formattedTime;
+    return moment(time, 'hh:mm').format('hh:mm a');
   }
 
   /**
@@ -515,9 +514,8 @@ export class CreateRequestComponent implements OnInit {
    * @return {string} The duration of months appended with either 'months' or 'month'
    */
   displayDurationOfMonths() {
-    const formattedMonthDuration = this.durationOfMonths === 1 ?
+    return this.durationOfMonths === 1 ?
       `${this.durationOfMonths} month` : ` ${this.durationOfMonths} months`;
-    return formattedMonthDuration;
   }
 
   /**

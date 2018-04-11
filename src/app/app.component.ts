@@ -26,6 +26,7 @@ export class AppComponent {
     router.events.subscribe((routerEvent) => {
       this.checkRouterEvent(routerEvent);
     });
+
     if (localStorage.getItem('id_token')) {
       this.authService.decodeToken();
       const userId  = this.authService.userInfo.id;

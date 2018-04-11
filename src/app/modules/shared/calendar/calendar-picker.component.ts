@@ -96,7 +96,7 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
     const dates = [];
     while (start < gridEnd) {
       dates.push(start);
-      start++;
+      start += 1;
     }
     return dates
       .map((date): CalendarDate => {
@@ -117,7 +117,7 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
    * @return {void}
    */
   setDate(date: moment.Moment) {
-    this.selectedDate = date.format('DD-MM-YYYY'); ;
+    this.selectedDate = date.format('DD-MM-YYYY');
     this.onDateSelected.emit(this.selectedDate);
   }
 }

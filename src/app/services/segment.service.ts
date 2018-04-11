@@ -23,8 +23,8 @@ export class SegmentService {
    * @memberof SegmentService
    */
   page(url, props) {
-      const payload = { name: url, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
-      this.http.post(`${this.apiBaseUrl}/v1/page`, payload, { headers: this.headers }).subscribe();
+    const payload = { name: url, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
+    this.http.post(`${this.apiBaseUrl}/v1/page`, payload, { headers: this.headers }).subscribe();
 
   }
   /**
@@ -37,8 +37,8 @@ export class SegmentService {
    * @memberof SegmentService
    */
   track(event, props?) {
-      const payload = { event, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
-      this.http.post(`${this.apiBaseUrl}/v1/track`, payload, { headers: this.headers }).subscribe();
+    const payload = { event, timestamp: Date.now(), userId: 'lenken', properties: { ...props } };
+    this.http.post(`${this.apiBaseUrl}/v1/track`, payload, { headers: this.headers }).subscribe();
   }
 }
 

@@ -16,7 +16,7 @@ export class AllRequestsPageComponent implements OnInit {
   }
 
 /**
- * Applys loader depending on bollean value from
+ * Applies loader depending on boolean value from
  * the PoolComponent
  *
  */
@@ -27,7 +27,7 @@ export class AllRequestsPageComponent implements OnInit {
   /**
    * Fetches the applyFilters function from pool component
    *
-   * @param  {object} event - contains the applied loaction filter
+   * @param  {object} event - contains the applied location filter
    *
    * @return {void}
    */

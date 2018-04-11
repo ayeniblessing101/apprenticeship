@@ -10,6 +10,6 @@ export class NoSearchResultComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    }
+  }
 
 }

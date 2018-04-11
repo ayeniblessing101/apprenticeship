@@ -21,6 +21,6 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
   providers: [
     SkillService,
   ],
-  declarations: [ProfilePageComponent, UserStatsComponent, UserSkillsComponent]
+  declarations: [ProfilePageComponent, UserStatsComponent, UserSkillsComponent],
 })
 export class UserProfileModule { }

@@ -5,6 +5,6 @@
 export interface Pairing {
   start_time: Date,
   end_time: Date,
-  days: Array<string>,
+  days: string[],
   timezone: string
 }

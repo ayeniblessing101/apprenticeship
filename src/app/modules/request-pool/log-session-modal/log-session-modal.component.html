@@ -6,7 +6,7 @@
     <form [formGroup] = "sessionForm" (ngSubmit)="createOrLogSession()">
       <div class="form-group">
         <div class="display-inline-block">
-          <label class="display-block start-label" for="startTime">Session began</label>
+          <label class="display-block start-label">Session began</label>
             <app-drop-down
               [list]="timeSlots"
               [defaultValue]="startTime"
@@ -15,7 +15,7 @@
             ></app-drop-down>
         </div>
         <div class="display-inline-block">
-          <label class="display-block" for="endTime">Session ended</label>
+          <label class="display-block">Session ended</label>
           <app-drop-down
             [list]="timeSlots"
             [defaultValue]="endTime"

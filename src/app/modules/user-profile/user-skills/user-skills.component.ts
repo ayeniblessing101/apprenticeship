@@ -60,7 +60,7 @@ export class UserSkillsComponent implements OnInit {
         },
       )
         .catch((error) => {
-          this.skillControl.reset()
+          this.skillControl.reset();
           return this.alertService.showMessage(error.message);
         });
     }

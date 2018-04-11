@@ -44,7 +44,7 @@ export class PendingModalComponent implements OnInit {
     confirmActionText: 'PROCEED',
     confirmAction: null,
     canDisable: true,
-  }
+  };
 
   constructor(
     private userService: UserService,

@@ -130,7 +130,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     const dates = [];
     while (start < gridEnd) {
       dates.push(start);
-      start++;
+      start += 1;
     }
     return dates
       .map((date): CalendarDate => {

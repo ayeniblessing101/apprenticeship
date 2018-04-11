@@ -23,7 +23,7 @@ export class SkillsDropdownComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     const currentSkillsLengthValue = changes.skillsLength ? changes.skillsLength.currentValue : this.skillsLength;
 
-    this.disabled = currentSkillsLengthValue === 3 ? true : false;
+    this.disabled = currentSkillsLengthValue === 3;
     if (currentSkillsLengthValue !== 0) {
       this.isEmptyBasicSkills = false;
     }

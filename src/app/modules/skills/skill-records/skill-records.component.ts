@@ -23,7 +23,7 @@ export class SkillRecordsComponent {
     active: 'asc',
     number_of_requests: 'asc',
     last_requested: 'asc',
-  }
+  };
 
   constructor(
      private tableHeaderSorterHelper: TableHeaderSortHelper,

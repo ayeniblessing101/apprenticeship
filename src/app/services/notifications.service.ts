@@ -67,7 +67,7 @@ export class NotificationService {
         messageKeys.forEach((key) => {
           this.unreadCount = 0;
           this.database.object(`Messages/${key}`)
-            .subscribe(message => {
+            .subscribe((message) => {
               message.read = queriedItems.filter(item => item['$key'] === key)[0].read;
               if (!message.read) {
                 this.unreadCount += 1;

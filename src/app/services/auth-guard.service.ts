@@ -7,7 +7,7 @@ export class  AuthGuard implements CanActivate {
   constructor (private auth: AuthService, private router: Router) { }
 
   private isEmpty(obj) {
-    return Object.getOwnPropertyNames(obj).length === 0 ? true : false;
+    return Object.getOwnPropertyNames(obj).length === 0;
   }
 
   /**

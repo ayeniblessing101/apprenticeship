@@ -19,7 +19,7 @@ describe('InProgressComponent', () => {
   let fixture: ComponentFixture<InProgressComponent>;
   const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
-  }
+  };
   let requestDuration: RequestDurationPipe;
   let requestSkill: RequestSkillPipe;
 

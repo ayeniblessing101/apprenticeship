@@ -83,7 +83,8 @@ export class EditSkillModalComponent implements OnInit {
    * @returns {void}
    */
   save() {
-    const { status: isValidSkillName, message } = this.validateSkillName(this.skillName)
+    const { status: isValidSkillName, message } =
+      this.validateSkillName(this.skillName);
     if (!isValidSkillName) {
       this.skillName = this.skill.name;
       this.showErrorMessage(message);

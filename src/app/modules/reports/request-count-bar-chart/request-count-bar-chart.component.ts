@@ -88,19 +88,19 @@ export class RequestCountBarChartComponent implements OnChanges {
       matched: '#3359db',
       completed: '#25880c',
       cancelled: '#bf0000',
-    }
+    };
     statuses.forEach((status) => {
       const dataSet = {};
       dataSet['label'] = status;
-      dataSet['data'] = []
-      dataSet['backgroundColor'] = backgroundColor[status]
+      dataSet['data'] = [];
+      dataSet['backgroundColor'] = backgroundColor[status];
       skills.forEach((skill) => {
         if (status in skill.percentage) {
           dataSet['data'].push(skill.percentage[status]);
         } else {
           dataSet['data'].push(0);
         }
-      })
+      });
       this.yAxis.push(dataSet);
     });
   }
@@ -211,8 +211,8 @@ export class RequestCountBarChartComponent implements OnChanges {
       return { totalCount, count, name };
     });
 
-    const sortedSum = sum.sort((currentSkill, nextSkill) => nextSkill.totalCount - currentSkill.totalCount);
-    return sortedSum;
+    return sum.sort((currentSkill, nextSkill) =>
+      nextSkill.totalCount - currentSkill.totalCount);
   }
 
   /**
@@ -252,10 +252,6 @@ export class RequestCountBarChartComponent implements OnChanges {
       return false;
     } else if (endDateEpoc > currentDateEpoc) {
       return false;
-    } else if (startDateEpoc > endDateEpoc) {
-      return false;
-    } else {
-      return true;
-    }
+    } else return startDateEpoc <= endDateEpoc;
   }
 }

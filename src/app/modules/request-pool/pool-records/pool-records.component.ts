@@ -65,7 +65,7 @@ export class PoolRecordsComponent {
       this.requests,
       this.activeSortCategory,
       this.sortCategoryValues,
-    )
+    );
 
     this.activeSortCategory = headerName;
     this.rerender = true;

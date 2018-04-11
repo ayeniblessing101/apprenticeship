@@ -69,7 +69,7 @@ export class SkillMentorsPageComponent {
     const csvGenerated = new Blob(
       [this.convertMentorsToCsv(this.mentors)],
       { type: 'text/csv' },
-    )
+    );
     const csvFileURL = URL.createObjectURL(csvGenerated);
     const downloadLink = document.createElement('a');
     const currentDate = new Date();

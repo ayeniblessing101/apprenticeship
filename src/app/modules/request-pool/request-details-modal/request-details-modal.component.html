@@ -23,7 +23,7 @@
     </p>
     <div class="modal-footer">
       <div class="button-group">
-        <input id="back-modal-button"[ngClass]="{'right': currentUserIsRequestOwner}" type="button" value="BACK" (click)="closeRequestModal()">
+        <input id="back-modal-button" [ngClass]="{'right': currentUserIsRequestOwner}" type="button" value="BACK" (click)="closeRequestModal()">
         <input *ngIf="!currentUserIsRequestOwner" id="btn-interested"
                type="submit" value="I'M INTERESTED" (click)="indicateInterest()"
                [ngClass]="{'btn-disabled' : currentUserIsInterested}"

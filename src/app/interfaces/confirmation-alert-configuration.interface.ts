@@ -4,4 +4,4 @@ export interface ConfirmationAlertConfiguration {
   confirmAction?: Function;
   canDisable?: boolean;
   afterClose?: Function;
-};
+}
