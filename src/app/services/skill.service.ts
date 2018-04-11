@@ -132,7 +132,7 @@ export class SkillService extends BaseService {
         this.skillName = response.json().skill.name;
         const requests = response.json().skill.requests.map((eachRequest) => {
           let createdBy = '';
-          if (eachRequest.created_by === eachRequest.mentor.id) {
+          if (eachRequest.created_by.user_id === eachRequest.mentor.id) {
             createdBy = eachRequest.mentor.fullname;
           } else {
             createdBy = eachRequest.mentee.fullname;

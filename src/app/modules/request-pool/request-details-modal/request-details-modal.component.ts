@@ -30,7 +30,6 @@ export class RequestDetailsModalComponent implements OnInit {
   currentUserIsInterested: boolean;
   currentUserIsRequestOwner: boolean;
   currentUser: any;
-  requestedBy: string;
   requestTypes = RequestTypes;
 
   constructor(private userService: UserService,
@@ -42,15 +41,12 @@ export class RequestDetailsModalComponent implements OnInit {
     this.currentUser = this.userService.getCurrentUser();
 
     this.currentUserIsRequestOwner =
-      (this.selectedRequest.created_by === this.currentUser.id);
+      (this.selectedRequest.created_by.user_id === this.currentUser.id);
 
     this.currentUserIsInterested = (this.selectedRequest.interested &&
       this.selectedRequest.interested.includes(this.currentUser.id));
 
     this.rating = this.selectedRequest.rating ? this.selectedRequest.rating : 0;
-
-    this.requestedBy = this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST
-      ? this.selectedRequest.mentee.fullname : this.selectedRequest.mentor.fullname;
   }
 
   /**
@@ -94,7 +90,7 @@ export class RequestDetailsModalComponent implements OnInit {
     const primarySkills = (requestSkills.map(primarySkill => primarySkill.name));
     primarySkills.splice(primarySkills.length - 1, 0, 'and');
     const selectedSkills = primarySkills.join(', ');
-    return this.notificationService.sendMessage([this.selectedRequest.created_by], {
+    return this.notificationService.sendMessage([this.selectedRequest.created_by.user_id], {
       type: NotificationTypes.MENTOR_REQUEST,
       message: {
         title: 'New Mentor Request',

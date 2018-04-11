@@ -57,16 +57,15 @@ export class PendingModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userIds = [this.request.created_by];
+    this.userIds = [this.request.created_by.user_id];
     this.currentUserId = this.userService.getCurrentUser().id;
 
-    if (this.request.created_by === this.currentUserId) {
+    if (this.request.created_by.user_id === this.currentUserId) {
       if (this.request.interested) {
-        this.userIds = this.request.interested.concat([this.request.created_by]);
+        this.userIds = this.request.interested.concat([this.request.created_by.user_id]);
       }
     }
-    this.requestedBy = this.request.request_type_id === this.requestTypes.MENTEE_REQUEST ? this.request.mentee.fullname :
-      this.request.mentor.fullname;
+    this.requestedBy = this.request.created_by.fullname;
 
     this.rating = this.request.rating ? this.request.rating : 0;
 
@@ -114,7 +113,7 @@ export class PendingModalComponent implements OnInit {
    */
   separateUserWhoMadeTheRequestFromInterestedUsers(users: User[]) {
     users.forEach((user) => {
-      if (user.id === this.request.created_by) {
+      if (user.id === this.request.created_by.user_id) {
         this.userWhoMadeTheRequest = user;
       } else {
         this.interestedUsers.push(user);
