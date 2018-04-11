@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectorRef, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { SortingHelper } from '../../../helpers/sorting.helper';
-import { TableHeaderSorterHelper } from '../../../helpers/table-header-sorter.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SkillService } from '../../../services/skill.service';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
 import requests from '../../../mocks/requests';
@@ -28,9 +27,8 @@ export class SkillRequestsComponent implements OnInit {
   };
 
   constructor(
-    private sortingHelper: SortingHelper,
     private changeDetector: ChangeDetectorRef,
-    private tableHeaderSorterHelper: TableHeaderSorterHelper,
+    private tableHeaderSorterHelper: TableHeaderSortHelper,
     private skillService: SkillService,
     private requestStatusPipe: RequestStatusPipe,
   ) {}
@@ -76,7 +74,7 @@ export class SkillRequestsComponent implements OnInit {
     let csvFormattedSkillRequests = '';
     const delimeter = '\r\n';
     csvFormattedSkillRequests = csvFormattedSkillRequests.concat(
-      `Created By, Date Added, Duration, Location, Number of Sessions, Status${delimeter}`)
+      `Created By, Date Added, Duration, Location, Number of Sessions, Status${delimeter}`);
 
     if (skillRequests.length > 0) {
       for (const request of skillRequests) {
@@ -103,15 +101,14 @@ export class SkillRequestsComponent implements OnInit {
  *
  * @return {void}
  */
-  sortTableHeader(headerName,  headerIsDateType = false) {
+  sortSkillRequestsByHeader(headerName,  headerIsDateType = false) {
     this.tableHeaderSorterHelper.sortTableWithHeader(
       headerName,
       headerIsDateType,
+      this.skillRequests,
       this.activeSortCategory,
       this.sortCategoryValues,
-      this.skillRequests,
-      this.sortingHelper.sortRequestsByHeader,
-    )
+    );
 
     this.activeSortCategory = headerName;
     this.rerender = true;

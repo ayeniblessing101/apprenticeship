@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 @Component({
   selector: 'app-mentor-records',
@@ -9,6 +9,8 @@ import { SortingHelper } from '../../../helpers/sorting.helper';
 export class MentorRecordsComponent {
   @Input() mentors = [];
 
+  activeSortCategory = null;
+  rerender: boolean;
   sortCategoryValues = {
     name: 'asc',
     mentorships_count: 'asc',
@@ -16,54 +18,31 @@ export class MentorRecordsComponent {
     last_active: 'asc',
   };
 
-  activeSortCategory = null;
-  rerender: boolean;
-
   constructor(
-    private sortingHelper: SortingHelper,
+    private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
   ) { }
 
   /**
-   * Sorts mentors details based on the table header if the column has values
+   * Sorts array of mentors based on the table header
    *
-   * @param {String} headerName - name of the tble column header
-   * @param {Boolean} headerIsDataType - whether the header is of type data or not
+   * @param {string} headerName - Name of the table column header
+   * @param {boolean} headerIsDateType - whether the header is of type date or not
    *
    * @return {void}
    */
-  sortMentorsByHeader(headerName, headerIsDateType) {
-
-    if (!this.checkRequestHeaderHasValue(headerName)) {
-      return;
-    }
-
-    let sortingOrder = this.sortCategoryValues[headerName];
-
-    if (this.activeSortCategory === headerName) {
-      sortingOrder = this.sortCategoryValues[headerName] === 'asc' ? 'desc' : 'asc';
-    }
-
-    this.sortingHelper.sortRequestsByHeader(
-      this.mentors, headerName, headerIsDateType, sortingOrder,
+  sortMentorsByHeader(headerName,  headerIsDateType = false) {
+    this.tableHeaderSorterHelper.sortTableWithHeader(
+      headerName,
+      headerIsDateType,
+      this.mentors,
+      this.activeSortCategory,
+      this.sortCategoryValues,
     );
 
-    this.sortCategoryValues[headerName] = sortingOrder;
     this.activeSortCategory = headerName;
     this.rerender = true;
     this.changeDetector.detectChanges();
     this.rerender = false;
-  }
-
-  /** Checks whether the column of a request table header is not null
-   *
-   * @return {Boolean} - Result of whether the table header has column value or not
-   */
-  checkRequestHeaderHasValue(headerName) {
-    const headerValueIndex = this.mentors.findIndex((detail) => {
-      return !!detail[headerName];
-    });
-
-    return headerValueIndex !== -1;
   }
 }

@@ -15,7 +15,7 @@
     <div *ngIf="!rerender" class="custom-row header">
       <div class="custom-col-2">
         <span
-        (click)="sortTableHeader('createdBy')"
+        (click)="sortSkillRequestsByHeader('createdBy')"
         >Created by
           <img
             appSetRequestHeaderIcon
@@ -27,7 +27,7 @@
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortTableHeader('dateAdded', true)"
+        (click)="sortSkillRequestsByHeader('dateAdded', true)"
         >Date Added
             <img
               appSetRequestHeaderIcon
@@ -40,7 +40,7 @@
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortTableHeader('duration')"
+        (click)="sortSkillRequestsByHeader('duration')"
         >Duration
           <img
             appSetRequestHeaderIcon
@@ -53,7 +53,7 @@
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortTableHeader('location')"
+        (click)="sortSkillRequestsByHeader('location')"
         >Location
         <img
           appSetRequestHeaderIcon
@@ -66,7 +66,7 @@
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortTableHeader('sessionCount')"
+        (click)="sortSkillRequestsByHeader('sessionCount')"
         >Number of Sessions
           <img
             appSetRequestHeaderIcon
@@ -79,7 +79,7 @@
       </div>
       <div class="custom-col-2">
         <span
-          (click)="sortTableHeader('status')"
+          (click)="sortSkillRequestsByHeader('status')"
           >Status
             <img
               appSetRequestHeaderIcon

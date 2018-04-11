@@ -33,8 +33,7 @@ import { environment } from '../environments/environment';
 import { localStorage } from '../app/globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
-import { SortingHelper } from './helpers/sorting.helper';
-import { TableHeaderSorterHelper } from './helpers/table-header-sorter.helper';
+import { TableHeaderSortHelper } from './helpers/table-header-sort.helper';
 import { SkillsResolver } from './resolvers/skills.resolver';
 
 const authToken = Cookie.get('jwt-token');
@@ -78,8 +77,7 @@ if (authToken) {
     NotificationService,
     FileService,
     SkillsResolver,
-    SortingHelper,
-    TableHeaderSorterHelper,
+    TableHeaderSortHelper,
   ],
   bootstrap: [AppComponent],
 })

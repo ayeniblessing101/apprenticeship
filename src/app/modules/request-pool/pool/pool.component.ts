@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
-
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { SortingStatus } from '../../../interfaces/sorting.interface';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 @Component({
   selector: 'app-pool',
@@ -30,7 +29,7 @@ export class PoolComponent implements OnInit {
   sortingStatus: SortingStatus = null;
 
   constructor(private requestService: RequestService,
-              private sortingHelper: SortingHelper,
+              private tableHeaderSorterHelper: TableHeaderSortHelper,
               private filterService: FilterService) {
   }
 
@@ -117,7 +116,7 @@ export class PoolComponent implements OnInit {
 
         if (this.sortingStatus) {
           const { headerName, headerIsDateType, sortingOrder } = this.sortingStatus;
-          this.sortingHelper.sortRequestsByHeader(
+          this.tableHeaderSorterHelper.sortRecordsUsingHeaders(
             this.requests, headerName, headerIsDateType, sortingOrder,
           );
         }

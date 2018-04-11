@@ -1,10 +1,9 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { AlertService } from 'app/services/alert.service';
 import { SkillService } from './../../../services/skill.service';
-
 @Component({
   selector: 'app-skill-records',
   templateUrl: './skill-records.component.html',
@@ -15,11 +14,10 @@ export class SkillRecordsComponent {
   rerender: boolean;
   showSkillDetails = false;
   toggleStatus: boolean;
-  activeSortCategory = null;
   lastSortedCategory: string;
   isEditSkillModalOpen: boolean;
   skillToUpdate: any;
-
+  activeSortCategory = null;
   sortCategoryValues = {
     name: 'asc',
     active: 'asc',
@@ -28,7 +26,7 @@ export class SkillRecordsComponent {
   }
 
   constructor(
-     private sortingHelper: SortingHelper,
+     private tableHeaderSorterHelper: TableHeaderSortHelper,
      private changeDetector: ChangeDetectorRef,
      private skillService: SkillService,
      private alertService: AlertService,
@@ -57,17 +55,15 @@ export class SkillRecordsComponent {
   * @returns {void}
   */
   sortSkills(headerName, headerIsDateType = false) {
-    let sortingOrder = this.sortCategoryValues[headerName];
 
-    if (this.activeSortCategory === headerName) {
-      sortingOrder = this.sortCategoryValues[headerName] === 'asc' ? 'desc' : 'asc';
-    }
-
-    this.sortingHelper.sortRequestsByHeader(
-      this.skills, headerName, headerIsDateType, sortingOrder,
+    this.tableHeaderSorterHelper.sortTableWithHeader(
+      headerName,
+      headerIsDateType,
+      this.skills,
+      this.activeSortCategory,
+      this.sortCategoryValues,
     );
 
-    this.sortCategoryValues[headerName] = sortingOrder;
     this.activeSortCategory = headerName;
     this.rerender = true;
     this.changeDetector.detectChanges();

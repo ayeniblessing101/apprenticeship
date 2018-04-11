@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MentorRecordsComponent } from './mentor-records.component';
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SharedModule } from '../../shared/shared.module';
 import { RequestPoolModule } from '../../request-pool/request-pool.module';
 
@@ -21,7 +21,7 @@ describe('MentorRecordsComponent', () => {
         MentorRecordsComponent,
       ],
       providers: [
-        SortingHelper,
+        TableHeaderSortHelper,
       ],
     })
     .compileComponents();

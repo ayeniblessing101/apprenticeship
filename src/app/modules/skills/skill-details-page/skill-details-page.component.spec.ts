@@ -9,8 +9,7 @@ import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
-import { SortingHelper } from '../../../helpers/sorting.helper';
-import { TableHeaderSorterHelper } from '../../../helpers/table-header-sorter.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SkillService } from '../../../services/skill.service';
 
 describe('SkillDetailsPageComponent', () => {
@@ -40,8 +39,7 @@ describe('SkillDetailsPageComponent', () => {
         FormsModule,
       ],
       providers: [
-        SortingHelper,
-        TableHeaderSorterHelper,
+        TableHeaderSortHelper,
         { provide: SkillService, useValue: skillService },
         { provide: ActivatedRoute, useValue: {
           paramMap: Observable.of(convertToParamMap({

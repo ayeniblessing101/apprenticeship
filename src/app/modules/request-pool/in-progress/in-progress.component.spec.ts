@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
@@ -12,8 +11,8 @@ import { SessionService } from '../../../services/session.service';
 import { InProgressComponent } from './in-progress.component';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('InProgressComponent', () => {
   let component: InProgressComponent;
@@ -44,7 +43,7 @@ describe('InProgressComponent', () => {
         RequestService,
         UserService,
         SessionService,
-        SortingHelper,
+        TableHeaderSortHelper,
       ],
     })
       .compileComponents();

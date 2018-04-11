@@ -3,7 +3,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
 import { PoolComponent } from './pool.component';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
@@ -16,13 +15,12 @@ import { FilterService } from '../../../services/filter.service';
 import { AlertService } from '../../../services/alert.service';
 import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
-
 import { StarRatingModule } from 'angular-star-rating';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -58,7 +56,7 @@ describe('PoolComponent', () => {
         UserService,
         SkillService,
         AlertService,
-        SortingHelper,
+        TableHeaderSortHelper,
       ],
     })
       .compileComponents();

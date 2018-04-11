@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { StarRatingModule } from 'angular-star-rating';
-
 import { PoolRecordsComponent } from './pool-records.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from './../../../services/request.service';
@@ -12,8 +11,8 @@ import { FilterService } from '../../../services/filter.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
@@ -41,7 +40,7 @@ describe('PoolRecordsComponent', () => {
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         FilterService,
-        SortingHelper,
+        TableHeaderSortHelper,
       ],
     })
       .compileComponents();

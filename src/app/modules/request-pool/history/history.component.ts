@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 @Component({
   selector: 'app-history',
@@ -16,7 +16,6 @@ export class HistoryComponent implements OnInit {
   requests: any[];
   rerender: boolean;
   sectionGridWidth = '90%';
-
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -25,14 +24,13 @@ export class HistoryComponent implements OnInit {
     role: 'asc',
     rating: 'asc',
   };
-
   activeSortCategory = null;
 
   constructor(
     private requestService: RequestService,
-    private sortingHelper: SortingHelper,
     private userService: UserService,
     private route: Router,
+    private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
   ) {}
 
@@ -89,47 +87,26 @@ export class HistoryComponent implements OnInit {
     this.route.navigate(['request-pool/history/', requestId]);
   }
 
-  /**
-   * Sorts history requests based on the table header
-   *
-   * @param {String} headerName - Name of the table column header
-   * @param {Boolean} headerIsDateType - whether the header is of type date or not
-   *
-   * @return {void}
-   */
-  sortHistoryRequestsByHeader(headerName, headerIsDateType = false) {
-
-    if (this.activeSortCategory !== headerName && !this.checkRequestHeaderHasValue(headerName)) {
-      return;
-    }
-
-    let sortingOrder = this.sortCategoryValues[headerName];
-
-    if (this.activeSortCategory === headerName) {
-      sortingOrder = this.sortCategoryValues[headerName] === 'asc' ? 'desc' : 'asc';
-    }
-
-    this.sortingHelper.sortRequestsByHeader(
-      this.requests, headerName, headerIsDateType, sortingOrder,
+/**
+ * Sorts history records based on the table header
+ *
+ * @param {string} headerName - Name of the table column header
+ * @param {boolean} headerIsDateType - whether the header is of type date or not
+ *
+ * @return {void}
+ */
+  sortHistoryRequestsByHeader(headerName,  headerIsDateType = false) {
+    this.tableHeaderSorterHelper.sortTableWithHeader(
+      headerName,
+      headerIsDateType,
+      this.requests,
+      this.activeSortCategory,
+      this.sortCategoryValues,
     );
 
-    this.sortCategoryValues[headerName] = sortingOrder;
     this.activeSortCategory = headerName;
     this.rerender = true;
     this.changeDetector.detectChanges();
     this.rerender = false;
-  }
-
-  /**
-   * Checks whether the column of a request table header is not null
-   *
-   * @return {Boolean} - Result of whether the table header has column value or not
-   */
-  checkRequestHeaderHasValue(headerName) {
-    const headerValueIndex = this.requests.findIndex((request) => {
-      return !!request[headerName];
-    });
-
-    return headerValueIndex !== -1;
   }
 }

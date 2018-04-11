@@ -3,7 +3,6 @@ import { HttpModule, XHRBackend } from '@angular/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
-
 import { AllRequestsPageComponent } from './all-requests-page.component';
 import { RequestStatisticsComponent } from '../request-statistics/request-statistics.component';
 import { PoolComponent } from '../../request-pool/pool/pool.component';
@@ -26,8 +25,8 @@ import { SaveFiltersComponent } from '../../request-pool/save-filters/save-filte
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -71,7 +70,7 @@ describe('AllRequestsPageComponent', () => {
         UserService,
         FilterService,
         AlertService,
-        SortingHelper,
+        TableHeaderSortHelper,
       ],
     })
       .compileComponents();

@@ -8,7 +8,7 @@ import { MentorRecordsComponent } from '../mentor-records/mentor-records.compone
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { UserService } from '../../../services/user.service';
-import { SortingHelper } from '../../../helpers/sorting.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { HttpModule } from '@angular/http';
 import { HttpService as Http } from '../../../services/http.service';
 
@@ -41,7 +41,7 @@ describe('SkillMentorsPageComponent', () => {
         },
         { provide: Location, useValue: locationStub },
         UserService,
-        SortingHelper,
+        TableHeaderSortHelper,
         LocationStrategy,
       ],
     })

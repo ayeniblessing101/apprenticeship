@@ -2,9 +2,8 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillRequestsComponent } from './skill-requests.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
-import { TableHeaderSorterHelper } from '../../../helpers/table-header-sorter.helper';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
@@ -32,8 +31,7 @@ describe('SkillRequestsComponent', () => {
         NoSearchResultComponent,
       ],
       providers: [
-        SortingHelper,
-        TableHeaderSorterHelper,
+        TableHeaderSortHelper,
         { provide: SkillService, useValue: skillService },
       ],
     })

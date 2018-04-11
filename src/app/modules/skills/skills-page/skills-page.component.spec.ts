@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, XHRBackend, BrowserXhr, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SharedModule } from '../../shared/shared.module';
-
 import { SkillsPageComponent } from './skills-page.component';
 import { SkillRecordsComponent } from '../skill-records/skill-records.component';
 import { AddSkillModalComponent } from './../add-skill-modal/add-skill-modal.component';
@@ -13,8 +12,8 @@ import { HttpService as Http } from '../../../services/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SkillService } from '../../../services/skill.service';
 import { AlertService } from '../../../services/alert.service';
-import { SortingHelper } from '../../../helpers/sorting.helper';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('SkillsPageComponent', () => {
   let component: SkillsPageComponent;
@@ -40,7 +39,7 @@ describe('SkillsPageComponent', () => {
         FormsModule,
       ],
       providers: [
-        SortingHelper,
+        TableHeaderSortHelper,
         Http,
         { provide: ActivatedRoute, useValue: {
           data: routeStub,
