@@ -3,3 +3,6 @@ plugins:
   tslint:
     enabled: true
     config: tslint.json
+exclude_paths:
+- "e2e/"
+- "**/*.spec.ts"
