@@ -44,8 +44,8 @@
       <span class="user-name">{{ currentUser?.name }}</span>
       <span class="arrow-down"></span>
       <div class="dropdown-content common-dropdown-styles">
-        <a id="view-profile" href="/profile">VIEW PROFILE</a>
-        <a href="#">SETTINGS</a>
+        <a id="view-profile" routerLink="/profile">VIEW PROFILE</a>
+        <a routerLink="/settings">SETTINGS</a>
         <a href="#" class="sign-out" (click)="logoutUser()">SIGN OUT</a>
       </div>
     </a>
