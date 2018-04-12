@@ -41,7 +41,7 @@ export class RequestDetailsModalComponent implements OnInit {
     this.currentUser = this.userService.getCurrentUser();
 
     this.currentUserIsRequestOwner =
-      (this.selectedRequest.created_by.user_id === this.currentUser.id);
+      (this.selectedRequest.created_by.id === this.currentUser.id);
 
     this.currentUserIsInterested = (this.selectedRequest.interested &&
       this.selectedRequest.interested.includes(this.currentUser.id));
@@ -90,7 +90,7 @@ export class RequestDetailsModalComponent implements OnInit {
     const primarySkills = (requestSkills.map(primarySkill => primarySkill.name));
     primarySkills.splice(primarySkills.length - 1, 0, 'and');
     const selectedSkills = primarySkills.join(', ');
-    return this.notificationService.sendMessage([this.selectedRequest.created_by.user_id], {
+    return this.notificationService.sendMessage([this.selectedRequest.created_by.id], {
       type: NotificationTypes.MENTOR_REQUEST,
       message: {
         title: 'New Mentor Request',
