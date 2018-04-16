@@ -11,7 +11,7 @@ import { AlertService } from '../../../services/alert.service';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
-
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 
 describe('RequestStaticsComponent', () => {
   let component: RequestStatisticsComponent;
@@ -30,6 +30,7 @@ describe('RequestStaticsComponent', () => {
       ],
       providers: [
         Http,
+        CSVDownloadHelper,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         AlertService,

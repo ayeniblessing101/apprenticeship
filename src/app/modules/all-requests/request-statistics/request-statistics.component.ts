@@ -6,7 +6,8 @@ import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestStatuses } from '../../../enums/request-statuses.enum';
 import { AlertService } from '../../../services/alert.service';
-
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
+import { CSVHeader } from '../../../interfaces/csv-header.interface';
 @Component({
   selector: 'app-request-statistics',
   templateUrl: './request-statistics.component.html',
@@ -44,6 +45,7 @@ export class RequestStatisticsComponent implements OnInit {
     private requestDurationPipe: RequestDurationPipe,
     private datePipe: DatePipe,
     private alert: AlertService,
+    private csvDownloadHelper: CSVDownloadHelper,
   ) {}
 
   ngOnInit() {
@@ -169,7 +171,6 @@ export class RequestStatisticsComponent implements OnInit {
    */
   exportRequests() {
     let limit: number;
-    let request: object;
     const page = null;
     const downloadLink = document.createElement('a');
     this.isExportingRequestsCsv = true;
@@ -189,45 +190,35 @@ export class RequestStatisticsComponent implements OnInit {
     this.requestService.getRequests(limit, page, this.appliedFilters)
       .toPromise()
       .then((response) => {
-        request = response.requests;
-        const blob = new Blob([this.convertRequestToCsv(request)], { type: 'text/csv' });
-        downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = `${this.createFileName()}`;
-        downloadLink.click();
+        const requests = response.requests;
+        const fileName = `${this.createFileName()}`;
+        const headers: CSVHeader[] = [
+          { key: 'title', displayName: 'Request' },
+          { key: 'mentee', displayName: 'Mentee' },
+          { key: 'mentor', displayName: 'Mentor' },
+          { key: 'primarySkill', displayName: 'Primary Skill' },
+          { key: 'secondarySkill', displayName: 'Secondary Skill' },
+          { key: 'duration', displayName: 'Preferred Duration' },
+          { key: 'dateAdded', displayName: 'Date Added' },
+          { key: 'location', displayName: 'Location' },
+          { key: 'status', displayName: 'Status' },
+        ];
+
+        const records: object[] = requests.map((request) => {
+          const sampleRequest = { ...request };
+          sampleRequest.mentee = sampleRequest.mentee.fullname;
+          sampleRequest.mentor = sampleRequest.mentor.fullname;
+          sampleRequest.primarySkill = this.requestSkillPipe.transform(sampleRequest.request_skills, 'primary');
+          sampleRequest.secondarySkill = this.requestSkillPipe.transform(sampleRequest.request_skills, 'secondary');
+          sampleRequest.duration = this.requestDurationPipe.transform(sampleRequest.duration);
+          sampleRequest.dateAdded = this.datePipe.transform(sampleRequest.created_at);
+          sampleRequest.status = RequestStatuses[sampleRequest.status_id];
+          return sampleRequest;
+        });
+
+        this.csvDownloadHelper.downloadCSV(records, headers, fileName);
         this.isExportingRequestsCsv = false;
       });
-  }
-
-  /**
-   * Converts Requests JSON into CSV format
-   *
-   * @param {object} requests - Requests to be formatted into csv format
-   *
-   * @return {string} - CSV string
-   */
-  convertRequestToCsv(requests) {
-    const lineDelimiter = '\r\n';
-    let requestsInCsvFormat = '';
-    requestsInCsvFormat = requestsInCsvFormat.concat(`Request,Mentee,Mentor,Primary Skill,Secondary Skill,`)
-      .concat(`Preferred Duration,Date Added,Location,Status${lineDelimiter}`);
-
-    if (requests.length > 0) {
-      for (const request of requests) {
-        const title = request.title;
-        const menteeName = request.mentee.fullname;
-        const mentorName = request.mentor.fullname;
-        const primarySkills = this.requestSkillPipe.transform(request.request_skills, 'primary');
-        const secondarySkills = this.requestSkillPipe.transform(request.request_skills, 'secondary');
-        const duration = this.requestDurationPipe.transform(request.duration);
-        const dateAdded = this.datePipe.transform(request.created_at);
-        const location = request.location;
-        const status = RequestStatuses[request.status_id];
-        requestsInCsvFormat = requestsInCsvFormat.concat(`"${title}",${menteeName},${mentorName},"${primarySkills}",`)
-          .concat(`"${secondarySkills}",${duration},"${dateAdded}","${location}",${status},${lineDelimiter}`);
-      }
-    }
-
-    return requestsInCsvFormat;
   }
 
   /**
@@ -239,7 +230,7 @@ export class RequestStatisticsComponent implements OnInit {
     const startDate = this.appliedFilters.startDate ? this.formatDate(this.appliedFilters.startDate) : '';
     const endDate = this.appliedFilters.endDate ? this.formatDate(this.appliedFilters.endDate) : '';
     const location = this.getLocationCode(this.location);
-    return `${startDate} - ${endDate} - ${location} - ${this.selectedStatus}.csv`
+    return `${startDate} - ${endDate} - ${location} - ${this.selectedStatus}.csv`;
   }
 
   /**

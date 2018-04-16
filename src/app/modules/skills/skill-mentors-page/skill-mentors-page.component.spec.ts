@@ -11,6 +11,7 @@ import { UserService } from '../../../services/user.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { HttpModule } from '@angular/http';
 import { HttpService as Http } from '../../../services/http.service';
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 
 describe('SkillMentorsPageComponent', () => {
   let component: SkillMentorsPageComponent;
@@ -34,6 +35,7 @@ describe('SkillMentorsPageComponent', () => {
       ],
       providers: [
         Http,
+        CSVDownloadHelper,
         { provide: ActivatedRoute,
           useValue: {
             data: routeStub,

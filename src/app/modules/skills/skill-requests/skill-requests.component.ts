@@ -1,14 +1,19 @@
 import { Component, Input, ChangeDetectorRef, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SkillService } from '../../../services/skill.service';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
 import requests from '../../../mocks/requests';
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { CSVHeader } from '../../../interfaces/csv-header.interface';
+
 @Component({
   selector: 'app-skill-requests',
   templateUrl: './skill-requests.component.html',
   styleUrls: ['./skill-requests.component.scss'],
-  providers: [RequestStatusPipe],
+  providers: [RequestStatusPipe, RequestDurationPipe, DatePipe],
 })
 export class SkillRequestsComponent implements OnInit {
   @Input() skillId: number;
@@ -31,6 +36,9 @@ export class SkillRequestsComponent implements OnInit {
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private skillService: SkillService,
     private requestStatusPipe: RequestStatusPipe,
+    private requestDurationPipe: RequestDurationPipe,
+    private csvDownloadHelper: CSVDownloadHelper,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit() {
@@ -47,50 +55,31 @@ export class SkillRequestsComponent implements OnInit {
       });
   }
 
-/**
-  * Exports requests for a skill as CSV
-  *
-  * @return {void}
-  */
-  exportSkillRequestsToCSV () {
-    const generatedCSV = new Blob(
-      [this.convertSkillRequestsToCSV(this.skillRequests)], { type:
-        'text/csv' });
-    const csvFileURL = URL.createObjectURL(generatedCSV);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = csvFileURL;
-    downloadLink.download = `Requests for ${this.skillName} skill as at ${moment().format('MMMM Do YYYY')}.csv`;
-    downloadLink.click();
-  }
+  /**
+   * Exports requests for a skill as CSV
+   *
+   * @return {void}
+   */
+  exportSkillRequestsToCSV() {
+    const fileName = `Requests for ${this.skillName} as at ${moment().format('MMM Do YYYY')}`;
+    const headers: CSVHeader[] = [
+      { key: 'createdBy', displayName: 'Created By' },
+      { key: 'dateAdded', displayName: 'Date Added' },
+      { key: 'duration', displayName: 'Duration' },
+      { key: 'location', displayName: 'Location' },
+      { key: 'sessionCount', displayName: 'Number of Sessions' },
+      { key: 'status', displayName: 'Status' },
+    ];
 
-/**
-  * Converts an array of requests for a skill to CSV format
-  *
-  * @param {array} SkillRequests - Array of requests to be converted to CSV format
-  *
-  * @return {string} CSV string
-  */
-  convertSkillRequestsToCSV(skillRequests) {
-    let csvFormattedSkillRequests = '';
-    const delimeter = '\r\n';
-    csvFormattedSkillRequests = csvFormattedSkillRequests.concat(
-      `Created By, Date Added, Duration, Location, Number of Sessions, Status${delimeter}`);
+    const transformedRecords = this.skillRequests.map((request) => {
+      const transformedRequest = { ...request }
+      transformedRequest.duration = this.requestDurationPipe.transform(transformedRequest.duration);
+      transformedRequest.status = this.requestStatusPipe.transform(transformedRequest.status);
+      transformedRequest.dateAdded = this.datePipe.transform(transformedRequest.dateAdded, 'longDate');
+      return transformedRequest;
+    });
 
-    if (skillRequests.length > 0) {
-      for (const request of skillRequests) {
-        const {
-          createdBy,
-          location,
-          sessionCount,
-          duration,
-          dateAdded,
-          status } = request;
-        const requestStatus = this.requestStatusPipe.transform(status);
-        csvFormattedSkillRequests = csvFormattedSkillRequests.concat(
-          `${createdBy}, ${dateAdded}, ${duration}, ${location}, ${sessionCount},${requestStatus}${delimeter}`);
-      };
-    }
-    return csvFormattedSkillRequests;
+    this.csvDownloadHelper.downloadCSV(transformedRecords, headers, fileName);
   }
 
 /**

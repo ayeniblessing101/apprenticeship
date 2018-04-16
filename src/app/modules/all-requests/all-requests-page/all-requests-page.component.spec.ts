@@ -27,6 +27,7 @@ import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -65,6 +66,7 @@ describe('AllRequestsPageComponent', () => {
       ],
       providers: [
         Http,
+        CSVDownloadHelper,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
         UserService,

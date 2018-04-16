@@ -23,7 +23,6 @@ import { FileService } from './services/files.service';
 // components
 import { AppRoutesModule } from './app-routes.module';
 import { AppComponent } from './app.component';
-
 import { SharedModule } from './modules/shared/shared.module';
 import { RequestPoolModule } from './modules/request-pool/request-pool.module';
 import { SkillsModule } from './modules/skills/skills.module';
@@ -35,6 +34,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { NotificationService } from 'app/services/notifications.service';
 import { TableHeaderSortHelper } from './helpers/table-header-sort.helper';
 import { SkillsResolver } from './resolvers/skills.resolver';
+import { CSVDownloadHelper } from './helpers/csv-download.helper';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -78,6 +78,7 @@ if (authToken) {
     FileService,
     SkillsResolver,
     TableHeaderSortHelper,
+    CSVDownloadHelper,
   ],
   bootstrap: [AppComponent],
 })

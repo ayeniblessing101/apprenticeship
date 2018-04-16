@@ -9,6 +9,7 @@ import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
 import { SkillService } from '../../../services/skill.service';
 import { Observable } from 'rxjs/Observable';
+import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 
 describe('SkillRequestsComponent', () => {
   let component: SkillRequestsComponent;
@@ -32,6 +33,7 @@ describe('SkillRequestsComponent', () => {
       ],
       providers: [
         TableHeaderSortHelper,
+        CSVDownloadHelper,
         { provide: SkillService, useValue: skillService },
       ],
     })
