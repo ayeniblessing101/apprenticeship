@@ -2,10 +2,11 @@
   <div *ngFor="let session of sessions; let indexOfSession = index">
     <app-session-details
       (openLogSessionModal)="openSessionModal(session)"
-      (openConfirmSessionModal)="openConfirmSessionModal(session)"      
+      (openConfirmSessionModal)="openConfirmSessionModal(session)"
       (removeDeletedFile)="deleteFile($event, session)"
       [session]="session"
       [request]="request"
+      [currentUserId]="currentUser.id"
       [showAddFileButton]="showAddFileButton"
       [showLogSessionButton]="showLogSessionButton"
       [showConfirmSessionButton]="showConfirmSessionButton">
@@ -14,17 +15,18 @@
 </div>
 
 <app-log-session
-                 *ngIf="showLogSessionModal"
-                 [session] = "modalSession"
-                 [userId]="currentUser.id"
-                 [request] = "request"
-                 (closeLogSessionModal) = "closeSessionModal()"
-                 (updateLoggedSession) = "updateSession($event)">
+  *ngIf="showLogSessionModal"
+  [session] = "modalSession"
+  [currentUserId]="currentUser.id"
+  [request] = "request"
+  (closeLogSessionModal) = "closeSessionModal()"
+  (updateLoggedSession) = "updateSession($event)">
 </app-log-session>
 
 <app-confirm-session-modal
   *ngIf="showConfirmSessionModal"
   [request]="request"
+  [currentUserId]="currentUser.id"
   [session]="modalSession"
   (emitSessionObject)="updateSession($event)"
   (closeConfirmSessionModal)="closeConfirmSessionModal()">

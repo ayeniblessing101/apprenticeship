@@ -1,4 +1,5 @@
-import { Rating } from './rating.interface';
+import { MentorRating } from './mentor-rating.interface';
+import { MenteeRating } from './mentee-rating.interface';
 
 /**
  * @interface Session
@@ -11,7 +12,7 @@ export interface Session {
   end_time?: string,
   comment?: string,
   rating_scale?: number,
-  rating_values?: Rating
+  rating_values?: MenteeRating | MentorRating
 }
 
 /**

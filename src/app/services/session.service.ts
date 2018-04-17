@@ -85,14 +85,16 @@ export class SessionService {
   /**
    * rejects a session
    *
-   * @param {Number} - requestId
+   * @param {Number} - requestId - id of current request
+   *
+   * @param {String} - userId - id of user
    *
    * @return {Observable} sessions
    */
-  rejectSession(sessionId: number, payload: any): Observable<any> {
+  rejectSession(sessionId: number, userId: any): Observable<any> {
     return this.http
-      .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/reject`, payload)
-      .map(response => response.json())
+      .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/reject`, { user_id: userId })
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -131,7 +133,7 @@ export class SessionService {
    */
   fetchSessionDates(requestId: number): Observable <any> {
     return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions/dates`)
-      .map((response: Response) => response.json())
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -143,5 +145,18 @@ export class SessionService {
    */
   handleError(error: Response | any): Observable<any> {
     return Observable.throw(error.json().message);
+  }
+
+  /**
+   * Handle response from server.
+   *
+   * @param {Response} res - http response
+   *
+   * @returns {object} - response object
+   *
+   */
+  private handleResponse(res: Response) {
+    const response = res.json();
+    return response || {};
   }
 }

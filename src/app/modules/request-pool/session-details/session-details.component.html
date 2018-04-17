@@ -7,11 +7,11 @@
     <div>
       <button *ngIf="showAddFileButton" class="add-file" (click)="openAddFileModal(session)">Add file</button>
       <button
-      *ngIf="(sessionIsDisabled || sessionIsEnabled) && showLogSessionButton"
+      *ngIf="(sessionIsEditable || sessionIsEnabled || sessionIsDisabled) && showLogSessionButton"
         class="log-session"
-        [ngClass]="{'active': sessionIsEnabled, 'inactive': sessionIsDisabled}"
-        [disabled]="sessionIsDisabled"
-        (click)="openSessionModal()">Log Session</button>
+        [ngClass]="{'active': (sessionIsEnabled || sessionIsEditable), 'inactive': (!sessionIsEditable && !sessionIsEnabled)}"
+        [disabled]="!sessionIsEnabled && !sessionIsEditable"
+        (click)="openSessionModal()">{{ (sessionIsEditable) ? "Edit Session": "Log Session" }}</button>
         <button *ngIf="sessionNeedsConfirmation && showConfirmSessionButton"
           class="confirm-session"
           (click)="openConfirmSession()">Confirm Session</button>

@@ -8,11 +8,13 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
-import { Rating } from '../../../interfaces/rating.interface';
 import { SessionService } from '../../../services/session.service';
 import { AlertService } from '../../../services/alert.service';
+import { MenteeRating } from './../../../interfaces/mentee-rating.interface';
+import { MentorRating } from './../../../interfaces/mentor-rating.interface';
+import { menteeSessionFormHelper, mentorSessionFormHelper } from '../../../helpers/session-form.helper';
 
 @Component({
   selector: 'app-confirm-session-modal',
@@ -24,38 +26,38 @@ export class ConfirmSessionModalComponent implements OnInit {
   @Output() closeConfirmSessionModal = new EventEmitter<string>();
   @Input() request: any;
   @Input() session: any;
+  @Input() currentUserId: string;
   @ViewChild('confirmSessionModal') confirmSessionModal: ElementRef;
   confirmSessionForm: FormGroup;
   startTime: string;
   endTime: string;
   readonly ratingScale: number = 5;
+  userIsMentor: boolean;
+
 
   constructor(
     private sessionService: SessionService,
     private alertService: AlertService,
-  ) { }
+    private formBuilder: FormBuilder) {
+    this.rejectSession = this.rejectSession.bind(this);
+  }
 
   ngOnInit() {
+    this.userIsMentor = (this.currentUserId === this.request.mentor.id);
     this.startTime = this.request.pairing.start_time;
     this.endTime = this.request.pairing.end_time;
-
     const sessionDuration = this.computeSessionDuration(this.startTime, this.endTime);
     const hours = sessionDuration === 1 ? `${sessionDuration} hour` : `${sessionDuration} hours`;
 
-    this.confirmSessionForm = new FormGroup({
-      comment: new FormControl(''),
-      availability: new FormControl(0),
-      reliability: new FormControl(0),
-      knowledge: new FormControl(0),
-      teaching: new FormControl(0),
-      usefulness: new FormControl(0),
-    });
+    const sessionFormFields = (this.userIsMentor) ? menteeSessionFormHelper : mentorSessionFormHelper;
+    this.confirmSessionForm = this.formBuilder.group(sessionFormFields);
   }
 
   /**
    * Closes the modal when the area around the modal is clicked
    */
-  @HostListener('click') onClick() {
+  @HostListener('click')
+  onClick() {
     if (!this.confirmSessionModal.nativeElement.contains(event.target)) {
       this.closeConfirmSession();
     }
@@ -75,13 +77,53 @@ export class ConfirmSessionModalComponent implements OnInit {
       comment: this.confirmSessionForm.value.comment,
       ratings: this.getRatings(),
       rating_scale: this.ratingScale,
-    };
-
-    this.sessionService.confirmSession(this.session.id, payload).toPromise()
-      .then((response) => {
-        this.alertService.showMessage('You have successfully confirmed this session');
-        this.emitSessionObject.emit(this.session);
+    }
+    const message = 'You have successfully accepted the duration for this session.';
+    this.sessionService.confirmSession(this.session.id, payload)
+      .toPromise()
+      .then(() => {
+        this.updateAcceptedSession(this.session);
         this.closeConfirmSession();
+        return this.alertService.showMessage(message);
+      })
+      .catch((error) => {
+        this.alertService.showMessage(error);
+      });
+  }
+
+  /**
+   * Handles session rejection alert
+   *
+   * @returns {void}
+   */
+  confirmSessionRejection() {
+    const  alertServiceConfig = {
+      abortActionText: 'BACK',
+      confirmActionText: 'PROCEED',
+      confirmAction: null,
+      canDisable: true,
+    }
+    const message = 'Are you sure you want to reject this session?';
+    alertServiceConfig.confirmAction = this.rejectSession;
+    alertServiceConfig.confirmActionText = `Reject session`;
+    alertServiceConfig.abortActionText = `Back`;
+    alertServiceConfig.canDisable = false;
+
+    this.alertService.confirm(message, this, alertServiceConfig)
+  }
+
+  /**
+   * Rejects logged session
+   *
+   * @returns {void}
+   */
+  rejectSession() {
+    this.sessionService.rejectSession(this.session.id, this.currentUserId)
+      .toPromise()
+      .then((response) => {
+        this.updateRejectedSession(response);
+        this.closeConfirmSession();
+        this.alertService.showMessage('You have rejected this session.')
       });
   }
 
@@ -95,35 +137,13 @@ export class ConfirmSessionModalComponent implements OnInit {
   }
 
   /**
-   * Collates all the ratings from the ratings component.
+   * Returns rating values
    *
-   * @returns {Object} - The ratings object
+   *
+   * @returns {(MenteeRating | MentorRating)}
    */
-  private getRatings(): Rating {
-    const {
-      availability,
-      reliability,
-      knowledge,
-      teaching,
-      usefulness,
-    } = this.confirmSessionForm.value;
-
-    if (availability ||
-      reliability ||
-      knowledge ||
-      teaching ||
-      usefulness
-    ) {
-      return {
-        availability,
-        reliability,
-        knowledge,
-        teaching,
-        usefulness,
-      }
-    }
-
-    return null;
+  private getRatings(): MenteeRating | MentorRating {
+    return this.confirmSessionForm.value;
   }
 
   /**
@@ -138,6 +158,30 @@ export class ConfirmSessionModalComponent implements OnInit {
     const timeDifference = moment(endTime, 'hh:mm')
       .diff(moment(startTime, 'hh: mm'));
 
-    return  moment.duration(timeDifference).asHours();
+    return moment.duration(timeDifference).asHours();
+  }
+
+/**
+ * updates the session object when a session is approved
+ *
+ * @param {any} session
+ * @return {void}
+ */
+  updateAcceptedSession(session) {
+    this.session.id = session.id;
+    this.session.approved = true;
+    this.emitSessionObject.emit(this.session);
+  }
+
+  /**
+   * Updates the session object of a rejected session.
+   *
+   * @param {any} session - The response object of rejected session.
+   * @returns {void}
+   */
+  updateRejectedSession(session) {
+    this.session.id = session.id;
+    this.session.approved = false;
+    this.emitSessionObject.emit(this.session);
   }
 }

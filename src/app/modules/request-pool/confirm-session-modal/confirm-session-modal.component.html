@@ -1,5 +1,5 @@
-<div class="confirm-session-modal">
-  <div class="confirmation-details" #confirmSessionModal>
+<div class="confirm-session-modal" #confirmSessionModal>
+  <div class="confirmation-details">
     <div class="confirmation-heading">
       <h4>Confirm Session</h4>
       <div class="underline"></div>
@@ -16,45 +16,69 @@
         <div class="session-time">{{endTime}}</div>
       </div>
 
-      <div></div>
+      <div class="bullet-wrapper">
+        <div class="bullet"></div>
+        <p class="bullet-text">If this session didn’t last for {{hours}}, please reject the session</p>
+      </div>
 
-      <div class="bullet inline-block"></div>
-      <p class="bullet-text inline-block">If this session didn’t last for {{hours}}, please reject the session</p>
-      <p class="px-12">Rate the mentor/mentee in the following criteria</p>
 
       <form class="comment" [formGroup]="confirmSessionForm" (ngSubmit)="confirmSession()">
-        <div class="ratings">
-          <div class="criteria inline-block px-12">Availability</div>
-          <div class="criteria-score inline-block">
+        <div *ngIf="!userIsMentor; else mentee" class="form-group rating-wrapper">
+          <p class="rating-heading">Rate the mentor in the following criteria</p>
+          <p class="rating-type">
+            <span class="availability">Availability</span>
             <star-rating-comp [starType]="'svg'" formControlName="availability"></star-rating-comp>
-          </div>
-          <div></div>
-          <div class="criteria inline-block px-12">Reliability</div>
-          <div class="criteria-score inline-block">
+          </p>
+          <p class="rating-type">
+            <span class="reliability">Reliability</span>
             <star-rating-comp [starType]="'svg'" formControlName="reliability"></star-rating-comp>
-          </div>
-          <div></div>
-          <div class="criteria inline-block px-12">Knowledge</div>
-          <div class="criteria-score inline-block">
+          </p>
+          <p class="rating-type">
+            <span class="knowledge">Knowledge</span>
             <star-rating-comp [starType]="'svg'" formControlName="knowledge"></star-rating-comp>
-          </div>
-          <div></div>
-          <div class="criteria inline-block px-12">Teaching</div>
-          <div class="criteria-score inline-block">
+          </p>
+          <p class="rating-type">
+            <span class="teaching">Teaching</span>
             <star-rating-comp [starType]="'svg'" formControlName="teaching"></star-rating-comp>
-          </div>
-          <div></div>
-          <div class="criteria inline-block px-12">Usefulness</div>
-          <div class="criteria-score inline-block">
+          </p>
+          <p class="rating-type">
+            <span class="usefulness">Usefulness</span>
             <star-rating-comp [starType]="'svg'" formControlName="usefulness"></star-rating-comp>
-          </div>
-
+          </p>
         </div>
+
+        <ng-template #mentee>
+          <div class="form-group rating-wrapper">
+          <p class="rating-heading">Rate your mentee in the following criteria</p>
+          <p class="rating-type">
+            <span class="attentiveness">Attentiveness</span>
+            <star-rating-comp [starType]="'svg'" formControlName="attentiveness"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="ownership">Ownership</span>
+            <star-rating-comp [starType]="'svg'" formControlName="ownership"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="punctuality">Punctuality</span>
+            <star-rating-comp [starType]="'svg'" formControlName="punctuality"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="assignmentQuality">Assignment Quality</span>
+            <star-rating-comp [starType]="'svg'" formControlName="assignmentQuality"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="assignmentTimeliness">Assignment Timeliness </span>
+            <star-rating-comp [starType]="'svg'" formControlName="assignmentTimeliness"></star-rating-comp>
+          </p>
+        </div>
+        </ng-template>
+
         <p>Comment feedback (optional)</p>
         <input type="text" placeholder="Start Typing" name="comment" formControlName="comment">
         <button type="submit">Submit</button>
-        <button (click)="closeConfirmSession()">Reject</button>
+        <button type="button" (click)="confirmSessionRejection()">Reject</button>
       </form>
     </div>
   </div>
 </div>
+<div class="confirm-session-modal-bg"></div>

@@ -1,18 +1,16 @@
 <div class="session-modal" #sessionModal>
   <div class="modal-content">
     <div class="heading">
-      <span>Log Session <hr/></span>
+      <span>{{(sessionIsEditable) ? "Edit Session" : "Log Session" }}
+        <hr/>
+      </span>
     </div>
-    <form [formGroup] = "sessionForm" (ngSubmit)="createOrLogSession()">
+    <form [formGroup]="sessionForm" (ngSubmit)="createOrLogSession()">
       <div class="form-group">
         <div class="display-inline-block">
           <label class="display-block start-label">Session began</label>
-            <app-drop-down
-              [list]="timeSlots"
-              [defaultValue]="startTime"
-              (changes)="calculateSessionTimeDifference($event, endTime)"
-              [height]="dropdownHeight"
-            ></app-drop-down>
+          <app-drop-down [list]="timeSlots" [defaultValue]="startTime" (changes)="calculateSessionTimeDifference($event, endTime)"
+            [height]="dropdownHeight"></app-drop-down>
         </div>
         <div class="display-inline-block">
           <label class="display-block">Session ended</label>
@@ -21,7 +19,8 @@
             [defaultValue]="endTime"
             (changes)="calculateSessionTimeDifference(startTime, $event)"
             [height]="dropdownHeight"
-          ></app-drop-down>
+            >
+          </app-drop-down>
         </div>
         <div class="display-inline-block hour-wrapper">
           <p class="lasted-hours" *ngIf="hoursInSessionTimeDifference > 0">
@@ -34,36 +33,66 @@
           </p>
         </div>
       </div>
-      <div class="form-group rating-wrapper">
-        <p class="rating-heading">Rate the mentor/mentee in the following criteria</p>
-        <p class="rating-type">
-          <span class="availability">Availability</span>
-          <star-rating-comp [starType]="'svg'" formControlName="availability"></star-rating-comp>
-        </p>
-        <p class="rating-type">
-          <span class="reliability">Reliability</span>
-          <star-rating-comp [starType]="'svg'" formControlName="reliability"></star-rating-comp>
-        </p>
-        <p class="rating-type">
-          <span class="knowledge">Knowledge</span>
-          <star-rating-comp [starType]="'svg'" formControlName="knowledge"></star-rating-comp>
-        </p>
-        <p class="rating-type">
-          <span class="teaching">Teaching</span>
-          <star-rating-comp [starType]="'svg'" formControlName="teaching"></star-rating-comp>
-        </p>
-        <p class="rating-type">
-          <span class="usefulness">Usefulness</span>
-          <star-rating-comp [starType]="'svg'" formControlName="usefulness"></star-rating-comp>
-        </p>
-      </div>
-      <div class="form-group">
-        <p class="comment-heading">Comment feedback (optional)</p>
-        <input formControlName="comment" name="comment" type="text" placeholder="Start Typing">
-      </div>
-      <div class="form-group form-footer">
-        <button (click)="closeSessionModal()" type="button">DISCARD</button>
-        <button type="submit">SUBMIT</button>
+
+      <div formGroupName="sessionFormValues">
+        <div *ngIf="!userIsMentor; else mentee" class="form-group rating-wrapper">
+          <p class="rating-heading">Rate the mentor in the following criteria</p>
+          <p class="rating-type">
+            <span class="availability">Availability</span>
+            <star-rating-comp [starType]="'svg'" formControlName="availability"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="reliability">Reliability</span>
+            <star-rating-comp [starType]="'svg'" formControlName="reliability"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="knowledge">Knowledge</span>
+            <star-rating-comp [starType]="'svg'" formControlName="knowledge"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="teaching">Teaching</span>
+            <star-rating-comp [starType]="'svg'" formControlName="teaching"></star-rating-comp>
+          </p>
+          <p class="rating-type">
+            <span class="usefulness">Usefulness</span>
+            <star-rating-comp [starType]="'svg'" formControlName="usefulness"></star-rating-comp>
+          </p>
+        </div>
+
+        <ng-template #mentee>
+          <div class="form-group rating-wrapper">
+            <p class="rating-heading">Rate the mentee in the following criteria</p>
+            <p class="rating-type">
+              <span class="attentiveness">Attentiveness</span>
+              <star-rating-comp [starType]="'svg'" formControlName="attentiveness"></star-rating-comp>
+            </p>
+            <p class="rating-type">
+              <span class="ownership">Ownership</span>
+              <star-rating-comp [starType]="'svg'" formControlName="ownership"></star-rating-comp>
+            </p>
+            <p class="rating-type">
+              <span class="punctuality">Punctuality</span>
+              <star-rating-comp [starType]="'svg'" formControlName="punctuality"></star-rating-comp>
+            </p>
+            <p class="rating-type">
+              <span class="assignmentQuality">Assignment Quality</span>
+              <star-rating-comp [starType]="'svg'" formControlName="assignmentQuality"></star-rating-comp>
+            </p>
+            <p class="rating-type">
+              <span class="assignmentTimeliness">Assignment Timeliness </span>
+              <star-rating-comp [starType]="'svg'" formControlName="assignmentTimeliness"></star-rating-comp>
+            </p>
+          </div>
+        </ng-template>
+
+        <div class="form-group">
+          <p class="comment-heading">Comment feedback (optional)</p>
+          <input formControlName="comment" name="comment" type="text" placeholder="Start Typing">
+        </div>
+        <div class="form-group form-footer">
+          <button (click)="closeSessionModal()" type="button">DISCARD</button>
+          <button type="submit">SUBMIT</button>
+        </div>
       </div>
     </form>
   </div>

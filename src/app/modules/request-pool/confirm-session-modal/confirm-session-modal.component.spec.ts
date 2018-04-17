@@ -39,6 +39,9 @@ describe('ConfirmSessionModalComponent', () => {
     component = fixture.componentInstance;
     component.session = {};
     component.request = {
+      id: 2,
+      mentee: { id: 1 },
+      mentor: { id: 1 },
       pairing: {
         start_time: '01:34',
         end_time: '03:00',

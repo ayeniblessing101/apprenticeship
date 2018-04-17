@@ -1,20 +1,28 @@
+@import '../../../../assets/scss/_colors.scss';
+@import '../log-session-modal/log-session-modal.component.scss';
+
+.confirm-session-modal-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $black;
+  opacity: 0.5;
+  z-index: 900
+}
+
 .confirm-session-modal {
   z-index: 1000;
   position: fixed;
-  left: 0;
+  left: 30%;
+  width: 45%;
   top: 0;
-  width: 100%;
-  height: 100%;
   color: #303030;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 1;
-  visibility: visible;
 
   .confirmation-details {
-    margin: 95px auto;
-    margin-bottom: 0;
-    padding: 60px;
-    width: 35%;
+    margin: 30px auto;
+    padding: 35px;
     height: 670px;
     border-radius: 4px;
     background-color: #ffffff;
@@ -57,24 +65,30 @@
       }
     }
 
+    .bullet-wrapper {
+      display: flex;
+    }
+
     .bullet {
-      width: 11px;
-      height: 11px;
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
       background-color: #ffaf30;
       border-radius: 100%;
-      margin-top: 15px;
+      margin-top: 17px;
       margin-right: 5px;
     }
 
     .bullet-text {
-      font-size: 13px;
+      flex: 1 1 auto;
+      font-size: 15px;
       color: rgba(50, 60, 71, 0.7);
       margin-bottom: 30px;
     }
 
     .ratings {
       width: 35%;
-      
+
       .criteria {
         margin-bottom: 15px;
         color: rgba(48, 48, 48, 0.6);
@@ -133,7 +147,7 @@ button {
 }
 
 .comment {
-  margin-top: 32px;
+  margin-top: 15px;
 
   p {
     font-size: 12px;

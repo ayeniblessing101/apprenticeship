@@ -235,3 +235,18 @@ star-rating-comp {
 .usefulness {
   @include rating-title-margin(26px)
 }
+.attentiveness {
+  @include rating-title-margin(85px)
+}
+.ownership {
+  @include rating-title-margin(105px)
+}
+.punctuality {
+  @include rating-title-margin(101px)
+}
+.assignmentQuality {
+  @include rating-title-margin(39px)
+}
+.assignmentTimeliness {
+  @include rating-title-margin(10px)
+}

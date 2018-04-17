@@ -18,25 +18,28 @@ export class SessionDetailsComponent implements OnInit {
   @Input() showLogSessionButton;
   @Input() showConfirmSessionButton;
   @Input() session: any;
+  @Input() currentUserId: string
   @Input() request: any;
   sessions: any[];
-  isMentor: boolean;
-  isMentee: boolean;
+  userIsMentor: boolean;
+  userIsMentee: boolean;
   sessionIsDisabled: boolean;
   sessionIsEnabled: boolean;
   sessionNeedsConfirmation: boolean;
   sessionId: number;
   openFileModal: boolean;
   sessionDate: object;
+  sessionIsEditable: boolean;
+  buttonText: String;
 
   constructor(
     private userService: UserService,
     private fileService: FileService) { }
 
   ngOnInit() {
-    const userId = this.userService.getCurrentUser().id;
-    this.isMentor = (userId === this.request.mentor.id);
-    this.isMentee = (userId === this.request.mentee.id);
+    this.userIsMentor = (this.currentUserId === this.request.mentor.id);
+    this.userIsMentee = (this.currentUserId === this.request.mentee.id);
+    this.sessionIsEditable = this.checkSessionIsEditable();
     this.sessionIsDisabled = this.checkCurrentUserLoggedSession() ||
       this.checkSessionIsUpcoming();
     this.sessionIsEnabled = this.checkSessionIsNotLogged() &&
@@ -95,8 +98,8 @@ export class SessionDetailsComponent implements OnInit {
    * @return {boolean}
    */
   checkCurrentUserLoggedSession() {
-    return (this.session.mentor_logged && this.isMentor) ||
-      (this.session.mentee_logged && this.isMentee);
+    return (this.session.mentor_logged && this.userIsMentor) ||
+      (this.session.mentee_logged && this.userIsMentee);
   }
 
   /**
@@ -105,8 +108,8 @@ export class SessionDetailsComponent implements OnInit {
    * @return {boolean}
    */
   checkCurrentUserNeedsConfirmSession() {
-    return (this.session.mentor_logged && !this.session.mentee_logged && this.isMentee) ||
-      (this.session.mentee_logged && !this.session.mentor_logged && this.isMentor);
+    return (this.session.mentor_logged && !this.session.mentee_logged && this.userIsMentee) ||
+      (this.session.mentee_logged && !this.session.mentor_logged && this.userIsMentor);
   }
 
   /**
@@ -182,5 +185,15 @@ export class SessionDetailsComponent implements OnInit {
    */
   closeAddFileModal() {
     this.openFileModal = false;
+  }
+
+/**
+ * Checks if a session is editable
+ *
+ * @returns {boolean}
+ */
+  private checkSessionIsEditable(): boolean {
+    return ((this.session.mentor_logged && this.userIsMentor && !this.session.mentee_logged) ||
+    (this.session.mentee_logged && this.userIsMentee && !this.session.mentor_logged));
   }
 }
