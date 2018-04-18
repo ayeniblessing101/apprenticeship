@@ -1,19 +1,43 @@
 <div class="profile-stats">
-  <div class="stats-container">
-    <p class="profile-heading"> 1. Stats </p>
-    <div class="blue-box"></div>
-    <p><span style="float:left">User Rating:</span>
-      <star-rating-comp [size]="'medium'" [staticColor]="'default'" [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-        [rating]="currentUser.rating" style="float:left" disabled></star-rating-comp>
-      <span class="rating-count"> ({{ currentUser.total_ratings }} rating(s)) </span>
-    </p>
-    <div class="blue-box"></div>
-    <p>Total Requests: {{ currentUser.request_count }}</p>
-    <div class="blue-box"></div>
-    <p>Mentorship Sessions: {{ currentUser.total_sessions}} </p>
-    <div class="blue-box"></div>
-    <p>Mentorship Hours Logged: {{ currentUser.logged_hours | number:'1.0-2' }}</p>
-    <div>
-      <div class="blue-box"></div> Client status: {{ (!currentUser.placement) ? "Not Placed" : currentUser.placement.status }}
+    <div class="stats-container">
+      <p class="profile-heading"> 1. Stats </p>
+      <div class="rating-container">
+        <div class="average-rating">
+          <span>Avg Rating:</span>
+          <div class="star-container">
+            <star-rating-comp [size]="'small'" [staticColor]="'default'" [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                  [rating]="currentUser.rating" style="float:left" disabled></star-rating-comp>
+          </div>
+          <span>({{ currentUser.rating }} rating(s))</span>
+        </div>
+        <div class="average-rating">
+          <span>As Mentor:</span>
+          <div class="star-container">
+            <star-rating-comp [size]="'small'" [staticColor]="'default'" [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                  [rating]="currentUser.average_mentor_rating" style="float:left" disabled></star-rating-comp>
+          </div>
+          <span>({{ currentUser.average_mentor_rating }} rating(s))</span>
+        </div>
+        <div class="average-rating">
+          <span>As Mentee:</span>
+          <div class="star-container">
+            <star-rating-comp [size]="'small'" [staticColor]="'default'" [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                  [rating]="currentUser.average_mentee_rating" style="float:left" disabled></star-rating-comp>
+          </div>
+          <span>({{ currentUser.average_mentee_rating }} rating(s))</span>
+        </div>
+      </div>
+      <div class="requests">
+        <span>Total Requests: {{ currentUser.request_count }}</span>
+      </div>
+      <div class="sessions">
+        <span>Mentorship Sessions: {{ currentUser.total_sessions}} </span>
+      </div>
+      <div class="hours">
+        <span>Mentorship Hours Logged: {{ currentUser.logged_hours | number:'1.0-2' }}</span>
+      </div>
+      <div class="status">
+        <span>Client status: {{ (!currentUser.placement) ? "Not Placed" : currentUser.placement.status }}</span>
+      </div>
     </div>
-</div>
+  </div>

@@ -3,15 +3,15 @@
 
 .profile-stats {
   width: 90%;
-  font-size: 16px;
+  font-size: 21px;
   min-height: 300px;
-  padding: 5%;
+  padding: 1% 5%;
   background-color: #f1f2f3;
 }
 
 .profile-heading {
   margin-left: 44%;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
   color: #3359db;
 }
@@ -22,14 +22,51 @@
   margin: 0 auto;
 }
 
-.blue-box {
-  margin-right: 1%;
-  width: 5px;
-  height: 20px;
-  float: left;
-  background-color: #3359db;
+.rating-container {
+  color: $primary-text-color;
+  font-size: 19px;
+  margin-bottom: 50px;
+
+  .average-rating {
+    border-left: 4px solid $andela-blue;
+    padding-left: 9px;
+
+    span {
+      &:nth-of-type(1) {
+        color: $grey-light-700
+      }
+    }
+
+    * { display: inline-block; vertical-align: middle; }
+
+    &:nth-of-type(1) { margin-bottom: 20px; }
+
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
+      margin-left: 20px;
+      margin-bottom: 10px;
+      border-left: 4px solid #ffaf30;
+    }
+  }
+
+  .star-container {
+    width: 65px;
+  }
 }
 
-.rating-count {
-   color: #888888;
+.requests,
+.sessions,
+.hours,
+.status {
+  border-left: 4px solid $andela-blue;
+  padding-left: 9px;
+  margin-bottom: 28px;
+
+  span {
+    &:nth-of-type(1) {
+      color: $grey-light-700
+    }
+  }
+
+  * { display: inline-block; vertical-align: middle; }
 }
