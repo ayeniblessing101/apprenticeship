@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterContentChecked } from '@angular/core';
 import { Router, NavigationEnd, Event, NavigationStart, NavigationError, NavigationCancel } from '@angular/router';
 import { Intercom } from 'ng2-intercom/intercom';
 import { SegmentService } from './services/segment.service';
@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterContentChecked {
   showNavAndHeader = true;
   currentUser: any;
   loading = true;
@@ -55,6 +55,10 @@ export class AppComponent {
     this.initializeIntercom();
   }
 
+  ngAfterContentChecked() {
+    this.moveIntercomWidget();
+  }
+
   /**
    * Initialize intercom widget
    *
@@ -94,6 +98,19 @@ export class AppComponent {
     if (routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationEnd
     || routerEvent instanceof NavigationError) {
       this.loading = false;
+    }
+  }
+
+  /**
+   * It moves the position of the intercom widget
+   *
+   * @return {Void}
+   */
+  moveIntercomWidget() {
+    const element = document.getElementsByTagName('iframe');
+    if (element.length) {
+      element.item(1).style.bottom = '50px';
+      element.item(2).style.bottom = '50px';
     }
   }
 }
