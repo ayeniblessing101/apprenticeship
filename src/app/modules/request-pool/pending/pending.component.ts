@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from './../../../services/request.service';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 
 @Component({
   selector: 'app-pending',
@@ -37,8 +39,11 @@ export class PendingComponent implements OnInit {
       .toPromise()
       .then(
         (response) => {
+          this.requests = response.map((request) => {
+            request.created_by_name = request.created_by.fullname;
+            return request;
+          });
           this.loading = false;
-          this.requests = response;
         },
     );
   }

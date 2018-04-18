@@ -13,6 +13,8 @@ import { UserService } from 'app/services/user.service';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
 describe('PendingComponent', () => {
   let component: PendingComponent;
@@ -32,12 +34,14 @@ describe('PendingComponent', () => {
         PendingModalComponent,
         PendingRequestsTableComponent,
         CancelRequestModalComponent,
+        SetRequestHeaderIconDirective,
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
       ],
       providers: [
         UserService,
+        TableHeaderSortHelper,
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,

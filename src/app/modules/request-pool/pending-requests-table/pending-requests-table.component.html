@@ -1,26 +1,108 @@
 <div class="content-container">
   <div class="pool-header-wrapper">
-    <div class="header custom-row">
-      <div class="custom-col-2">Request</div>
-      <div class="custom-col-2">Created By</div>
-      <div class="custom-col-2">Primary Skill</div>
-      <div class="custom-col-2">Preffered Duration</div>
-      <div class="custom-col-1">Date Added</div>
-      <div class="custom-col-2">Location</div>
-      <div class="custom-col-1">Number of Interests</div>
-      <div class="custom-col-2">Status</div>
+    <div class="header custom-row" *ngIf="!rerender">
+      <div class="custom-col-2">
+        <span
+        (click)="sortPendingRequestsByHeader('title')"
+        >Request
+        <img
+          appSetRequestHeaderIcon
+          [showAlphabeticIcon]="true"
+          [sortCategoryValues]="sortCategoryValues"
+          [activeSortCategory]="activeSortCategory"
+          [headerName]="'title'"
+          src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortPendingRequestsByHeader('created_by_name')"
+        >Created by
+          <img
+            appSetRequestHeaderIcon
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'created_by_name'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-3">Primary Skill</div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortPendingRequestsByHeader('duration')"
+        >Preffered Duration
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon]="false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'duration'"
+            src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-3">
+        <span
+        (click)="sortPendingRequestsByHeader('created_at', true)"
+        >Date Added
+            <img
+              appSetRequestHeaderIcon
+              [showAlphabeticIcon]="false"
+              [sortCategoryValues]="sortCategoryValues"
+              [activeSortCategory]="activeSortCategory"
+              [headerName]="'created_at'"
+              src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+          <span
+          (click)="sortPendingRequestsByHeader('location')"
+          >Location
+            <img
+              appSetRequestHeaderIcon
+              [sortCategoryValues]="sortCategoryValues"
+              [activeSortCategory]="activeSortCategory"
+              [headerName]="'location'"
+              src="../../../../assets/images/sort-a-z-inactive.png" />
+          </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+          (click)="sortPendingRequestsByHeader('interested')"
+          >Number of Interests
+          <img
+            appSetRequestHeaderIcon
+            [showAlphabeticIcon]="false"
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'interested'"
+            src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+          <span
+          (click)="sortPendingRequestsByHeader('awaited_user')"
+          >Status
+            <img
+              appSetRequestHeaderIcon
+              [sortCategoryValues]="sortCategoryValues"
+              [activeSortCategory]="activeSortCategory"
+              [headerName]="'awaited_user'"
+              src="../../../../assets/images/sort-a-z-inactive.png" />
+          </span>
+      </div>
     </div>
+
   </div>
   <div *ngIf="requests?.length > 0" class="pool-table">
     <div class="pool-body">
       <a *ngFor="let request of requests" class="body-content custom-row" (click)="openPendingModal(request)">
         <div class="custom-col-2">{{ request.title }}</div>
-        <div class="custom-col-2">{{ request.mentee.fullname }}</div>
-        <div class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
-        <div class="custom-col-2">{{ request.duration|requestDuration }}</div>
-        <div class="custom-col-2">{{ request.created_at | date:'longDate' }}</div>
+        <div class="custom-col-2">{{ request.created_by_name }}</div>
+        <div class="custom-col-3">{{ request.request_skills | requestSkill: 'primary' }}</div>
+        <div class="custom-col-2">{{ request.duration |  requestDuration}}</div>
+        <div class="custom-col-3">{{ request.created_at | date:'longDate' }}</div>
         <div class="custom-col-2">{{ request.location }}</div>
-        <div class="custom-col-1">{{ request.interested?.length || '0' }}</div>
+        <div class="custom-col-2">{{ request.interested?.length || '0'}}</div>
         <div class="custom-col-2">Awaiting {{request.awaited_user}}</div>
       </a>
       <div class="space"></div>

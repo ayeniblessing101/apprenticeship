@@ -6,13 +6,18 @@ import { PendingRequestsTableComponent } from './pending-requests-table.componen
 import { PendingModalComponent } from './../pending-modal/pending-modal.component';
 import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 
+
 import { HttpService as Http } from './../../../services/http.service';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from './../../../stubs/request-stub.service';
+
 import { UserService } from './../../../services/user.service';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
+import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+
 
 describe('PendingRequestsTableComponent', () => {
   let component: PendingRequestsTableComponent;
@@ -31,12 +36,14 @@ describe('PendingRequestsTableComponent', () => {
         PendingModalComponent,
         PendingRequestsTableComponent,
         CancelRequestModalComponent,
+        SetRequestHeaderIconDirective,
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
       ],
       providers: [
         UserService,
+        TableHeaderSortHelper,
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
