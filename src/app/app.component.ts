@@ -108,7 +108,7 @@ export class AppComponent implements AfterContentChecked {
    */
   moveIntercomWidget() {
     const element = document.getElementsByTagName('iframe');
-    if (element.length) {
+    if (element.item(1) && element.item(2)) {
       element.item(1).style.bottom = '50px';
       element.item(2).style.bottom = '50px';
     }

@@ -6,6 +6,7 @@
     </div>
 
     <div class="confirmation-body">
+    <form class="comment" [formGroup]="confirmSessionForm" (ngSubmit)="confirmSession()">
       <div class="session px-12 inline-block">
         <p class="session-title">Session started</p>
         <div class="session-time">{{startTime}}</div>
@@ -21,8 +22,7 @@
         <p class="bullet-text">If this session didn’t last for {{hours}}, please reject the session</p>
       </div>
 
-
-      <form class="comment" [formGroup]="confirmSessionForm" (ngSubmit)="confirmSession()">
+        <div formGroupName="sessionFormValues">
         <div *ngIf="!userIsMentor; else mentee" class="form-group rating-wrapper">
           <p class="rating-heading">Rate the mentor in the following criteria</p>
           <p class="rating-type">
@@ -72,7 +72,7 @@
           </p>
         </div>
         </ng-template>
-
+      </div>
         <p>Comment feedback (optional)</p>
         <input type="text" placeholder="Start Typing" name="comment" formControlName="comment">
         <button type="submit">Submit</button>

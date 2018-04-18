@@ -1,5 +1,4 @@
  export const mentorSessionFormHelper = {
-  comment: '',
   availability: '',
   reliability: '',
   knowledge: '',
@@ -8,7 +7,6 @@
 }
 
 export const menteeSessionFormHelper = {
-  comment: '',
   attentiveness: '',
   ownership: '',
   punctuality: '',

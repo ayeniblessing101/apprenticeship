@@ -23,11 +23,11 @@ import { menteeSessionFormHelper, mentorSessionFormHelper } from './../../../hel
   styleUrls: ['./log-session-modal.component.scss'],
 })
 export class LogSessionModalComponent implements OnInit {
-  @Output() closeLogSessionModal = new EventEmitter<string>();
-  @Output() updateLoggedSession = new EventEmitter<any>();
   @Input() session: any;
   @Input() request: any;
   @Input() currentUserId: string;
+  @Output() closeLogSessionModal = new EventEmitter<string>();
+  @Output() updateLoggedSession = new EventEmitter<any>();
   readonly ratingScale: number = 5;
   sessionForm: FormGroup;
   timeSlots: string[] = [];
@@ -59,6 +59,7 @@ export class LogSessionModalComponent implements OnInit {
     this.sessionForm = this.formBuilder.group({
       startTime: [this.startTime, [Validators.required]],
       endTime: [this.endTime, [Validators.required]],
+      comment: '',
       sessionFormValues: this.formBuilder.group(sessionFormFields),
     });
   }
@@ -127,12 +128,12 @@ export class LogSessionModalComponent implements OnInit {
    * @return {void}
    */
   logSession() {
-    const { startTime, endTime, sessionFormValues } = this.sessionForm.value;
+    const { startTime, endTime, sessionFormValues, comment } = this.sessionForm.value;
     if (startTime === endTime) {
       return this.alertService.showMessage('The session start and end times can\'t be the same');
     }
     const sessionPayload: Session = {
-      comment: sessionFormValues.comment,
+      comment,
       date: Date.parse(this.session.date) / 1000,
       start_time: startTime,
       end_time: endTime,

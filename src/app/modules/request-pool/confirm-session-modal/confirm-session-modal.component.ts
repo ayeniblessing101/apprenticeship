@@ -22,11 +22,11 @@ import { menteeSessionFormHelper, mentorSessionFormHelper } from '../../../helpe
   styleUrls: ['./confirm-session-modal.component.scss'],
 })
 export class ConfirmSessionModalComponent implements OnInit {
-  @Output() emitSessionObject = new EventEmitter<any>();
-  @Output() closeConfirmSessionModal = new EventEmitter<string>();
   @Input() request: any;
   @Input() session: any;
   @Input() currentUserId: string;
+  @Output() emitSessionObject = new EventEmitter<any>();
+  @Output() closeConfirmSessionModal = new EventEmitter<string>();
   @ViewChild('confirmSessionModal') confirmSessionModal: ElementRef;
   confirmSessionForm: FormGroup;
   startTime: string;
@@ -50,7 +50,10 @@ export class ConfirmSessionModalComponent implements OnInit {
     const hours = sessionDuration === 1 ? `${sessionDuration} hour` : `${sessionDuration} hours`;
 
     const sessionFormFields = (this.userIsMentor) ? menteeSessionFormHelper : mentorSessionFormHelper;
-    this.confirmSessionForm = this.formBuilder.group(sessionFormFields);
+    this.confirmSessionForm = this.formBuilder.group({
+      comment: '',
+      sessionFormValues : this.formBuilder.group(sessionFormFields),
+    });
   }
 
   /**
@@ -143,7 +146,7 @@ export class ConfirmSessionModalComponent implements OnInit {
    * @returns {(MenteeRating | MentorRating)}
    */
   private getRatings(): MenteeRating | MentorRating {
-    return this.confirmSessionForm.value;
+    return this.confirmSessionForm.value.sessionFormValues;
   }
 
   /**
