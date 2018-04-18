@@ -26,6 +26,7 @@ export class PoolComponent implements OnInit {
   filterParams: any = {};
   sectionGridWidth = '71%';
   firstPageLoad: boolean;
+  noResultMessage: string;
   sortingStatus: SortingStatus = null;
 
   constructor(private requestService: RequestService,
@@ -137,6 +138,8 @@ export class PoolComponent implements OnInit {
     if (!event) {
       return;
     }
+
+    this.noResultMessage = `Your filter criteria didn't return any result. Try something different`;
 
     this.filterParams = {};
     this.filterParams['category'] = event.category;

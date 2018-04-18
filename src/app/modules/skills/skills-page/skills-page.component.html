@@ -12,7 +12,7 @@
   </div>
   <section id="section-grid">
     <app-skill-records *ngIf="skills.length > 0" [skills]="skills"></app-skill-records>
-    <app-no-search-result *ngIf="skills.length === 0"></app-no-search-result>
+    <app-no-result *ngIf="skills.length === 0"></app-no-result>
   </section>
   <div *ngIf="loading" class="loader"> </div>
 </div>

@@ -10,7 +10,7 @@
     </app-export-button>
   </div>
 </div>
-<div>
+<div *ngIf="loadingRequests || skillRequests?.length > 0; else noRequest">
   <div class="skill-request-header-wrapper">
     <div *ngIf="!rerender" class="custom-row header">
       <div class="custom-col-2">
@@ -92,12 +92,9 @@
     </div>
   </div>
 
-  <div *ngIf="skillRequests.length == 0 && !loadingRequests">
-    <app-no-search-result></app-no-search-result>
-  </div>
   <div class="skill-table">
     <div class="skill-body">
-        <div *ngIf="loadingRequests" class="loader"> </div>
+        <div *ngIf="loadingRequests" class="loader"></div>
       <a *ngFor="let request of skillRequests" class="body-content custom-row">
         <div class="custom-col-2">{{request.createdBy}}</div>
         <div class="custom-col-2">{{request.dateAdded | date: 'longDate'}}</div>
@@ -110,3 +107,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #noRequest>
+  <div>
+    <app-no-result></app-no-result>
+  </div>
+</ng-template>

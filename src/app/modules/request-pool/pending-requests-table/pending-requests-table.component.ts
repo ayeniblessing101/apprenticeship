@@ -9,6 +9,7 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
 export class PendingRequestsTableComponent {
 
   @Input() requests;
+  @Input() loading: boolean;
   @Input() title: string;
   @Output() reload: EventEmitter<boolean> = new EventEmitter();
   @Output() request = new EventEmitter<number>();

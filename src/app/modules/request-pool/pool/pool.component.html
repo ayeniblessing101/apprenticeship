@@ -3,11 +3,13 @@
     <app-pool-records
       (updateSortingStatus)="updatePoolRequestsSortingStatus($event)"
       (filterRequestsPool)="filterCurrentRequestsPool($event)"
-      [requests]="requests">
+      [requests]="requests"
+      [noResultMessage]="noResultMessage"
+      [loadingRequests]="loadingRequests"
+    >
     </app-pool-records>
   </section>
   <app-pool-filters *ngIf="showFilters" (applyFilters)="applyFilters($event)"> </app-pool-filters>
   <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="3000" (scrolled)="onScroll()">
   </div>
 </div>
-

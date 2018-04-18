@@ -1,24 +1,25 @@
 @import '../../../../assets/scss/fonts';
-.error-notification {
-  padding-top: 4%;
+@import '../../../../assets/scss/colors';
+.no-result-notification {
+  padding-top: 2%;
   padding-right: 3%;
 }
-.error-header {
+.no-result-header {
   font-family: $font-family-1;
   font-size: 18px;
   text-align: center;
-  color: #303030;
+  color: $grey-light-900;
 }
 
-.error-tag-line {
+.no-result-tag-line {
   font-family: $font-family-1;
   font-size: 20px;
   font-weight: 300;
   text-align: center;
-  color: #91979f;
+  color: $header-text-color;
 }
 
-.error-notification-circle {
+.no-result-notification-circle {
   display: block;
   width: 50px;
   height: 50px;
@@ -26,24 +27,10 @@
   border-radius: 50%;
   font-size: 35px;
   line-height: 55px;
-  color: #0459e4;
+  color: $file-linear-gradient;
   text-align: center;
   background: rgba(4, 89, 228, 0.2);
   left:45%;
   margin: 0 auto 30px;
-}
-
-.arrow_up_svg {
-  left:65%;
-  top:11%;
-  position:absolute;
-}
-
-@media only screen and (max-width: 1210px) {
-  .arrow_up_svg {
-    left:63%;
-    top:16%;
-    position:absolute;
-  }
 }
 

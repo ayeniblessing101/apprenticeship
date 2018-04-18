@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="content-container" *ngIf="loading || requests?.length > 0; else noRequest">
   <div class="pool-header-wrapper">
     <div class="header custom-row" *ngIf="!rerender">
       <div class="custom-col-2">
@@ -93,8 +93,9 @@
     </div>
 
   </div>
-  <div *ngIf="requests?.length > 0" class="pool-table">
+  <div class="pool-table">
     <div class="pool-body">
+      <div *ngIf="loading" class="loader"></div>
       <a *ngFor="let request of requests" class="body-content custom-row" (click)="openPendingModal(request)">
         <div class="custom-col-2">{{ request.title }}</div>
         <div class="custom-col-2">{{ request.created_by_name }}</div>
@@ -110,10 +111,9 @@
   </div>
 </div>
 
-<div *ngIf="requests?.length === 0" class="no-requests">
-  You do not have any requests.
-</div>
-<div *ngIf="!requests" class="loader"></div>
+<ng-template #noRequest>
+  <app-no-result></app-no-result>
+</ng-template>
 
 <app-pending-modal *ngIf="openModal" #pendingModal [request]="pendingRequest" (closePendingModal)="closePendingModal()">
 </app-pending-modal>

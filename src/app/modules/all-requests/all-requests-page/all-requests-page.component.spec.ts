@@ -16,7 +16,7 @@ import { AlertService } from '../../../services/alert.service';
 import { RequestDetailsModalComponent } from '../../request-pool/request-details-modal/request-details-modal.component';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FilterService } from '../../../services/filter.service';
-import { NoSearchResultComponent } from 'app/modules/request-pool/no-search-result/no-search-result.component';
+import { NoResultComponent } from 'app/modules/shared/no-result/no-result.component';
 import { FilterDropdownComponent } from '../../request-pool/filter-dropdown/filter-dropdown.component';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
@@ -53,7 +53,7 @@ describe('AllRequestsPageComponent', () => {
         PoolFiltersComponent,
         RequestDetailsModalComponent,
         SaveFiltersModalComponent,
-        NoSearchResultComponent,
+        NoResultComponent,
         FilterDropdownComponent,
         ProposedRequestDurationPipe,
         RequestDurationPipe,

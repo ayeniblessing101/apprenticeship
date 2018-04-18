@@ -10,7 +10,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { FilterService } from '../../../services/filter.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
@@ -31,7 +30,6 @@ describe('PoolRecordsComponent', () => {
       declarations: [
         PoolRecordsComponent,
         SaveFiltersModalComponent,
-        NoSearchResultComponent,
         SetRequestHeaderIconDirective,
       ],
       providers: [

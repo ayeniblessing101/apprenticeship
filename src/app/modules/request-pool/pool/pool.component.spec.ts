@@ -16,7 +16,6 @@ import { AlertService } from '../../../services/alert.service';
 import { SkillService } from '../../../services/skill.service';
 import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters-modal/save-filters-modal.component';
 import { StarRatingModule } from 'angular-star-rating';
-import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
 import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.component';
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
@@ -41,7 +40,6 @@ describe('PoolComponent', () => {
         PoolComponent,
         PoolFiltersComponent,
         SaveFiltersModalComponent,
-        NoSearchResultComponent,
         PoolRecordsComponent,
         FilterDropdownComponent,
         SaveFiltersComponent,

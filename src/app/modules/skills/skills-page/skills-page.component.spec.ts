@@ -6,7 +6,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { SkillsPageComponent } from './skills-page.component';
 import { SkillRecordsComponent } from '../skill-records/skill-records.component';
 import { AddSkillModalComponent } from './../add-skill-modal/add-skill-modal.component';
-import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
 import { EditSkillModalComponent } from '../edit-skill-modal/edit-skill-modal.component';
 import { HttpService as Http } from '../../../services/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +27,6 @@ describe('SkillsPageComponent', () => {
       declarations: [
         SkillsPageComponent,
         SkillRecordsComponent,
-        NoSearchResultComponent,
         EditSkillModalComponent,
         SetRequestHeaderIconDirective,
         AddSkillModalComponent,

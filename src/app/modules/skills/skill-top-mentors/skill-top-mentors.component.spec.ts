@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillTopMentorsComponent } from './skill-top-mentors.component';
-import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
+import { NoResultComponent } from '../../shared/no-result/no-result.component';
 import { SkillService } from '../../../services/skill.service';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ describe('SkillTopMentorsComponent', () => {
       imports: [FormsModule],
       declarations: [
         SkillTopMentorsComponent,
-        NoSearchResultComponent,
+        NoResultComponent,
       ],
       providers: [
         { provide: SkillService, useValue: skillService },

@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="content-container" *ngIf="loadingRequests || requests.length > 0; else noRequest">
   <div *ngIf="!rerender" class="pool-header-wrapper">
     <div class="header custom-row">
       <div class="custom-col-3">
@@ -33,8 +33,9 @@
       </div>
     </div>
   </div>
-  <div class="pool-table" *ngIf="requests.length > 0; else noRequest">
+  <div class="pool-table">
     <div class="pool-body">
+      <div *ngIf="loadingRequests" class="loader"></div>
       <a *ngFor="let request of requests" class="body-content custom-row" id="request-pool" (click)="showRequestDetails(request)">
         <div id="title" class="custom-col-3">{{ request.title }}</div>
         <div id="primary-skill" class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
@@ -52,5 +53,5 @@
   (close)="closeRequest()">
 </app-request-details>
 <ng-template #noRequest>
-  <app-no-search-result></app-no-search-result>
+  <app-no-result [message]="noResultMessage"></app-no-result>
 </ng-template>

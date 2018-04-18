@@ -5,7 +5,7 @@ import { Location, LocationStrategy } from '@angular/common';
 import { SkillMentorsPageComponent } from './skill-mentors-page.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
 import { MentorRecordsComponent } from '../mentor-records/mentor-records.component';
-import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
+import { NoResultComponent } from '../../shared/no-result/no-result.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { UserService } from '../../../services/user.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
@@ -30,7 +30,7 @@ describe('SkillMentorsPageComponent', () => {
         SkillMentorsPageComponent,
         ExportButtonComponent,
         MentorRecordsComponent,
-        NoSearchResultComponent,
+        NoResultComponent,
         SetRequestHeaderIconDirective,
       ],
       providers: [

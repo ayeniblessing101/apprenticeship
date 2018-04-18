@@ -12,6 +12,7 @@ import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from './../../../stubs/request-stub.service';
 
 import { UserService } from './../../../services/user.service';
+import { NoResultComponent } from '../../shared/no-result/no-result.component';
 import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-duration.pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
@@ -40,6 +41,7 @@ describe('PendingRequestsTableComponent', () => {
         ProposedRequestDurationPipe,
         RequestDurationPipe,
         RequestSkillPipe,
+        NoResultComponent,
       ],
       providers: [
         UserService,

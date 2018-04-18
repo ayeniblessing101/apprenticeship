@@ -19,7 +19,6 @@ import { HistoryComponent } from './history/history.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
 import { PendingModalComponent } from './pending-modal/pending-modal.component';
 import { PendingRequestsTableComponent } from './pending-requests-table/pending-requests-table.component';
-import { NoSearchResultComponent } from './no-search-result/no-search-result.component';
 import { InProgressSingleViewComponent } from './in-progress-single-view/in-progress-single-view.component';
 import { CancelRequestModalComponent } from './cancel-request-modal/cancel-request-modal.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -51,7 +50,6 @@ import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-se
     PoolFiltersComponent,
     HistoryComponent,
     PendingComponent,
-    NoSearchResultComponent,
     PendingModalComponent,
     PendingRequestsTableComponent,
     PoolRecordsComponent,
@@ -79,7 +77,6 @@ import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-se
     CalendarComponent,
     LogSessionModalComponent,
     MatchPoolHeaderWidthToParentDirective,
-    NoSearchResultComponent,
     SetRequestHeaderIconDirective,
   ],
   providers: [

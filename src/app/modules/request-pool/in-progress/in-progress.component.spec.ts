@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { NoSearchResultComponent } from '../no-search-result/no-search-result.component';
+import { NoResultComponent } from '../../shared/no-result/no-result.component';
 import { RequestService } from './../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
@@ -30,7 +30,7 @@ describe('InProgressComponent', () => {
       ],
       declarations: [
         InProgressComponent,
-        NoSearchResultComponent,
+        NoResultComponent,
         CalendarComponent,
         RequestDurationPipe,
         RequestSkillPipe,

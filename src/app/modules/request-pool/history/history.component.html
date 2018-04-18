@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="loading || requests?.length > 0; else noRequest">
   <section id="section-grid" [style.width]="sectionGridWidth">
     <div class="content-container">
 
@@ -49,8 +49,9 @@
           </div>
         </div>
       </div>
-      <div *ngIf="requests?.length > 0; else noRequest" class="pool-table">
+      <div class="pool-table">
         <div class="pool-body">
+          <div *ngIf="loading" class="loader"></div>
           <a *ngFor="let request of requests" class="body-content custom-row" (click)="gotoRequestDetails(request.id)">
             <div class="custom-col-3">{{ request.title }}</div>
             <div class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
@@ -68,9 +69,8 @@
         </div>
       </div>
     </div>
-    <div *ngIf="loading" class="loader"></div>
-    <ng-template #noRequest>
-      <app-no-search-result></app-no-search-result>
-    </ng-template>
   </section>
 </div>
+<ng-template #noRequest>
+  <app-no-result></app-no-result>
+</ng-template>

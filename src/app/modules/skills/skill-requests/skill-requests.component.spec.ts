@@ -4,7 +4,7 @@ import { SkillRequestsComponent } from './skill-requests.component';
 import { ExportButtonComponent } from '../../shared/export-button/export-button.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
-import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
+import { NoResultComponent } from '../../shared/no-result/no-result.component';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
 import { SkillService } from '../../../services/skill.service';
@@ -29,7 +29,7 @@ describe('SkillRequestsComponent', () => {
         SetRequestHeaderIconDirective,
         RequestDurationPipe,
         RequestStatusPipe,
-        NoSearchResultComponent,
+        NoResultComponent,
       ],
       providers: [
         TableHeaderSortHelper,

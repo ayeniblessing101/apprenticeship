@@ -1,20 +1,24 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
-
 @Component({
   selector: 'app-pool-records',
   templateUrl: './pool-records.component.html',
   styleUrls: ['./pool-records.component.scss'],
 })
 export class PoolRecordsComponent {
-  showRequest = false;
   @Input() requests = [];
+  @Input() loadingRequests: boolean;
+  @Input() filterParams: any = {}
+  @Input() noResultMessage: string;
+
   @Output() updateSortingStatus = new EventEmitter<any>();
   @Output() filterRequestsPool: EventEmitter<object> = new EventEmitter();
 
+  showRequest = false;
   selectedRequest: object;
   rerender: boolean;
+
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -25,7 +29,8 @@ export class PoolRecordsComponent {
 
   constructor(
     private tableHeaderSorterHelper: TableHeaderSortHelper,
-    private changeDetector: ChangeDetectorRef) {}
+    private changeDetector: ChangeDetectorRef,
+  ) {}
 
   /** Get details of the request clicked by the user
    * in the request pool. Changes showRequest to true

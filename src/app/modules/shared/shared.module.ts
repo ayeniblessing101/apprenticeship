@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { DropDownComponent } from './drop-down/drop-down.component';
+import { NoResultComponent } from './no-result/no-result.component';
 import { SkillsDropdownComponent } from './skills-dropdown/skills-dropdown.component';
 import { CalendarPickerComponent } from './calendar/calendar-picker.component';
 import { ExportButtonComponent } from './export-button/export-button.component';
@@ -56,6 +57,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
     RequestSkillPipe,
     RequestDurationPipe,
     ProposedRequestDurationPipe,
+    NoResultComponent,
   ],
   exports: [
     HeaderComponent,
@@ -74,6 +76,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
     RequestSkillPipe,
     RequestDurationPipe,
     StarRatingModule,
+    NoResultComponent,
   ],
   providers: [
     NotificationsComponent,

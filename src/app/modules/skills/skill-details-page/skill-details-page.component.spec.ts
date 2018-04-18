@@ -5,8 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { SkillDetailsPageComponent } from './skill-details-page.component';
 import { SkillRequestsComponent } from '../skill-requests/skill-requests.component';
 import { SkillTopMentorsComponent } from '../skill-top-mentors/skill-top-mentors.component';
-import { NoSearchResultComponent } from '../../request-pool/no-search-result/no-search-result.component';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
@@ -31,7 +30,6 @@ describe('SkillDetailsPageComponent', () => {
         SkillDetailsPageComponent,
         SkillRequestsComponent,
         SkillTopMentorsComponent,
-        NoSearchResultComponent,
         RequestStatusPipe,
         SetRequestHeaderIconDirective,
       ],
