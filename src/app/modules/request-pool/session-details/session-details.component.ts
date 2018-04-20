@@ -146,7 +146,7 @@ export class SessionDetailsComponent implements OnInit {
    *
    * @return {void}
    */
-  deleteFile(file, session) {
+  deleteFile(session, file) {
     this.fileService.deleteSessionFile(session.id, file.id)
       .toPromise()
       .then((response) => {
