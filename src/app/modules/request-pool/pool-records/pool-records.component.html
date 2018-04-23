@@ -1,4 +1,4 @@
-<div class="content-container" *ngIf="loadingRequests || requests.length > 0; else noRequest">
+<div *ngIf="loadingRequests || requests.length > 0; else noRequest" class="content-container">
   <div *ngIf="!rerender" class="pool-header-wrapper">
     <div class="header custom-row">
       <div class="custom-col-3">
@@ -34,8 +34,8 @@
     </div>
   </div>
   <div class="pool-table">
-    <div class="pool-body" appInfiniteScroller scrollPercent="70" [scrollCallback]="scrollCallback">
-      <div *ngIf="loadingRequests" class="loader"></div>
+    <div *ngIf="loadingRequests" class="loader"></div>
+    <div *ngIf="!loadingRequests" class="pool-body" appInfiniteScroller scrollPercent="70" [scrollCallback]="scrollCallback">
       <a *ngFor="let request of requests" class="body-content custom-row" id="request-pool" (click)="showRequestDetails(request)">
         <div id="title" class="custom-col-3">{{ request.title }}</div>
         <div id="primary-skill" class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
