@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { PoolComponent } from './pool.component';
 import { RequestService } from './../../../services/request.service';
@@ -20,6 +19,7 @@ import { FilterDropdownComponent } from '../filter-dropdown/filter-dropdown.comp
 import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -28,7 +28,6 @@ describe('PoolComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        InfiniteScrollModule,
         HttpModule,
         ReactiveFormsModule,
         FormsModule,
@@ -44,6 +43,7 @@ describe('PoolComponent', () => {
         FilterDropdownComponent,
         SaveFiltersComponent,
         SetRequestHeaderIconDirective,
+        InfiniteScrollDirective,
       ],
       providers: [
         Http,

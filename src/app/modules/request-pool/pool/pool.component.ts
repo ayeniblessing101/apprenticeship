@@ -99,31 +99,27 @@ export class PoolComponent implements OnInit {
   }
 
   /**
-   * Fetches requests on page scroll and also sorts accordingly should a user
+   * Updates requests on page scroll and also sorts accordingly if a user
    * already started sorting requests before scrolling.
    *
    * @return {void}
    */
-  onScroll(): void {
+  onScroll(event): void {
     this.loadingRequests = true;
-    this.currentPage += 1;
-    this.getRequests(this.limit, this.currentPage, this.filterParams)
-      .then((response) => {
-        // concatenate new request data with previous data
-        this.requests = [
-          ...this.requests,
-          ...response.requests,
-        ];
+    // concatenate new request data with previous data
+    this.requests = [
+      ...this.requests,
+      ...event.requests,
+    ];
 
-        if (this.sortingStatus) {
-          const { headerName, headerIsDateType, sortingOrder } = this.sortingStatus;
-          this.tableHeaderSorterHelper.sortRecordsUsingHeaders(
-            this.requests, headerName, headerIsDateType, sortingOrder,
-          );
-        }
+    if (this.sortingStatus) {
+      const { headerName, headerIsDateType, sortingOrder } = this.sortingStatus;
+      this.tableHeaderSorterHelper.sortRecordsUsingHeaders(
+        this.requests, headerName, headerIsDateType, sortingOrder,
+      );
+    }
 
-        this.loadingRequests = false;
-      });
+    this.loadingRequests = false;
   }
 
   /**

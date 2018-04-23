@@ -1,23 +1,31 @@
-import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectorRef, OnInit } from '@angular/core';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { FilterService } from '../../../services/filter.service';
+import { RequestService } from '../../../services/request.service';
+import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 
 @Component({
   selector: 'app-pool-records',
   templateUrl: './pool-records.component.html',
   styleUrls: ['./pool-records.component.scss'],
 })
-export class PoolRecordsComponent {
+export class PoolRecordsComponent implements OnInit {
   @Input() requests = [];
   @Input() loadingRequests: boolean;
-  @Input() filterParams: any = {}
   @Input() noResultMessage: string;
 
   @Output() updateSortingStatus = new EventEmitter<any>();
+  @Output() updateRequests = new EventEmitter<any>();
   @Output() filterRequestsPool: EventEmitter<object> = new EventEmitter();
 
   showRequest = false;
   selectedRequest: object;
   rerender: boolean;
+  scrollCallback: any;
+  filterParams: any = {}
+  currentPage = 1;
+  limit = 20;
+  loading = false;
 
   sortCategoryValues = {
     title: 'asc',
@@ -30,7 +38,37 @@ export class PoolRecordsComponent {
   constructor(
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
-  ) {}
+    private filterService: FilterService,
+    private requestService: RequestService) {
+    this.scrollCallback = this.getRequests.bind(this);
+  }
+
+  ngOnInit() {
+    this.filterParams = this.filterService.getFilters();
+  }
+
+/**
+ * This function makes a call to the API to get more requests
+ * when a user scrolls down to 70% of the current requests.
+ *
+ * @param {Number} limit - the number of requests to be gotten
+ * @param {Number} page - the page of the requests to be gotten
+ * @param {Object} filters - the parameters to apply to API call
+ *
+ * @return {Observable<any>}
+ */
+  getRequests() {
+    this.loading = true;
+    return this.requestService.getRequests(
+      this.limit, this.currentPage, this.filterParams,
+    )
+    .do(this.emitNewRequestsAndUpdateCurrentPage);
+  }
+  private emitNewRequestsAndUpdateCurrentPage = (requests) => {
+    this.currentPage += 1;
+    this.updateRequests.emit(requests);
+    this.loading = false;
+  }
 
   /** Get details of the request clicked by the user
    * in the request pool. Changes showRequest to true

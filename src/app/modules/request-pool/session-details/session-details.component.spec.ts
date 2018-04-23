@@ -6,7 +6,6 @@ import { UserService } from '../../../services/user.service';
 import { RequestService } from '../../../services/request.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FilterService } from '../../../services/filter.service';
 import { SharedModule } from '../../shared/shared.module';
 import { UserServiceStub } from '../../../stubs/user-stub.service';
@@ -21,7 +20,6 @@ describe('SessionDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        InfiniteScrollModule,
         SharedModule,
         HttpModule,
         FormsModule,

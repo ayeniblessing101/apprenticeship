@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { RequestService } from '../../services/request.service';
 import { SessionService } from '../../services/session.service';
@@ -33,12 +32,12 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
 import { AddFileModalComponent } from './add-file-modal/add-file-modal.component';
 import { UploadFileDirective } from './add-file-modal/upload-file.directive';
 import { SetRequestHeaderIconDirective } from '../../directives/set-request-header-icon.directive';
+import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-session-modal.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    InfiniteScrollModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
@@ -68,6 +67,7 @@ import { ConfirmSessionModalComponent } from './confirm-session-modal/confirm-se
     UploadFileDirective,
     SetRequestHeaderIconDirective,
     ConfirmSessionModalComponent,
+    InfiniteScrollDirective,
   ],
   exports: [
     PoolComponent,

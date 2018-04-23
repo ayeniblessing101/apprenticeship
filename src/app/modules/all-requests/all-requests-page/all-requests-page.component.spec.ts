@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, XHRBackend } from '@angular/http';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
 import { AllRequestsPageComponent } from './all-requests-page.component';
@@ -28,6 +27,7 @@ import { ExportButtonComponent } from '../../shared/export-button/export-button.
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
+import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -40,7 +40,6 @@ describe('AllRequestsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpModule,
-        InfiniteScrollModule,
         ReactiveFormsModule,
         FormsModule,
         StarRatingModule,
@@ -63,6 +62,7 @@ describe('AllRequestsPageComponent', () => {
         DropDownComponent,
         ExportButtonComponent,
         SetRequestHeaderIconDirective,
+        InfiniteScrollDirective,
       ],
       providers: [
         Http,

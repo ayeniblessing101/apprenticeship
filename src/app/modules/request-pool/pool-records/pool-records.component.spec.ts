@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { StarRatingModule } from 'angular-star-rating';
 import { PoolRecordsComponent } from './pool-records.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from './../../../services/request.service';
+import { UserService } from './../../../services/user.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { SharedModule } from '../../shared/shared.module';
@@ -12,6 +12,7 @@ import { SaveFiltersModalComponent } from 'app/modules/request-pool/save-filters
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 
 describe('PoolRecordsComponent', () => {
   let component: PoolRecordsComponent;
@@ -20,7 +21,6 @@ describe('PoolRecordsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        InfiniteScrollModule,
         SharedModule,
         HttpModule,
         ReactiveFormsModule,
@@ -31,6 +31,7 @@ describe('PoolRecordsComponent', () => {
         PoolRecordsComponent,
         SaveFiltersModalComponent,
         SetRequestHeaderIconDirective,
+        InfiniteScrollDirective,
       ],
       providers: [
         Http,
@@ -38,6 +39,7 @@ describe('PoolRecordsComponent', () => {
         RequestService,
         FilterService,
         TableHeaderSortHelper,
+        UserService,
       ],
     })
       .compileComponents();

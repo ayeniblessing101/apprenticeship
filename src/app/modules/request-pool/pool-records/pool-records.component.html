@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="pool-table">
-    <div class="pool-body">
+    <div class="pool-body" appInfiniteScroller scrollPercent="70" [scrollCallback]="scrollCallback">
       <div *ngIf="loadingRequests" class="loader"></div>
       <a *ngFor="let request of requests" class="body-content custom-row" id="request-pool" (click)="showRequestDetails(request)">
         <div id="title" class="custom-col-3">{{ request.title }}</div>
@@ -44,6 +44,7 @@
         <div id="created-at" class="custom-col-2">{{ request.created_at|date: 'longDate' }}</div>
         <div id="request-location" class="custom-col-2">{{ request.location }}</div>
       </a>
+      <div *ngIf="loading" class="loader"> </div>
       <div class="space"></div>
     </div>
   </div>

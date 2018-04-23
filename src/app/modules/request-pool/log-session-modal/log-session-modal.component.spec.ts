@@ -4,7 +4,6 @@ import { LogSessionModalComponent } from './log-session-modal.component';
 import { HttpModule } from '@angular/http';
 import { StarRatingModule } from 'angular-star-rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RequestService } from '../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
 import { HttpService as Http } from '../../../services/http.service';
@@ -25,7 +24,6 @@ describe('LogSessionModalComponent', () => {
         StarRatingModule,
         FormsModule,
         ReactiveFormsModule,
-        InfiniteScrollModule,
         SharedModule,
       ],
       declarations: [LogSessionModalComponent],
