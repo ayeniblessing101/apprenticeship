@@ -27,6 +27,8 @@ import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
 import { CharacterCountDownComponent } from './character-count-down/character-count-down.component';
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
+import { ToastComponent } from './toast/toast.component';
+import { ToastService } from '../../services/toast.service';
 
 @NgModule({
   imports: [
@@ -58,6 +60,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
     RequestDurationPipe,
     ProposedRequestDurationPipe,
     NoResultComponent,
+    ToastComponent,
   ],
   exports: [
     HeaderComponent,
@@ -72,6 +75,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
     RequestDetailsModalComponent,
     CalendarPickerComponent,
     ExportButtonComponent,
+    ToastComponent,
     ProposedRequestDurationPipe,
     RequestSkillPipe,
     RequestDurationPipe,
@@ -81,6 +85,7 @@ import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
   providers: [
     NotificationsComponent,
     SkillService,
+    ToastService,
   ],
 })
 export class SharedModule { }

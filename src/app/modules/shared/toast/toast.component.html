@@ -1,0 +1,13 @@
+<div id="toast"
+  *ngIf="showMessage"
+  [ngClass]="{ 'is-info': type == 'info',
+    'is-error': type == 'error',
+    'is-success': type == 'success',
+    'is-warning': type == 'warning' }">
+  <span>
+    <i *ngIf="type === 'error'" class="fa fa-exclamation" aria-hidden="true"></i>
+    <i *ngIf="type === 'success'" class="fa fa-check" aria-hidden="true"></i> 
+    <i *ngIf="type === 'warning'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+    {{ message }}
+  </span>
+</div>

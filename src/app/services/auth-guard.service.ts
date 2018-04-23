@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class  AuthGuard implements CanActivate {
@@ -11,6 +12,19 @@ export class  AuthGuard implements CanActivate {
   }
 
   /**
+   * Verifies if the user email is an andelan email.
+   *
+   * @returns {void}
+   */
+  verifyEmail() {
+    const queryParams = new URLSearchParams(window.location.search.slice(1));
+    if (queryParams.has('error')) {
+      this.auth.changeNotice('invalid email');
+      this.router.navigate(['/login']);
+    }
+  }
+
+  /**
   *  canActivate
   *
   *  This method checks whether a user is logged in by checking if the id_token
@@ -18,19 +32,13 @@ export class  AuthGuard implements CanActivate {
   *  permissions of the user in the stored JWT token.
   */
   canActivate() {
-    if (this.auth.loggedIn()) {
-      this.auth.decodeToken();
+    this.verifyEmail();
 
-      if (this.auth.userInfo.roles.Guest) {
-        this.auth.changeNotice('permission');
-        this.router.navigate(['/login']);
-        return false;
-      }
+    if (this.auth.loggedIn()) {
       return true;
     }
 
     this.router.navigate(['/login']);
-
     return false;
   }
 }

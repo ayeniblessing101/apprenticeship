@@ -1,0 +1,25 @@
+#toast {
+  margin-right: 10px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 100;
+  font-weight: 100;
+  font-family: 'Roboto', sans-serif;
+  color: #fefefe;
+  font-size: 0.8em;
+  border-radius: 3px;
+  padding: 15px;
+}
+.is-error {
+  background-color: #FF3C3C;
+}
+.is-success {
+  background: #6FBE70;
+}
+.is-warning {
+  background: #FD9326;
+}
+.is-info {
+  background: #2796DD;
+}

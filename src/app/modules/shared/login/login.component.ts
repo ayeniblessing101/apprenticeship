@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -8,26 +9,26 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  notice;
-  message = '';
-  action = false;
   redirectUrl = `${environment.apiGateway}/login?redirect_url=${environment.lenkenBaseUrl}/request-pool`;
 
   constructor(
     private auth: AuthService,
-  ) {
-    this.notice = this.auth.notice;
-  }
+    private toastService: ToastService,
+  ) {}
 
-  setMessage() {
-    if (this.notice === 'permission') {
-      this.message = 'Hello! It seems you do not have permission to access this application. Login using an Andelan email address';
+  ngOnInit() {
+    if (this.auth.notice !== null) {
+      this.setMessage();
     }
   }
 
-  ngOnInit() {
-    if (this.notice != null) {
-      this.setMessage();
+  setMessage() {
+    if (this.auth.notice === 'invalid email') {
+      this.toastService.displayMessage(
+        'Please login with your Andela email',
+        'error',
+        4000,
+      );
     }
   }
 }
