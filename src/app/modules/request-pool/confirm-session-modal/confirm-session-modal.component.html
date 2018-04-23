@@ -74,9 +74,9 @@
         </ng-template>
       </div>
         <p>Comment feedback (optional)</p>
-        <input type="text" placeholder="Start Typing" name="comment" formControlName="comment">
-        <button type="submit">Submit</button>
-        <button type="button" (click)="confirmSessionRejection()">Reject</button>
+        <input type="text" placeholder="Start Typing" name="comment" formControlName="comment" id="comment">
+        <button type="submit" id="submit-session">Submit</button>
+        <button type="button" (click)="confirmSessionRejection()" id="reject-session">Reject</button>
       </form>
     </div>
   </div>

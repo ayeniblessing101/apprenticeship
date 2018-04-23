@@ -1,8 +1,8 @@
 import { browser } from 'protractor';
-import { InProgress } from './in-progress.po';
+import { InProgressPage } from './in-progress.po';
 
 describe('In Progress', () => {
-  const inProgress = new InProgress();
+  const inProgress = new InProgressPage();
   beforeAll(() => {
     inProgress.navigateToInProgressPage();
   });

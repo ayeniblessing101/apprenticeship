@@ -1,6 +1,6 @@
 import { by, browser, element, ElementFinder, ElementArrayFinder, promise, $ } from 'protractor';
 
-export class InProgress {
+export class InProgressPage {
 
   /**
    * Navigates to the in-progress page

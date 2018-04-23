@@ -44,7 +44,7 @@
       <div class="pool-table">
         <div class="pool-body">
           <div *ngIf="loading" class="loader"></div>
-          <a *ngFor="let request of requests" class="body-content custom-row" (click)="goToSingleViewPage(request.id)">
+          <a *ngFor="let request of requests" class="body-content custom-row" (click)="goToSingleViewPage(request.id)" id="request-in-progress">
             <div class="custom-col-3">{{ request.title }}</div>
             <div class="custom-col-4">{{ request.request_skills|requestSkill: 'primary' }}</div>
             <div class="custom-col-2">{{ request.duration|requestDuration }}</div>
