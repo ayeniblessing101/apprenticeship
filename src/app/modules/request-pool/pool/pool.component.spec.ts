@@ -20,6 +20,8 @@ import { SaveFiltersComponent } from '../save-filters/save-filters.component';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
+import { SearchService } from '../../../services/search.service';
+
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
@@ -54,6 +56,7 @@ describe('PoolComponent', () => {
         SkillService,
         AlertService,
         TableHeaderSortHelper,
+        SearchService,
       ],
     })
       .compileComponents();

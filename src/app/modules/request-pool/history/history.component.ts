@@ -1,8 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { SearchService } from '../../../services/search.service';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-history',
@@ -11,11 +14,15 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
   providers: [RequestService],
 })
 
-export class HistoryComponent implements OnInit {
+export class HistoryComponent implements OnInit, OnDestroy {
   loading: boolean;
   requests: any[];
   rerender: boolean;
   sectionGridWidth = '90%';
+  noResultMessage: string;
+  private subscription: Subscription;
+
+
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -32,12 +39,20 @@ export class HistoryComponent implements OnInit {
     private route: Router,
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
-  ) {}
+    private searchService: SearchService,
+  ) {
+  }
 
   ngOnInit() {
     this.getCompletedRequests();
+    this.initiateSearchSubscription();
   }
 
+  ngOnDestroy() {
+    if (this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   /**
    * Gets completed create-request belonging to the current user
    *
@@ -53,6 +68,24 @@ export class HistoryComponent implements OnInit {
           this.requests = this.formatRequests(response);
         },
     )
+  }
+
+ /**
+   * Calls searchService that does a search based on the search term
+   *
+   * @return {void}
+   */
+  initiateSearchSubscription() {
+    this.searchService.searchTerm.subscribe(
+        (currentSearchTerm) => {
+          this.searchService.fetchRecords('v2/requests/history', currentSearchTerm)
+            .toPromise()
+            .then((response) => {
+              this.requests = response;
+            });
+        });
+
+    this.noResultMessage = `Your search didn't return any result. Try something different.`;
   }
 
   /**
@@ -86,15 +119,15 @@ export class HistoryComponent implements OnInit {
     this.route.navigate(['request-pool/history/', requestId]);
   }
 
-/**
- * Sorts history records based on the table header
- *
- * @param {string} headerName - Name of the table column header
- * @param {boolean} headerIsDateType - whether the header is of type date or not
- *
- * @return {void}
- */
-  sortHistoryRequestsByHeader(headerName,  headerIsDateType = false) {
+  /**
+   * Sorts history records based on the table header
+   *
+   * @param {string} headerName - Name of the table column header
+   * @param {boolean} headerIsDateType - whether the header is of type date or not
+   *
+   * @return {void}
+   */
+  sortHistoryRequestsByHeader(headerName, headerIsDateType = false) {
     this.tableHeaderSorterHelper.sortTableWithHeader(
       headerName,
       headerIsDateType,
@@ -108,4 +141,5 @@ export class HistoryComponent implements OnInit {
     this.changeDetector.detectChanges();
     this.rerender = false;
   }
+
 }

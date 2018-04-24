@@ -19,7 +19,7 @@ export class RequestPoolPage {
    * @return {WebElement}
    */
   getTable(): ElementFinder {
-    return element(by.css('.table'));
+    return element(by.css('.pool-table'));
   }
 
   /**
@@ -31,6 +31,15 @@ export class RequestPoolPage {
     return element(by.id('location'));
   }
 
+  /**
+   * Gets the searchbar element in the pool
+   *
+   * @return {Void}
+   */
+  getSearchInputElement() {
+    const inputSearch = element(by.id('search'));
+    inputSearch.sendKeys('soluta');
+  }
   /**
    * Gets the lagos filter button in the request pool
    *
@@ -82,7 +91,7 @@ export class RequestPoolPage {
    * @return {Array}
    */
   getRequestsInRequestPool(): ElementArrayFinder {
-    return this.getTable().all(by.css('#request-pool div'));
+    return this.getTable().all(by.css('#request-pool'));
   }
 
   /**
@@ -148,7 +157,7 @@ export class RequestPoolPage {
    * @return {WebElement}
    */
   getFirstRowMentorshipRequest(id): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id(id))
+    return this.getRequestsInRequestPool().get(0).element(by.id(id));
   }
 
   /* Gets the mentor button after hovering

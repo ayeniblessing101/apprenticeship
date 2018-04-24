@@ -11,6 +11,7 @@ import { SessionService } from '../../../services/session.service';
 import { InProgressComponent } from './in-progress.component';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
+import { SearchService } from '../../../services/search.service';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 
@@ -44,6 +45,7 @@ describe('InProgressComponent', () => {
         UserService,
         SessionService,
         TableHeaderSortHelper,
+        SearchService,
       ],
     })
       .compileComponents();
@@ -59,7 +61,7 @@ describe('InProgressComponent', () => {
     component.sortCategoryValues = {
       title: 'asc',
       duration: 'asc',
-      location:  'asc',
+      location: 'asc',
       role: 'asc',
       created_at: 'asc',
     };

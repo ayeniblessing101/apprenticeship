@@ -60,9 +60,10 @@
 </div>
 <ng-template #noRequest>
   <div [style.width]="sectionGridWidth">
-    <app-no-result></app-no-result>
+    <app-no-result [message]="noResultMessage"></app-no-result>  
   </div>
 </ng-template>
 <div class="aside">
   <app-calendar [sessionDates]="sessionDates"></app-calendar>
 </div>
+

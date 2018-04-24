@@ -16,6 +16,8 @@ import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { NoResultComponent } from '../../shared/no-result/no-result.component';
+import { SearchService } from '../../../services/search.service';
+
 
 describe('PendingComponent', () => {
   let component: PendingComponent;
@@ -47,6 +49,7 @@ describe('PendingComponent', () => {
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
         RequestService,
+        SearchService,
       ],
     })
       .compileComponents();

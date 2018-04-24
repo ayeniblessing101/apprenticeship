@@ -13,7 +13,7 @@
     <li>
       <div>
         <form>
-          <input class="search" type="search" id="search">
+          <input class="search" type="search" (keyup)="updateSearchTerm($event)" id="search">
         </form>
       </div>
     </li>
@@ -51,13 +51,7 @@
     </a>
   </ul>
 </header>
-<app-create-request
- *ngIf="displayCreateRequestModal" [requestType]="requestType"
- (closeCreateRequestModal)="closeCreateRequestModal()"
- (showRequestModal)= "showRequestDetailsModal($event)" >
+<app-create-request *ngIf="displayCreateRequestModal" [requestType]="requestType" (closeCreateRequestModal)="closeCreateRequestModal()"
+  (showRequestModal)="showRequestDetailsModal($event)">
 </app-create-request>
-<app-request-details
-*ngIf="showRequest"
-[selectedRequest]="selectedRequest"
-(close)="closeRequestDetailsModal()"
-></app-request-details>
+<app-request-details *ngIf="showRequest" [selectedRequest]="selectedRequest" (close)="closeRequestDetailsModal()"></app-request-details>

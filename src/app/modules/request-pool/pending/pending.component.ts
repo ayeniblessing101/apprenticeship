@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SearchService } from '../../../services/search.service';
 import { RequestService } from './../../../services/request.service';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-pending',
   templateUrl: './pending.component.html',
   styleUrls: ['./pending.component.scss'],
 })
-export class PendingComponent implements OnInit {
+export class PendingComponent implements OnInit, OnDestroy {
   requests: any[] = []
   loading: boolean;
   request: object;
   sectionGridWidth = '90%';
+  noResultMessage: string;
+  private subscription: Subscription;
+
 
   constructor(
     private requestService: RequestService,
+    private searchService: SearchService,
   ) {
 
     requestService.updatePendingPoolRequestsTable
@@ -26,8 +33,14 @@ export class PendingComponent implements OnInit {
 
   ngOnInit() {
     this.getPendingRequests();
+    this.initiateSearchSubscription();
   }
 
+  ngOnDestroy() {
+    if (this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   /**
    * Get pending create-request from Lenken Api service
    *
@@ -46,8 +59,26 @@ export class PendingComponent implements OnInit {
           this.loading = false;
         },
     );
+
   }
 
+  /**
+   * Calls searchService that does a search based on the search term
+   *
+   * @return {void}
+   */
+  initiateSearchSubscription() {
+    this.searchService.searchTerm.subscribe(
+        (currentSearchTerm) => {
+          this.searchService.fetchRecords('v2/requests/pending', currentSearchTerm)
+            .toPromise()
+            .then((response) => {
+              this.requests = response;
+            });
+        });
+    this.noResultMessage = `Your search didn't return any result. Try something different.`;
+
+  }
   /**
    * Remove request from pending pool
    *

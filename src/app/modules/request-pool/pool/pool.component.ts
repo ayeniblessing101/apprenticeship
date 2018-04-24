@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
+import { SearchService } from '../../../services/search.service';
+import { Subscription } from 'rxjs/Subscription';
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { SortingStatus } from '../../../interfaces/sorting.interface';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
@@ -10,12 +12,13 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
   templateUrl: './pool.component.html',
   styleUrls: ['./pool.component.scss'],
 })
-export class PoolComponent implements OnInit {
+export class PoolComponent implements OnInit, OnDestroy {
 
   @ViewChild(PoolFiltersComponent) poolFilterComponent;
   @Input() showFilters = true;
   @Input() showOpenRequests = true;
   @Input() includeInterestedRequests = false;
+  @Input() reqUrl: string;
 
   currentPage = 1;
   limit = 20;
@@ -28,11 +31,12 @@ export class PoolComponent implements OnInit {
   firstPageLoad: boolean;
   noResultMessage: string;
   sortingStatus: SortingStatus = null;
+  private subscription: Subscription;
 
   constructor(private requestService: RequestService,
               private tableHeaderSorterHelper: TableHeaderSortHelper,
-              private filterService: FilterService) {
-  }
+              private filterService: FilterService,
+              private searchService: SearchService) {}
 
   ngOnInit() {
     this.isSaveFiltersModalOpened = false;
@@ -45,8 +49,14 @@ export class PoolComponent implements OnInit {
     this.requestService.requestPool.subscribe(() => {
       this.loadRequests();
     });
+    this.initiateSearchSubscription(this.reqUrl);
   }
 
+  ngOnDestroy() {
+    if (this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   /**
    * Get request from the Lenken API service
    *
@@ -99,7 +109,24 @@ export class PoolComponent implements OnInit {
   }
 
   /**
-   * Updates requests on page scroll and also sorts accordingly if a user
+   * Calls searchService that does a search based on the search term
+   *
+   * @return {void}
+   */
+  initiateSearchSubscription(reqUrl: string = 'v2/requests/pool') {
+    this.searchService.searchTerm.subscribe(
+        (currentSearchTerm) => {
+          this.searchService.fetchRecords(reqUrl, currentSearchTerm)
+            .toPromise()
+            .then((response) => {
+              this.requests = response.requests;
+            });
+        });
+
+    this.noResultMessage = `Your search didn't return any result. Try something different.`;
+  }
+  /**
+   * Fetches requests on page scroll and also sorts accordingly should a user
    * already started sorting requests before scrolling.
    *
    * @return {void}
@@ -134,7 +161,6 @@ export class PoolComponent implements OnInit {
     if (!event) {
       return;
     }
-
     this.noResultMessage = `Your filter criteria didn't return any result. Try something different`;
 
     this.filterParams = {};
@@ -196,4 +222,5 @@ export class PoolComponent implements OnInit {
       return request.id !== event.id;
     });
   }
+
 }

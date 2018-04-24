@@ -27,6 +27,7 @@ export class PoolRecordsComponent implements OnInit {
   limit = 20;
   loading = false;
 
+
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -83,6 +84,8 @@ export class PoolRecordsComponent implements OnInit {
     this.showRequest = true;
   }
 
+
+
   /**
    * Changes showRequest to false and closes
    * the modal
@@ -101,7 +104,7 @@ export class PoolRecordsComponent implements OnInit {
    *
    * @return {void}
    */
-  sortPoolRequestsByHeader(headerName,  headerIsDateType = false) {
+  sortPoolRequestsByHeader(headerName, headerIsDateType = false) {
     this.tableHeaderSorterHelper.sortTableWithHeader(
       headerName,
       headerIsDateType,
@@ -134,5 +137,18 @@ export class PoolRecordsComponent implements OnInit {
    */
   initiateRequestsPoolFilter() {
     this.filterRequestsPool.emit(this.selectedRequest);
+  }
+
+
+  /** Checks whether the column of a request table header is not null
+   *
+   * @return {Boolean} - Result of whether the table header has column value or not
+   */
+  checkRequestHeaderHasValue(headerName) {
+    const headerValueIndex = this.requests.findIndex((request) => {
+      return !!request[headerName];
+    });
+
+    return headerValueIndex !== -1;
   }
 }

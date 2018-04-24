@@ -1,16 +1,19 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
 import { Router } from '@angular/router';
+import { SearchService } from '../../../services/search.service';
 import { SessionService } from './../../../services/session.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-in-progress',
   templateUrl: './in-progress.component.html',
   styleUrls: ['./in-progress.component.scss'],
 })
-export class InProgressComponent implements OnInit {
+export class InProgressComponent implements OnInit, OnDestroy {
   errorMessage: string;
   loading: boolean;
   requests: any[];
@@ -18,6 +21,10 @@ export class InProgressComponent implements OnInit {
   sessionDates: any;
   rerender: boolean;
   sectionGridWidth = '75%';
+  noResultMessage: string;
+  private subscription: Subscription;
+
+
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -34,12 +41,20 @@ export class InProgressComponent implements OnInit {
     private route: Router,
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
+    private searchService: SearchService,
   ) {
     this.requests = [];
   }
 
   ngOnInit() {
     this.getInProgressRequests();
+    this.initiateSearchSubscription();
+  }
+
+  ngOnDestroy() {
+    if (this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -60,6 +75,24 @@ export class InProgressComponent implements OnInit {
         this.fetchAllSessionDates(this.requests);
       })
       .catch(error => this.errorMessage = error);
+  }
+
+  /**
+   * Calls searchService that does a search based on the search term
+   *
+   * @return {void}
+   */
+  initiateSearchSubscription() {
+    this.searchService.searchTerm.subscribe(
+        (currentSearchTerm) => {
+          this.searchService.fetchRecords('v2/requests/in-progress', currentSearchTerm)
+            .toPromise()
+            .then((response) => {
+              this.requests = response;
+            });
+        });
+    this.noResultMessage = `Your search didn't return any result. Try something different.`;
+
   }
 
   /**
@@ -113,22 +146,22 @@ export class InProgressComponent implements OnInit {
     }
   }
 
-/**
- * Sorts in-progress requests based on the table header
- *
- * @param {string} headerName - Name of the table column header
- * @param {boolean} headerIsDateType - whether the header is of type date or not
- *
- * @return {void}
- */
-  sortInProgressRequestsByHeader(headerName,  headerIsDateType = false) {
+  /**
+   * Sorts in-progress requests based on the table header
+   *
+   * @param {string} headerName - Name of the table column header
+   * @param {boolean} headerIsDateType - whether the header is of type date or not
+   *
+   * @return {void}
+   */
+  sortInProgressRequestsByHeader(headerName, headerIsDateType = false) {
     this.tableHeaderSorterHelper.sortTableWithHeader(
       headerName,
       headerIsDateType,
       this.requests,
       this.activeSortCategory,
       this.sortCategoryValues,
-  );
+    );
 
     this.activeSortCategory = headerName;
     this.rerender = true;

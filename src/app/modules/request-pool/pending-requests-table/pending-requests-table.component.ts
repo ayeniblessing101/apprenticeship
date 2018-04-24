@@ -13,6 +13,7 @@ export class PendingRequestsTableComponent {
   @Input() title: string;
   @Output() reload: EventEmitter<boolean> = new EventEmitter();
   @Output() request = new EventEmitter<number>();
+  @Input() noResultMessage: string;
   openModal: boolean;
   pendingRequest: any[];
   rerender: boolean;

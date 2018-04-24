@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 
 @Component({
@@ -7,11 +9,16 @@ import * as moment from 'moment';
   templateUrl: './skills-page.component.html',
   styleUrls: ['./skills-page.component.scss'],
 })
-export class SkillsPageComponent implements OnInit {
+export class SkillsPageComponent implements OnInit, OnDestroy {
   skills: any;
   addSkillModal: boolean;
+  noResultMessage: string;
+  private subscription: Subscription;
+
+
   constructor(
     private route: ActivatedRoute,
+    private searchService: SearchService,
   ) {
     this.route.data.subscribe((value) => {
       this.skills = value.skills;
@@ -21,6 +28,14 @@ export class SkillsPageComponent implements OnInit {
   ngOnInit() {
     this.addLastRequestedPropertyToSkills(this.skills);
     this.addRequestsPropertyToSkills(this.skills);
+    this.initiateSearchSubscription();
+
+  }
+
+  ngOnDestroy() {
+    if (this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -39,6 +54,24 @@ export class SkillsPageComponent implements OnInit {
       }
     });
   }
+
+ /**
+   * Calls searchService that does a search based on the search term
+   *
+   * @return {void}
+   */
+  initiateSearchSubscription() {
+    this.searchService.searchTerm.subscribe(
+        (currentSearchTerm) => {
+          this.searchService.fetchRecords('v2/skills', currentSearchTerm)
+            .toPromise()
+            .then((response) => {
+              this.skills = response;
+            });
+        });
+    this.noResultMessage = `Your search didn't return any result. Try something different.`;
+  }
+
   /**
    *  Add the new skill to the skills' pool
    *

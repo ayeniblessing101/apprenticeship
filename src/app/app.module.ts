@@ -19,6 +19,7 @@ import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
 import { SegmentService } from './services/segment.service';
 import { FileService } from './services/files.service';
+import { SearchService } from './services/search.service';
 
 // components
 import { AppRoutesModule } from './app-routes.module';
@@ -76,6 +77,7 @@ if (authToken) {
     SegmentService,
     NotificationService,
     FileService,
+    SearchService,
     SkillsResolver,
     TableHeaderSortHelper,
     CSVDownloadHelper,

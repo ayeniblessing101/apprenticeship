@@ -112,7 +112,7 @@
 </div>
 
 <ng-template #noRequest>
-  <app-no-result></app-no-result>
+  <app-no-result [message]="noResultMessage"></app-no-result>
 </ng-template>
 
 <app-pending-modal *ngIf="openModal" #pendingModal [request]="pendingRequest" (closePendingModal)="closePendingModal()">

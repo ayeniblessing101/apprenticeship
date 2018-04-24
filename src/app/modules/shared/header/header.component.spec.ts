@@ -25,6 +25,8 @@ import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-dur
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { StarRatingModule } from 'angular-star-rating';
 import { CharacterCountDownComponent } from '../character-count-down/character-count-down.component';
+import { SearchService } from '../../../services//search.service';
+
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -69,6 +71,7 @@ describe('HeaderComponent', () => {
         { provide: UserService, useClass: UserServiceStub },
         { provide: NotificationService, useClass: NotificationServiceStub },
         AlertService,
+        SearchService,
       ],
     })
       .compileComponents();

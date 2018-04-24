@@ -15,6 +15,13 @@ describe('Request Pool', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/request-pool');
   });
 
+  it('Should be able to search', () => {
+    requestPool.getSearchInputElement();
+    browser.wait(EC.visibilityOf(requestPool.getFirstRowMentorshipRequest('title')),
+                 3000, '.title should be visible');
+    expect(requestPool.getFirstRowMentorshipRequest('title').getText()).toContain('soluta');
+  });
+
   it('Should show a request modal when a request is clicked', () => {
     requestPool.getRequestsInRequestPool().get(0).click();
     browser.sleep(2000);
@@ -128,4 +135,5 @@ describe('Request Pool', () => {
     requestPool.closeNotificationsIcon().click();
     browser.sleep(1500);
   });
+
 });

@@ -5,7 +5,8 @@
         [requests]="requests"
         (request)="setRequest($event)"
         (reload)="getPendingRequests()"
-        [loading]="loading">
+        [loading]="loading"
+        [noResultMessage]="noResultMessage">
       </app-pending-requests-table>
     </div>
   </section>

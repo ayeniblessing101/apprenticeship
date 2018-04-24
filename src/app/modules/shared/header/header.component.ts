@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
 import { RequestTypes } from '../../../enums/request-types.enum';
+import { SearchService } from '../../../services//search.service';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private alertService: AlertService,
+    private searchService: SearchService,
   ) {
     if (!localStorage.getItem('id_token')) {
       this.showHeaderContent = false;
@@ -120,5 +122,14 @@ export class HeaderComponent implements OnInit {
   showRequestDetailsModal(request) {
     this.selectedRequest = request;
     this.showRequest = true;
+  }
+
+  /**
+   * Updates search input and passes it to search service
+   *
+   * @param event
+   */
+  updateSearchTerm(event: any) {
+    this.searchService.searchTerm.next(event.target.value);
   }
 }

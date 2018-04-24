@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { PoolComponent } from '../../request-pool/pool/pool.component';
 import { PoolRecordsComponent } from '../../request-pool/pool-records/pool-records.component';
 
@@ -8,18 +8,18 @@ import { PoolRecordsComponent } from '../../request-pool/pool-records/pool-recor
   styleUrls: ['./all-requests-page.component.scss'],
 })
 export class AllRequestsPageComponent implements OnInit {
-  @ViewChild(PoolComponent) poolComponent;
+  @ViewChild(PoolComponent) poolComponent: PoolComponent;
   loadingRequests: boolean;
 
   ngOnInit() {
     this.loadRequests();
   }
 
-/**
- * Applies loader depending on boolean value from
- * the PoolComponent
- *
- */
+  /**
+   * Applies loader depending on boolean value from
+   * the PoolComponent
+   *
+   */
   loadRequests() {
     this.loadingRequests = this.poolComponent.loadingRequests;
   }
