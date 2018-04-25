@@ -1,6 +1,6 @@
 <app-header *ngIf='showNavAndHeader' [currentUser]="currentUser"></app-header>
 <app-nav-bar *ngIf='showNavAndHeader'></app-nav-bar>
-<div class="main-wrapper">
+<div [class.main-wrapper]="isMainWrapperRequired">
 <div *ngIf="loading" class="loader spinner"> </div>
 <router-outlet></router-outlet>
 </div>

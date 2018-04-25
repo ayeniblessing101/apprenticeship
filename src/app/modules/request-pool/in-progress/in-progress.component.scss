@@ -10,3 +10,23 @@
   text-align: left !important;
   padding-left: 30px;
 }
+.aside {
+  width: 22%;
+}
+
+@media only screen and (min-width: 1920px) {
+  .aside {
+    width: 20%;
+  }
+  #section-grid {
+    width: 76% !important;
+  }
+}
+@media only screen and (min-width: 2560px) {
+  .aside {
+    width: 14%;
+  }
+  #section-grid {
+    width: 84% !important;
+  }
+}

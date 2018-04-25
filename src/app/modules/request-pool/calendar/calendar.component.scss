@@ -18,6 +18,7 @@
   height: 100%;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
+  z-index: 1;
 }
 
 .cal-header {
@@ -274,4 +275,20 @@ $base: 10px;
   height: 1px;
   background-color: #eeeeee;
   border: none;
+}
+
+@media only screen and (min-width: 1920px) {
+  #base {
+    width: 18%;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #base {
+    width: 18%;
+  }
+} 
+@media only screen and (min-width: 2560px) {
+  #base {
+    width: 13%;
+  }
 }

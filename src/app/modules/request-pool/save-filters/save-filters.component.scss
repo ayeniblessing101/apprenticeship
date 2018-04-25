@@ -8,6 +8,7 @@
   text-align: left;
   color: #747474;
   margin-top: 35px;
+  padding-left: 10px;
 
   .requests-radio-encloser {
     margin-top: 1px;
@@ -45,6 +46,7 @@
         margin-bottom: 0;
         cursor: pointer;
         vertical-align: bottom;
+        font-size: 18px;
         &:before, &:after {
           position: absolute;
           content: '';
@@ -114,7 +116,7 @@ input[type="button"] {
   background-color: #3359db;
   position: fixed;
   bottom: 0px;
-  width: 25%;
+  width: 21%;
   margin-left: 0px;
   display: flex;
 }
@@ -149,4 +151,9 @@ input[type="button"] {
   flex-direction: row;
   justify-content: space-between;
   width: 100% !important;
+}
+@media only screen and (min-width: 1920px) {
+  .btn-wrapper {
+    width: 15%;
+  }
 }

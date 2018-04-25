@@ -250,6 +250,12 @@ section {
   fill: #3259db;
 }
 
+@media only screen and (min-width: 1920px) {
+  #section-grid {
+    width: 83.5% !important;
+  }
+}
+
 @media only screen and (max-width: 1210px) {
   #section-grid {
     width: 70%;

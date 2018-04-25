@@ -1,6 +1,7 @@
 <div class="all-filters">
   <div (mouseleave)="showDropDown = false">
     <button class="drop-toggle btn flat" (click)="showDropDown=!showDropDown">
+      <span class="label">{{ label }}</span>
       <span *ngIf="checkedList.length === 0" class="placeholder">{{ placeholder }}</span>
       <span *ngIf="checkedList.length > 0">{{checkedList.join(', ')}}</span>
       <i class="fa fa-caret-down"></i>

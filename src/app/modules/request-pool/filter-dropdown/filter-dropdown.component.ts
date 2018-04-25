@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 })
 export class FilterDropdownComponent implements OnInit {
   @Input() list: any[];
+  @Input() label: string;
   @Input() placeholder: string;
   @Input() filterCategory: string;
   @Input() disabled: boolean;

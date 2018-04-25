@@ -136,3 +136,25 @@ li#history {
 .showNavContent {
     visibility: hidden;
 }
+
+@media only screen and (min-width: 1920px) {
+  #nav-grid {
+    width: 5%;
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #nav-grid {
+    font-size: 12px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  #nav-grid {
+    font-size: 15px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  #nav-grid {
+    font-size: 16px;
+  }
+}

@@ -3,7 +3,7 @@
 
 #side-grid {
   position: fixed;
-  width: 24.5%;
+  width: 20.5%;
   right: 0;
   overflow-y: scroll;
   min-height: 91.35vh;
@@ -19,6 +19,7 @@
     text-align: left;
     color: #747474;
     margin-top: 0;
+    padding-left: 10px;
 
     .regular-checkbox {
       display: none;
@@ -67,7 +68,7 @@
           }
         }
         margin: 6px 0px;
-        font-family: Roboto;
+        font-family: $font-family-1;
         input[type="radio"] {
           display: none;
           margin: 0.1875em 0em;
@@ -119,7 +120,7 @@
       }
     }
     .seeking-checkbox-encloser {
-      font-family: Roboto;
+      font-family: $font-family-1;
       color: #b0b0b0;
 
       .seeking-separator {
@@ -194,7 +195,7 @@
      background-color: #3359db;
      position: fixed;
      bottom: 0px;
-     width: 25%;
+     width: 21%;
      margin-left: 0px;
      display: flex;
     }
@@ -238,3 +239,25 @@
 :host /deep/ .mat-select-placeholder {
   margin:2em 0 1.5em;
 }
+
+@media only screen and (min-width: 1920px) {
+  #side-grid {
+    width: 14.5%;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #side-grid {
+    .side-contents{
+      font-size: 17px;
+    }
+  }
+}
+@media only screen and (min-width: 1440px) {
+  #side-grid {
+    .side-contents{
+      font-size: 16px;
+    }
+  }
+}
+
+

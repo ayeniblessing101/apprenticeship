@@ -26,7 +26,8 @@
     }
 
     div {
-      padding-left: 25px;
+      padding-left: 10px;
+      padding-top: 10px;
     }
   }
   .space {
@@ -63,7 +64,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding-left: 25px;
+        padding-left: 15px;
       }
 
       &:active {

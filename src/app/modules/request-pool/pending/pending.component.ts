@@ -19,7 +19,6 @@ export class PendingComponent implements OnInit, OnDestroy {
   noResultMessage: string;
   private subscription: Subscription;
 
-
   constructor(
     private requestService: RequestService,
     private searchService: SearchService,

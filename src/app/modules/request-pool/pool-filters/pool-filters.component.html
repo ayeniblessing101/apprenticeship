@@ -20,16 +20,16 @@
     </div>
     <div class="side-contents">
       <h4>Sorting</h4>
-      <app-filter-dropdown [placeholder]="'User\'s rating'" [list]="ratings" [filterCategory]="'ratings'"
+      <app-filter-dropdown  [label]="'User\'s rating'" [placeholder]="'Select'" [list]="ratings" [filterCategory]="'ratings'"
       [disabled]="true">
       </app-filter-dropdown>
-      <app-filter-dropdown id="location" [placeholder]="'Location'" [list]="locations" [filterCategory]="'locations'"
+      <app-filter-dropdown  id="location" [placeholder]="'Select'" [label]="'Location'" [list]="locations" [filterCategory]="'locations'"
                            (changes)="applySelectedFilters($event)">
       </app-filter-dropdown>
-      <app-filter-dropdown id="length-filter" [placeholder]="'Length'" [list]="lengths" [filterCategory]="'lengths'"
+      <app-filter-dropdown  id="length-filter" [placeholder]="'Select'" [label]="'Length'" [list]="lengths" [filterCategory]="'lengths'"
                            (changes)="applySelectedFilters($event)">
       </app-filter-dropdown>
-      <app-filter-dropdown id="skill-set" [placeholder]="'Skill set'" [list]="skills" [filterCategory]="'skills'"
+      <app-filter-dropdown  id="skill-set" [placeholder]="'Select Skill'" [label]="'Skill set'" [list]="skills" [filterCategory]="'skills'"
                            (changes)="applySelectedFilters($event)">
       </app-filter-dropdown>
 

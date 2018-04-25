@@ -27,7 +27,7 @@ export class PoolComponent implements OnInit, OnDestroy {
   isSaveFiltersModalOpened: boolean;
   requests = [];
   filterParams: any = {};
-  sectionGridWidth = '71%';
+  sectionGridWidth = '76%';
   firstPageLoad: boolean;
   noResultMessage: string;
   sortingStatus: SortingStatus = null;

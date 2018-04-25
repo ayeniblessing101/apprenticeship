@@ -14,9 +14,15 @@ button {
 }
 
 .placeholder {
-  color: #aeaeae;
   padding-left: 0px;
   margin-left: 0px;
+  color: #747474;
+  padding-left: 0px;
+  margin-left: 0px;
+  width: 50px;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: normal;
 }
 
 .drop-toggle {
@@ -26,11 +32,14 @@ button {
   border-bottom: 1px solid #D3D3D3;
   cursor: pointer;
   cursor: hand;
-  width: 310px;
+  width: 140px;
   text-align: left;
-  font-family: Roboto;
+  font-family: $font-family-1;
   font-size: 16px;
   color: $andela-blue;
+  &:focus {
+    outline: none;
+  }
 }
 
 .drop-toggle i {
@@ -46,7 +55,7 @@ button {
   -webkit-box-shadow: 0 6px 10px rgba(0,0,0,.15);
   -moz-box-shadow: 0 6px 10px rgba(0,0,0,.15);
   box-shadow: 0 6px 10px rgba(0,0,0,.15);
-  font-family: Roboto;
+  font-family: $font-family-1;
   font-size: 16px;
   margin: 0;
 }
@@ -103,4 +112,18 @@ button {
 
 .drop-show label span {
   display:inline-block;
+}
+
+.label {
+  display: block;
+  height: 18px;
+  color: #aeaeae;
+  line-height: 10px;
+  font-weight: 500;
+  font-size: 14px;
+}
+@media only screen and (min-width: 1024px) {
+  .placeholder {
+    font-size: 15px;
+  }
 }

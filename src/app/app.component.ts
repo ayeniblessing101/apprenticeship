@@ -16,6 +16,7 @@ export class AppComponent implements AfterContentChecked {
   showNavAndHeader = true;
   currentUser: any;
   loading = true;
+  isMainWrapperRequired = true;
   constructor(
     router: Router,
     private segmentService: SegmentService,
@@ -48,6 +49,7 @@ export class AppComponent implements AfterContentChecked {
         });
         if (event.url === '/login' || event.url === '/logout') {
           this.showNavAndHeader = false;
+          this.isMainWrapperRequired = false;
         }
       }
     });
