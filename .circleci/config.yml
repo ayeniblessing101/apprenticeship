@@ -27,6 +27,16 @@ jobs:
       - run:
           name: Run tests
           command: xvfb-run yarn test 
+  request_for_approval:
+    working_directory: ~/app
+    docker:
+        - image: circleci/node:latest
+    steps:
+        - checkout
+        - run: 
+            name: Ask for approval
+            command: .circleci/slack_integration.sh
+
   deploy_to_staging:
     working_directory: /tmp/lenken
     docker:
@@ -39,6 +49,19 @@ jobs:
       - run:
           name: Deploy to Staging GCP VMs
           command: .circleci/deploy_lenken.sh
+
+  deploy_to_production:
+    working_directory: /tmp/lenken
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - run:
+          name: Add GCloud key to JSON file
+          command: echo $GCLOUD_SERVICE_KEY_TESTING > ${HOME}/auth_lenken_app.json
+      - run:
+          name: Deploy to Production GCP VMs
+          command: .circleci/deploy_lenken_production.sh
 workflows:
   version: 2
   build-and-deploy:
@@ -50,4 +73,19 @@ workflows:
           filters:
             branches:
               only: develop-v2
-
+      - request_for_approval:
+          requires:
+            - unit-tests
+          filters:
+            branches:
+                only: production-v2
+      - approve_deploy:
+          type: approval
+          requires:
+            - request_for_approval
+      - deploy_to_production:
+          requires:
+            - approve_deploy
+          filters:
+            branches:
+                only: production-v2
