@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
@@ -9,7 +9,7 @@ import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.dir
   templateUrl: './pool-records.component.html',
   styleUrls: ['./pool-records.component.scss'],
 })
-export class PoolRecordsComponent implements OnInit {
+export class PoolRecordsComponent {
   @Input() requests = [];
   @Input() loadingRequests: boolean;
   @Input() noResultMessage: string;
@@ -44,10 +44,6 @@ export class PoolRecordsComponent implements OnInit {
     this.scrollCallback = this.getRequests.bind(this);
   }
 
-  ngOnInit() {
-    this.filterParams = this.filterService.getFilters();
-  }
-
 /**
  * This function makes a call to the API to get more requests
  * when a user scrolls down to 70% of the current requests.
@@ -60,6 +56,7 @@ export class PoolRecordsComponent implements OnInit {
  */
   getRequests() {
     this.loading = true;
+    this.filterParams = this.filterService.getFilters();
     return this.requestService.getRequests(
       this.limit, this.currentPage, this.filterParams,
     )
