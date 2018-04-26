@@ -17,7 +17,6 @@ export class InProgressComponent implements OnInit, OnDestroy {
   errorMessage: string;
   loading: boolean;
   requests: any[];
-  user;
   sessionDates: any;
   rerender: boolean;
   sectionGridWidth = '75%';
@@ -103,15 +102,13 @@ export class InProgressComponent implements OnInit, OnDestroy {
    * @return {Array} inProgressRequests - the array of in progress create-request
    */
   formatInProgressRequests(requests): any {
+    const userId = this.userService.getCurrentUser().id;
     const requestsInProgress = requests.map((request) => {
-      this.user = this.userService.getCurrentUser();
-
-      if (request.request_type_id === 2) {
+      if (request.mentee.id === userId) {
         request.role = 'Mentee'
-      } else if (request.request_type_id === 1) {
+      } else if (request.mentor.id === userId) {
         request.role = 'Mentor'
       }
-
       return request;
     });
     return requestsInProgress;
