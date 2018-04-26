@@ -9,7 +9,7 @@
       <span> {{ selectedRequest.created_by.fullname }} </span>
       <star-rating-comp [starType]="'svg'" [rating]="rating" [readOnly]="true"></star-rating-comp>
     </p>
-    <p class="request-content">{{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'Pre-requisite Skills -' : 'Complimentary Skills -' }}
+    <p class="request-content">{{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'Pre-requisite Skills -' : 'Complementary Skills -' }}
       <span> {{ selectedRequest.request_skills|requestSkill:  selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'preRequisite' : 'secondary' }} </span>
     </p>
     <p class="request-content">Preffered Location -

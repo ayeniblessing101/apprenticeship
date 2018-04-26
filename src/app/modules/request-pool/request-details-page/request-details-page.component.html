@@ -17,8 +17,11 @@
               </star-rating-comp>
        </div>
     </div>
-      <div class="request-details"><b>Primary Skills - </b><span>{{ request.request_skills|requestSkill: 'primary' || 'None' }}</span></div>
-      <div class="request-details"><b>Secondary Skills - </b><span>{{ request.request_skills|requestSkill: 'secondary' || 'None' }}</span></div>
+      <div class="request-details"><b>{{ request.request_type_id === requestTypes.MENTOR_REQUEST ? 'Complementary Skills -' : 'Pre-requisite Skills -' }} </b>
+        <span>
+          {{ request.request_skills|requestSkill: request.request_type_id === requestTypes.MENTOR_REQUEST ? 'secondary' : 'preRequisite' }}
+        </span>
+      </div>
       <div class="request-details"><b>Preffered Location - </b><span>{{ request.location || 'Anywhere' }}</span></div>
       <div class="request-details"><b>Proposed Duration - </b><span>{{ request|proposedRequestDuration }}</span></div>
   </div>

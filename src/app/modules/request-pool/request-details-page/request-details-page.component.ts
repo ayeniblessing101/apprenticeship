@@ -1,21 +1,23 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 
 import { UserService } from '../../../services/user.service';
-
+import { RequestTypes } from '../../../enums/request-types.enum';
 @Component({
   selector: 'app-request-details-page',
   templateUrl: './request-details-page.component.html',
   styleUrls: ['./request-details-page.component.scss'],
 })
-
 export class RequestDetailsPageComponent implements OnInit {
   @Input() request;
+
   mentee = {
     name: '',
     rating: 0,
   };
   primarySkills: string;
   secondarySkills: string;
+  requestTypes = RequestTypes;
+
   constructor(
     private userService: UserService,
   ) {}
