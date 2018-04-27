@@ -6,6 +6,7 @@
       {{ defaultValue }} <i>{{ skillsLength }}/3</i>
     </button>
     <div *ngIf="showDropDownContent" class="request-content common-dropdown-styles">
+      <p *ngIf="showSkillsMessage" class="skills-message">{{ skillsMessage }}</p>
       <a *ngFor="let item of list" (click)="setSelectedValue(item)">{{ item }}</a>
     </div>
   </li>
