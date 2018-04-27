@@ -14,7 +14,7 @@ import { AlertService } from '../../../services/alert.service';
 import { Session } from '../../../interfaces/session.interface';
 import { MenteeRating } from './../../../interfaces/mentee-rating.interface';
 import { MentorRating } from './../../../interfaces/mentor-rating.interface';
-import { menteeSessionFormHelper, mentorSessionFormHelper } from './../../../helpers/session-form.helper';
+import { getRatingValues } from './../../../helpers/session-form.helper';
 
 
 @Component({
@@ -40,6 +40,7 @@ export class LogSessionModalComponent implements OnInit {
   userIsMentor: boolean;
   userIsMentee: boolean;
   sessionIsEditable: boolean;
+  ratingValues: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,13 +56,24 @@ export class LogSessionModalComponent implements OnInit {
     this.endTime = this.request.pairing.end_time;
     this.calculateSessionTimeDifference(this.startTime, this.endTime);
 
-    const sessionFormFields = (this.userIsMentor) ? menteeSessionFormHelper : mentorSessionFormHelper;
     this.sessionForm = this.formBuilder.group({
       startTime: [this.startTime, [Validators.required]],
       endTime: [this.endTime, [Validators.required]],
       comment: '',
-      sessionFormValues: this.formBuilder.group(sessionFormFields),
+      sessionFormValues: this.formBuilder.group(getRatingValues(this.ratingValues, this.userIsMentor)),
     });
+
+    if (this.sessionIsEditable) {
+      this.sessionService.getSession(this.session.id)
+      .toPromise()
+      .then((response) => {
+        this.ratingValues = response.rating.values;
+        this.sessionForm.patchValue({
+          comment: (response.comments.length > 0) ? response.comments[0].comment : '',
+          sessionFormValues: getRatingValues(this.ratingValues, this.userIsMentor),
+        });
+      });
+    }
   }
 
   /**
@@ -144,7 +156,8 @@ export class LogSessionModalComponent implements OnInit {
       this.sessionService.logSession(sessionPayload, this.request.id, this.sessionId)
         .toPromise()
         .then((response) => {
-          const message = 'You have successfully logged this session.';
+          const message = (this.sessionIsEditable) ? 'You have successfully edited this session.'
+          : 'You have successfully logged this session.';
           this.updateSession(response);
           this.closeSessionModal();
           return this.alertService.showMessage(message);

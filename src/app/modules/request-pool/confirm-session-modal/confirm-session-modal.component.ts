@@ -14,7 +14,7 @@ import { SessionService } from '../../../services/session.service';
 import { AlertService } from '../../../services/alert.service';
 import { MenteeRating } from './../../../interfaces/mentee-rating.interface';
 import { MentorRating } from './../../../interfaces/mentor-rating.interface';
-import { menteeSessionFormHelper, mentorSessionFormHelper } from '../../../helpers/session-form.helper';
+import { getRatingValues } from '../../../helpers/session-form.helper';
 
 @Component({
   selector: 'app-confirm-session-modal',
@@ -33,6 +33,7 @@ export class ConfirmSessionModalComponent implements OnInit {
   endTime: string;
   readonly ratingScale: number = 5;
   userIsMentor: boolean;
+  ratingValues: any;
 
 
   constructor(
@@ -49,10 +50,9 @@ export class ConfirmSessionModalComponent implements OnInit {
     const sessionDuration = this.computeSessionDuration(this.startTime, this.endTime);
     const hours = sessionDuration === 1 ? `${sessionDuration} hour` : `${sessionDuration} hours`;
 
-    const sessionFormFields = (this.userIsMentor) ? menteeSessionFormHelper : mentorSessionFormHelper;
     this.confirmSessionForm = this.formBuilder.group({
       comment: '',
-      sessionFormValues : this.formBuilder.group(sessionFormFields),
+      sessionFormValues : this.formBuilder.group(getRatingValues(this.ratingValues, this.userIsMentor)),
     });
   }
 

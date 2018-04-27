@@ -114,6 +114,20 @@ export class SessionService {
   }
 
   /**
+   * Get single session.
+   *
+   * @param {number} sessionId - id of the session
+   *
+   * @return {observable} observable containing single session
+   */
+  getSession(sessionId: number): Observable <any> {
+    return this.http
+    .get(`${this.apiBaseUrl}/v2/sessions/${sessionId}`)
+    .map(this.handleResponse)
+    .catch(this.handleError);
+  }
+
+  /**
    * extracts actual data from Response
    *
    * @param {Response} - res
