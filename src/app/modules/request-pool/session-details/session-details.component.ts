@@ -4,6 +4,7 @@ import {
 import * as moment from 'moment';
 import { UserService } from '../../../services/user.service';
 import { FileService } from '../../../services/files.service';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-session-details',
@@ -34,7 +35,8 @@ export class SessionDetailsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private fileService: FileService) { }
+    private fileService: FileService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.userIsMentor = (this.currentUserId === this.request.mentor.id);
@@ -147,11 +149,18 @@ export class SessionDetailsComponent implements OnInit {
    * @return {void}
    */
   deleteFile(session, file) {
-    this.fileService.deleteSessionFile(session.id, file.id)
-      .toPromise()
-      .then((response) => {
-        this.removeDeletedFile.emit(file);
-      });
+    this.alertService
+      .confirm(
+        `Are you sure want to delete ${file.name}?`,
+        this, {
+          confirmActionText: `DELETE`,
+          abortActionText: 'CANCEL',
+          confirmAction: () => {
+            this.fileService.deleteSessionFile(session.id, file.id)
+              .toPromise()
+              .then(() => this.removeDeletedFile.emit(file));
+          },
+        });
   }
 
   /** Opens the add file modal.
