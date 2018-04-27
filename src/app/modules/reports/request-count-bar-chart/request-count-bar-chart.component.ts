@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, ElementRef, OnChanges } from '@angular/core';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
 import { BarChart } from '../../../interfaces/bar-chart.interface';
@@ -21,24 +21,13 @@ export class RequestCountBarChartComponent implements OnChanges {
   data: any;
   colors: any;
 
-  xAxis: any[];
-  yAxis: any[];
+  xAxis = [];
+  yAxis = [];
 
   constructor(private elementRef: ElementRef, private skillService: SkillService) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.yAxis = [];
-    this.xAxis = [];
-    if (changes['startDate'] || changes['endDate'] || changes['location']) {
-      if (!this.isValidDate(this.startDate, this.endDate)) {
-        this.error = 'This is an invalid date range.';
-        return;
-      }
-
-      this.error = '';
-      this.getReports(this.startDate, this.endDate, this.location);
-
-    }
+  ngOnChanges() {
+    this.getReports(this.formatDate(this.startDate), this.formatDate(this.endDate), this.location);
   }
 
   /**
@@ -89,6 +78,7 @@ export class RequestCountBarChartComponent implements OnChanges {
       completed: '#25880c',
       cancelled: '#bf0000',
     };
+    this.yAxis = [];
     statuses.forEach((status) => {
       const dataSet = {};
       dataSet['label'] = status;
@@ -112,6 +102,7 @@ export class RequestCountBarChartComponent implements OnChanges {
    * @return {Void}
    */
   populateXAxes(skills: any[]) {
+    this.xAxis = [];
     skills.forEach((skill) => {
       this.xAxis.push(skill.name);
     });
@@ -235,23 +226,13 @@ export class RequestCountBarChartComponent implements OnChanges {
   }
 
   /**
-   * Compares the selected date to make sure they
-   * make the proper date range.
+   * Format date to 'YYYY-MM-DD' Eg. 2018-04-16
    *
-   * @param {String} startDate a string date format
-   * @param {String} endDate a string date format
+   * @param {Date} date - Selected date
    *
-   * @return {boolean} whether or not the date is valid
+   * @returns {Date}
    */
-  isValidDate(startDate, endDate) {
-    const currentDateEpoc: number = moment().unix();
-    const startDateEpoc: number = moment(this.startDate).unix();
-    const endDateEpoc: number = moment(this.endDate).unix();
-
-    if (startDateEpoc > currentDateEpoc) {
-      return false;
-    } else if (endDateEpoc > currentDateEpoc) {
-      return false;
-    } else return startDateEpoc <= endDateEpoc;
+  formatDate(date) {
+    return moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD');
   }
 }

@@ -1,0 +1,19 @@
+<div class="date-range-picker">
+  <app-calendar-picker
+    [label]="'Start Date'"
+    [borderSelector]="'4px 0 0 4px'"
+    [defaultDate]="startDate"
+    [maximumDate]="maximumDate"
+    (onDateSelected)="setStartDate($event)">
+  </app-calendar-picker>
+  <app-calendar-picker
+    [label]="'End Date'"
+    [defaultDate]="endDate"
+    [minimumDate]="startDate"
+    [maximumDate]="maximumDate"
+    (onDateSelected)="setEndDate($event)">
+  </app-calendar-picker>
+  <div class="calendar">
+    <img src="../../assets/images/calendar.svg" alt="calendar">
+  </div>
+</div>

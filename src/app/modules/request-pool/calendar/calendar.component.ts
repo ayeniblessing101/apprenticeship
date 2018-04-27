@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { CalendarDate } from '../../../interfaces/calendar-date.interface';
 
@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.generateCalendar();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.generateCalendar();
   }
 

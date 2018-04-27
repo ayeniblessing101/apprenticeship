@@ -26,7 +26,9 @@
                     <span class="date-text">{{ day.date.date() }}</span>
                   </div>
 
-                  <div *ngIf="isSelectedMonth(day.date)" (click)="setDate(day.date)" class="week-date enabled" [ngClass]="{ today: day.today}">
+                  <div *ngIf="isSelectedMonth(day.date)"
+                    (click)="setDate(day.date)" class="week-date enabled"
+                    [ngClass]="{ 'highlight': day.today, 'unclickable': isInvalidDate(day.date) }">
                     <span class="date-text">{{ day.date.date() }}</span>
                   </div>
                 </ng-container>

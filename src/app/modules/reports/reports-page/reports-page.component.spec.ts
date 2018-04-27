@@ -6,13 +6,13 @@ import { SkillService } from '../../../services/skill.service';
 import { ReportsService } from '../../../services/reports.service';
 import { UserService } from '../../../services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
-
 import { ReportsPageComponent } from './reports-page.component';
 import { RequestCountBarChartComponent } from '../request-count-bar-chart/request-count-bar-chart.component';
 import { InactiveMentorshipGraphComponent } from '../inactive-mentorship/inactive-mentorship-graph.component';
 import { DropDownComponent } from '../../shared/drop-down/drop-down.component';
 import { CalendarPickerComponent } from '../../shared/calendar/calendar-picker.component';
 import { SkillServiceStub } from '../../../stubs/skill-stub.service';
+import { DateRangePickerComponent } from '../../shared/date-range-picker/date-range-picker.component';
 
 describe('RequestSkillsReportComponent', () => {
   let component: ReportsPageComponent;
@@ -30,6 +30,7 @@ describe('RequestSkillsReportComponent', () => {
         DropDownComponent,
         CalendarPickerComponent,
         InactiveMentorshipGraphComponent,
+        DateRangePickerComponent,
       ],
       providers: [
         SkillService,

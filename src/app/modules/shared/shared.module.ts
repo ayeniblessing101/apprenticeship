@@ -29,6 +29,7 @@ import { CharacterCountDownComponent } from './character-count-down/character-co
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../services/toast.service';
+import { DateRangePickerComponent } from './date-range-picker/date-range-picker.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { ToastService } from '../../services/toast.service';
     ProposedRequestDurationPipe,
     NoResultComponent,
     ToastComponent,
+    DateRangePickerComponent,
   ],
   exports: [
     HeaderComponent,
@@ -81,6 +83,7 @@ import { ToastService } from '../../services/toast.service';
     RequestDurationPipe,
     StarRatingModule,
     NoResultComponent,
+    DateRangePickerComponent,
   ],
   providers: [
     NotificationsComponent,

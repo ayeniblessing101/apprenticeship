@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="loading" class="loader"></div>
-<div [style.display]="displayChart" class="chart-area">
+<div *ngIf="!error" [style.display]="displayChart" class="chart-area">
   <div class="chart">
     <div class="chart-header">Requested Skills</div>
     <canvas

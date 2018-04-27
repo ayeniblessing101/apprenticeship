@@ -1,28 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import * as moment from 'moment';
-import { SkillService } from '../../../services/skill.service';
 
 @Component({
   selector: 'app-reports-page',
   templateUrl: './reports-page.component.html',
   styleUrls: ['./reports-page.component.scss'],
 })
-export class ReportsPageComponent implements OnInit {
-  startDate;
-  endDate;
+export class ReportsPageComponent {
+  startDate = moment().subtract(1, 'month').format('DD-MM-YYYY');
+  endDate = moment().format('DD-MM-YYYY');
+  maximumDate = moment().format('DD-MM-YYYY');
   loading: boolean;
   skillStatusCountReport: any[];
   selectedLocation: string;
-  location: any[];
+  location: any[string];
 
   constructor() {
     this.location = ['All', 'Lagos', 'Nairobi'];
     this.selectedLocation = 'All';
-  }
-
-  ngOnInit() {
-    this.startDate = moment().subtract(1, 'month').format('YYYY-MM-DD');
-    this.endDate = moment().format('YYYY-MM-DD');
   }
 
 
@@ -38,35 +33,24 @@ export class ReportsPageComponent implements OnInit {
   }
 
   /**
-   * Set start date
+   * Sets the start date to be used by the charts
    *
-   * @param {string} date - Start date
+   * @param {string} date - start date from the date range picker
    *
-   * @returns {void}
+   * @return {void}
    */
-  private setStartDate(date: string) {
-    this.startDate = this.formatDate(date);
+  setStartDate(date: string): void {
+    this.startDate = date;
   }
 
   /**
-   * Set end date
+   * Sets the end date to be used in to be used in the charts
    *
-   * @param {string} date - End date
+   * @param {string} date - end date from the date range picker
    *
-   * @returns {void}
+   * @return {void}
    */
-  private setEndDate(date: string) {
-    this.endDate = this.formatDate(date);
-  }
-
-  /**
-   * Format date to YYYY-MM-DD
-   *
-   * @param {string} date - Date in DD-MM-YYYY format
-   *
-   * @returns {string} - Date in YYYY-MM-DD
-   */
-  private formatDate(date: string) {
-    return date.split('-').reverse().join('-');
+  setEndDate(date: string): void {
+    this.endDate = date;
   }
 }

@@ -19,21 +19,17 @@ export class InactiveMentorshipGraphComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    if (moment(this.endDate).diff(moment(this.startDate)) > 0 &&
-      moment().diff(moment(this.endDate)) >= 0
-    ) {
-      this.reportsService.getInactiveMentorships(
-        this.startDate,
-        this.endDate,
-      )
-        .toPromise()
-        .then((inactiveMentorships) => {
-          const xAxis = this.formatDates(inactiveMentorships);
-          const yAxis = this.getCounts(inactiveMentorships);
-          const context = this.elementRef.nativeElement.querySelector('#line-chart');
-          this.lineChart = this.drawChart(xAxis, yAxis, context);
-        });
-    }
+    this.reportsService.getInactiveMentorships(
+      this.formatDate(this.startDate),
+      this.formatDate(this.endDate),
+    )
+      .toPromise()
+      .then((inactiveMentorships) => {
+        const xAxis = this.formatDates(inactiveMentorships);
+        const yAxis = this.getCounts(inactiveMentorships);
+        const lineChartElement = this.elementRef.nativeElement.querySelector('#line-chart');
+        this.lineChart = this.drawChart(xAxis, yAxis, lineChartElement);
+      });
   }
 
   /**
@@ -116,5 +112,16 @@ export class InactiveMentorshipGraphComponent implements OnChanges {
     return inactiveMentorships.map(inactiveMentorship =>
       inactiveMentorship.count,
     );
+  }
+
+  /**
+   * Format date to 'YYYY-MM-DD' Eg. 2018-10-10
+   *
+   * @param {string} date - Selected date in DD-MM-YYYY format
+   *
+   * @returns {string} - date in YYYY-MM-DD
+   */
+  formatDate(date) {
+    return moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD');
   }
 }

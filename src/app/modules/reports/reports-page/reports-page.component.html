@@ -1,34 +1,32 @@
 <div class="wrapper">
-    
-  <div class="date-picker">
-    <app-calendar-picker [label]="'Start Date'" [borderSelector]="'4px 0px 0px 4px'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
-    <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
-    <div class="calendar">
-      <img src="../../assets/images/calendar.svg" alt="calendar">
-    </div>
-    <span class="chart-calendar-label">
-        <label class="report-label-text">Locations</label>
-      <app-drop-down
-        [list]="location"
-        [defaultValue]="selectedLocation"
-        (changes)="setLocation($event)"
-        [ngStyle]="{'margin-top': '5px', 'margin-left': '20px', 'width': '152px'}"
-      ></app-drop-down>
-    </span>
+  <div class="date-picker-wrapper">
+      <app-date-range-picker
+        [startDate]="startDate"
+        [endDate]="endDate"
+        [maximumDate]="maximumDate"
+        (onStartDateChange)="setStartDate($event)"
+        (onEndDateChange)="setEndDate($event)">
+      </app-date-range-picker>
+      <div class="location-dropdown">
+        <app-drop-down
+          [list]="location"
+          [defaultValue]="selectedLocation"
+          (changes)="setLocation($event)"
+          class="location">
+        </app-drop-down>
+      </div>
   </div>
 
   <div>
     <app-request-count-bar-chart
       [startDate]="startDate"
       [endDate]="endDate"
-      [location]="selectedLocation"
-    >
+      [location]="selectedLocation">
     </app-request-count-bar-chart>
   
     <app-inactive-mentorship-graph
       [startDate]="startDate"
       [endDate]="endDate">
     </app-inactive-mentorship-graph>
-
   </div>
 </div>

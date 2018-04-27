@@ -2,29 +2,29 @@
 @import '../../../../assets/scss/colors';
 @import '../../../../assets/scss/loaders';
 
-
 .wrapper {
   position: absolute;
   width: 100%;
   margin: auto;
   background: $primary-background-color;
 
-  .date-picker {
-    margin-left: 30px;
-    margin-bottom: 40px;
+  .date {
+    display: flex;
+  }
+
+  .date-picker-wrapper {
+    margin-left: -30px;
+    margin-bottom: -20px;
     display: flex;
     justify-content: flex-start;
-
-    .calendar {
-      height: 47px;
-      line-height: 49px;
-      border: 1px solid #d6e3ef;
-      position: relative;
-      padding: 0 15px;
-      top: 25px;
-      left: 0px;
-      border-left: none;
-      border-radius: 0 4px 4px 0;
+    .location-dropdown {
+      margin-left: 40px;
+      margin-top: 5px;
+      .location {
+        margin-top: 5px;
+        margin-left: 20px;
+        width: 152px
+      }
     }
   }
 }
@@ -51,13 +51,6 @@
 
 .location {
   margin-left: 10px;
-}
-
-.dropdown {
-  margin-top: 14px;
-  margin-left: 20px;
-  width: 152px;
-  height: 46px;
 }
 
 .report-date {
@@ -116,4 +109,3 @@ span.fas.fa-calendar-alt {
   margin-top: 10px;
   height: 25px;
 }
-

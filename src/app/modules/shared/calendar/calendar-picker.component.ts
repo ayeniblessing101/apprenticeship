@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { CalendarDate } from '../../../interfaces/calendar-date.interface';
 
@@ -11,7 +11,9 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
   @Output() onDateSelected = new EventEmitter();
   @Input() borderSelector = '0px';
   @Input() label: string;
-  today = Date();
+  @Input() defaultDate: string;
+  @Input() minimumDate: string;
+  @Input() maximumDate: string;
   currentDate = moment();
   dayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
   weeks: CalendarDate[][] = [];
@@ -20,10 +22,10 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.generateCalendar();
-    this.selectedDate = '';
+    this.selectedDate = this.defaultDate || '';
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.generateCalendar();
   }
 
@@ -120,4 +122,17 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
     this.selectedDate = date.format('DD-MM-YYYY');
     this.onDateSelected.emit(this.selectedDate);
   }
+
+  /**
+   * Checks if selectable date is earlier than the minimum date or
+   * later than the maximum date inorder to validate it.
+   *
+   * @param {moment.Moment} date - date to check
+   *
+   * @returns {boolean}
+   */
+  isInvalidDate(date): boolean {
+    return date.isAfter(moment(this.maximumDate, 'DD-MM-YYYY')) || date.isBefore(moment(this.minimumDate, 'DD-MM-YYYY'));
+  }
+
 }

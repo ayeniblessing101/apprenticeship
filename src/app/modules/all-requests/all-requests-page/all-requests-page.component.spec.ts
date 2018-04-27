@@ -30,6 +30,7 @@ import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 import { SearchService } from '../../../services//search.service';
 
+import { DateRangePickerComponent } from '../../shared/date-range-picker/date-range-picker.component';
 
 describe('AllRequestsPageComponent', () => {
   let component: AllRequestsPageComponent;
@@ -65,6 +66,7 @@ describe('AllRequestsPageComponent', () => {
         ExportButtonComponent,
         SetRequestHeaderIconDirective,
         InfiniteScrollDirective,
+        DateRangePickerComponent,
       ],
       providers: [
         Http,

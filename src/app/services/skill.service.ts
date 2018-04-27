@@ -81,8 +81,7 @@ export class SkillService extends BaseService {
   getSkillStatusCount(params: {}) {
     return this.http
       .get(`${this.apiBaseUrl}/v2/skills/status-report?${this.getEncodedParameters(params)}`)
-      .map(this.handleResponse)
-      .map((res: Response) => res.json())
+      .map(this.handleResponse);
   }
 
    /**

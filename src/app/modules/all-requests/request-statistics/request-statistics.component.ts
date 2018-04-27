@@ -8,6 +8,7 @@ import { RequestStatuses } from '../../../enums/request-statuses.enum';
 import { AlertService } from '../../../services/alert.service';
 import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 import { CSVHeader } from '../../../interfaces/csv-header.interface';
+
 @Component({
   selector: 'app-request-statistics',
   templateUrl: './request-statistics.component.html',
@@ -21,8 +22,8 @@ export class RequestStatisticsComponent implements OnInit {
     type: [false, false],
     locations: [],
     status: [],
-    startDate: '',
-    endDate: '',
+    startDate: moment().subtract(1, 'month').format('DD-MM-YYYY'),
+    endDate: moment().format('DD-MM-YYYY'),
   };
   selectedLocation: any[] = [];
   totalRequests: number;
@@ -38,6 +39,7 @@ export class RequestStatisticsComponent implements OnInit {
   selectedStatus = 'Total Requests';
   headerName = 'All Requests';
   isExportingRequestsCsv = false;
+  maximumDate = moment().format('DD-MM-YYYY');
 
   constructor(
     private requestService: RequestService,
@@ -265,5 +267,4 @@ export class RequestStatisticsComponent implements OnInit {
   formatDate(date) {
     return moment(date, 'DD-MM-YYYY').format('Do MMMM, YYYY');
   }
-
 }

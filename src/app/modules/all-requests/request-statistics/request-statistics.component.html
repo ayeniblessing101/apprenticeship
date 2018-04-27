@@ -3,19 +3,20 @@
     <div class="date-range-picker">
       <div class="date-range-controls">
         <div class="calendar-filter ">
-          <app-calendar-picker [borderSelector]="'4px 0px 0px 4px'" [label]="'Start Date'" (onDateSelected)="setStartDate($event)"></app-calendar-picker>
-          <app-calendar-picker [label]="'End Date'" (onDateSelected)="setEndDate($event)"></app-calendar-picker>
-          <div class="calendar-icon">
-            <img src="../../../../assets/images/calendar.svg" />
-          </div>
+          <app-date-range-picker
+            [startDate]="appliedFilters.startDate"
+            [endDate]="appliedFilters.endDate"
+            [maximumDate]="maximumDate"
+            (onStartDateChange)="setStartDate($event)"
+            (onEndDateChange)="setEndDate($event)">
+          </app-date-range-picker>
         </div>
         <div class="location-dropdown">
           <span class="location">Location</span>
           <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
         </div>
         <app-export-button [isDisabled]="isExportingRequestsCsv" (exportEvent)="exportRequests()"></app-export-button>
-      </div>
-      
+      </div>     
     </div>
   </div>
   <div class="card-container">
