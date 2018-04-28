@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-pending-requests-table',
@@ -7,13 +8,14 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
   styleUrls: ['./pending-requests-table.component.scss'],
 })
 export class PendingRequestsTableComponent {
-
   @Input() requests;
   @Input() loading: boolean;
   @Input() title: string;
+  @Input() noResultMessage: string;
+
   @Output() reload: EventEmitter<boolean> = new EventEmitter();
   @Output() request = new EventEmitter<number>();
-  @Input() noResultMessage: string;
+
   openModal: boolean;
   pendingRequest: any[];
   rerender: boolean;
@@ -27,7 +29,9 @@ export class PendingRequestsTableComponent {
     location: 'asc',
     interested: 'asc',
     awaited_user: 'asc',
-  }
+  };
+
+  RequestTypes = RequestTypes;
 
   constructor(
     private tableHeaderSorterHelper: TableHeaderSortHelper,

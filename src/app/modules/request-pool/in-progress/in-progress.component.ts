@@ -6,7 +6,7 @@ import { SearchService } from '../../../services/search.service';
 import { SessionService } from './../../../services/session.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { Subscription } from 'rxjs/Subscription';
-
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-in-progress',
@@ -23,7 +23,6 @@ export class InProgressComponent implements OnInit, OnDestroy {
   noResultMessage: string;
   private subscription: Subscription;
 
-
   sortCategoryValues = {
     title: 'asc',
     duration: 'asc',
@@ -32,6 +31,8 @@ export class InProgressComponent implements OnInit, OnDestroy {
     created_at: 'asc',
   };
   activeSortCategory = null;
+
+  RequestTypes = RequestTypes;
 
   constructor(
     private requestService: RequestService,

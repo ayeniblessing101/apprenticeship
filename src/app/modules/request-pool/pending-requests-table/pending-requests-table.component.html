@@ -2,31 +2,11 @@
   <div class="pool-header-wrapper">
     <div class="header custom-row" *ngIf="!rerender">
       <div class="custom-col-2">
-        <span
-        (click)="sortPendingRequestsByHeader('title')"
-        >Request
-        <img
-          appSetRequestHeaderIcon
-          [showAlphabeticIcon]="true"
-          [sortCategoryValues]="sortCategoryValues"
-          [activeSortCategory]="activeSortCategory"
-          [headerName]="'title'"
-          src="../../../../assets/images/sort-desc-inactive.png" />
+        <span>
+          Request
         </span>
       </div>
-      <div class="custom-col-2">
-        <span
-        (click)="sortPendingRequestsByHeader('created_by_name')"
-        >Created by
-          <img
-            appSetRequestHeaderIcon
-            [sortCategoryValues]="sortCategoryValues"
-            [activeSortCategory]="activeSortCategory"
-            [headerName]="'created_by_name'"
-            src="../../../../assets/images/sort-a-z-inactive.png" />
-        </span>
-      </div>
-      <div class="custom-col-3">Primary Skill</div>
+      <div class="custom-col-3">Complimentary/Pre-requisite Skills</div>
       <div class="custom-col-2">
         <span
         (click)="sortPendingRequestsByHeader('duration')"
@@ -40,7 +20,7 @@
             src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
-      <div class="custom-col-3">
+      <div class="custom-col-2">
         <span
         (click)="sortPendingRequestsByHeader('created_at', true)"
         >Date Added
@@ -51,6 +31,18 @@
               [activeSortCategory]="activeSortCategory"
               [headerName]="'created_at'"
               src="../../../../assets/images/sort-desc-inactive.png" />
+        </span>
+      </div>
+      <div class="custom-col-2">
+        <span
+        (click)="sortPendingRequestsByHeader('created_by_name')"
+        >Created by
+          <img
+            appSetRequestHeaderIcon
+            [sortCategoryValues]="sortCategoryValues"
+            [activeSortCategory]="activeSortCategory"
+            [headerName]="'created_by_name'"
+            src="../../../../assets/images/sort-a-z-inactive.png" />
         </span>
       </div>
       <div class="custom-col-2">
@@ -97,11 +89,18 @@
     <div class="pool-body">
       <div *ngIf="loading" class="loader"></div>
       <a *ngFor="let request of requests" class="body-content custom-row" (click)="openPendingModal(request)">
-        <div class="custom-col-2">{{ request.title }}</div>
-        <div class="custom-col-2">{{ request.created_by_name }}</div>
-        <div class="custom-col-3">{{ request.request_skills | requestSkill: 'primary' }}</div>
+        <div class="custom-col-2">{{ request.request_skills|requestSkill: 'primary' }}</div>
+        <div class="custom-col-3">
+            <span *ngIf="request.request_type_id === RequestTypes.MENTOR_REQUEST">
+            {{ request.request_skills|requestSkill: 'secondary' }}
+            </span>
+            <span *ngIf="request.request_type_id === RequestTypes.MENTEE_REQUEST">
+               {{ request.request_skills|requestSkill: 'preRequisite' }}
+           </span>
+         </div>
         <div class="custom-col-2">{{ request.duration |  requestDuration}}</div>
-        <div class="custom-col-3">{{ request.created_at | date:'longDate' }}</div>
+        <div class="custom-col-2">{{ request.created_at | date:'longDate' }}</div>
+        <div class="custom-col-2">{{ request.created_by_name }}</div>
         <div class="custom-col-2">{{ request.location }}</div>
         <div class="custom-col-2">{{ request.interested?.length || '0'}}</div>
         <div class="custom-col-2">Awaiting {{request.awaited_user}}</div>

@@ -5,13 +5,11 @@
       <div *ngIf="!rerender" class="pool-header-wrapper">
         <div class="header custom-row">
           <div class="custom-col-3">
-            <span (click)="sortHistoryRequestsByHeader('title')">
+            <span>
               Request
-              <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'title'"
-                src="../../../../assets/images/sort-a-z-inactive.png" />
             </span>
           </div>
-          <div class="custom-col-3">Primary Skill</div>
+          <div class="custom-col-4">Complimentary/Pre-requisite Skill</div>
           <div class="custom-col-2">
             <span (click)="sortHistoryRequestsByHeader('match_date', true)">
               Date Started
@@ -53,8 +51,15 @@
         <div class="pool-body">
           <div *ngIf="loading" class="loader"></div>
           <a *ngFor="let request of requests" class="body-content custom-row" (click)="gotoRequestDetails(request.id)">
-            <div class="custom-col-3">{{ request.title }}</div>
             <div class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
+            <div class="custom-col-4">
+                <span *ngIf="request.request_type_id === RequestTypes.MENTOR_REQUEST">
+                {{ request.request_skills|requestSkill: 'secondary' }}
+                </span>
+                <span *ngIf="request.request_type_id === RequestTypes.MENTEE_REQUEST">
+                   {{ request.request_skills|requestSkill: 'preRequisite' }}
+               </span>
+             </div>
             <div class="custom-col-2">{{ request.match_date|date: 'longDate' }}</div>
             <div class="custom-col-2">{{ request.endDate|date: 'longDate' }}</div>
             <div class="custom-col-2">{{ request.duration|requestDuration }}</div>

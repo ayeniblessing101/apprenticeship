@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angu
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { FilterService } from '../../../services/filter.service';
 import { RequestService } from '../../../services/request.service';
-import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-pool-records',
@@ -22,11 +22,10 @@ export class PoolRecordsComponent {
   selectedRequest: object;
   rerender: boolean;
   scrollCallback: any;
-  filterParams: any = {}
+  filterParams: any = {};
   currentPage = 1;
   limit = 20;
   loading = false;
-
 
   sortCategoryValues = {
     title: 'asc',
@@ -35,6 +34,8 @@ export class PoolRecordsComponent {
     created_at: 'asc',
   };
   activeSortCategory = null;
+
+  RequestTypes = RequestTypes;
 
   constructor(
     private tableHeaderSorterHelper: TableHeaderSortHelper,
@@ -47,10 +48,6 @@ export class PoolRecordsComponent {
 /**
  * This function makes a call to the API to get more requests
  * when a user scrolls down to 70% of the current requests.
- *
- * @param {Number} limit - the number of requests to be gotten
- * @param {Number} page - the page of the requests to be gotten
- * @param {Object} filters - the parameters to apply to API call
  *
  * @return {Observable<any>}
  */
@@ -66,7 +63,7 @@ export class PoolRecordsComponent {
     this.currentPage += 1;
     this.updateRequests.emit(requests);
     this.loading = false;
-  }
+  };
 
   /** Get details of the request clicked by the user
    * in the request pool. Changes showRequest to true
@@ -80,7 +77,6 @@ export class PoolRecordsComponent {
     this.selectedRequest = request;
     this.showRequest = true;
   }
-
 
 
   /**

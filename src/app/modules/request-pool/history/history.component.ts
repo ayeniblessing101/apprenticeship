@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs/Subscription';
-
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-history',
@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./history.component.scss'],
   providers: [RequestService],
 })
-
 export class HistoryComponent implements OnInit, OnDestroy {
   loading: boolean;
   requests: any[];
@@ -21,7 +20,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
   sectionGridWidth = '90%';
   noResultMessage: string;
   private subscription: Subscription;
-
 
   sortCategoryValues = {
     title: 'asc',
@@ -32,6 +30,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
     rating: 'asc',
   };
   activeSortCategory = null;
+
+  RequestTypes = RequestTypes;
 
   constructor(
     private requestService: RequestService,

@@ -4,13 +4,11 @@
       <div *ngIf="!rerender" class="pool-header-wrapper">
         <div class="header custom-row">
           <div class="custom-col-3">
-            <span (click)="sortInProgressRequestsByHeader('title')">
+            <span>
               Request
-              <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'title'"
-                src="../../../../assets/images/sort-a-z-inactive.png" />
             </span>
           </div>
-          <div class="custom-col-4">Primary Skill</div>
+          <div class="custom-col-4">Complimentary/Pre-requisite Skill</div>
           <div class="custom-col-2">
             <span (click)="sortInProgressRequestsByHeader('duration')">
               Duration
@@ -44,9 +42,16 @@
       <div class="pool-table">
         <div class="pool-body">
           <div *ngIf="loading" class="loader"></div>
-          <a *ngFor="let request of requests" class="body-content custom-row" (click)="goToSingleViewPage(request.id)" id="request-in-progress">
-            <div class="custom-col-3">{{ request.title }}</div>
-            <div class="custom-col-4">{{ request.request_skills|requestSkill: 'primary' }}</div>
+          <a *ngFor="let request of requests" class="body-content custom-row" (click)="goToSingleViewPage(request.id)">
+            <div class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
+            <div class="custom-col-4">
+                <span *ngIf="request.request_type_id === RequestTypes.MENTOR_REQUEST">
+                {{ request.request_skills|requestSkill: 'secondary' }}
+                </span>
+                <span *ngIf="request.request_type_id === RequestTypes.MENTEE_REQUEST">
+                   {{ request.request_skills|requestSkill: 'preRequisite' }}
+               </span>
+             </div>
             <div class="custom-col-2">{{ request.duration|requestDuration }}</div>
             <div class="custom-col-3">{{ request.created_at|date: 'longDate' }}</div>
             <div class="custom-col-2">{{ request.location }}</div>
@@ -60,10 +65,9 @@
 </div>
 <ng-template #noRequest>
   <div [style.width]="sectionGridWidth">
-    <app-no-result [message]="noResultMessage"></app-no-result>  
+    <app-no-result [message]="noResultMessage"></app-no-result>
   </div>
 </ng-template>
 <div class="aside">
   <app-calendar [sessionDates]="sessionDates"></app-calendar>
 </div>
-

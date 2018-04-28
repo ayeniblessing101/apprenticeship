@@ -2,14 +2,11 @@
   <div *ngIf="!rerender" class="pool-header-wrapper">
     <div class="header custom-row">
       <div class="custom-col-3">
-        <span (click)="sortPoolRequestsByHeader('title')">
+        <span>
           Request
-          <img appSetRequestHeaderIcon [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory" [headerName]="'title'"
-            src="../../../../assets/images/sort-a-z-inactive.png" />
         </span>
       </div>
-      <div class="custom-col-3">Primary Skill</div>
-      <div class="custom-col-4">Secondary Skill</div>
+      <div class="custom-col-4">Complimentary/Pre-requisite Skill</div>
       <div class="custom-col-2">
         <span (click)="sortPoolRequestsByHeader('duration')">
           Duration
@@ -37,9 +34,15 @@
     <div *ngIf="loadingRequests" class="loader"></div>
     <div *ngIf="!loadingRequests" class="pool-body" appInfiniteScroller scrollPercent="70" [scrollCallback]="scrollCallback">
       <a *ngFor="let request of requests" class="body-content custom-row" id="request-pool" (click)="showRequestDetails(request)">
-        <div id="title" class="custom-col-3">{{ request.title }}</div>
-        <div id="primary-skill" class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
-        <div id="secondary-skill" class="custom-col-4">{{ request.request_skills|requestSkill: 'secondary' }}</div>
+        <div id="primaryskill" class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
+        <div class="custom-col-4">
+           <span *ngIf="request.request_type_id === RequestTypes.MENTOR_REQUEST">
+           {{ request.request_skills|requestSkill: 'secondary' }}
+           </span>
+           <span *ngIf="request.request_type_id === RequestTypes.MENTEE_REQUEST">
+              {{ request.request_skills|requestSkill: 'preRequisite' }}
+          </span>
+        </div>
         <div id="duration" class="custom-col-2">{{ request.duration|requestDuration }}</div>
         <div id="created-at" class="custom-col-2">{{ request.created_at|date: 'longDate' }}</div>
         <div id="request-location" class="custom-col-2">{{ request.location }}</div>
