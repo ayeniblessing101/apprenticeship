@@ -31,6 +31,7 @@ export class RequestDetailsModalComponent implements OnInit {
   currentUserIsRequestOwner: boolean;
   currentUser: any;
   requestTypes = RequestTypes;
+  userRole: string;
 
   constructor(private userService: UserService,
               private alertService: AlertService,
@@ -39,14 +40,13 @@ export class RequestDetailsModalComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
-
     this.currentUserIsRequestOwner =
       (this.selectedRequest.created_by.id === this.currentUser.id);
-
     this.currentUserIsInterested = (this.selectedRequest.interested &&
       this.selectedRequest.interested.includes(this.currentUser.id));
-
     this.rating = this.selectedRequest.rating ? this.selectedRequest.rating : 0;
+    this.userRole = (this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST)
+        ? 'mentor' : 'mentee';
   }
 
   /**
@@ -103,13 +103,13 @@ export class RequestDetailsModalComponent implements OnInit {
       .then(() => {
         this.alertService.showMessage(`
       We have sent a notification to the
-      ${this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST
-        ? 'mentor' : 'mentee' } about your interest in this mentorship request.
+      ${this.userRole} about your interest.
       You will be notified when your interest is approved.
       `);
       })
       .catch(() => {
-        this.alertService.showMessage(`An error occured when trying to notify mentee`);
+        this.alertService.showMessage(`An error occured when trying to notify the
+        ${this.userRole}.`);
       });
   }
 
