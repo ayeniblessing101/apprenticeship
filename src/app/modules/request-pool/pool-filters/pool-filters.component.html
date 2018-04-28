@@ -20,22 +20,42 @@
     </div>
     <div class="side-contents">
       <h4>Sorting</h4>
-      <app-filter-dropdown  [label]="'User\'s rating'" [placeholder]="'Select'" [list]="ratings" [filterCategory]="'ratings'"
-      [disabled]="true">
+      <app-filter-dropdown
+        [label]="'User\'s rating'"
+        [placeholder]="'Select'"
+        [list]="ratings"
+        [filterCategory]="'ratings'"
+        (changes)="applySelectedFilters($event)"
+      ></app-filter-dropdown>
+      <app-filter-dropdown
+        id="location"
+        [placeholder]="'Select'"
+        [label]="'Location'"
+        [list]="locations"
+        [filterCategory]="'locations'"
+        (changes)="applySelectedFilters($event)"
+      ></app-filter-dropdown>
+      <app-filter-dropdown
+        id="length-filter"
+        [placeholder]="'Select'"
+        [label]="'Length'"
+        [list]="lengths"
+        [filterCategory]="'lengths'"
+        (changes)="applySelectedFilters($event)"
+      ></app-filter-dropdown>
+      <app-filter-dropdown
+        id="skill-set"
+        [placeholder]="'Select Skill'"
+        [label]="'Skill set'"
+        [list]="skills"
+        [filterCategory]="'skills'"
+        (changes)="applySelectedFilters($event)">
       </app-filter-dropdown>
-      <app-filter-dropdown  id="location" [placeholder]="'Select'" [label]="'Location'" [list]="locations" [filterCategory]="'locations'"
-                           (changes)="applySelectedFilters($event)">
-      </app-filter-dropdown>
-      <app-filter-dropdown  id="length-filter" [placeholder]="'Select'" [label]="'Length'" [list]="lengths" [filterCategory]="'lengths'"
-                           (changes)="applySelectedFilters($event)">
-      </app-filter-dropdown>
-      <app-filter-dropdown  id="skill-set" [placeholder]="'Select Skill'" [label]="'Skill set'" [list]="skills" [filterCategory]="'skills'"
-                           (changes)="applySelectedFilters($event)">
-      </app-filter-dropdown>
-
     </div>
-
-    <app-save-filters (resetFilters)="resetFilters()" [filters]="selectedFilters" (applySavedFilter)="applySavedFilter($event)"></app-save-filters>
-
+    <app-save-filters
+      (resetFilters)="resetFilters()"
+      [filters]="selectedFilters"
+      (applySavedFilter)="applySavedFilter($event)"
+    ></app-save-filters>
   </form>
 </div>
