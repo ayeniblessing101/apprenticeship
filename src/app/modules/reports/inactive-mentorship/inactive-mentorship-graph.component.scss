@@ -1,21 +1,17 @@
 @import '../../../../assets/scss/fonts';
 
 .chart-area {
-  width: 3000px;
-  height: 400px;
+  width: 100%;
   position: relative;
-  overflow-x: scroll;
-  border-radius: 6px;
+  border-radius: 2%;
   background-color: #ffffff;
   box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.03);
   margin-top: 20px;
   margin-bottom: 20px;
   
   .chart {
-    border-radius: 6px;
-    margin-left: 30px;
+    border-radius: 2%;
     background: #fff;
-    width: 100%;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.03);
   
     .chart-header {
@@ -23,12 +19,10 @@
       font-size: 18px;
       padding: 25px 0;
       padding-left: 30px;
-      width: calc(100% - 25px);
     }
   
     #line-chart {
       padding: 30px;
-      padding-bottom: 20px;
       box-sizing: border-box;
       font-family: $font-family-1;
     }

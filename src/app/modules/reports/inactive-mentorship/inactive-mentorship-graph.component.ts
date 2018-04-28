@@ -47,11 +47,13 @@ export class InactiveMentorshipGraphComponent implements OnChanges {
         legend: {
           display: false,
         },
+        responsive: true,
+        maintainAspectRation: false,
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              fixedStepSize: 1,
+              fixedStepSize: 5,
             },
           }],
         },

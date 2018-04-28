@@ -126,7 +126,7 @@ export class RequestCountBarChartComponent implements OnChanges {
       },
       options: {
         maintainAspectRatio: true,
-        responsive: false,
+        responsive: true,
         legend: {
           labels: {
             usePointStyle: true,
@@ -138,6 +138,7 @@ export class RequestCountBarChartComponent implements OnChanges {
               callback: (value, index, values) => {
                 return value + '%';
               },
+              fixedStepSize: 25,
             },
           }],
           xAxes: [{
