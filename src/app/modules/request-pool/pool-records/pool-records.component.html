@@ -14,7 +14,7 @@
             [headerName]="'duration'" src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
-      <div class="custom-col-2">
+      <div class="custom-col-3">
         <span (click)="sortPoolRequestsByHeader('created_at', true)">
           Date Added
           <img appSetRequestHeaderIcon [showAlphabeticIcon]="false" [sortCategoryValues]="sortCategoryValues" [activeSortCategory]="activeSortCategory"
@@ -44,7 +44,7 @@
           </span>
         </div>
         <div id="duration" class="custom-col-2">{{ request.duration|requestDuration }}</div>
-        <div id="created-at" class="custom-col-2">{{ request.created_at|date: 'longDate' }}</div>
+        <div id="created-at" class="custom-col-3">{{ request.created_at|date: 'longDate' }}</div>
         <div id="request-location" class="custom-col-2">{{ request.location }}</div>
       </a>
       <div *ngIf="loading" class="loader"> </div>
