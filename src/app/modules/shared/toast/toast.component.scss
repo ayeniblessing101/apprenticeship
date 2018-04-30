@@ -10,6 +10,19 @@
   font-size: 0.8em;
   border-radius: 3px;
   padding: 15px;
+  display: flex;
+  align-items: center;
+
+  button.close {
+    background: transparent;
+    border: none;
+  }
+
+  button i.fa {
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+  }
 }
 .is-error {
   background-color: #FF3C3C;

@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
       this.toastService.displayMessage(
         'Please login with your Andela email',
         'error',
-        4000,
       );
     }
   }

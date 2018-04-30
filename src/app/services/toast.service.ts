@@ -20,11 +20,10 @@ export class ToastService {
    *
    * @param {string} message toast message
    * @param {string} type toast type
-   * @param {number} duration toast duration
    *
    * @returns {void}
    */
-  displayMessage(message: string, type = 'info',  duration = 4000) {
-    this.toast.displayMessage(message, type, duration);
+  displayMessage(message: string, type = 'info') {
+    this.toast.displayMessage(message, type);
   }
 }
