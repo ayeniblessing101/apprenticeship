@@ -27,7 +27,7 @@ export class PendingRequestsTableComponent {
     duration: 'asc',
     created_at: 'asc',
     location: 'asc',
-    interested: 'asc',
+    noOfInterests: 'asc',
     awaited_user: 'asc',
   };
 

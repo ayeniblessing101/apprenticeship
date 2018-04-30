@@ -53,6 +53,7 @@ export class PendingComponent implements OnInit, OnDestroy {
         (response) => {
           this.requests = response.map((request) => {
             request.created_by_name = request.created_by.fullname;
+            request.noOfInterests = request.interested.length;
             return request;
           });
           this.loading = false;

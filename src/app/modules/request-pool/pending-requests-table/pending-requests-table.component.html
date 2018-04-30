@@ -10,7 +10,7 @@
       <div class="custom-col-2">
         <span
         (click)="sortPendingRequestsByHeader('duration')"
-        >Preffered Duration
+        >Preferred Duration
           <img
             appSetRequestHeaderIcon
             [showAlphabeticIcon]="false"
@@ -59,14 +59,14 @@
       </div>
       <div class="custom-col-2">
         <span
-          (click)="sortPendingRequestsByHeader('interested')"
+          (click)="sortPendingRequestsByHeader('noOfInterests')"
           >Number of Interests
           <img
             appSetRequestHeaderIcon
             [showAlphabeticIcon]="false"
             [sortCategoryValues]="sortCategoryValues"
             [activeSortCategory]="activeSortCategory"
-            [headerName]="'interested'"
+            [headerName]="'noOfInterests'"
             src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
@@ -102,7 +102,7 @@
         <div class="custom-col-2">{{ request.created_at | date:'longDate' }}</div>
         <div class="custom-col-2">{{ request.created_by_name }}</div>
         <div class="custom-col-2">{{ request.location }}</div>
-        <div class="custom-col-2">{{ request.interested?.length || '0'}}</div>
+        <div class="custom-col-2">{{ request.noOfInterests }}</div>
         <div class="custom-col-2">Awaiting {{request.awaited_user}}</div>
       </a>
       <div class="space"></div>
