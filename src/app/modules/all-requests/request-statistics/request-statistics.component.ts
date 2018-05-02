@@ -22,7 +22,7 @@ export class RequestStatisticsComponent implements OnInit {
     type: [false, false],
     locations: [],
     status: [],
-    startDate: moment().subtract(1, 'month').format('DD-MM-YYYY'),
+    startDate: moment().subtract(5, 'month').format('DD-MM-YYYY'),
     endDate: moment().format('DD-MM-YYYY'),
   };
   selectedLocation: any[] = [];

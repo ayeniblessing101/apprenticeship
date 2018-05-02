@@ -69,8 +69,8 @@ export class SkillsPage {
    *
    * @returns {ElementFinder} - the selected row attribute
    */
-  getSkillRowAttribute(index, attribute): ElementFinder {
-    return this.getAllSkillPool().get(index).element(by.css(`div[attribute=${attribute}]`));
+  getSkillRowAttribute(): ElementFinder {
+    return this.getAllSkillPool().get(0).element(by.css('.custom-col-4'));
   }
 
   /**

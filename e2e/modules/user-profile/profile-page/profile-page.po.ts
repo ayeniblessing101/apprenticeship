@@ -74,28 +74,6 @@ export class ProfilePage {
    */
   removeSkills() {
     const removeSkill = element(by.id('Grunt & Gulp'))
-    browser.sleep(2000);
-
     removeSkill.click();
-    browser.sleep(2000);
-  }
-
-  /**
-   * Gets the table in the request pool
-   *
-   * @return {WebElement}
-   */
-  getTable(): ElementFinder {
-    return element(by.css('.table'));
-  }
-
-  /**
-   * Gets the first row in the request pool table
-   *
-   * @return {void}
-   */
-  getFirstPrimarySkill() {
-    return this.getTable().all(by.id('primary-skill')).get(0)
   }
 }
-

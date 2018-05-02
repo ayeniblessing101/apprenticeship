@@ -30,40 +30,56 @@ export class AllRequestsPage {
   }
 
   /**
-   * Get the all requests
-   *
-   * @return {WebElement}
-   */
-  getAllRequestsFilter() {
-    return this.getRequestFilters().get(0);
-  }
-
-  /**
    * Get the open requests filter
    *
    * @return {WebElement}
    */
   getOpenRequestsFilter() {
-    return this.getRequestFilters().get(1);
+    return this.getRequestFilters().get(2);
+  }
+
+  /**
+   * Get the open requests filter span
+   *
+   * @return {WebElement}
+   */
+  getOpenRequestsFilterSpan() {
+    return this.getOpenRequestsFilter().$('span');
+  }
+  /**
+   * should get date filters
+   *
+   * @return {WebElement}
+   */
+  getDateFilters(): ElementArrayFinder {
+    return element.all(by.className('week-date'));
+  }
+
+  /**
+   * get week-date
+   *
+   * @return {WebElement}
+   */
+  getStartCalenderFilterDatePickers(): ElementFinder {
+    return element.all(by.id('calendar-picker')).first();
+  }
+
+  /**
+   * get status filter
+   *
+   * @return {WebElement}
+   */
+  getStatusFilter(): ElementFinder {
+    return this.getOpenRequestsFilter().$('.content').$('.statistics');
   }
 
   /**
    * get all thet date filters wrapped in a promise
    *
-   * @return {Promise<WebElement[]>}
+   * @return
    */
-  getCalenderFilterDatePickers(): promise.Promise<WebElement[]> {
-    return browser.driver.findElements(by.id('calendar-picker'));
-  }
-
-
-  /**
-   * get all available dates wrapped in a promise
-   *
-   * @return {Promise<WebElement[]>}
-   */
-  getDates(): promise.Promise<WebElement[]> {
-    return browser.driver.findElements(by.css('.week-date'));
+  getEndDateCalenderFilterDatePickers(): ElementFinder {
+    return element.all(by.id('calendar-picker')).last();
   }
 
   /**
@@ -81,7 +97,7 @@ export class AllRequestsPage {
    * @return {WebElement[]}
    */
   getStatisticsElements(): ElementArrayFinder {
-    return element.all(by.className('statistics'));
+    return element.all(by.className('card'));
   }
 
 }

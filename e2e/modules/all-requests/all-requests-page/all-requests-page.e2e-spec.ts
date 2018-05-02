@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, protractor, $ } from 'protractor';
 
 import { AllRequestsPage } from './all-requests-page.po';
 import { LoginPage } from '../../shared/login/login.po';
@@ -10,48 +10,53 @@ describe('All requests page', () => {
   beforeAll(() => {
     allRequests = new AllRequestsPage();
     allRequests.navigateToAllRequestsPage();
-  })
-
-  afterAll(() => {
     browser.waitForAngularEnabled(false);
   })
-
+  const EC = protractor.ExpectedConditions;
   it('Should be on the all requests pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/all-requests');
   });
 
-  it('should set date filters', async () => {
-    const calenderFilterRequests = await allRequests.getCalenderFilterDatePickers();
-    calenderFilterRequests[0].click();
+  it('should set date filters', () => {
+    const startDateCalenderFilterRequests = allRequests.getStartCalenderFilterDatePickers();
+    const endDateCalenderFilterRequests = allRequests.getEndDateCalenderFilterDatePickers();
 
-    const startDateElements = await allRequests.getDates();
-    startDateElements[0].click();
-    const startDateText = await startDateElements[0].getText();
-    const startDate = parseInt(startDateText, 10);
+    browser.wait(EC.elementToBeClickable(startDateCalenderFilterRequests), 5000,
+                 'start-date filter taking too long to appear in the DOM');
+    startDateCalenderFilterRequests.click();
 
-    calenderFilterRequests[1].click();
-    const endDateElements = await allRequests.getDates();
-    endDateElements[1].click();
-    const endDateText = await endDateElements[1].getText();
-    const endDate = parseInt(endDateText, 10);
+    browser.wait(EC.presenceOf(allRequests.getDateFilters().get(0)), 5000,
+                 '.week-date taking too long to appeear in the DOM');
+    allRequests.getDateFilters().get(1).getText().then((startDate) => {
+      const selectedStartDate = startDate;
 
-    const firstDateCellText = await allRequests.getDateCells().first().getText();
-    const firstTextArray = firstDateCellText.split(' ');
-    const firstRowDate = parseInt(firstTextArray[1], 10);
+      browser.wait(EC.elementToBeClickable(endDateCalenderFilterRequests), 5000,
+                   'date filter taking too long to appear in the DOM');
+      endDateCalenderFilterRequests.click();
 
-    const lastDateCellText = await allRequests.getDateCells().first().getText();
-    const lastTextArray = lastDateCellText.split(' ');
-    const lastRowDate = parseInt(lastTextArray[1], 10);
-    expect(startDate <= firstRowDate || startDate >= lastRowDate && endDate <= firstRowDate || endDate <= lastRowDate)
-      .toBeTruthy();
-    browser.actions().mouseMove(allRequests.getDateCells().first()).perform();
-  })
+      browser.wait(EC.presenceOf(allRequests.getDateFilters().last()), 5000,
+                   'date filter taking too long to appvdsvsd ear in the DOM');
+      allRequests.getDateFilters().get(1).getText().then((endDate) => {
+        const selectedEndateDate = endDate;
+        expect(startDate === endDate);
+      });
+    });
+  });
 
-  it('should activate open status filter', async () => {
-    const openRequests = await allRequests.getStatisticsElements().get(1).element(by.tagName('span')).getText();
-    allRequests.getOpenRequestsFilter().click();
-    const tableRows = await allRequests.getDateCells().count();
-    expect(allRequests.getOpenRequestsFilter().getAttribute('class')).toContain('active');
-    expect(parseInt(openRequests, 10)).toEqual(tableRows);
-  })
+  it('should activate open status filter', () => {
+    const openRequests = allRequests.getOpenRequestsFilter();
+    browser.wait(EC.elementToBeClickable(openRequests), 10000,
+                 'Request filter card is taking too long to appear in the DOM');
+    openRequests.click();
+    browser.sleep(3000);
+    browser.wait(EC.presenceOf(allRequests.getOpenRequestsFilterSpan()), 10000,
+                 'open request span taking too long to appear in the DOM');
+    allRequests.getStatusFilter().getText().then((numberOfRequests) => {
+      allRequests.getDateCells().then((tableRows) => {
+        const tableRowsCount = tableRows.length
+        expect(allRequests.getOpenRequestsFilter().getAttribute('class')).toContain('active');
+        expect(parseInt(numberOfRequests, 10)).toEqual(tableRowsCount);
+      });
+    });
+  });
 });

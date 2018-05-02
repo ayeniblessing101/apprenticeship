@@ -12,8 +12,8 @@ describe('Skill page', () => {
                  3000, '.pool-table should be visible');
   });
 
-  it('Should show skill details when click on a skill', () => {
-    skillDetails.getAdminSkills().get(0).click();
+  it('Should show top mentors and skill details when click on a skill', () => {
+    skillDetails.getAdminSkills().get(3).click();
     browser.wait(EC.visibilityOf(skillDetails.getSkillDetailsPage()),
                  3000, '.skill-wrapper should be visible');
 
@@ -24,5 +24,15 @@ describe('Skill page', () => {
 
   it('Should export skill requests details when click on the export button', () => {
     skillDetails.getExportButton().click();
+  });
+
+  it('Should sort by mentor in acending and descending order', () => {
+    browser.wait(EC.visibilityOf(skillDetails.getMentorSorter()), 3000, 'wait for visibility of mentor sorter');
+    skillDetails.getMentorSorter().getText().then(
+      (text) => {
+        expect(text).toBe('Duration');
+      },
+    );
+    skillDetails.getMentorSorter().click();
   });
 });

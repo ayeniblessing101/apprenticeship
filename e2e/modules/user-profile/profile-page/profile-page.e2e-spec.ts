@@ -19,19 +19,8 @@ describe('Profile Page', () => {
     profilePage.addSkills();
   });
 
-  it('Should ensure that the first primary-skill on \'request-pool\' is \'Grunt & Gulp\'', () => {
-    profilePage.navigateToPoolPage();
-    browser.wait(EC.visibilityOf(profilePage.getTable()), 3000);
-
-    expect(profilePage.getFirstPrimarySkill().getText()).toEqual('Grunt & Gulp');
-    browser.sleep(2000)
-  })
-
   it('Should navigate to profile page and remove skill', () => {
-    profilePage.navigateToProfilePage();
-    browser.sleep(3000);
-    browser.refresh();
-
+    browser.sleep(5000);
     profilePage.removeSkills();
   })
 });

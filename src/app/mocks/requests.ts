@@ -32,6 +32,21 @@ const requests = [
       timezone: 'EAT',
     },
   },
+  {
+    isMentor: false,
+    title: 'Angular e2e',
+    description: 'I\'d like to write angular e2e tests like a pro',
+    primary: ['JavaScript', 'RxJS', 'Redux'],
+    secondary: ['Webpack', 'JQuery', 'Backbone.js'],
+    duration: 2,
+    location: 'Nairobi',
+    pairing: {
+      startTime: '01:00',
+      endTime: '02:00',
+      days: ['monday'],
+      timezone: 'EAT',
+    },
+  },
 
 ]
 

@@ -26,10 +26,18 @@ export class History {
    */
   getHistoryTableHeaders(): ElementArrayFinder {
     browser.wait(
-      this.expectedCondition.visibilityOf($('.table .history-header div')),
-      3000,
+      this.expectedCondition.elementToBeClickable($('.custom-col-2')),
+      5000,
       'History table should have been rendered');
 
-    return element.all(by.css('.table .history-header div'));
+    return element.all(by.css('.custom-col-2'));
+  }
+  /**
+   * Gets span tags in request table headers in the history page
+   *
+   * @return {ElementFinder}
+   */
+  getHistoryTableHeadersSpan(id: number): ElementFinder {
+    return this.getHistoryTableHeaders().get(id).$('span')
   }
 }

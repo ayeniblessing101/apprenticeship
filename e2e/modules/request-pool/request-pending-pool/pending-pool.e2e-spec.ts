@@ -10,7 +10,7 @@ describe('Pending Pool', () => {
   });
   it('Should be in all pending pool page', () => {
     browser.driver.wait(
-      expectedConditions.visibilityOf($('.pool-body')), 5000);
-    expect(pendingPool.getTable().all(by.css('.body-content')).get(0)).toBeTruthy();
+      expectedConditions.visibilityOf(pendingPool.getPoolBody()), 5000);
+    expect(pendingPool.getBodyContent().get(0)).toBeTruthy();
   });
 });

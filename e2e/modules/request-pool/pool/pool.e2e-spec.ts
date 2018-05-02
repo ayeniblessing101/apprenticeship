@@ -7,41 +7,87 @@ describe('Request Pool', () => {
 
   beforeAll(() => {
     requestPool.navigateToPoolPage();
+    browser.waitForAngularEnabled(false);
   });
-
   const EC = browser.ExpectedConditions;
-
   it('Should be on the request pool page', () => {
     expect(browser.driver.getCurrentUrl()).toContain('/request-pool');
   });
 
   it('Should be able to search', () => {
-    requestPool.getSearchInputElement();
-    browser.wait(EC.visibilityOf(requestPool.getFirstRowMentorshipRequest('title')),
-                 3000, '.title should be visible');
-    expect(requestPool.getFirstRowMentorshipRequest('title').getText()).toContain('soluta');
+    requestPool.getRequestRowsInRequestPool().count().then((pendingPoolRows) => {
+      requestPool.getSearchInputElement();
+      browser.sleep(5000);
+      requestPool.getRequestRowsInRequestPool().count().then((updatedPendingPoolRows) => {
+        expect((pendingPoolRows !== updatedPendingPoolRows))
+      })
+    })
+  })
+
+  it('Should sort requests by Duration in ascending and descending order', () => {
+    expect(requestPool.getPoolTableHeaders(0).getText()).toBe('Duration');
+    requestPool.getPoolTableHeadersSpan(0).click();
+    requestPool.getPoolTableHeadersSpan(0).click();
+  });
+
+  it('Should sort requests by Date Added in ascending and descending order', () => {
+    expect(requestPool.getPoolTableHeaders(1).getText()).toBe('Date Added');
+    requestPool.getPoolTableHeadersSpan(1).click();
+    requestPool.getPoolTableHeadersSpan(1).click();
   });
 
   it('Should show a request modal when a request is clicked', () => {
-    requestPool.getRequestsInRequestPool().get(0).click();
-    browser.sleep(2000);
+    browser.wait(EC.elementToBeClickable(requestPool.getRequestRowsInRequestPool().get(0)), 15000,
+                 '.custom-row is taking too long to appear in the DOM');
+    expect(requestPool.getRequestRowsInRequestPool().get(1).isDisplayed()).toBeTruthy();
+    requestPool.getRequestRowsInRequestPool().get(1).click();
+    browser.wait(EC.visibilityOf(requestPool.getSingleRequestModal()), 5000,
+                 '.custom-rowt taking too long to appear in the DOM');
     expect(requestPool.getSingleRequestModal().isDisplayed).toBeTruthy();
+
+    browser.wait(EC.presenceOf(requestPool.getRequestModalBackButton()), 5000,
+                 '.custom-row taking too long to appear in the DOM');
     requestPool.getRequestModalBackButton().click();
-    browser.sleep(3000);
+    browser.sleep(2000)
+  });
+
+  it('Should remove requests shown interest in from the requests pool', () => {
+    browser.wait(requestPool.getRequestRowsInRequestPool()
+           .then((requests) => {
+             const allRequestsCount = requests.length;
+             requestPool.getRequestRowsInRequestPool().get(0)
+             .click()
+             browser.wait(EC.elementToBeClickable(requestPool.getIAmInterestedButton()), 5000)
+             requestPool.getIAmInterestedButton().click()
+             browser.wait(EC.elementToBeClickable(requestPool.getNotificationCloseButton()), 10000)
+             expect(requestPool.getNotificationCloseButton().isDisplayed).toBeTruthy();
+             requestPool.getNotificationCloseButton().click();
+             requestPool.getRequestModalBackButton().click();
+
+             browser.wait(requestPool.getRequestRowsInRequestPool()
+             .then((currentRequets) => {
+               const currentRequestsCount = currentRequets.length;
+               expect((currentRequestsCount < allRequestsCount))
+             }),          5000);
+           }),   5000);
   });
 
   it('Should be able to request a mentor', () => {
     browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
-    requestPool.requestAMentor(requests[0]);
-    browser.wait(EC.visibilityOf(requestPool.getCloseAlertButton()),
-                 3000, '.white-button should be visible');
 
-    requestPool.getCloseAlertButton().click();
-    browser.wait(EC.visibilityOf(requestPool.getAllRequestsRadioButton()),
-                 3000, 'all-requests-label should be visible');
-    requestPool.getAllRequestsRadioButton().click();
-    expect(requestPool.getFirstRowMentorshipRequest('title').getText()).toContain(requests[0].title);
-    browser.sleep(2000);
+    browser.wait(EC.elementToBeClickable(requestPool.getRequestMentorButton()),
+                 3000, 'Request Mentor is taking too long to appear in the DOM');
+    requestPool.getRequestMentorButton().click();
+    requestPool.createRequest(requests[0]);
+  });
+
+  it('Should be able to request a mentee', () => {
+    browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
+
+    browser.wait(EC.elementToBeClickable(requestPool.getRequestMenteeButton()),
+                 3000, 'Request Mentee is taking too long to appear in the DOM');
+    requestPool.getRequestMenteeButton().click();
+    requestPool.createRequest(requests[2]);
   });
 
   it('Should filter the request pool by location', () => {
@@ -52,88 +98,25 @@ describe('Request Pool', () => {
 
   it('Should reduce the length of characters in the description field', () => {
     browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
-    requestPool.requestAMentor(requests[1]);
-    browser.wait(EC.visibilityOf(requestPool.getCloseAlertButton()),
-                 3000, '.white-button should be visible');
 
-    requestPool.getCloseAlertButton().click();
-    browser.wait(EC.visibilityOf(requestPool.getAllRequestsRadioButton()),
-                 3000, 'all-requests-label should be visible');
-    requestPool.getAllRequestsRadioButton().click();
-    browser.wait(EC.visibilityOf(requestPool.getSingleRequestModal()),
-                 3000,
-                 'Single request Modal should be visible');
-    browser.sleep(3000);
+    browser.wait(EC.elementToBeClickable(requestPool.getRequestMentorButton()),
+                 2000, 'Request Mentor is taking too long to appear in the DOM');
+    requestPool.getRequestMentorButton().click();
+    requestPool.createRequest(requests[1]);
   });
 
-  it('Should filter the request pool by duration', () => {
-    requestPool.getAllRequestsRadioButton().click();
-    browser.wait(EC.visibilityOf(requestPool.getLengthFilter()),
-                 5000, 'length element should be visible');
-    requestPool.getLengthFilter().click();
-    browser.wait(EC.elementToBeClickable(requestPool.getMonthsFilter()),
-                 5000, 'months element should be clickable');
-    requestPool.getMonthsFilter().click();
-    expect(requestPool.getFirstRowMentorshipRequest('duration').getText()).toContain('2 Months')
-    browser.sleep(2000);
-  });
-
-  it('Should filter the request pool by skill', () => {
-    requestPool.getAllRequestsRadioButton().click();
-    browser.wait(EC.visibilityOf(requestPool.getSkillsFilter()),
-                 5000, 'skill-set element should be clickable');
-    requestPool.getSkillsFilter().click();
-    browser.wait(EC.elementToBeClickable(requestPool.getSkillsFilterCheckbox()),
-                 5000, 'skills element should be clickable');
-    requestPool.getSkillsFilterCheckbox().click();
-    browser.sleep(2000);
-    browser.waitForAngularEnabled(false);
-  });
-
-  it('Should remove requests shown interest in from the requests pool', () => {
-    let newFirstRequestText;
-    browser.wait(requestPool.getFirstRowMentorshipRequest('title').isDisplayed, 3000);
-    requestPool.getFirstRowMentorshipRequest('title').getText()
-    .then((text) => {
-      newFirstRequestText = text;
-      requestPool.getRequestsInRequestPool().get(0).click();
-      browser.wait(EC.visibilityOf(requestPool.getIAmInterestedButton()),
-                   3000, 'this time i\'m interested button should be visible')
-      requestPool.getIAmInterestedButton().click();
-      browser.wait(EC.visibilityOf(requestPool.getNotificationCloseButton()),
-                   3000, 'this time notification close button should be visible');
-      requestPool.getNotificationCloseButton();
-      browser.driver.findElement(by.id('close-button')).click();
-      browser.sleep(1000);
-      browser.driver.findElement(by.id('back-modal-button')).click();
-      browser.sleep(3000);
-      expect(requestPool.getFirstRowMentorshipRequest('title'))
-        .not.toContain(newFirstRequestText);
-    });
-  });
-
-  it('Should be able to view request details after requesting for mentor', () => {
-    browser.actions().mouseMove(requestPool.getRequestForButton()).perform();
-    requestPool.requestAMentor(requests[0]);
-
-    browser.wait(EC.elementToBeClickable(requestPool.getViewAlertButton()), 3000);
-    requestPool.getViewAlertButton().click();
-
-    browser.wait(EC.elementToBeClickable(requestPool.getSingleRequestModal()), 3000);
-    expect(requestPool.getSingleRequestModal().isDisplayed).toBeTruthy();
-
-    browser.wait(EC.elementToBeClickable(requestPool.getBackButton()), 3000);
-    requestPool.getBackButton().click();
-  });
-
-  it('Should show notifications when user clicks on notifications icon', () => {
-    requestPool.notificationIcon().click();
-    browser.sleep(3000);
-
+  it('Should open notifications tab', () => {
+    browser.wait(EC.elementToBeClickable(requestPool.notificationElement()),
+                 5000, 'Notification button is taking too long to appear in the DOM');
     expect(requestPool.notificationElement()).toBeTruthy();
+    requestPool.notificationElement().click();
+  });
 
+  it('Should close notifications tab', () => {
+    browser.wait(EC.visibilityOf(requestPool.closeNotificationsIcon()),
+                 3000, 'this time notification close button should be visible');
+    expect(requestPool.closeNotificationsIcon()).toBeTruthy();
     requestPool.closeNotificationsIcon().click();
-    browser.sleep(1500);
   });
 
 });

@@ -28,7 +28,7 @@ export class SessionPage {
      * @returns {ElementFinder}
      */
   getSessionButton(attribute): ElementFinder {
-    return element(by.css(`.request-schedule-wrapper .card ${attribute}`))
+    return element.all(by.css(`.request-schedule-wrapper .card ${attribute}`)).get(0)
   }
 
   /**

@@ -1,9 +1,9 @@
-import { browser, by, element, promise, ElementFinder, ElementArrayFinder, $, protractor } from 'protractor';
+import { browser, by, element, promise, ElementFinder, ElementArrayFinder, $, $$, protractor } from 'protractor';
+import requests from '../../../../src/app/mocks/requests';
 
 const expectedConditions = browser.ExpectedConditions;
 export class RequestPoolPage {
 
-  expectedConditions = protractor.ExpectedConditions;
   /**
    * Navigates to the request pool page
    *
@@ -11,15 +11,6 @@ export class RequestPoolPage {
    */
   navigateToPoolPage(): promise.Promise<any> {
     return element(by.id('pool')).click();
-  }
-
-  /**
-   * Gets the table in the request pool
-   *
-   * @return {WebElement}
-   */
-  getTable(): ElementFinder {
-    return element(by.css('.pool-table'));
   }
 
   /**
@@ -38,7 +29,7 @@ export class RequestPoolPage {
    */
   getSearchInputElement() {
     const inputSearch = element(by.id('search'));
-    inputSearch.sendKeys('soluta');
+    inputSearch.sendKeys('quae');
   }
   /**
    * Gets the lagos filter button in the request pool
@@ -88,10 +79,18 @@ export class RequestPoolPage {
   /**
    * Gets the requests in the request pool
    *
+   * @return {WebElement}
+   */
+  getRequestsInRequestPool(): ElementFinder {
+    return element(by.className('pool-body'));
+  }
+  /**
+   * Gets the requests in the request pool
+   *
    * @return {Array}
    */
-  getRequestsInRequestPool(): ElementArrayFinder {
-    return this.getTable().all(by.css('#request-pool'));
+  getRequestRowsInRequestPool(): ElementArrayFinder {
+    return this.getRequestsInRequestPool().all(by.className('custom-row'));
   }
 
   /**
@@ -100,7 +99,7 @@ export class RequestPoolPage {
    * @return {WebElement}
    */
   getSingleRequestModal(): ElementFinder {
-    return element(by.tagName('app-request-details'));
+    return element(by.className('request-modal'));
   }
 
   /**
@@ -156,8 +155,8 @@ export class RequestPoolPage {
    *
    * @return {WebElement}
    */
-  getFirstRowMentorshipRequest(id): ElementFinder {
-    return this.getRequestsInRequestPool().get(0).element(by.id(id));
+  getFirstRowMentorshipRequest(): ElementFinder {
+    return this.getRequestsInRequestPool().all(by.className('custom-row')).get(0);
   }
 
   /* Gets the mentor button after hovering
@@ -169,35 +168,88 @@ export class RequestPoolPage {
     return element(by.id('mentor'));
   }
 
+  /* Gets the mentee button after hovering
+  * over the Request For button
+  *
+  * @return {WebElement}
+  */
+  getRequestMenteeButton(): ElementFinder {
+    return element(by.id('mentee'));
+  }
+
+  /* Gets the primary skills
+  *
+  * @return {WebElement}
+  */
+  getPrimarySkillsList(): ElementFinder {
+    return element.all(by.tagName('app-skills-dropdown')).first();
+  }
+
   /**
    * Fills the request mentor form.
    *
    * @return {void}
    */
-  requestAMentor(request) {
+  requestAMentor() {
+    this.createRequest(requests[0]);
+  }
+  /**
+   * Fills the request mentee form.
+   *
+   * @return {void}
+   */
+  requestAMentee() {
+    this.createRequest(requests[2]);
+  }
 
-    this.getRequestMentorButton().click();
-    browser.wait(expectedConditions.elementToBeClickable($('.mentor-request-modal')), 3000);
+  /**
+   * Creates request for the user
+   *
+   * @return {void}
+   */
+  createRequest(request) {
+    const requestType = request.isMentor === true ? 'MENTOR' : 'MENTEE'
+    browser.wait(expectedConditions.textToBePresentInElement($('.mentor-request-modal'), (requestType)), 3000);
+    browser.wait(expectedConditions.visibilityOf(this.getPrimarySkillsList()), 3000);
+    expect(this.getPrimarySkillsList().isPresent).toBeTruthy();
+    this.getPrimarySkillsList().click()
 
-    const neededSkill = element(by.id('needed-skill'));
-    neededSkill.sendKeys(request.title);
+    browser.wait(expectedConditions.elementToBeClickable($$('.request-content').first()), 5000);
+    expect($$('.request-content').first()).toBeTruthy();
+    $$('.request-content').first().click();
 
     const description = element(by.id('description'));
     description.sendKeys(request.description);
-
-    const basicSkills = element(by.id('basic-skills'));
-    basicSkills.click();
-
-    const basicSkillsDropDown = element.all(by.css('.request-content a'));
-    const angular = basicSkillsDropDown.get(8);
-    angular.click();
 
     const allDays = element(by.id('all-days-checkbox'));
     allDays.click();
 
     const requestMentorButton = element(by.id('btn-request'));
     requestMentorButton.click();
-    browser.sleep(2000);
+
+    browser.wait(expectedConditions.elementToBeClickable(this.getCloseAlertButton()), 5000);
+    expect(this.getCloseAlertButton().isDisplayed).toBeTruthy();
+    this.getCloseAlertButton().click();
+  }
+
+  /**
+   * Gets request table headers in the history page
+   *
+   * @return {ElementFinder}
+   */
+  getPoolTableHeaders(id: number): ElementFinder {
+    browser.wait(expectedConditions.elementToBeClickable($('.custom-col-2')),
+                 5000, 'History table headers should have been rendered');
+    return element.all(by.css('.custom-col-2')).get(id);
+  }
+
+  /**
+   * Gets span request table headers in the history page
+   *
+   * @return {ElementFinder}
+   */
+  getPoolTableHeadersSpan(id): ElementFinder {
+    return this.getPoolTableHeaders(id).$('span');
   }
 
   /**
@@ -246,7 +298,7 @@ export class RequestPoolPage {
    * @return {WebElement}
    */
   notificationElement(): ElementFinder {
-    return element(by.tagName('app-notifications'));
+    return element(by.css('.notification-icon'));
   }
 
   /**

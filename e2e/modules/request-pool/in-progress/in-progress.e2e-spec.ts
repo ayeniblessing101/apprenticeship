@@ -5,49 +5,23 @@ describe('In Progress', () => {
   const inProgress = new InProgressPage();
   beforeAll(() => {
     inProgress.navigateToInProgressPage();
+    browser.waitForAngularEnabled(false);
   });
 
-  it('Should have in-progress table headers', () => {
-    expect(inProgress.getInProgressTableHeaders()).toBeTruthy();
-  });
-
-  it('Should sort requests by Title in ascending and descending order', () => {
-    expect(inProgress.getInProgressTableHeaders().get(0).getText()).toBe('Request');
-    inProgress.getInProgressTableHeaders().get(0).$('span').click();
-    browser.sleep(1000);
-    inProgress.getInProgressTableHeaders().get(0).$('span').click();
-    browser.sleep(1000);
+  it('Should contain Request column in table headers', () => {
+    expect(inProgress.getRequestTextInTableHeader()).toBeTruthy();
+    expect(inProgress.getRequestTextInTableHeader().getText()).toBe('Request');
   });
 
   it('Should sort requests by Duration in ascending and descending order', () => {
-    expect(inProgress.getInProgressTableHeaders().get(2).getText()).toBe('Duration');
-    inProgress.getInProgressTableHeaders().get(2).$('span').click();
-    browser.sleep(1000);
-    inProgress.getInProgressTableHeaders().get(2).$('span').click();
-    browser.sleep(1000);
+    expect(inProgress.getDurationTableHeader().getText()).toBe('Duration');
+    inProgress.getDurationTableHeaderSpan().click();
+    inProgress.getDurationTableHeaderSpan().click();
   });
 
   it('Should sort requests by Date started in ascending and descending order', () => {
-    expect(inProgress.getInProgressTableHeaders().get(3).getText()).toBe('Date Started');
-    inProgress.getInProgressTableHeaders().get(3).$('span').click();
-    browser.sleep(1000);
-    inProgress.getInProgressTableHeaders().get(3).$('span').click();
-    browser.sleep(1000);
-  });
-
-  it('Should sort requests by Location in ascending and descending order', () => {
-    expect(inProgress.getInProgressTableHeaders().get(4).getText()).toBe('Location');
-    inProgress.getInProgressTableHeaders().get(4).$('span').click();
-    browser.sleep(1000);
-    inProgress.getInProgressTableHeaders().get(4).$('span').click();
-    browser.sleep(1000);
-  });
-
-  it('Should sort requests by Role in ascending and descending order', () => {
-    expect(inProgress.getInProgressTableHeaders().get(5).getText()).toBe('Role');
-    inProgress.getInProgressTableHeaders().get(5).$('span').click();
-    browser.sleep(1000);
-    inProgress.getInProgressTableHeaders().get(5).$('span').click();
-    browser.sleep(1000);
+    expect(inProgress.getDateStartedTableHeader().getText()).toBe('Date Started');
+    inProgress.getTableHeaderSpan().click();
+    inProgress.getTableHeaderSpan().click();
   });
 });

@@ -12,11 +12,46 @@ export class InProgressPage {
   }
 
   /**
-   * Gets request table headers in the in-progress page
+   * Gets Request column in requests table headers in the in-progress page
    *
    * @return {ElementFinder}
    */
-  getInProgressTableHeaders(): ElementArrayFinder {
-    return element.all(by.css('.table .in-progress-header div'));
+  getRequestTextInTableHeader(): ElementFinder {
+    return element.all(by.css('.custom-col-3')).get(0);
+  }
+
+  /**
+   * Gets Duration column in duration table headers in the in-progress page
+   *
+   * @return {ElementFinder}
+   */
+  getDurationTableHeader(): ElementFinder {
+    return element.all(by.css('.custom-col-2')).get(0);
+  }
+
+  /**
+   * Gets the span field in the duration table column
+   *
+   * @return {ElementFinder}
+   */
+  getDurationTableHeaderSpan(): ElementFinder {
+    return this.getDurationTableHeader().$('span');
+  }
+
+  /**
+   * Gets Date Started column in duration table headers in the in-progress page
+   *
+   * @return {ElementFinder}
+   */
+  getDateStartedTableHeader(): ElementFinder {
+    return element.all(by.css('.custom-col-3')).get(1);
+  }
+  /**
+   * Gets Date Started column in duration table headers in the in-progress page
+   *
+   * @return {ElementFinder}
+   */
+  getTableHeaderSpan(): ElementFinder {
+    return this.getDateStartedTableHeader().$('span');
   }
 }

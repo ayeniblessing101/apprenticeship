@@ -40,4 +40,13 @@ export class SkillDetails {
   getAdminSkills(): ElementArrayFinder {
     return this.getTable().all(by.css('#skill-pool'));
   }
+
+  /**
+   * Gets mentor sorter from the table header in the skill mentors page
+   *
+   * @return {ElementFinder}
+   */
+  getMentorSorter(): ElementFinder {
+    return element.all(by.className('custom-col-2')).get(2);
+  }
 }
