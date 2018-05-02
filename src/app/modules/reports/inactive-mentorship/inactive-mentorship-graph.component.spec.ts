@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { InactiveMentorshipGraphComponent } from './inactive-mentorship-graph.component';
 import { ReportsService } from 'app/services/reports.service';
 import { SkillService } from 'app/services/skill.service';
@@ -10,6 +11,9 @@ import { HttpService as Http } from '../../../services/http.service';
 describe('InactiveMentorshipGraphComponent', () => {
   let component: InactiveMentorshipGraphComponent;
   let fixture: ComponentFixture<InactiveMentorshipGraphComponent>;
+  const reportsService = {
+    getInactiveMentorships : () => Observable.of({}),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +23,7 @@ describe('InactiveMentorshipGraphComponent', () => {
       declarations: [InactiveMentorshipGraphComponent],
       providers: [
         Http,
-        ReportsService,
+        { provide: ReportsService, useValue: reportsService },
         RequestService,
         UserService,
         SkillService,

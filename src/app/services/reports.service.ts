@@ -6,12 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { RequestService } from './request.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class ReportsService {
+export class ReportsService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;
-
-  constructor(private http: Http) { }
 
   /**
    * Gets inactive mentorship data
@@ -23,18 +22,7 @@ export class ReportsService {
    */
   getInactiveMentorships(startDate: string, endDate?: string) {
     return this.http.get(`${this.apiBaseUrl}/v1/reports/inactive-mentorships?start_date=${startDate}&end_date=${endDate}`)
-        .map((response: Response) => response.json())
+        .map(this.handleResponse)
         .catch(this.handleError);
-  }
-
-  /**
-   * Handles errors
-   *
-   * @param {Response} - Http error
-   *
-   * @return {Observable} - Error observable
-   */
-  private handleError(error: Response) {
-    return Observable.throw(error.json().message)
   }
 }

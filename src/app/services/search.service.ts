@@ -3,15 +3,12 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class SearchService {
+export class SearchService extends BaseService {
   searchTerm = new Subject<any>();
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
-
-  constructor(
-    private http: Http,
-  ) {}
 
   /**
     * Fetches requests based on the search term

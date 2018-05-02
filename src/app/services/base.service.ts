@@ -12,7 +12,8 @@ export class BaseService {
 
   constructor(
     protected http: Http,
-  ) { }
+  ) {}
+
   /**
    * Return encoded GET querystring
    *
@@ -28,5 +29,30 @@ export class BaseService {
       }
     }
     return paramValues.toString();
+  }
+
+  /**
+   * Handle response from server.
+   *
+   * @param {Response} res - response object
+   *
+   * @returns {object} - response object
+   *
+   */
+  handleResponse(res: Response) {
+    const response = res.json();
+    return response || {};
+  }
+
+  /**
+   * Handle errors from server
+   *
+   * @param {Response} error http error
+   *
+   * @return {Observable} ErrorObservable
+   */
+  handleError(error: Response | any) {
+    const message = error.json().message;
+    return Observable.throw(message);
   }
 }

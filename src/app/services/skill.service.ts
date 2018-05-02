@@ -38,7 +38,7 @@ export class SkillService extends BaseService {
     if (!this.skills) {
       this.skills = this.http
         .get(`${this.apiBaseUrl}/v2/skills?isTrashed=${params.includeTrashed}`)
-        .map((response: Response) => response.json())
+        .map(this.handleResponse)
         .publishReplay(1)
         .refCount()
         .catch(this.handleError);
@@ -93,11 +93,8 @@ export class SkillService extends BaseService {
    * @return Observable of the newly added user skill
    */
   updateSkillName(skillName, skillId): Observable<any> {
-    return this.http.put(`${this.apiBaseUrl}/v1/skills/${skillId}`,
-                         { name: skillName })
-      .catch(
-      error => Observable.throw(error.json()),
-    );
+    return this.http.put(`${this.apiBaseUrl}/v1/skills/${skillId}`, { name: skillName })
+      .catch(this.handleError);
   }
 
 
@@ -110,11 +107,8 @@ export class SkillService extends BaseService {
    * @return Observable of the newly added user skill
    */
   updateSkillStatus(skillId, status) {
-    return this.http.patch(`${this.apiBaseUrl}/v2/skills/${skillId}/update-status`,
-                           { status })
-      .catch(
-      error => Observable.throw(error.json()),
-      );
+    return this.http.patch(`${this.apiBaseUrl}/v2/skills/${skillId}/update-status`, { status })
+      .catch(this.handleError);
   }
 
 
@@ -160,9 +154,7 @@ export class SkillService extends BaseService {
           skillName: this.skillName,
         }
       })
-      .catch((error) => {
-        return Observable.throw(error.json());
-      });
+      .catch(this.handleError);
   }
 
 
@@ -181,9 +173,7 @@ export class SkillService extends BaseService {
           mentors: response.json().skill.mentors,
         }
       })
-    .catch((error) => {
-      return Observable.throw(error.json());
-    });
+    .catch(this.handleError);
   }
 
 
@@ -215,30 +205,5 @@ export class SkillService extends BaseService {
    */
   joinSkills(arrayOfSkillsNames: any[], skilltype: string): string {
     return this.extractSkills(arrayOfSkillsNames, skilltype).join(', ');
-  }
-
-  /**
-   * Handle response from server.
-   *
-   * @param {Response} res - created skill
-   *
-   * @returns {object} - response object of created skill
-   *
-   */
-  private handleResponse(res: Response) {
-    const response = res.json();
-    return response || {};
-  }
-
-  /**
-   * Handle errors from server
-   *
-   * @param {Response} error http error
-   *
-   * @return {Observable} ErrorObservable
-   */
-  private handleError(error: Response | any) {
-    const message = error.json().message;
-    return Observable.throw(message);
   }
 }

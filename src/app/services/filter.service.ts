@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Response, Http } from '@angular/http';
+import { Response } from '@angular/http';
+import { HttpService as Http, HttpService } from './http.service';
 import { environment } from '../../env';
 import 'rxjs/add/operator/map';
 import 'rxjs/'
+import { BaseService } from './base.service';
 
 @Injectable()
-export class FilterService {
+export class FilterService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
   // Publishes new result to other observables and subscribes to incoming results
   statusResult = new Subject<Object[]>();
@@ -21,8 +23,6 @@ export class FilterService {
     lengths: [],
   };
 
-  constructor(private http: Http) {}
-
   /**
    * Return a unique list of all skills that have create-request
    *
@@ -31,8 +31,8 @@ export class FilterService {
   getSkillsWithRequests(): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/skills/request-skills`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**

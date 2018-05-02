@@ -35,7 +35,7 @@ export class RequestService extends BaseService {
    */
   getRequest(requestId: number) {
     return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}`)
-      .map((response: Response) => response.json())
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -51,9 +51,8 @@ export class RequestService extends BaseService {
   getPoolRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/pool?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()),
-      );
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -68,9 +67,8 @@ export class RequestService extends BaseService {
   getRequests(limit: number, page = null, params = null): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests?limit=${limit}&page=${page}&${this.getEncodedParameters(params)}`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()),
-      );
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -99,7 +97,7 @@ export class RequestService extends BaseService {
   getRequestsByStatus(status): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v1/requests?status=${status}`)
-      .map(this.extractData)
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -112,8 +110,8 @@ export class RequestService extends BaseService {
    */
   createRequest(mentorshipDetails) {
     return this.http.post(`${this.apiBaseUrl}/v2/requests`, mentorshipDetails)
-      .map((response: Response) => response.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -182,40 +180,6 @@ export class RequestService extends BaseService {
   }
 
   /**
-   * Return data as JSON
-   *
-   * @param {Response} res an Observable
-   *
-   * @return {Object} containing data from Observable
-   */
-  extractData(res: Response) {
-
-    const body = res.json();
-    return body.data || [];
-  }
-
-  /**
-   * Handle errors
-   *
-   * @param {Response} http error
-   *
-   * @return ErrorObservable
-   */
-  handleError(error: Response | any) {
-    let errMsg: string;
-
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    return Observable.throw(errMsg);
-  }
-
-  /**
    * Returns a users completed create-request
    *
    * @return Observable containing completed create-request
@@ -223,9 +187,8 @@ export class RequestService extends BaseService {
   getUserHistory(): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/history?&`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()),
-      );
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -238,9 +201,8 @@ export class RequestService extends BaseService {
   getInProgressRequests(): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/in-progress`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()),
-      );
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -251,9 +213,8 @@ export class RequestService extends BaseService {
   getPendingRequests() {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/pending`)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()),
-    );
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -268,8 +229,8 @@ export class RequestService extends BaseService {
   acceptInterestedUser(requestId, data) {
     return this.http
       .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/accept-user`, data)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -283,8 +244,8 @@ export class RequestService extends BaseService {
   rejectInterestedUser(requestId, data) {
     return this.http
       .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/reject-user`, data)
-      .map((res: Response) => res.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -297,7 +258,8 @@ export class RequestService extends BaseService {
   getRequestStatistics(params: {}): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/status-statistics?${this.getEncodedParameters(params)}`)
-      .map((res: Response) => res.json())
+      .map(this.handleResponse)
+      .map(this.handleError)
   }
 
   /**
@@ -309,7 +271,7 @@ export class RequestService extends BaseService {
    */
   getRequestSessions(requestId: number): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions`)
-      .map((response: Response) => response.json())
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 

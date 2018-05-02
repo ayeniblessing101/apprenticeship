@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-
+import { Observable } from 'rxjs/Observable';
 import { RequestService } from '../../../services/request.service'
 import { SkillService } from '../../../services/skill.service';
 import { ReportsService } from '../../../services/reports.service';
@@ -17,6 +17,9 @@ import { DateRangePickerComponent } from '../../shared/date-range-picker/date-ra
 describe('RequestSkillsReportComponent', () => {
   let component: ReportsPageComponent;
   let fixture: ComponentFixture<ReportsPageComponent>;
+  const reportsService = {
+    getInactiveMentorships : () => Observable.of({}),
+  };
 
   beforeEach(async(() => {
 
@@ -39,6 +42,7 @@ describe('RequestSkillsReportComponent', () => {
         UserService,
         RequestService,
         { provide: SkillService, useClass: SkillServiceStub },
+        { provide: ReportsService, useValue: reportsService }
       ],
     })
     .compileComponents();

@@ -4,15 +4,11 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService {
   private apiBaseUrl: string = environment.apiBaseUrl;
-
-  constructor(
-    private http: Http,
-  ) {
-  }
 
   /**
    * Returns the logged in user's information
@@ -24,7 +20,7 @@ export class UserService {
   getUserInfo(userId: string): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/users/${userId}`)
-      .map(this.extractResponse)
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -38,7 +34,7 @@ export class UserService {
   getUsersByIds(userIds: string[]): Observable<any> {
     return this.http
       .get(`${this.apiBaseUrl}/v2/users?ids=${userIds}`)
-      .map(this.extractResponse)
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -59,40 +55,6 @@ export class UserService {
         }
       })
       .catch(this.handleError);
-  }
-
-  /**
-   * Return data as JSON
-   *
-   * @param Response res an Observable
-   *
-   * @return Object containing data from Observable
-   */
-  extractResponse(res: Response) {
-    return res.json();
-
-  }
-
-  /**
-   * Handle errors
-   *
-   * @param Response http error
-   *
-   * @return ErrorObservable
-   */
-  handleError(error: Response | any) {
-    let errMsg: string;
-
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-
-    return Observable.throw(errMsg);
   }
 
   /**

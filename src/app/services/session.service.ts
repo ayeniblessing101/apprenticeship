@@ -6,12 +6,11 @@ import { environment } from '../../environments/environment';
 import { Session } from '../interfaces/session.interface';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class SessionService {
+export class SessionService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl;
-
-  constructor(private http: Http) {}
 
   /**
    * Creates a session for a given request.
@@ -23,7 +22,7 @@ export class SessionService {
    */
   createSession(requestData: Object, requestId) {
     return this.http.post(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions`, requestData)
-      .map(response => response.json());
+      .map(this.handleResponse);
   }
 
   /**
@@ -36,7 +35,7 @@ export class SessionService {
   logSession(data: Session, requestId, sessionId): Observable<any> {
     return this.http
       .patch(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions/${sessionId}`, data)
-      .map((response: Response) => response.json())
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -49,7 +48,7 @@ export class SessionService {
    */
   getSessions(requestId: number, include: string): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/v1/sessions/${requestId}?include=${include}`)
-      .map(this.extractData)
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -63,7 +62,7 @@ export class SessionService {
   approveSession(sessionId: number, payload: any): Observable<any> {
     return this.http
       .patch(`${this.apiBaseUrl}/v1/sessions/${sessionId}/approve`, payload)
-      .map(this.extractData)
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
 
@@ -78,7 +77,7 @@ export class SessionService {
   confirmSession(sessionId: number, payload: any): Observable<any> {
     return this.http
       .patch(`${this.apiBaseUrl}/v2/sessions/${sessionId}/confirm`, payload)
-      .map((response: Response) => response.json())
+      .map(this.handleResponse)
       .catch(this.handleError)
   }
 
@@ -128,17 +127,6 @@ export class SessionService {
   }
 
   /**
-   * extracts actual data from Response
-   *
-   * @param {Response} - res
-   * @return {Object} data
-   */
-  extractData(res: Response): any[] {
-    const body = res.json();
-    return body.data || [];
-  }
-
-  /**
    * Retrieve missed, completed and upcoming session dates for a request.
    *
    * @param {number} requestId - request id
@@ -149,28 +137,5 @@ export class SessionService {
     return this.http.get(`${this.apiBaseUrl}/v2/requests/${requestId}/sessions/dates`)
       .map(this.handleResponse)
       .catch(this.handleError);
-  }
-
-  /**
-   * handles errors if any
-   *
-   * @param {Reponse} - err
-   * @return {Observable} err
-   */
-  handleError(error: Response | any): Observable<any> {
-    return Observable.throw(error.json().message);
-  }
-
-  /**
-   * Handle response from server.
-   *
-   * @param {Response} res - http response
-   *
-   * @returns {object} - response object
-   *
-   */
-  private handleResponse(res: Response) {
-    const response = res.json();
-    return response || {};
   }
 }

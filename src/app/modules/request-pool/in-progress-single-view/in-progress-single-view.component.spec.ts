@@ -28,6 +28,9 @@ describe('InProgressSingleViewComponent', () => {
   const routeStub = new Observable((data) => { });
   let proposedRequestDuration: ProposedRequestDurationPipe;
   let requestSkill: RequestSkillPipe;
+  const sessionService = {
+    fetchSessionDates : () => Observable.of({}),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,7 +62,7 @@ describe('InProgressSingleViewComponent', () => {
         }},
         RequestService,
         UserService,
-        SessionService,
+        {provide: SessionService, useValue: sessionService },
         FileService,
       ],
     })

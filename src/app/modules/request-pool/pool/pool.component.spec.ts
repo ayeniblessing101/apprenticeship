@@ -21,11 +21,16 @@ import { SetRequestHeaderIconDirective } from '../../../directives/set-request-h
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
 import { SearchService } from '../../../services/search.service';
+import { Observable } from 'rxjs/Observable';
 
 
 describe('PoolComponent', () => {
   let component: PoolComponent;
   let fixture: ComponentFixture<PoolComponent>;
+  const filterService = {
+    getFilters : () => Observable.of({}),
+    getSkillsWithRequests : () => Observable.of({}),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,8 +55,8 @@ describe('PoolComponent', () => {
       providers: [
         Http,
         { provide: RequestService, useClass: RequestServiceStub },
+        { provide: FilterService, useValue: filterService },
         RequestService,
-        FilterService,
         UserService,
         SkillService,
         AlertService,

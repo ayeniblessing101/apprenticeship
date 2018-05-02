@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpService as Http } from './http.service';
+import { BaseService } from './base.service';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class FileService {
+export class FileService extends BaseService {
   private apiBaseUrl = environment.apiBaseUrl
-  constructor(private http: Http) { }
 
   /**
    * Gets a url for downloading a file
@@ -21,8 +21,8 @@ export class FileService {
   getFileDownloadUrl(fileId) {
     return this.http
       .get(`${this.apiBaseUrl}/v2/files/${fileId}`)
-      .map((response: Response) => response.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -36,8 +36,8 @@ export class FileService {
   deleteSessionFile(sessionId, fileId) {
     return this.http
       .delete(`${this.apiBaseUrl}/v2/sessions/${sessionId}/files/${fileId}`)
-      .map((response: Response) => response.json())
-      .catch(error => Observable.throw(error.json()));
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
 
   /**
@@ -50,7 +50,7 @@ export class FileService {
    */
   addFile(uploadFile: Object, sessionId) {
     return this.http.post(`${this.apiBaseUrl}/v2/sessions/${sessionId}/files`, uploadFile)
-      .map(response => response.json());
+      .map(this.handleResponse);
   }
 
 }
