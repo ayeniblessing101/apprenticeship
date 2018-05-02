@@ -135,8 +135,6 @@
   padding: 10px;
   height: 32px;
   width: 224px;
-  background: url(../../../../assets/images/search.png) no-repeat scroll 130px 2px;
-  background-position: 93% 50%;
   padding-left: 30px;
   border-width: 1px;
   border: 1px solid #dddddd;
@@ -265,4 +263,10 @@
   .header-grid {
     height: 4em;
   }
+}
+
+.search-icon {
+  margin-left: 193px;
+  position: absolute;
+  top: 20px;
 }

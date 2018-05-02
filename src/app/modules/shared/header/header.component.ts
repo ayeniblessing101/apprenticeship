@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   requestType: number;
   selectedRequest: any[];
   showRequest = false;
+  showSearchIcon = true;
 
   constructor(
     private authService: AuthService,
@@ -131,5 +132,19 @@ export class HeaderComponent implements OnInit {
    */
   updateSearchTerm(event: any) {
     this.searchService.searchTerm.next(event.target.value);
+  }
+
+  /**
+   * Sets the visibility of the search icon when a value is
+   * being inputted in the search form.
+   *
+   * @param event
+   */
+  setSearchIconVisibilty(event: any) {
+    if (event.type === 'blur') {
+      this.showSearchIcon = !event.target.value.trim();
+      return;
+    }
+    this.showSearchIcon = false;
   }
 }

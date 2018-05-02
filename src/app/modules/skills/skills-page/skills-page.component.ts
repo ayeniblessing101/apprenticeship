@@ -68,8 +68,8 @@ export class SkillsPageComponent implements OnInit, OnDestroy {
             .then((response) => {
               this.skills = response;
             });
+          this.noResultMessage = `Your search didn't return any result. Try something different.`;
         });
-    this.noResultMessage = `Your search didn't return any result. Try something different.`;
   }
 
   /**
