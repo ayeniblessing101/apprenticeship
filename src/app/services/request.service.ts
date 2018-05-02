@@ -259,7 +259,7 @@ export class RequestService extends BaseService {
     return this.http
       .get(`${this.apiBaseUrl}/v2/requests/status-statistics?${this.getEncodedParameters(params)}`)
       .map(this.handleResponse)
-      .map(this.handleError)
+      .catch(this.handleError)
   }
 
   /**
