@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
@@ -111,7 +110,6 @@ export class SkillService extends BaseService {
       .catch(this.handleError);
   }
 
-
   /**
    * This fetches an array of requests for a particular skill
    *
@@ -121,42 +119,9 @@ export class SkillService extends BaseService {
    */
   getSkillRequests(skillId: number): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/v2/skills/${skillId}/requests`)
-      .map((response) => {
-        this.skillName = response.json().skill.name;
-        const requests = response.json().skill.requests.map((eachRequest) => {
-          let createdBy = '';
-          if (eachRequest.created_by.id === eachRequest.mentor.id) {
-            createdBy = eachRequest.mentor.fullname;
-          } else {
-            createdBy = eachRequest.mentee.fullname;
-          }
-
-          const {
-            duration,
-            created_at,
-            location,
-            session_count,
-            status_id,
-          } = eachRequest;
-
-          return {
-            duration,
-            location,
-            createdBy,
-            sessionCount: session_count,
-            dateAdded: created_at.split(' ')[0],
-            status: status_id,
-          }
-        });
-
-        return {
-          requests,
-          skillName: this.skillName,
-        }
-      })
+      .map(this.handleResponse)
       .catch(this.handleError);
   }
-
 
   /**
    * This fetches an array of top mentors for a selected skill
@@ -167,15 +132,9 @@ export class SkillService extends BaseService {
    */
   getSkillTopMentors(skillId: number): Observable<any> {
     return this.http.get(`${this.apiBaseUrl}/v2/skills/${skillId}/mentors`)
-      .map((response) => {
-        return {
-          skillName: response.json().skill.name,
-          mentors: response.json().skill.mentors,
-        }
-      })
-    .catch(this.handleError);
+      .map(this.handleResponse)
+      .catch(this.handleError);
   }
-
 
   /**
    *  extracts the names of skills from an array of skill objects

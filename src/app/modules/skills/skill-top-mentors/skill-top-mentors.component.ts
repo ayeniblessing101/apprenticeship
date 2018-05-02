@@ -19,21 +19,26 @@ export class SkillTopMentorsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getSkillTopMentors();
+  }
+
+ /**
+   * Get skill top mentors
+   *
+   * @return {void}
+   */
+  getSkillTopMentors() {
     this.loadingRequests = true;
     this.skillService.getSkillTopMentors(this.skillId)
-    .toPromise()
-    .then((response) => {
-      if (!response.mentors.length) {
+      .toPromise()
+      .then((response) => {
+        this.skillName = response.skill.name;
+        this.skillMentors = response.skill.mentors;
         this.loadingRequests = false;
-      } else {
-        this.skillName = response.skillName;
-        this.skillMentors = response.mentors;
+      })
+      .catch((error) => {
         this.loadingRequests = false;
-      }
-    })
-    .catch((error) => {
-      this.loadingRequests = false;
-    });
+      });
   }
 
   navigateToMentorsPage() {

@@ -15,26 +15,26 @@
     <div *ngIf="!rerender" class="custom-row header">
       <div class="custom-col-2">
         <span
-        (click)="sortSkillRequestsByHeader('createdBy')"
+        (click)="sortSkillRequestsByHeader('created_by_name')"
         >Created by
           <img
             appSetRequestHeaderIcon
             [sortCategoryValues]="sortCategoryValues"
             [activeSortCategory]="activeSortCategory"
-            [headerName]="'createdBy'"
+            [headerName]="'created_by_name'"
             src="../../../../assets/images/sort-a-z-inactive.png" />
         </span>
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortSkillRequestsByHeader('dateAdded', true)"
+        (click)="sortSkillRequestsByHeader('created_at', true)"
         >Date Added
             <img
               appSetRequestHeaderIcon
               [showAlphabeticIcon]="false"
               [sortCategoryValues]="sortCategoryValues"
               [activeSortCategory]="activeSortCategory"
-              [headerName]="'dateAdded'"
+              [headerName]="'created_at'"
               src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
@@ -66,26 +66,26 @@
       </div>
       <div class="custom-col-2">
         <span
-        (click)="sortSkillRequestsByHeader('sessionCount')"
+        (click)="sortSkillRequestsByHeader('session_count')"
         >Number of Sessions
           <img
             appSetRequestHeaderIcon
             [showAlphabeticIcon]="false"
             [sortCategoryValues]="sortCategoryValues"
             [activeSortCategory]="activeSortCategory"
-            [headerName]="'sessionCount'"
+            [headerName]="'session_count'"
             src="../../../../assets/images/sort-desc-inactive.png" />
         </span>
       </div>
       <div class="custom-col-2">
         <span
-          (click)="sortSkillRequestsByHeader('status')"
+          (click)="sortSkillRequestsByHeader('status_id')"
           >Status
             <img
               appSetRequestHeaderIcon
               [sortCategoryValues]="sortCategoryValues"
               [activeSortCategory]="activeSortCategory"
-              [headerName]="'status'"
+              [headerName]="'status_id'"
               src="../../../../assets/images/sort-a-z-inactive.png" />
           </span>
       </div>
@@ -96,12 +96,12 @@
     <div class="skill-body">
         <div *ngIf="loadingRequests" class="loader"></div>
       <a *ngFor="let request of skillRequests" class="body-content custom-row">
-        <div class="custom-col-2">{{request.createdBy}}</div>
-        <div class="custom-col-2">{{request.dateAdded | date: 'longDate'}}</div>
+        <div class="custom-col-2">{{request.created_by_name}}</div>
+        <div class="custom-col-2">{{request.created_at | date: 'longDate'}}</div>
         <div class="custom-col-2">{{request.duration | requestDuration}}</div>
         <div class="custom-col-2">{{request.location}}</div>
-        <div class="custom-col-2">{{request.sessionCount}}</div>
-        <div class="custom-col-2">{{request.status | requestStatus}}</div>
+        <div class="custom-col-2">{{request.session_count}}</div>
+        <div class="custom-col-2">{{request.status_id | requestStatus}}</div>
       </a>
       <div class="space"></div>
     </div>

@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpService as Http } from './http.service';
 import { Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { environment } from '../../environments/environment';
-import { UserService } from './user.service';
-
 
 @Injectable()
 export class BaseService {

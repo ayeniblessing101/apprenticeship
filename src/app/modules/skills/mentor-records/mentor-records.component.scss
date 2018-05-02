@@ -1,11 +1,77 @@
 @import "../../../../assets/scss/fonts";
 @import "../../../../assets/scss/colors";
 @import "../../../../assets/scss/loaders";
-@import "../../../../assets/scss/table";
 
-$table-width: 100%;
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.header-wrapper {
+  flex: 0 0 auto;
+  border-bottom: solid 1px #dddddd;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  color: #747474;
+  padding: 10px;
+  font-size: 13px;
+  margin-bottom: 10px;
+
+  img {
+    width: 15px;
+    height: 14px;
+    margin-bottom: -5px;
+    cursor: pointer;
+  }
+  div {
+    padding-left: 2%;
+  }
+}
+
+.space {
+  margin-bottom: 70px;
+}
+
+.mentor-table {
+  flex: 1 1 auto;
+  height: 100%;
+
+  .mentor-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px 0;
+  }
+
+  .body-content {
+    background-color: #f9f9f9;
+    display: flex;
+    padding: 15px;
+    margin: 3px 0;
+    border: solid 1px #dddddd;
+    justify-content: space-between;
+    color: #747474;
+    font-size: 13px;
+    box-shadow: 0 20px 80px 4px rgba(0, 0, 0, 0.02);
+    flex-shrink: 0;
+
+    div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-left: 2%;
+    }
+    &:active {
+      border-color: rgba(51, 89, 223, 0.2);
+    }
+  }
+}
+
+$num-col-spans: 12;
+.custom-row {
+  display: flex;
+
+  @for $span from 1 through $num-col-spans {
+    .custom-col-#{$span} {
+      width: ($span / $num-col-spans) * 100%;
+    }
+  }
 }

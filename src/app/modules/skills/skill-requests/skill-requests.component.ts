@@ -23,12 +23,12 @@ export class SkillRequestsComponent implements OnInit {
   activeSortCategory = null;
   rerender: boolean;
   sortCategoryValues = {
-    createdBy: 'asc',
+    created_by_name: 'asc',
     duration: 'asc',
     location: 'asc',
-    status: 'asc',
-    sessionCount: 'asc',
-    dateAdded: 'asc',
+    status_id: 'asc',
+    session_count: 'asc',
+    created_at: 'asc',
   };
 
   constructor(
@@ -42,12 +42,24 @@ export class SkillRequestsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getSkillRequests();
+  }
+
+  /**
+   * Get skill requests
+   *
+   * @return {void}
+   */
+  getSkillRequests() {
     this.loadingRequests = true;
     this.skillService.getSkillRequests(this.skillId)
       .toPromise()
       .then((response) => {
-        this.skillRequests = response.requests;
-        this.skillName = response.skillName;
+        this.skillName = response.skill.name;
+        this.skillRequests = response.skill.requests.map((request) => {
+          request.created_by_name = request.created_by.fullname;
+          return request;
+        });
         this.loadingRequests = false;
       })
       .catch((error) => {
@@ -63,12 +75,12 @@ export class SkillRequestsComponent implements OnInit {
   exportSkillRequestsToCSV() {
     const fileName = `Requests for ${this.skillName} as at ${moment().format('MMM Do YYYY')}`;
     const headers: CSVHeader[] = [
-      { key: 'createdBy', displayName: 'Created By' },
-      { key: 'dateAdded', displayName: 'Date Added' },
+      { key: 'created_by_name', displayName: 'Created By' },
+      { key: 'created_at', displayName: 'Date Added' },
       { key: 'duration', displayName: 'Duration' },
       { key: 'location', displayName: 'Location' },
-      { key: 'sessionCount', displayName: 'Number of Sessions' },
-      { key: 'status', displayName: 'Status' },
+      { key: 'session_count', displayName: 'Number of Sessions' },
+      { key: 'status_id', displayName: 'Status' },
     ];
 
     const transformedRecords = this.skillRequests.map((request) => {
@@ -98,7 +110,6 @@ export class SkillRequestsComponent implements OnInit {
       this.activeSortCategory,
       this.sortCategoryValues,
     );
-
     this.activeSortCategory = headerName;
     this.rerender = true;
     this.changeDetector.detectChanges();

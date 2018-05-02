@@ -49,7 +49,7 @@ export class SkillMentorsPageComponent {
 
     const records = this.mentors.map((mentor) => {
       const currentMentor = { ...mentor };
-      currentMentor.rating = `${currentMentor.average_rating}/5`;
+      currentMentor.rating = `${currentMentor.average_mentor_rating}/5`;
       return currentMentor;
     });
 
