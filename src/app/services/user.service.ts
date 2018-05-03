@@ -39,6 +39,20 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Gets user rating details from cache
+   *
+   * @param {String} userId - user id
+   *
+   * @return Observable containing the user's rating details
+   */
+  getRating(userId: string): Observable<any> {
+    return this.http
+      .get(`${this.apiBaseUrl}/v2/users/${userId}/rating`)
+      .map(this.handleResponse)
+      .catch(this.handleError);
+  }
+
+  /**
    * This method gets details of all mentors in a particular skill
    *
    * @param {number} skillId - the id the skill

@@ -59,6 +59,7 @@ export class PendingModalComponent implements OnInit {
   ngOnInit() {
     this.userIds = [this.request.created_by.id];
     this.currentUserId = this.userService.getCurrentUser().id;
+    this.getUserRating();
 
     if (this.request.created_by.id === this.currentUserId) {
       if (this.request.interested) {
@@ -66,8 +67,6 @@ export class PendingModalComponent implements OnInit {
       }
     }
     this.requestedBy = this.request.created_by.fullname;
-
-    this.rating = this.request.rating ? this.request.rating : 0;
 
     this.getUsersByIds(this.userIds);
   }
@@ -102,6 +101,19 @@ export class PendingModalComponent implements OnInit {
       .then((users: User[]) => {
         const formattedUsers = this.formatUserSkills(users);
         this.separateUserWhoMadeTheRequestFromInterestedUsers(formattedUsers);
+      });
+  }
+
+  /**
+   * Gets user's rating
+   *
+   * @return {void}
+   */
+  getUserRating() {
+    this.userService.getRating(this.request.created_by.id)
+      .toPromise()
+      .then((response) => {
+        this.rating = response.cumulative_average;
       });
   }
 

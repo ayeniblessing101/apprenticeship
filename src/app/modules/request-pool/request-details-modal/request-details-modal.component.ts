@@ -26,12 +26,12 @@ export class RequestDetailsModalComponent implements OnInit {
   @Output() close = new EventEmitter();
   @Output() filterRequestsPool = new EventEmitter();
   @ViewChild('requestModal') requestModal: ElementRef;
-  rating: number;
   currentUserIsInterested: boolean;
   currentUserIsRequestOwner: boolean;
   currentUser: any;
   requestTypes = RequestTypes;
   userRole: string;
+  rating: object;
 
   constructor(private userService: UserService,
               private alertService: AlertService,
@@ -39,14 +39,27 @@ export class RequestDetailsModalComponent implements OnInit {
               private requestService: RequestService) { }
 
   ngOnInit() {
+    this.getUserRating();
     this.currentUser = this.userService.getCurrentUser();
     this.currentUserIsRequestOwner =
       (this.selectedRequest.created_by.id === this.currentUser.id);
     this.currentUserIsInterested = (this.selectedRequest.interested &&
       this.selectedRequest.interested.includes(this.currentUser.id));
-    this.rating = this.selectedRequest.rating ? this.selectedRequest.rating : 0;
     this.userRole = (this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST)
         ? 'mentor' : 'mentee';
+  }
+
+  /**
+   * Gets user rating details
+   *
+   * @return {void}
+   */
+  getUserRating() {
+    this.userService.getRating(this.selectedRequest.created_by.id)
+      .toPromise()
+      .then((response) => {
+        this.rating = response.cumulative_average;
+      });
   }
 
   /**
