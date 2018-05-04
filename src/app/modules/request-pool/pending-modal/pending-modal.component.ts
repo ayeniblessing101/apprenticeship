@@ -248,8 +248,9 @@ export class PendingModalComponent implements OnInit {
    * @return {void}
    */
   confirmWithdrawInterest() {
-    const confirmationMessage = `Are you sure you want to withdraw interest in
-     "${this.request.title}" request? This can't be undone.`;
+    const confirmationMessage = `Are you sure you want to withdraw interest in the
+     ${this.request.title} request for ${this.request.request_type_id ===
+      this.requestTypes.MENTEE_REQUEST ? 'mentee' : 'mentor'}? This can't be undone.`;
 
     this.alertServiceConfig.confirmAction = this.withdrawInterest;
     this.alertServiceConfig.confirmActionText = `WITHDRAW INTEREST`;
