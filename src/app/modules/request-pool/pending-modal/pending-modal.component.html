@@ -2,13 +2,10 @@
     <div #pendingModal class="modal">
         <div class="holder">
             <div class="modal-heading">
-                <h4 class="title">
-                    {{ request.request_skills|requestSkill: 'primary' }}
-                    {{ request.request_type_id === requestTypes.MENTEE_REQUEST ? "MENTEE" : "MENTOR"}}</h4>
-                <div class="underline"></div>
+                Request for {{ request.title }} {{ request.request_type_id === requestTypes.MENTEE_REQUEST ? "Mentee" : "Mentor"}}            
+                <hr class="underline">
                 <button *ngIf="this.request.created_by.id == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
                 <button *ngIf="this.request.created_by.id !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW REQUEST</button>
-
             </div>
             <div class="modal-content">
                 <div class="request-description">

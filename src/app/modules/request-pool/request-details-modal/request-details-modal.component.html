@@ -1,6 +1,6 @@
 <div #requestModal class="request-modal">
   <div class="modal-heading">
-    {{ selectedRequest.request_skills|requestSkill: 'primary' }} {{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'MENTEE' : 'MENTOR' }}
+    Request for {{ selectedRequest.request_skills|requestSkill: 'primary' }} {{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'Mentee' : 'Mentor' }}
     <hr class="underline">
   </div>
   <div class="request-body">
