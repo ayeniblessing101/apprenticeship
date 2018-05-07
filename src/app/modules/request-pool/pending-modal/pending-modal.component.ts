@@ -36,7 +36,7 @@ export class PendingModalComponent implements OnInit {
   requestToCancel: any;
   currentUserId: string;
   requestedBy: string;
-  rating: number;
+  rating: any;
   requestTypes = RequestTypes;
 
   alertServiceConfig = {
@@ -113,7 +113,8 @@ export class PendingModalComponent implements OnInit {
     this.userService.getRating(this.request.created_by.id)
       .toPromise()
       .then((response) => {
-        this.rating = response.cumulative_average;
+        this.rating = (this.request.request_type_id === this.requestTypes.MENTEE_REQUEST)
+        ? response.mentee_average : response.mentor_average;
       });
   }
 

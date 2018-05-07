@@ -10,10 +10,8 @@ import { RequestTypes } from '../../../enums/request-types.enum';
 export class RequestDetailsPageComponent implements OnInit {
   @Input() request;
 
-  mentee = {
-    name: '',
-    rating: 0,
-  };
+  name: string;
+  rating: any;
   primarySkills: string;
   secondarySkills: string;
   requestTypes = RequestTypes;
@@ -23,19 +21,20 @@ export class RequestDetailsPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getMentee();
+    this.getUserInfo();
   }
 
   /**
-   * Assign mentee name and ratings.
+   * Gets user information
    *
    * @return {void}
    */
-  getMentee() {
-    this.userService.getUserInfo(this.request.mentee.id)
+  getUserInfo() {
+    this.userService.getUserInfo(this.request.created_by.id)
       .toPromise().then((user) => {
-        this.mentee.name = user.name;
-        this.mentee.rating = user.rating;
+        this.name = user.name;
+        this.rating = (this.request.request_type_id === this.requestTypes.MENTEE_REQUEST)
+        ? user.rating.mentee_average : user.rating.mentor_average;
       });
   }
 

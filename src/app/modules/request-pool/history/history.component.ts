@@ -31,7 +31,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   };
   activeSortCategory = null;
 
-  RequestTypes = RequestTypes;
+  requestTypes = RequestTypes;
 
   constructor(
     private requestService: RequestService,
@@ -66,8 +66,25 @@ export class HistoryComponent implements OnInit, OnDestroy {
         (response) => {
           this.loading = false;
           this.requests = this.formatRequests(response);
+          this.getUserRating(this.requests)
         },
     )
+  }
+
+  /**
+   * Gets user rating details
+   *
+   * @return {void}
+   */
+  getUserRating(requests: any[]) {
+    for (const request of requests) {
+      this.userService.getRating(request.created_by.id)
+      .toPromise()
+      .then((response) => {
+        request.rating = (request.request_type_id === this.requestTypes.MENTEE_REQUEST)
+        ? response.mentee_average : response.mentor_average;
+      });
+    }
   }
 
  /**

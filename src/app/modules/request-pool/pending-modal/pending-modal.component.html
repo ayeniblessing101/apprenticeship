@@ -48,7 +48,7 @@
                                         <star-rating-comp
                                             [staticColor]="'default'"
                                             [starType]="'svg'"
-                                            [rating]="user.rating.cumulative_average"
+                                            [rating]="(request.request_type_id === requestTypes.MENTOR_REQUEST) ? user.rating.mentor_average : user.rating.mentee_average"
                                             [readOnly]="true">
                                         </star-rating-comp>
                                     </span>

@@ -53,10 +53,10 @@
           <a *ngFor="let request of requests" class="body-content custom-row" (click)="gotoRequestDetails(request.id)">
             <div class="custom-col-3">{{ request.request_skills|requestSkill: 'primary' }}</div>
             <div class="custom-col-4">
-                <span *ngIf="request.request_type_id === RequestTypes.MENTOR_REQUEST">
+                <span *ngIf="request.request_type_id === requestTypes.MENTOR_REQUEST">
                 {{ request.request_skills|requestSkill: 'secondary' }}
                 </span>
-                <span *ngIf="request.request_type_id === RequestTypes.MENTEE_REQUEST">
+                <span *ngIf="request.request_type_id === requestTypes.MENTEE_REQUEST">
                    {{ request.request_skills|requestSkill: 'preRequisite' }}
                </span>
              </div>

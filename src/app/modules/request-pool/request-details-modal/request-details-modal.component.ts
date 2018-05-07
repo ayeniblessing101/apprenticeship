@@ -31,7 +31,7 @@ export class RequestDetailsModalComponent implements OnInit {
   currentUser: any;
   requestTypes = RequestTypes;
   userRole: string;
-  rating: object;
+  rating: any;
 
   constructor(private userService: UserService,
               private alertService: AlertService,
@@ -58,7 +58,8 @@ export class RequestDetailsModalComponent implements OnInit {
     this.userService.getRating(this.selectedRequest.created_by.id)
       .toPromise()
       .then((response) => {
-        this.rating = response.cumulative_average;
+        this.rating = (this.selectedRequest.request_type_id === this.requestTypes.MENTEE_REQUEST)
+        ? response.mentee_average : response.mentor_average;
       });
   }
 

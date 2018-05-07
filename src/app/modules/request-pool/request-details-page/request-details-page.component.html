@@ -4,7 +4,7 @@
   </div>
   <div class="request-body">
     <div class="request-details">
-       <div class= "mentee-name"><b>Request by - </b><span>{{ mentee.name }}
+       <div class= "mentee-name"><b>Request by - </b><span>{{ name }}
         </span>
         </div>
         <div class="star">
@@ -12,7 +12,7 @@
                 [size] = "'medium'"
                 [starType]="'svg'"
                 [readOnly]="true"
-                [rating]="mentee.rating.cumulative_average"
+                [rating]="rating"
                 >
               </star-rating-comp>
        </div>
