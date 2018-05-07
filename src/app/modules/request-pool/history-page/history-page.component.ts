@@ -17,7 +17,7 @@ export class HistoryPageComponent {
     private route: ActivatedRoute,
   ) {
     route.data.subscribe((value) => {
-      this.request = value.request.data;
+      this.request = value.request;
     });
   }
 
