@@ -23,9 +23,12 @@ export class SkillsDropdownComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    this.skillsMessage = changes.list.firstChange ? 'Retrieving list of skills.' : 'No results found';
-    if (changes.list.currentValue.length > 0) {
-      this.showSkillsMessage = false;
+    if (changes.list) {
+      this.skillsMessage = changes.list.firstChange ? 'Retrieving list of skills.' : 'No results found';
+
+      if (changes.list.currentValue.length > 0) {
+        this.showSkillsMessage = false;
+      }
     }
     const currentSkillsLengthValue = changes.skillsLength ? changes.skillsLength.currentValue : this.skillsLength;
 
@@ -43,7 +46,6 @@ export class SkillsDropdownComponent implements OnChanges {
    * return {void}
    */
   setSelectedValue(item) {
-
     this.showDropDownContent = false;
     this.currentSelectedValue = item;
     this.changes.emit(item);

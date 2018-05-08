@@ -31,7 +31,7 @@ export class CreateRequestComponent implements OnInit {
   basicSkills: Skill[] = [];
   complementarySkills: Skill[] = [];
   preRequisteSkills: Skill[] = [];
-  requestSkills: string[] = [];
+  requestSkills = [];
   allTimeZones: string[] = ['WAT', 'EAT', 'CAT', 'EST', 'PST'];
   selectedTimeZone: string;
   durationOfMonths: number;
@@ -208,7 +208,6 @@ export class CreateRequestComponent implements OnInit {
           timezone: this.selectedTimeZone,
         },
       };
-
       return this.requestService.createRequest(requestDetails)
         .toPromise()
         .then((response) => {
@@ -322,7 +321,12 @@ export class CreateRequestComponent implements OnInit {
    * @return {void}
    */
   deleteRequestSkill(skill, type, position) {
-    this.requestSkills.splice(position, 1);
+    this.requestSkills.map((requestSkill, index) => {
+      if (requestSkill.name === skill) {
+        this.requestSkills.splice(index, 1);
+      }
+    });
+
     if (type === 'basic') {
       if (this.basicSkills[position].name === skill) {
         this.basicSkills.splice(position, 1);
