@@ -15,7 +15,7 @@ export class FilterService extends BaseService {
   statusResult = new Subject<Object[]>();
   skills: any;
   filters = {
-    category: 'recommended',
+    category: 'myRequests',
     type: [],
     ratings: [],
     locations: [],

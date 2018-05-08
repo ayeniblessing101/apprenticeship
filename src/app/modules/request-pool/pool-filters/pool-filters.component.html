@@ -5,16 +5,22 @@
       <h4>Requests</h4>
       <div class="requests-radio-encloser">
         <div class="requests-radio">
-          <input #all type="radio" value="all" id="all-requests"
-                 [checked]="selectedFilters[all.name] === all.value" name="category"
-                 (click)="applySelectedFilters({ type: all.name, value: all.value })">
-          <label id="all-requests-label" for="all-requests">All Requests</label>
+          <input #myRequests type="radio" value="myRequests" id="myRequests"
+            [checked]="selectedFilters[myRequests.name] === myRequests.value" name="category"
+            (click)="applySelectedFilters({ type: myRequests.name, value: myRequests.value })">
+          <label for="myRequests">My Requests</label>
         </div>
         <div class="requests-radio">
           <input #recommended type="radio" value="recommended" id="recommended"
-                 [checked]="selectedFilters[recommended.name] === recommended.value" name="category"
-                 (click)="applySelectedFilters({ type: recommended.name, value: recommended.value })">
+            [checked]="selectedFilters[recommended.name] === recommended.value" name="category"
+            (click)="applySelectedFilters({ type: recommended.name, value: recommended.value })">
           <label for="recommended">Recommended for me</label>
+        </div>
+        <div class="requests-radio">
+          <input #all type="radio" value="all" id="all-requests"
+            [checked]="selectedFilters[all.name] === all.value" name="category"
+            (click)="applySelectedFilters({ type: all.name, value: all.value })">
+          <label id="all-requests-label" for="all-requests">All Requests</label>
         </div>
       </div>
     </div>

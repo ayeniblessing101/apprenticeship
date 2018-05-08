@@ -45,7 +45,7 @@ export class PoolFiltersComponent implements OnInit {
 
     this.defaultFilters = {
       status: REQUEST_STATUS.OPEN,
-      category: 'recommended',
+      category: 'myRequests',
       type: [],
       ratings: [],
       locations: [],
