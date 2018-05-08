@@ -2,7 +2,7 @@
     <div #pendingModal class="modal">
         <div class="holder">
             <div class="modal-heading">
-                Request for {{ request.title }} {{ request.request_type_id === requestTypes.MENTEE_REQUEST ? "Mentee" : "Mentor"}}            
+                Request for {{ request.title }} {{ request.request_type_id === requestTypes.MENTEE_REQUEST ? "Mentee" : "Mentor"}}
                 <hr class="underline">
                 <button *ngIf="this.request.created_by.id == this.currentUserId" class="button delete" (click)="openCancelRequestModal(request)">CANCEL</button>
                 <button *ngIf="this.request.created_by.id !== this.currentUserId" class="button delete" (click)="confirmWithdrawInterest(request)">WITHDRAW REQUEST</button>
@@ -21,7 +21,8 @@
                                         [starType]="'svg'"
                                         [rating]="rating"
                                         [staticColor]="'default'"
-                                        [readOnly]="true"></star-rating-comp>
+                                        [readOnly]="true"
+                                        [showHalfStars]="true"></star-rating-comp>
                                 </span>
                             </span>
                         </li>
@@ -49,7 +50,8 @@
                                             [staticColor]="'default'"
                                             [starType]="'svg'"
                                             [rating]="(request.request_type_id === requestTypes.MENTOR_REQUEST) ? user.rating.mentor_average : user.rating.mentee_average"
-                                            [readOnly]="true">
+                                            [readOnly]="true"
+                                            [showHalfStars]="true">
                                         </star-rating-comp>
                                     </span>
                                 </div>

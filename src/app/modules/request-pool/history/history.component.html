@@ -65,8 +65,8 @@
             <div class="custom-col-2">{{ request.duration|requestDuration }}</div>
             <div class="custom-col-2">{{ request.role }}</div>
             <div class="custom-col-2">
-              <star-rating-comp [staticColor]="'default'" [size]="'medium'" [space]="'around'" [starType]="'svg'" [showHalfStars]="true"
-                [readOnly]="true" [rating]="request.rating" class="star-rating">
+              <star-rating-comp [staticColor]="'default'" [size]="'medium'" [space]="'around'" [starType]="'svg'"
+                [readOnly]="true" [rating]="request.rating" class="star-rating" [showHalfStars]="true">
               </star-rating-comp>
             </div>
           </a>
