@@ -180,17 +180,8 @@ export class PoolComponent implements OnInit, OnDestroy {
     if (event.status) {
       this.filterParams['status'] = event.status;
     }
-    if (event.type[0]) {
-      if (!this.filterParams['type']) {
-        this.filterParams['type'] = [];
-      }
-      this.filterParams['type'].push('mentor');
-    }
-    if (event.type[1]) {
-      if (!this.filterParams['type']) {
-        this.filterParams['type'] = [];
-      }
-      this.filterParams['type'].push('mentee');
+    if (event.type) {
+      this.filterParams['type'] = event.type;
     }
     if (event.startDate) {
       this.filterParams['startDate'] = event.startDate;
@@ -198,6 +189,7 @@ export class PoolComponent implements OnInit, OnDestroy {
     if (event.endDate) {
       this.filterParams['endDate'] = event.endDate;
     }
+
     this.filterService.setFilters(event);
     this.loadRequests();
   }

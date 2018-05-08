@@ -19,6 +19,20 @@
       </div>
     </div>
     <div class="side-contents">
+      <input type="hidden" [value]="appliedFilters.status" name="status">
+      <h4>Type</h4>
+      <div (click)="toggleRequestTypes({ type: mentor.name, value: mentor.value });" class="checkbox-div mentor">
+        <input #mentor type="checkbox" [checked]="isMentorChecked" 
+          class="regular-checkbox" id="mentor" name="type" value="1" />
+          <label class="checkbox-label checkbox-label-extended" for="mentor"></label>Seeking Mentor
+      </div>
+      <div (click)="toggleRequestTypes({ type: mentee.name, value: mentee.value });" class="checkbox-div mentee">
+        <input #mentee type="checkbox" [checked]="isMenteeChecked" 
+        class="regular-checkbox" id="mentee" name="type" value="2" />
+        <label class="checkbox-label checkbox-label-extended" for="mentee"></label>Seeking Mentee
+      </div>
+    </div>
+    <div class="side-contents">
       <h4>Sorting</h4>
       <app-filter-dropdown
         [label]="'User\'s rating'"

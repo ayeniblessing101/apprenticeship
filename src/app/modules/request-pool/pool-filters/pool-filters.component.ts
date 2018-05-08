@@ -3,6 +3,7 @@ import { FilterService } from 'app/services/filter.service';
 import { localStorage } from 'app/globals';
 import { AlertService } from 'app/services/alert.service';
 import { FilterDropdownComponent } from 'app/modules/request-pool/filter-dropdown/filter-dropdown.component';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 enum REQUEST_STATUS {
   OPEN = 1,
@@ -31,8 +32,12 @@ export class PoolFiltersComponent implements OnInit {
   ratings: any = [];
   locations: any = [];
   lengths: any = [];
+  type: any = [];
   isSkillsFetched = false;
+  isMentorChecked = false;
+  isMenteeChecked = false;
   selectedFilters = {};
+  requestTypes = RequestTypes;
   filters: any;
 
   constructor(private filterService: FilterService,
@@ -65,6 +70,32 @@ export class PoolFiltersComponent implements OnInit {
   applySelectedFilters(event) {
     this.selectedFilters[event.type] = event.value;
     this.applyFilters.emit(this.selectedFilters);
+  }
+
+  /**
+   * Receives the selected filters from the requests type check boxes
+   * Call applySelected function to handle emits to the pool component to be applied.
+   *
+   * @param event
+   *
+   * @return {object}
+   */
+  toggleRequestTypes(event) {
+    const selectedValue = parseInt(event.value, 10);
+
+    if (selectedValue === this.requestTypes.MENTOR_REQUEST) {
+      this.isMentorChecked = !this.isMentorChecked;
+      this.isMentorChecked ? this.type.push(event.value) :
+        this.type.splice(this.type.indexOf(event.value), 1);
+    } else {
+      this.isMenteeChecked = !this.isMenteeChecked;
+      this.isMenteeChecked ? this.type.push(event.value) :
+        this.type.splice(this.type.indexOf(event.value), 1);
+    }
+
+    return this.applySelectedFilters({
+      type: event.type, value: this.type,
+    });
   }
 
   /**
