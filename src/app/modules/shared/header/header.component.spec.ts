@@ -26,6 +26,7 @@ import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { StarRatingModule } from 'angular-star-rating';
 import { CharacterCountDownComponent } from '../character-count-down/character-count-down.component';
 import { SearchService } from '../../../services//search.service';
+import { CancelRequestModalComponent } from '../../request-pool/cancel-request-modal/cancel-request-modal.component';
 
 
 describe('HeaderComponent', () => {
@@ -48,6 +49,7 @@ describe('HeaderComponent', () => {
         ProposedRequestDurationPipe,
         RequestSkillPipe,
         CharacterCountDownComponent,
+        CancelRequestModalComponent,
       ],
       imports: [
         BrowserAnimationsModule,

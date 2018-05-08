@@ -2,6 +2,12 @@
   <div class="modal-heading">
     Request for {{ selectedRequest.request_skills|requestSkill: 'primary' }} {{ selectedRequest.request_type_id === requestTypes.MENTEE_REQUEST ? 'Mentee' : 'Mentor' }}
     <hr class="underline">
+    <input 
+      *ngIf="currentUserIsRequestOwner"
+      type="button" value="WITHDRAW REQUEST"
+      class="button delete"
+      (click)="openCancelRequestModal(selectedRequest)"
+    >
   </div>
   <div class="request-body">
     <p class="request-description">{{ selectedRequest.description }}</p>
@@ -29,5 +35,11 @@
       </div>
     </div>
   </div>
+  <app-cancel-request-modal 
+    *ngIf="showCancelRequestModal"
+     #cancelRequestModal
+    [request]="requestToCancel" 
+    (closeCancelRequestModal)="closeCancelRequestModal($event)">
+  </app-cancel-request-modal>
 </div>
 <div class="modal-background"></div>

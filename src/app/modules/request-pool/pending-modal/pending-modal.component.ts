@@ -286,7 +286,9 @@ export class PendingModalComponent implements OnInit {
     this.requestToCancel = request;
   }
 
-  /** Close modal
+  /**
+   * Close either the cancel request modal or the pending
+   * request modal
   *
   * @param {event} modal - Modal to be closed
   *
@@ -297,7 +299,7 @@ export class PendingModalComponent implements OnInit {
       this.showCancelRequestModal = false;
     }
 
-    if (modal === 'pendingRequestModal') {
+    if (modal === 'parentModel' || modal === 'pendingRequestModal') {
       this.closePendingModal.emit();
     }
   }

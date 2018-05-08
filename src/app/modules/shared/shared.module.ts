@@ -14,6 +14,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ConfirmationAlertComponent } from './confimation-alert/confirmation-alert.component';
 import { MessageAlertComponent } from './message-alert/message-alert.component'
 import { RequestDetailsModalComponent } from '../request-pool/request-details-modal/request-details-modal.component';
+import { CancelRequestModalComponent } from '../request-pool/cancel-request-modal/cancel-request-modal.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
@@ -63,6 +64,7 @@ import { DateRangePickerComponent } from './date-range-picker/date-range-picker.
     NoResultComponent,
     ToastComponent,
     DateRangePickerComponent,
+    CancelRequestModalComponent,
   ],
   exports: [
     HeaderComponent,
@@ -84,6 +86,7 @@ import { DateRangePickerComponent } from './date-range-picker/date-range-picker.
     StarRatingModule,
     NoResultComponent,
     DateRangePickerComponent,
+    CancelRequestModalComponent,
   ],
   providers: [
     NotificationsComponent,

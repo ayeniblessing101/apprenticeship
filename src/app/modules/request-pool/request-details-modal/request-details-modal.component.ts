@@ -8,6 +8,7 @@ import {
   HostListener,
   ElementRef,
 } from '@angular/core';
+import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-request-modal.component';
 import { UserService } from '../../../services/user.service';
 import { AlertService } from 'app/services/alert.service';
 import { NotificationService } from 'app/services/notifications.service';
@@ -28,6 +29,8 @@ export class RequestDetailsModalComponent implements OnInit {
   @ViewChild('requestModal') requestModal: ElementRef;
   currentUserIsInterested: boolean;
   currentUserIsRequestOwner: boolean;
+  showCancelRequestModal: boolean;
+  requestToCancel: any;
   currentUser: any;
   requestTypes = RequestTypes;
   userRole: string;
@@ -80,16 +83,20 @@ export class RequestDetailsModalComponent implements OnInit {
   }
 
   /**
-   * Listens to a click event outside the request
-   * modal. If a user clicks outside the modal, the
-   * modal is closed.
+   * Listens to a click event outside the either the request
+   * details modal or the cancel request. If a user clicks
+   * outside the either of the modals, the modal is closed.
+   *
+   * @param {event} - DOM event
    *
    * @return {void}
    */
-  @HostListener('click')
-  onClick() {
-    if (!this.requestModal.nativeElement.contains(event.target)) {
-      this.closeRequestModal();
+  @HostListener('click', ['$event'])
+  onClick(event) {
+    if (event.path[1].localName === 'app-cancel-request-modal') {
+      this.closeCancelRequestModal('cancelRequestModal')
+    } else if (event.path[1].localName === 'app-request-details') {
+      this.closeRequestModal()
     }
   }
 
@@ -128,6 +135,19 @@ export class RequestDetailsModalComponent implements OnInit {
   }
 
   /**
+   * Open the cancel request modal with the title of the request
+   * to be cancelled
+   *
+   * @param request - request to be cancelled
+   *
+   * @returns {void}
+   */
+  openCancelRequestModal(request) {
+    this.showCancelRequestModal = true;
+    this.requestToCancel = request;
+  }
+
+  /**
    * Triggers the emitter event which
    * closes the modal.
    *
@@ -146,5 +166,21 @@ export class RequestDetailsModalComponent implements OnInit {
    */
   initiateRequestsPoolFilter() {
     this.filterRequestsPool.emit();
+  }
+
+  /** Close either the cancel request modal or the request
+   * details modal
+  *
+  * @param {event} modal - Modal to be closed
+  *
+  * @returns {void}
+  */
+  closeCancelRequestModal(modal) {
+    if (modal === 'cancelRequestModal') {
+      this.showCancelRequestModal = false;
+    } else if (modal === 'parentModel') {
+      this.initiateRequestsPoolFilter();
+      this.closeRequestModal();
+    }
   }
 }

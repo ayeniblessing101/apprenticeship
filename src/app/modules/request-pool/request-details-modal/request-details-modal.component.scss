@@ -147,6 +147,25 @@
   z-index: 900
 }
 
+.button {
+  border: solid 1px #3359db;
+  position: absolute;
+  height: 35px;
+  width: auto;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #3359db;
+  right: 7%;
+  &.delete {
+    top: 15%;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 star-rating-comp {
   display: inline-block;
 }

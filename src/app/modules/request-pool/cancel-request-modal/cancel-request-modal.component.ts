@@ -48,7 +48,7 @@ export class CancelRequestModalComponent implements OnInit {
       this.requestService.cancelRequest(this.requestId, reason)
         .toPromise()
         .then((reponse) => {
-          this.closeCancelRequestModal.emit('pendingRequestModal');
+          this.closeCancelRequestModal.emit('parentModel');
           this.requestService.updatePendingPoolRequests();
         });
     }
