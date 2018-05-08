@@ -100,7 +100,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
             .then((response) => {
               this.requests = response;
             });
-          this.noResultMessage = `Your search didn't return any result. Try something different.`;
+          this.noResultMessage = `Your search didn't return any results. Try something different.`;
         });
 
   }
