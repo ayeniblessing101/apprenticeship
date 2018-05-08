@@ -78,6 +78,10 @@ export class PoolComponent implements OnInit, OnDestroy {
           this.firstPageLoad = false;
           this.poolFilterComponent.applySelectedFilters({ type: 'category', value: 'recommended' });
         }
+        if (this.requests.length === 0 && this.filterParams.category === 'recommended' && this.firstPageLoad) {
+          this.firstPageLoad = false;
+          this.poolFilterComponent.applySelectedFilters({ type: 'category', value: 'all' });
+        }
       });
   }
 
