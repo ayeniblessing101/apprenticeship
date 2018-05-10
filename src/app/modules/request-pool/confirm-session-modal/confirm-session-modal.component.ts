@@ -34,6 +34,7 @@ export class ConfirmSessionModalComponent implements OnInit {
   readonly ratingScale: number = 5;
   userIsMentor: boolean;
   ratingValues: any;
+  sessionDuration: any;
 
 
   constructor(
@@ -47,8 +48,7 @@ export class ConfirmSessionModalComponent implements OnInit {
     this.userIsMentor = (this.currentUserId === this.request.mentor.id);
     this.startTime = this.request.pairing.start_time;
     this.endTime = this.request.pairing.end_time;
-    const sessionDuration = this.computeSessionDuration(this.startTime, this.endTime);
-    const hours = sessionDuration === 1 ? `${sessionDuration} hour` : `${sessionDuration} hours`;
+    this.sessionDuration = this.computeSessionDuration(this.startTime, this.endTime);
 
     this.confirmSessionForm = this.formBuilder.group({
       comment: '',
@@ -155,13 +155,36 @@ export class ConfirmSessionModalComponent implements OnInit {
    * @param startTime - Session start time
    * @param endTime - Session end time
    *
-   * @returns {Object} - A moment object containing the duration in hours
+   * @returns {Object} - A moment object containing the duration
    */
   private computeSessionDuration(startTime, endTime) {
     const timeDifference = moment(endTime, 'hh:mm')
       .diff(moment(startTime, 'hh: mm'));
 
-    return moment.duration(timeDifference).asHours();
+    const sessionTimeDifference = moment.duration(timeDifference);
+    return this.formatSessionDuration(sessionTimeDifference);
+
+  }
+
+  /**
+  * Formats the session duration to a more readable format
+  *
+  * @param sessionTimeDifference
+  *
+  * @returns {String}
+  */
+  private formatSessionDuration(sessionTimeDifference) {
+    const hours = Math.floor(sessionTimeDifference.asHours());
+    const minutes = sessionTimeDifference.minutes();
+
+    const readableHours = `${hours} ${hours > 1 ? 'hours' : 'hour'}`;
+    const readableMinutes = ` ${minutes} ${minutes > 1 ? 'minutes' : 'minute'}`;
+
+    let result = '';
+    result +=  hours > 0 ? readableHours : '';
+    result += minutes > 0 ? readableMinutes : '';
+
+    return result.trim();
   }
 
 /**
