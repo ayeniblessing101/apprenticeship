@@ -9,6 +9,7 @@ import { SkillService } from '../../../services/skill.service';
 export class SkillTopMentorsComponent implements OnInit {
   skillMentors= [];
   @Input() skillId;
+  @Input() isViewAllMentorsEnabled: boolean;
   loadingRequests = false;
   skillName: string;
   scale = 5;
@@ -36,7 +37,7 @@ export class SkillTopMentorsComponent implements OnInit {
         this.skillMentors = response.skill.mentors;
         this.loadingRequests = false;
       })
-      .catch((error) => {
+      .catch(() => {
         this.loadingRequests = false;
       });
   }

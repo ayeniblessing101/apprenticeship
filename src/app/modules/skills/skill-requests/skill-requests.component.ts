@@ -1,10 +1,9 @@
-import { Component, Input, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Input, Output, ChangeDetectorRef, OnInit, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { SkillService } from '../../../services/skill.service';
 import { RequestStatusPipe } from '../../../pipes/requests-status.pipe';
-import requests from '../../../mocks/requests';
 import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
 import { CSVHeader } from '../../../interfaces/csv-header.interface';
@@ -18,6 +17,9 @@ import { CSVHeader } from '../../../interfaces/csv-header.interface';
 export class SkillRequestsComponent implements OnInit {
   @Input() skillId: number;
   @Input() skillName: string;
+
+  @Output() toggleViewAllMentors = new EventEmitter();
+
   skillRequests = [];
   loadingRequests = false;
   activeSortCategory = null;
@@ -61,8 +63,9 @@ export class SkillRequestsComponent implements OnInit {
           return request;
         });
         this.loadingRequests = false;
+        this.toggleViewAllMentors.emit(this.skillRequests.length);
       })
-      .catch((error) => {
+      .catch(() => {
         this.loadingRequests = false;
       });
   }
@@ -84,7 +87,7 @@ export class SkillRequestsComponent implements OnInit {
     ];
 
     const transformedRecords = this.skillRequests.map((request) => {
-      const transformedRequest = { ...request }
+      const transformedRequest = { ...request };
       transformedRequest.duration = this.requestDurationPipe.transform(transformedRequest.duration);
       transformedRequest.status = this.requestStatusPipe.transform(transformedRequest.status);
       transformedRequest.dateAdded = this.datePipe.transform(transformedRequest.dateAdded, 'longDate');

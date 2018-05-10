@@ -33,6 +33,14 @@
   text-align: right;
 }
 
+button {
+  &:disabled {
+    color : $grey-light-300;
+    cursor:not-allowed;
+    border: 1px solid $grey-light-300;
+  }
+}
+
 .user-image-column {
   flex: 0 0 30%;
 }
