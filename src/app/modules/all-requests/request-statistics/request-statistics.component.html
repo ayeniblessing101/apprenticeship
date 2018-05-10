@@ -2,6 +2,7 @@
   <div class="title-container">
     <div class="date-range-picker">
       <div class="date-range-controls">
+        <div class="header-filters">
         <div class="calendar-filter ">
           <app-date-range-picker
             [startDate]="appliedFilters.startDate"
@@ -15,8 +16,12 @@
           <span class="location">Location</span>
           <app-drop-down [list]="locations" [defaultValue]="location" (changes)="reloadRequestsOnLocationChange($event)"></app-drop-down>
         </div>
-        <app-export-button [isDisabled]="isExportingRequestsCsv" (exportEvent)="exportRequests()"></app-export-button>
-      </div>     
+        </div>
+        <div class="export-button">
+          <app-export-button [isDisabled]="isExportingRequestsCsv" (exportEvent)="exportRequests()"></app-export-button>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="card-container">

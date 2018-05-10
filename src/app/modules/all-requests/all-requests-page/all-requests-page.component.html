@@ -1,13 +1,21 @@
-<div class="wrapper flexer flexer-col">
+<div class="wrapper">
+  <div class="all-request-header">
+    ALL REQUESTS
+    <hr class="underline">
+  </div>
+  <div class="all-request-content">
     <app-request-statistics (applyFilters)="applyFilters($event)">
     </app-request-statistics>
-    <app-pool 
-        [includeInterestedRequests]="true" 
-        [reqUrl]="'v2/requests'" 
-        [showFilters]="false" 
-        [showOpenRequests]="false" 
-        class="flexed"
-    >
-    </app-pool>
+    <div class="pool-wrapper">
+      <app-pool
+          [includeInterestedRequests]="true"
+          [reqUrl]="'v2/requests'"
+          [showFilters]="false"
+          [showOpenRequests]="false"
+          class="flexed"
+      >
+      </app-pool>
+    </div>
     <div *ngIf="loadingRequests" class="loader"> </div>
+  </div>
 </div>

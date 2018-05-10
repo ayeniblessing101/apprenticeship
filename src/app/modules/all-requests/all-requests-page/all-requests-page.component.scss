@@ -7,12 +7,34 @@
   margin: auto;
   background: $primary-background-color;
   overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper::after {
   content: '';
   clear: both;
   display: block;
+}
+.all-request-header {
+    font-family: $font-family-1;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    color: $andela-blue-light;
+    height: 28px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+
+  .underline {
+    width: 70px;
+    height: 6px;
+    border-radius: 100px;
+    background-color: $andela-blue-light;
+    margin: 15px 0 30px 0;
+    border: none;
+  }
 }
 
 .spacer {
@@ -21,4 +43,8 @@
 
 .flexed, .main-wrapper #section-grid{
   height: 100%;
+}
+.pool-wrapper {
+  overflow: scroll;
+  height: 100vh;
 }
