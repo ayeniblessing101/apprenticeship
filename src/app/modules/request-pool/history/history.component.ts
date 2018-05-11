@@ -6,12 +6,12 @@ import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs/Subscription';
 import { RequestTypes } from '../../../enums/request-types.enum';
-
+import { UserRolePipe } from '../../../pipes/user-role.pipes';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
-  providers: [RequestService],
+  providers: [RequestService, UserRolePipe],
 })
 export class HistoryComponent implements OnInit, OnDestroy {
   loading: boolean;
@@ -40,6 +40,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
     private searchService: SearchService,
+    private userRolePipe: UserRolePipe,
   ) {
   }
 
@@ -114,12 +115,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
    * @return {Object} create-request
    */
   formatRequests(usersRequests) {
+    const userId = this.userService.getCurrentUser().id;
     const requests = usersRequests.map((request) => {
       const duration = request.duration * 30;
       const oneDay = 1000 * 60 * 60 * 24;
       const startDate = new Date(request.match_date.split(' ')[0]);
       request.endDate = new Date(duration * oneDay + startDate.getTime());
-      request.role = request.request_type_id === 2 ? 'Mentee' : 'Mentor';
+      request.role = this.userRolePipe.transform(request, userId);
       return request;
     });
     return requests;

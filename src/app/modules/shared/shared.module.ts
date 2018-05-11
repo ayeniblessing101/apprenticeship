@@ -28,6 +28,7 @@ import { RequestSkillPipe } from '../../pipes/request-skills-pipe';
 import { ProposedRequestDurationPipe } from '../../pipes/proposed-request-duration.pipe';
 import { CharacterCountDownComponent } from './character-count-down/character-count-down.component';
 import { RequestDurationPipe } from '../../pipes/request-duration.pipe';
+import { UserRolePipe } from '../../pipes/user-role.pipes';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../services/toast.service';
 import { DateRangePickerComponent } from './date-range-picker/date-range-picker.component';
@@ -59,6 +60,7 @@ import { DateRangePickerComponent } from './date-range-picker/date-range-picker.
     CalendarPickerComponent,
     ExportButtonComponent,
     RequestSkillPipe,
+    UserRolePipe,
     RequestDurationPipe,
     ProposedRequestDurationPipe,
     NoResultComponent,
@@ -82,6 +84,7 @@ import { DateRangePickerComponent } from './date-range-picker/date-range-picker.
     ToastComponent,
     ProposedRequestDurationPipe,
     RequestSkillPipe,
+    UserRolePipe,
     RequestDurationPipe,
     StarRatingModule,
     NoResultComponent,

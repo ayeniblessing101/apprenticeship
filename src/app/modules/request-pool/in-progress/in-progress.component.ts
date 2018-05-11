@@ -7,11 +7,12 @@ import { SessionService } from './../../../services/session.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { Subscription } from 'rxjs/Subscription';
 import { RequestTypes } from '../../../enums/request-types.enum';
-
+import { UserRolePipe } from '../../../pipes/user-role.pipes';
 @Component({
   selector: 'app-in-progress',
   templateUrl: './in-progress.component.html',
   styleUrls: ['./in-progress.component.scss'],
+  providers: [UserRolePipe],
 })
 export class InProgressComponent implements OnInit, OnDestroy {
   errorMessage: string;
@@ -42,6 +43,7 @@ export class InProgressComponent implements OnInit, OnDestroy {
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
     private searchService: SearchService,
+    private userRolePipe: UserRolePipe,
   ) {
     this.requests = [];
   }
@@ -105,11 +107,7 @@ export class InProgressComponent implements OnInit, OnDestroy {
   formatInProgressRequests(requests): any {
     const userId = this.userService.getCurrentUser().id;
     const requestsInProgress = requests.map((request) => {
-      if (request.mentee.id === userId) {
-        request.role = 'Mentee'
-      } else if (request.mentor.id === userId) {
-        request.role = 'Mentor'
-      }
+      request.role = this.userRolePipe.transform(request, userId);
       return request;
     });
     return requestsInProgress;
