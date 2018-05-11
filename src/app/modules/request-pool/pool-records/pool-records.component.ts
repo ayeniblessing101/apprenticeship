@@ -23,7 +23,7 @@ export class PoolRecordsComponent {
   rerender: boolean;
   scrollCallback: any;
   filterParams: any = {};
-  currentPage = 1;
+  currentPage = 2;
   limit = 20;
   loading = false;
 
