@@ -39,7 +39,10 @@ export class AppComponent implements AfterContentChecked {
           const userLevel = response.level.name ? response.level.name : '<not available>';
           segmentService.track('LOGGED IN', { fellowLevel: userLevel });
         })
-        .catch(() => {});
+        .catch(() => {
+          this.authService.logOut();
+          router.navigate(['/login']);
+        });
     }
 
     router.events.subscribe((event) => {
