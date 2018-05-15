@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <div class="search-records-wrapper">
+    <div class="search-records-header">
+      Showing results for "{{key}}" [{{records?.length}} total]
+      <hr class="underline"/>
+      <app-no-result *ngIf="records?.length === 0" [message]="noResultMessage"></app-no-result>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,6 @@ import { RequestService } from '../../../services/request.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
-import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs/Subscription';
 import { RequestTypes } from '../../../enums/request-types.enum';
 import { UserRolePipe } from '../../../pipes/user-role.pipes';
@@ -39,14 +38,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private route: Router,
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
-    private searchService: SearchService,
     private userRolePipe: UserRolePipe,
   ) {
   }
 
   ngOnInit() {
     this.getCompletedRequests();
-    this.initiateSearchSubscription();
   }
 
   ngOnDestroy() {
@@ -86,24 +83,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
         ? response.mentee_average : response.mentor_average;
       });
     }
-  }
-
- /**
-   * Calls searchService that does a search based on the search term
-   *
-   * @return {void}
-   */
-  initiateSearchSubscription() {
-    this.searchService.searchTerm.subscribe(
-        (currentSearchTerm) => {
-          this.searchService.fetchRecords('v2/requests/history', currentSearchTerm)
-            .toPromise()
-            .then((response) => {
-              this.requests = response;
-            });
-          this.noResultMessage = `Your search didn't return any results. Try something different.`;
-        });
-
   }
 
   /**

@@ -1,0 +1,48 @@
+@import '../../../../assets/scss/fonts';
+@import '../../../../assets/scss/colors';
+@import '../../../../assets/scss/loaders';
+@import '../../../../assets/scss/table';
+
+#section-grid {
+  width: 94%;
+  height: 100%;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    margin-left: 2%;
+  }
+}
+  
+/* Structure */
+.wrapper {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background: $primary-background-color;
+  overflow: hidden;
+}
+  
+.search-records-wrapper {
+  display: flex;
+  width: 92%;
+  margin-top: 30px;
+}
+
+.search-records-header {
+  flex: 1 1 auto;
+  font-family: $font-family-1;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: 32px;
+  margin-bottom: 15px;
+  color: $andela-blue;
+}
+
+.underline {
+  width: 70px;
+  height: 6px;
+  border-radius: 100px;
+  background-color: $andela-blue-light;
+  margin: 15px 0 30px 0;
+}

@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestService } from './../../../services/request.service';
 import { UserService } from './../../../services/user.service';
 import { Router } from '@angular/router';
-import { SearchService } from '../../../services/search.service';
 import { SessionService } from './../../../services/session.service';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { Subscription } from 'rxjs/Subscription';
@@ -42,7 +41,6 @@ export class InProgressComponent implements OnInit, OnDestroy {
     private route: Router,
     private tableHeaderSorterHelper: TableHeaderSortHelper,
     private changeDetector: ChangeDetectorRef,
-    private searchService: SearchService,
     private userRolePipe: UserRolePipe,
   ) {
     this.requests = [];
@@ -50,7 +48,6 @@ export class InProgressComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getInProgressRequests();
-    this.initiateSearchSubscription();
   }
 
   ngOnDestroy() {
@@ -77,24 +74,6 @@ export class InProgressComponent implements OnInit, OnDestroy {
         this.fetchAllSessionDates(this.requests);
       })
       .catch(error => this.errorMessage = error);
-  }
-
-  /**
-   * Calls searchService that does a search based on the search term
-   *
-   * @return {void}
-   */
-  initiateSearchSubscription() {
-    this.searchService.searchTerm.subscribe(
-        (currentSearchTerm) => {
-          this.searchService.fetchRecords('v2/requests/in-progress', currentSearchTerm)
-            .toPromise()
-            .then((response) => {
-              this.requests = response;
-            });
-          this.noResultMessage = `Your search didn't return any results. Try something different.`;
-        });
-
   }
 
   /**

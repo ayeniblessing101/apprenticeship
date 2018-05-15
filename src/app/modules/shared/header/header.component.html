@@ -11,18 +11,7 @@
   </ul>
   <ul *ngIf='showHeaderContent'>
     <li>
-      <div>
-        <form>
-          <input
-            class="search"
-            type="search"
-            (blur)="setSearchIconVisibilty($event)"
-            (focus)="setSearchIconVisibilty($event)"
-            (keyup)="updateSearchTerm($event)"
-            id="search">
-          <img *ngIf="showSearchIcon" src="../../../../assets/images/search.png" class="search-icon" />
-        </form>
-      </div>
+      <app-search-box></app-search-box>
     </li>
     <li *ngIf="isAdmin" class="dropdown">
       <button class="request-option" id="admin-button">DASHBOARD</button>

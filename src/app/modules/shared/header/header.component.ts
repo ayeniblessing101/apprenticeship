@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
 import { RequestTypes } from '../../../enums/request-types.enum';
-import { SearchService } from '../../../services//search.service';
+import { SearchTypes } from '../../../enums/search-types.enum';
 
 @Component({
   selector: 'app-header',
@@ -14,25 +14,26 @@ import { SearchService } from '../../../services//search.service';
 })
 
 export class HeaderComponent implements OnInit {
+  @Input() currentUser: any;
   displayNotifications = false;
   showHeaderContent = true;
   redirectUrl = `${environment.apiGateway}/login?redirect_url=${environment.lenkenBaseUrl}/request-pool`;
   isAdmin = false;
   isLoggedIn = false;
-  @Input() currentUser: any;
   displayCreateRequestModal = false;
   requestTypes = RequestTypes;
   requestType: number;
   selectedRequest: any[];
   showRequest = false;
-  showSearchIcon = true;
+  records: any;
+  displaySearchPage = false;
+  searchTypes = SearchTypes;
 
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
     private router: Router,
     private alertService: AlertService,
-    private searchService: SearchService,
   ) {
     if (!localStorage.getItem('id_token')) {
       this.showHeaderContent = false;
@@ -123,28 +124,5 @@ export class HeaderComponent implements OnInit {
   showRequestDetailsModal(request) {
     this.selectedRequest = request;
     this.showRequest = true;
-  }
-
-  /**
-   * Updates search input and passes it to search service
-   *
-   * @param event
-   */
-  updateSearchTerm(event: any) {
-    this.searchService.searchTerm.next(event.target.value);
-  }
-
-  /**
-   * Sets the visibility of the search icon when a value is
-   * being inputted in the search form.
-   *
-   * @param event
-   */
-  setSearchIconVisibilty(event: any) {
-    if (event.type === 'blur') {
-      this.showSearchIcon = !event.target.value.trim();
-      return;
-    }
-    this.showSearchIcon = false;
   }
 }

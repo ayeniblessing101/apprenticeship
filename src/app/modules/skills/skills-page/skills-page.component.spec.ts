@@ -13,7 +13,6 @@ import { SkillService } from '../../../services/skill.service';
 import { AlertService } from '../../../services/alert.service';
 import { SetRequestHeaderIconDirective } from '../../../directives/set-request-header-icon.directive';
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
-import { SearchService } from '../../../services/search.service';
 
 
 describe('SkillsPageComponent', () => {
@@ -49,7 +48,6 @@ describe('SkillsPageComponent', () => {
         { provide: Router, useValue: mockRouter },
         SkillService,
         AlertService,
-        SearchService,
       ],
     })
       .compileComponents();

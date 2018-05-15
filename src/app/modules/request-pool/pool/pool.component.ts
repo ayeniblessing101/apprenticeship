@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
 import { FilterService } from '../../../services/filter.service';
-import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs/Subscription';
 import { PoolFiltersComponent } from 'app/modules/request-pool/pool-filters/pool-filters.component';
 import { SortingStatus } from '../../../interfaces/sorting.interface';
@@ -35,8 +34,7 @@ export class PoolComponent implements OnInit, OnDestroy {
 
   constructor(private requestService: RequestService,
               private tableHeaderSorterHelper: TableHeaderSortHelper,
-              private filterService: FilterService,
-              private searchService: SearchService) {}
+              private filterService: FilterService) {}
 
   ngOnInit() {
     this.isSaveFiltersModalOpened = false;
@@ -49,7 +47,6 @@ export class PoolComponent implements OnInit, OnDestroy {
     this.requestService.requestPool.subscribe(() => {
       this.loadRequests();
     });
-    this.initiateSearchSubscription(this.reqUrl);
   }
 
   ngOnDestroy() {
@@ -111,23 +108,6 @@ export class PoolComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Calls searchService that does a search based on the search term
-   *
-   * @return {void}
-   */
-  initiateSearchSubscription(reqUrl: string = 'v2/requests/pool') {
-    this.searchService.searchTerm.subscribe(
-        (currentSearchTerm) => {
-          this.searchService.fetchRecords(reqUrl, currentSearchTerm)
-            .toPromise()
-            .then((response) => {
-              this.requests = response.requests;
-            });
-          this.noResultMessage = `Your search didn't return any results. Try something different.`;
-        });
-
-  }
   /**
    * Fetches requests on page scroll and also sorts accordingly should a user
    * already started sorting requests before scrolling.

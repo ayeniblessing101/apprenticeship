@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import { BaseService } from './base.service';
 
 @Injectable()
 export class SearchService extends BaseService {
-  searchTerm = new Subject<any>();
   private apiBaseUrl = environment.apiBaseUrl;  // URL to web API
 
   /**

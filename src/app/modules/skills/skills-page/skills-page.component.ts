@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 
 @Component({
@@ -18,7 +17,6 @@ export class SkillsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private searchService: SearchService,
   ) {
     this.route.data.subscribe((value) => {
       this.skills = value.skills;
@@ -28,7 +26,6 @@ export class SkillsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.addLastRequestedPropertyToSkills(this.skills);
     this.addRequestsPropertyToSkills(this.skills);
-    this.initiateSearchSubscription();
 
   }
 
@@ -53,23 +50,6 @@ export class SkillsPageComponent implements OnInit, OnDestroy {
         skill.last_requested = this.getLastRequestedSkill(skill.request_skills).created_at || null;
       }
     });
-  }
-
- /**
-   * Calls searchService that does a search based on the search term
-   *
-   * @return {void}
-   */
-  initiateSearchSubscription() {
-    this.searchService.searchTerm.subscribe(
-        (currentSearchTerm) => {
-          this.searchService.fetchRecords('v2/skills', currentSearchTerm)
-            .toPromise()
-            .then((response) => {
-              this.skills = response;
-            });
-          this.noResultMessage = `Your search didn't return any results. Try something different.`;
-        });
   }
 
   /**

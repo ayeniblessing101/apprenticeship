@@ -28,7 +28,7 @@ import { SetRequestHeaderIconDirective } from '../../../directives/set-request-h
 import { TableHeaderSortHelper } from '../../../helpers/table-header-sort.helper';
 import { CSVDownloadHelper } from '../../../helpers/csv-download.helper';
 import { InfiniteScrollDirective } from '../../../directives/infinite-scroll.directive';
-import { SearchService } from '../../../services//search.service';
+
 import { DateRangePickerComponent } from '../../shared/date-range-picker/date-range-picker.component';
 import { CancelRequestModalComponent } from '../../request-pool/cancel-request-modal/cancel-request-modal.component';
 
@@ -78,7 +78,6 @@ describe('AllRequestsPageComponent', () => {
         FilterService,
         AlertService,
         TableHeaderSortHelper,
-        SearchService,
       ],
     })
       .compileComponents();

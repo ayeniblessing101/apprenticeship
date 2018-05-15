@@ -19,7 +19,6 @@ import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
 import { SegmentService } from './services/segment.service';
 import { FileService } from './services/files.service';
-import { SearchService } from './services/search.service';
 
 // components
 import { AppRoutesModule } from './app-routes.module';
@@ -36,6 +35,7 @@ import { NotificationService } from 'app/services/notifications.service';
 import { TableHeaderSortHelper } from './helpers/table-header-sort.helper';
 import { SkillsResolver } from './resolvers/skills.resolver';
 import { CSVDownloadHelper } from './helpers/csv-download.helper';
+import { SearchModule } from './modules/search/search.module';
 
 const authToken = Cookie.get('jwt-token');
 if (authToken) {
@@ -60,6 +60,7 @@ if (authToken) {
     RequestPoolModule,
     SkillsModule,
     IntercomModule,
+    SearchModule,
   ],
   providers: [
     {
@@ -77,7 +78,6 @@ if (authToken) {
     SegmentService,
     NotificationService,
     FileService,
-    SearchService,
     SkillsResolver,
     TableHeaderSortHelper,
     CSVDownloadHelper,

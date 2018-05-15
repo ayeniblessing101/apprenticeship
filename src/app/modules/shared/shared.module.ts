@@ -32,6 +32,7 @@ import { UserRolePipe } from '../../pipes/user-role.pipes';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../services/toast.service';
 import { DateRangePickerComponent } from './date-range-picker/date-range-picker.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { DateRangePickerComponent } from './date-range-picker/date-range-picker.
     ToastComponent,
     DateRangePickerComponent,
     CancelRequestModalComponent,
+    SearchBoxComponent,
   ],
   exports: [
     HeaderComponent,

@@ -38,6 +38,9 @@ import { SkillMentorsResolver } from '../../resolvers/skill-mentors.resolver';
     SkillTopMentorsComponent,
     RequestStatusPipe,
   ],
+  exports: [
+    SkillRecordsComponent,
+  ],
   providers: [
     SkillMentorsResolver,
   ],

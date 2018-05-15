@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from '../../../services/search.service';
 import { RequestService } from './../../../services/request.service';
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { RequestDurationPipe } from '../../../pipes/request-duration.pipe';
@@ -21,7 +20,6 @@ export class PendingComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestService: RequestService,
-    private searchService: SearchService,
   ) {
 
     requestService.updatePendingPoolRequestsTable
@@ -32,7 +30,6 @@ export class PendingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getPendingRequests();
-    this.initiateSearchSubscription();
   }
 
   ngOnDestroy() {
@@ -62,23 +59,6 @@ export class PendingComponent implements OnInit, OnDestroy {
 
   }
 
-  /**
-   * Calls searchService that does a search based on the search term
-   *
-   * @return {void}
-   */
-  initiateSearchSubscription() {
-    this.searchService.searchTerm.subscribe(
-        (currentSearchTerm) => {
-          this.searchService.fetchRecords('v2/requests/pending', currentSearchTerm)
-            .toPromise()
-            .then((response) => {
-              this.requests = response;
-            });
-          this.noResultMessage = `Your search didn't return any results. Try something different.`;
-        });
-
-  }
   /**
    * Remove request from pending pool
    *

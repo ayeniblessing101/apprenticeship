@@ -1,0 +1,35 @@
+<div>
+  <li class="dropdown">
+    <div class="search-container" [ngClass]="{'red-border': isFieldEmpty }">
+      <span class="current-modifier">{{placeholderText}}</span>
+      <input #searchTerm class="search" type="search" 
+        [ngStyle]="{'border-color': isFieldEmpty ? 'red' : '#ccc'}" 
+        (blur)="setSearchIconVisibilty($event)"
+        (focus)="setSearchIconVisibilty($event)" 
+        id="search"
+      >
+      <div class="admin-content common-dropdown-styles-search">
+        <a 
+          id="in-requests" 
+          (click)="setSearchTerm({ type: searchTypes.REQUESTS_SEARCH, value: searchTerm.value })"
+        >
+          In: REQUESTS
+        </a>
+        <a 
+          id="in-people" 
+          (click)="setSearchTerm({ type: searchTypes.PEOPLE_SEARCH, value: searchTerm.value })"
+        >
+          In: PEOPLE
+        </a>
+        <a 
+          *ngIf="isAdmin" 
+          id="in-skills" 
+          (click)="setSearchTerm({ type: searchTypes.SKILLS_SEARCH, value: searchTerm.value })"
+        >
+          In: SKILLS
+        </a>
+      </div>
+      <img *ngIf="showSearchIcon" src="../../../../assets/images/search.png" class="search-icon" />
+    </div>
+  </li>
+</div>

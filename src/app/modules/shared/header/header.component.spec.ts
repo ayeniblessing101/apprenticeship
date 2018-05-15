@@ -25,8 +25,8 @@ import { ProposedRequestDurationPipe } from '../../../pipes/proposed-request-dur
 import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 import { StarRatingModule } from 'angular-star-rating';
 import { CharacterCountDownComponent } from '../character-count-down/character-count-down.component';
-import { SearchService } from '../../../services//search.service';
 import { CancelRequestModalComponent } from '../../request-pool/cancel-request-modal/cancel-request-modal.component';
+import { SearchBoxComponent } from '../search-box/search-box.component';
 
 
 describe('HeaderComponent', () => {
@@ -50,6 +50,7 @@ describe('HeaderComponent', () => {
         RequestSkillPipe,
         CharacterCountDownComponent,
         CancelRequestModalComponent,
+        SearchBoxComponent,
       ],
       imports: [
         BrowserAnimationsModule,
@@ -73,7 +74,6 @@ describe('HeaderComponent', () => {
         { provide: UserService, useClass: UserServiceStub },
         { provide: NotificationService, useClass: NotificationServiceStub },
         AlertService,
-        SearchService,
       ],
     })
       .compileComponents();

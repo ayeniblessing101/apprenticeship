@@ -10,6 +10,7 @@ import { InProgressComponent } from './modules/request-pool/in-progress/in-progr
 import { SharedModule } from './modules/shared/shared.module';
 import { PendingComponent } from 'app/modules/request-pool/pending/pending.component';
 import { SkillDetailsPageComponent } from './modules/skills/skill-details-page/skill-details-page.component';
+import { SearchPageComponent } from './modules/search/search/search-page.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminGuard } from './services/admin-guard.service';
@@ -53,6 +54,12 @@ const appRoutes: Routes = [
     },
   },
 
+  {
+    path: 'search',
+    loadChildren: './modules/search/search.module#SearchModule',
+    canActivate: [AuthGuard],
+  },
+
   { path: 'request-pool/pending', component: PendingComponent, canActivate: [AuthGuard] },
 
   { path: 'profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule',
@@ -88,4 +95,3 @@ const appRoutes: Routes = [
 })
 
 export class AppRoutesModule {}
-
