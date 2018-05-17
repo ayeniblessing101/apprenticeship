@@ -29,6 +29,12 @@
   font-family: $font-family-1;
   cursor: pointer;
   margin-right: 0;
+
+  &:disabled {
+    background : $grey-light-300;
+    cursor:not-allowed;
+    border: 1px solid $grey-light-300;
+  }
 }
 
 .mentorship-form {

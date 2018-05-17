@@ -189,6 +189,7 @@
                 type="submit" 
                 value="REQUEST {{ title | uppercase }}" 
                 class="inline-block" id="btn-request"
+                [disabled] = "!isCreateRequestButtonEnabled"
               >
             </div>
           </div>
@@ -379,6 +380,7 @@
                 type="submit" 
                 value="REQUEST {{ title | uppercase }}" 
                 class="inline-block" id="btn-request"
+                [disabled] = "!isCreateRequestButtonEnabled"
               >
             </div>
           </div>

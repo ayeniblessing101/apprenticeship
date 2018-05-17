@@ -37,6 +37,7 @@ export class CreateRequestComponent implements OnInit {
   selectedTimeZone: string;
   durationOfMonths: number;
   requestTypes = RequestTypes;
+  isCreateRequestButtonEnabled = true;
 
   timeSlots: string[] = [];
   selectedDays: string[];
@@ -163,6 +164,7 @@ export class CreateRequestComponent implements OnInit {
    * @returns {Object}
    */
   onSubmit(form) {
+    this.isCreateRequestButtonEnabled = false;
     if (this.validateSessionDuration(this.duration) === false) {
       return this.alertService.showMessage(
         '0hr 00mins is an invalid session duration',
@@ -172,17 +174,19 @@ export class CreateRequestComponent implements OnInit {
     const selectedDays = this.getSelectedDays();
 
     if (selectedDays.length === 0 || this.basicSkills.length === 0) {
+      this.isCreateRequestButtonEnabled = true;
       return this.alertService.showMessage(
         'Please fill in the compulsory fields to complete your request',
       );
     } else if (form.value.description.trim() === '') {
+      this.isCreateRequestButtonEnabled = true;
       return this.alertService.showMessage(
         'Please fill in the compulsory fields to complete your request',
       );
     }
 
     if (!form.valid) {
-
+      this.isCreateRequestButtonEnabled = true;
       return this.alertService.showMessage('Please fill in the compulsory fields to complete your request');
     } else {
       const requestType = this.requestType;
@@ -216,6 +220,7 @@ export class CreateRequestComponent implements OnInit {
           this.showCreatedRequestConfirmation(response);
         })
         .catch((error) => {
+          this.isCreateRequestButtonEnabled = true;
           return this.alertService.showMessage(error.title[0]);
         });
     }
