@@ -74,13 +74,13 @@ workflows:
             - unit-tests
           filters:
             branches:
-              only: develop-v2
+              only: develop
       - request_for_approval:
           requires:
             - unit-tests
           filters:
             branches:
-                only: production-v2
+                only: production
       - approve_deploy:
           type: approval
           requires:
@@ -90,4 +90,4 @@ workflows:
             - approve_deploy
           filters:
             branches:
-                only: production-v2
+                only: production
