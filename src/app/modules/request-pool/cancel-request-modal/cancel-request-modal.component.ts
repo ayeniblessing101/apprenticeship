@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 
 import { RequestService } from '../../../services/request.service';
+import { NotificationService } from 'app/services/notifications.service';
+import { environment } from '../../../../environments/environment';
+import { NotificationTypes } from 'app/enums/notification-types.enum';
+import { RequestTypes } from '../../../enums/request-types.enum';
 
 @Component({
   selector: 'app-cancel-request-modal',
@@ -19,6 +23,7 @@ export class CancelRequestModalComponent implements OnInit {
   message: string;
   currentUserId: string;
   requestId: number;
+  requestTypes = RequestTypes;
   cancellationReason = `--Select Reason--`;
   showDropdown = false;
   cancelRequestReason = [
@@ -28,6 +33,7 @@ export class CancelRequestModalComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -51,6 +57,7 @@ export class CancelRequestModalComponent implements OnInit {
           this.closeCancelRequestModal.emit('parentModel');
           this.requestService.updatePendingPoolRequests();
         });
+      this.sendCancelRequestNotification();
     }
   }
 
@@ -89,5 +96,34 @@ export class CancelRequestModalComponent implements OnInit {
    */
   closeModal() {
     this.closeCancelRequestModal.emit('cancelRequestModal');
+  }
+
+  /**
+   * Send cancelled request notification to mentor/mentee
+   *
+   * @param {any} id - The id of the user to be notified
+   * @param {any} type - The type of notification
+   * @param {any} message - The message body
+   *
+   * @returns {void}
+   */
+  sendCancelRequestNotification() {
+    const id = this.request.interested;
+    const requestType = (this.request.request_type_id = 1) ? 'mentor' : 'mentee';
+    const type = (this.request.request_type_id = 1) ?
+    NotificationTypes.MENTEE_WITHDRAWS_REQUEST : NotificationTypes.MENTOR_WITHDRAWS_REQUEST;
+    const message = {
+      title: '',
+      content:
+      `${this.request.created_by.fullname} has withdrawn their request for ${this.request.title} ${requestType}.`,
+    }
+    const payload = {
+      id,
+      type,
+      message,
+      sender: this.request.created_by.fullname,
+      timestamp: Date.now(),
+    }
+    return this.notificationService.sendMessage([payload.id], payload);
   }
 }

@@ -6,9 +6,12 @@ import { StarRatingModule } from 'angular-star-rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessionService } from '../../../services/session.service';
 import { AlertService } from '../../../services/alert.service';
+import { NotificationService } from '../../../services/notifications.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { RequestService } from '../../../services/request.service';
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
+import { NotificationServiceStub } from '../../../stubs/notification-stub.service';
+import { UserService } from '../../../services/user.service';
 
 describe('ConfirmSessionModalComponent', () => {
   let component: ConfirmSessionModalComponent;
@@ -26,9 +29,11 @@ describe('ConfirmSessionModalComponent', () => {
       declarations: [ConfirmSessionModalComponent],
       providers: [
         { provide: RequestService, useClass: RequestServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
         Http,
         SessionService,
         AlertService,
+        UserService,
       ],
     })
     .compileComponents();

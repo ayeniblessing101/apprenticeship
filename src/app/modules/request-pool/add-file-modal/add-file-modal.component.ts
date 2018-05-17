@@ -1,8 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { FileService } from '../../../services/files.service';
 import { AlertService } from '../../../services/alert.service';
 import { SessionService } from '../../../services/session.service';
-
+import { NotificationService } from 'app/services/notifications.service';
+import { environment } from '../../../../environments/environment';
+import { NotificationTypes } from 'app/enums/notification-types.enum';
+import { UserService } from '../../../services/user.service';
+import { getSessionDuration } from '../../../helpers/session-duration.helper';
 
 @Component({
   selector: 'app-add-file-modal',
@@ -10,7 +15,10 @@ import { SessionService } from '../../../services/session.service';
   styleUrls: ['./add-file-modal.component.scss'],
 })
 
-export class AddFileModalComponent {
+export class AddFileModalComponent implements OnInit {
+  @Input() mentorId;
+  @Input() menteeId;
+  @Input() session: any;
   @Output() closeFileModal = new EventEmitter();
   @Output() modifiedSession = new EventEmitter();
   @ViewChild('fileToUpload') fileToUploadElementRef: ElementRef;
@@ -22,11 +30,18 @@ export class AddFileModalComponent {
   loading: boolean;
   uploadedFileName;
   maxFileSize = (5 * Math.pow(1024, 2));
+  currentUser: any;
 
   constructor(
     private fileService: FileService,
     private sessionService: SessionService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private notificationService: NotificationService,
+    private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.currentUser = this.userService.getCurrentUser();
+  }
 
   /**
    * This method is called when a file is added on the file input.
@@ -86,6 +101,7 @@ export class AddFileModalComponent {
           this.modifiedSession.emit(response);
           this.loading = false;
           this.closeAddFileModal();
+          this.sendFileUploadNotification();
         });
     } else if (this.file.size > this.maxFileSize) {
       const confirmationMessage = `File size limit of 5MB has been exceeded, please try again.`;
@@ -111,5 +127,28 @@ export class AddFileModalComponent {
   removeUploadedFile() {
     this.file = null;
     this.fileInput.nativeElement.value = '';
+  }
+
+  /** Sends notification for file uplaod.
+   * @param message
+   * @param recipient
+   *
+   * @return {Object}
+   */
+  sendFileUploadNotification() {
+    const recipient = (this.currentUser.id === this.menteeId) ? this.mentorId : this.menteeId;
+    const sessionDuration = getSessionDuration(this.session);
+    const type = NotificationTypes.NEW_FILE;
+    const message = {
+      title: 'New File Upload',
+      content: `${this.currentUser.name} has uploaded a file ${this.uploadedFileName}
+    to your ${sessionDuration} session on ${this.session.date}`,
+    }
+    return this.notificationService.sendMessage([recipient], {
+      message,
+      type,
+      sender: this.currentUser.name,
+      timestamp: Date.now(),
+    });
   }
 }

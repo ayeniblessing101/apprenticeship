@@ -17,6 +17,6 @@ export interface Message {
   type: NotificationTypes;
   message: Notice;
   sender: string;
-  messageUrl: string;
+  messageUrl?: string;
   timestamp: number;
 }

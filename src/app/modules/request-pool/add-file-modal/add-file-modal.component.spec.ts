@@ -7,13 +7,19 @@ import { FileService } from '../../../services/files.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { AlertService } from '../../../services/alert.service';
 import { SessionService } from '../../../services/session.service';
+import { NotificationService } from '../../../services/notifications.service';
+import { UserService } from '../../../services/user.service';
 
 const createSpy = jasmine.createSpy;
 
 describe('AddFileModalComponent', () => {
   let component: AddFileModalComponent;
   let fixture: ComponentFixture<AddFileModalComponent>;
-  let fileServiceStub, sessionServiceStub, alertServiceStub, ngFormMock;
+  let fileServiceStub,
+    sessionServiceStub,
+    alertServiceStub,
+    notificationServiceStub,
+    ngFormMock;
 
   beforeEach(async(() => {
     ngFormMock = {
@@ -54,8 +60,10 @@ describe('AddFileModalComponent', () => {
       providers: [
         { provide: FileService, useValue: fileServiceStub },
         Http,
+        UserService,
         { provide: AlertService, useValue: alertServiceStub },
         { provide: SessionService, useValue: sessionServiceStub },
+        { provide: NotificationService, useValue: notificationServiceStub },
       ],
     })
       .compileComponents();

@@ -2,8 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CancelRequestModalComponent } from './cancel-request-modal.component';
 import { RequestService } from 'app/services/request.service';
+import { NotificationService } from 'app/services/notifications.service';
 
 import { RequestServiceStub } from '../../../stubs/request-stub.service';
+import {  NotificationServiceStub } from '../../../stubs/notification-stub.service';
 
 describe('CancelRequestModalComponent', () => {
   class AuthServiceMock {
@@ -19,6 +21,7 @@ describe('CancelRequestModalComponent', () => {
       ],
       providers: [
         { provide: RequestService, useClass: RequestServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
       ],
     })
     .compileComponents();

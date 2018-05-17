@@ -13,13 +13,17 @@ import { CancelRequestModalComponent } from '../cancel-request-modal/cancel-requ
 import { UserService } from './../../../services/user.service';
 import { AlertService } from './../../../services/alert.service';
 import { RequestService } from './../../../services/request.service';
+import { NotificationService } from './../../../services/notifications.service';
 import { User } from './../../../interfaces/user.interface';
 import { RequestTypes } from '../../../enums/request-types.enum';
+import { NotificationTypes } from '../../../enums/notification-types.enum';
+import { RequestSkillPipe } from '../../../pipes/request-skills-pipe';
 
 @Component({
   selector: 'app-pending-modal',
   templateUrl: './pending-modal.component.html',
   styleUrls: ['./pending-modal.component.scss'],
+  providers: [RequestSkillPipe],
 })
 export class PendingModalComponent implements OnInit {
   @Input() request;
@@ -38,6 +42,7 @@ export class PendingModalComponent implements OnInit {
   requestedBy: string;
   rating: any;
   requestTypes = RequestTypes;
+  currentUser: any;
 
   alertServiceConfig = {
     abortActionText: 'BACK',
@@ -50,6 +55,8 @@ export class PendingModalComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService,
     private requestService: RequestService,
+    private notificationService: NotificationService,
+    private requestSkillPipe: RequestSkillPipe,
   ) {
     this.acceptInterestedUser = this.acceptInterestedUser.bind(this);
     this.rejectInterestedUser = this.rejectInterestedUser.bind(this);
@@ -57,6 +64,7 @@ export class PendingModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
     this.userIds = [this.request.created_by.id];
     this.currentUserId = this.userService.getCurrentUser().id;
     this.getUserRating();
@@ -67,8 +75,8 @@ export class PendingModalComponent implements OnInit {
       }
     }
     this.requestedBy = this.request.created_by.fullname;
-
     this.getUsersByIds(this.userIds);
+    this.request.skills = this.requestSkillPipe.transform(this.request.request_skills, 'primary');
   }
 
   /**
@@ -173,6 +181,16 @@ export class PendingModalComponent implements OnInit {
       menteeMessage;
 
     this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
+    const id = this.interestedUser.id;
+    const notificationType = (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+    NotificationTypes.MENTEE_ACCEPTS_MENTOR : NotificationTypes.MENTOR_ACCEPTS_MENTEE;
+    const notificationMessage = {
+      title: (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ? 'Mentee Accepts' : 'Mentor Accepts',
+      content: (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+        `Congratulations!, ${this.request.created_by_name} has accepted you as their ${this.request.skills} mentor` :
+        `Congratulations!, ${this.request.created_by_name} has accepted you as their ${this.request.skills} mentee.`,
+    }
+    this.sendNotification(id, notificationType, notificationMessage);
   }
 
   /**
@@ -182,14 +200,22 @@ export class PendingModalComponent implements OnInit {
    */
   confirmRejectInterestedUser(interestedUser) {
     this.interestedUser = interestedUser;
-
     this.alertServiceConfig.confirmAction = this.rejectInterestedUser;
 
     const confirmationMessage = this.request.request_type_id === this.requestTypes.MENTEE_REQUEST ?
       `Rejecting this mentor means he/she will not mentor you on this particular request` :
       `Rejecting this mentee means he/she will not be your mentee on this particular session`;
-
     this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
+    const id = this.interestedUser.id;
+    const notificationType = (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+      NotificationTypes.MENTEE_REJECTS_MENTOR : NotificationTypes.MENTOR_REJECTS_MENTEE;
+    const notificationMessage = {
+      title: (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ? 'Mentee Rejects' : 'Mentor Rejects',
+      content: (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+      `${this.request.created_by_name} opted to go with a different ${this.request.skills} mentor` :
+      `${this.request.created_by_name} opted to go with a different ${this.request.skills} mentee.`,
+    };
+    this.sendNotification(id, notificationType, notificationMessage);
   }
 
   /**
@@ -259,6 +285,16 @@ export class PendingModalComponent implements OnInit {
     this.alertServiceConfig.canDisable = false;
 
     this.alertService.confirm(confirmationMessage, this, this.alertServiceConfig);
+    const id = this.request.created_by.id;
+    const notificationType = (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+    NotificationTypes.MENTEE_WITHDRAWS_INTEREST : NotificationTypes.MENTOR_WITHDRAWS_INTEREST;
+    const notificationMessage = {
+      title: '',
+      content: (this.request.request_type_id === this.requestTypes.MENTOR_REQUEST) ?
+      `${this.currentUser.firstName} has withdrawn interest in mentoring you in ${this.request.title}.` :
+      `${this.currentUser.firstName} has withdrawn interest in being your ${this.request.title} mentee.`,
+    };
+    this.sendNotification(id, notificationType, notificationMessage);
   }
 
   /**
@@ -269,7 +305,7 @@ export class PendingModalComponent implements OnInit {
   withdrawInterest() {
     this.requestService.withdrawInterest(this.request.id)
       .toPromise()
-      .then((reponse) => {
+      .then((response) => {
         this.requestService.updatePendingPoolRequests();
         this.closeModal('pendingRequestModal');
       });
@@ -302,5 +338,23 @@ export class PendingModalComponent implements OnInit {
     if (modal === 'parentModel' || modal === 'pendingRequestModal') {
       this.closePendingModal.emit();
     }
+  }
+
+  /**
+   * Notification payload
+   *
+   * @param {any} type
+   * @param {any} message
+   * @returns {void}
+   */
+  sendNotification(id, type, message) {
+    const payload = {
+      id,
+      type,
+      message,
+      sender: this.currentUser.name,
+      timestamp: Date.now(),
+    }
+    return this.notificationService.sendMessage([payload.id], payload);
   }
 }

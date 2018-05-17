@@ -47,5 +47,8 @@
                     [sessionId]="sessionId"
                     [requestId]="request.id"
                     [sessionDate]="session.date"
+                    [session]="session" 
+                    [mentorId]="request.mentor.id" 
+                    [menteeId]="request.mentee.id"
                     (modifiedSession)="updateSession($event)">
 </app-add-file-modal>

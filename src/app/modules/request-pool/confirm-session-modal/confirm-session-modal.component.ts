@@ -15,6 +15,10 @@ import { AlertService } from '../../../services/alert.service';
 import { MenteeRating } from './../../../interfaces/mentee-rating.interface';
 import { MentorRating } from './../../../interfaces/mentor-rating.interface';
 import { getRatingValues } from '../../../helpers/session-form.helper';
+import { NotificationService } from '../../../services/notifications.service';
+import { UserService } from '../../../services/user.service';
+import { NotificationTypes } from '../../../enums/notification-types.enum';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-confirm-session-modal',
@@ -35,16 +39,19 @@ export class ConfirmSessionModalComponent implements OnInit {
   userIsMentor: boolean;
   ratingValues: any;
   sessionDuration: any;
-
+  currentUser: any;
 
   constructor(
     private sessionService: SessionService,
     private alertService: AlertService,
+    private notificationService: NotificationService,
+    private userService: UserService,
     private formBuilder: FormBuilder) {
     this.rejectSession = this.rejectSession.bind(this);
   }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
     this.userIsMentor = (this.currentUserId === this.request.mentor.id);
     this.startTime = this.request.pairing.start_time;
     this.endTime = this.request.pairing.end_time;
@@ -197,6 +204,13 @@ export class ConfirmSessionModalComponent implements OnInit {
     this.session.id = session.id;
     this.session.approved = true;
     this.emitSessionObject.emit(this.session);
+    const notificationType =  (this.userIsMentor) ? NotificationTypes.MENTOR_CONFIRMS : NotificationTypes.MENTEE_CONFIRMS;
+    const notificationMessage = {
+      title: (this.userIsMentor) ? 'Mentor Confirms Session' : 'Mentee Confirms Session',
+      content: `${this.currentUser.firstName} just confirmed your session for ${this.sessionDuration} on ${this.session.date}.`,
+
+    };
+    this.sendNotification(notificationType, notificationMessage);
   }
 
   /**
@@ -209,5 +223,30 @@ export class ConfirmSessionModalComponent implements OnInit {
     this.session.id = session.id;
     this.session.approved = false;
     this.emitSessionObject.emit(this.session);
+    const notificationType = (this.userIsMentor) ? NotificationTypes.MENTOR_REJECTS : NotificationTypes.MENTEE_REJECTS;
+    const notificationMessage = {
+      title: (this.userIsMentor) ? 'Mentor Rejects Session' : 'Mentee Rejects Session',
+      content: `${this.currentUser.firstName} just rejected your session for ${this.sessionDuration} on ${this.session.date}.`,
+    };
+    this.sendNotification(notificationType, notificationMessage);
+  }
+
+  /**
+   * Notification payload
+   *
+   * @param {any} type
+   * @param {any} message
+   * @returns {void}
+   */
+  sendNotification(type, message) {
+    const userRole = (this.userIsMentor) ? 'mentee' : 'mentor';
+    const payload = {
+      type,
+      message,
+      id: this.request[userRole].id,
+      sender: this.currentUser.name,
+      timestamp: Date.now(),
+    }
+    return this.notificationService.sendMessage([payload.id], payload);
   }
 }

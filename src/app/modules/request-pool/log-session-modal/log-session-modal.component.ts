@@ -15,13 +15,17 @@ import { Session } from '../../../interfaces/session.interface';
 import { MenteeRating } from './../../../interfaces/mentee-rating.interface';
 import { MentorRating } from './../../../interfaces/mentor-rating.interface';
 import { getRatingValues } from './../../../helpers/session-form.helper';
-
+import { NotificationTypes } from 'app/enums/notification-types.enum';
+import { environment } from '../../../../environments/environment';
+import { UserService } from '../../../services/user.service';
+import { NotificationService } from '../../../services/notifications.service';
 
 @Component({
   selector: 'app-log-session',
   templateUrl: './log-session-modal.component.html',
   styleUrls: ['./log-session-modal.component.scss'],
 })
+
 export class LogSessionModalComponent implements OnInit {
   @Input() session: any;
   @Input() request: any;
@@ -41,13 +45,18 @@ export class LogSessionModalComponent implements OnInit {
   userIsMentee: boolean;
   sessionIsEditable: boolean;
   ratingValues: any;
+  currentUser: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private sessionService: SessionService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private notificationService: NotificationService,
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
     this.userIsMentor = (this.currentUserId === this.request.mentor.id);
     this.userIsMentee = (this.currentUserId === this.request.mentee.id);
     this.sessionIsEditable = this.checkSessionIsEditable();
@@ -206,6 +215,7 @@ export class LogSessionModalComponent implements OnInit {
     this.session.id = session.id;
     this.session.approved = true;
     this.updateLoggedSession.emit(this.session);
+    this.sendSessionLoggedNotification();
   }
 
   /**
@@ -225,5 +235,27 @@ export class LogSessionModalComponent implements OnInit {
    */
   private getRatings(): MenteeRating | MentorRating {
     return this.sessionForm.value.sessionFormValues;
+  }
+
+  /**
+   * Sends notification to mentor/mentee when a session is successfully logged
+   *
+   * @returns {Promise} Promise from notification service
+   */
+  sendSessionLoggedNotification() {
+    const userRole = (this.userIsMentee) ? 'mentor' : 'mentee';
+    const payload = {
+      id: this.request[userRole].id,
+      type: (this.userIsMentee) ? NotificationTypes.MENTEE_LOGGED_SESSION : NotificationTypes.MENTOR_LOGGED_SESSION,
+      message: {
+        title: (this.userIsMentee) ? 'Mentee Logged Session' : 'Mentor Logged Session',
+        content: `${this.currentUser.firstName} just logged your session for ${this.hoursInSessionTimeDifference}
+        hours and ${this.minutesInSessionTimeDifference} minutes on ${this.session.date}.`,
+      },
+      sender: this.currentUser.name,
+      timestamp: Date.now(),
+      messageUrl: `${environment.lenkenBaseUrl}/request-pool/in-progress/${this.request.id}`,
+    }
+    return this.notificationService.sendMessage([payload.id], payload);
   }
 }

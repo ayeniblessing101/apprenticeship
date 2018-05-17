@@ -78,7 +78,7 @@ export class RequestDetailsModalComponent implements OnInit {
       .then(() => {
         this.currentUserIsInterested = true;
         this.initiateRequestsPoolFilter();
-        this.notifyMentee();
+        this.sendInterestedRequestNotification();
       });
   }
 
@@ -105,22 +105,27 @@ export class RequestDetailsModalComponent implements OnInit {
    *
    * @returns {Promise} Promise from notification service
    */
-  notifyMentee() {
+  sendInterestedRequestNotification() {
     const requestSkills = this.selectedRequest.request_skills
       .filter(skill => skill.type === 'primary');
     const primarySkills = (requestSkills.map(primarySkill => primarySkill.name));
-    primarySkills.splice(primarySkills.length - 1, 0, 'and');
+    primarySkills.splice(primarySkills.length - 1, 0);
     const selectedSkills = primarySkills.join(', ');
-    return this.notificationService.sendMessage([this.selectedRequest.created_by.id], {
-      type: NotificationTypes.MENTOR_REQUEST,
+    const requestType = (this.selectedRequest.request_type_id === 1) ? 'mentee' : 'mentor';
+    const payload = {
+      id: this.selectedRequest.created_by.id,
+      type: (this.userRole === 'mentee') ? NotificationTypes.MENTEE_REQUEST : NotificationTypes.MENTOR_REQUEST,
       message: {
-        title: 'New Mentor Request',
-        content: `Someone has offered to mentor you on "${selectedSkills}."`,
+        title: (this.userRole === 'mentee') ? 'New Mentee Request' : 'New Mentor Request',
+        content: (this.userRole === 'mentee') ?
+        `${this.currentUser.firstName} has indicated interest in your ${selectedSkills} request for ${requestType}.`
+        : `${this.currentUser.firstName} has indicated interest in your ${selectedSkills} requsest for ${requestType}.`,
       },
       sender: this.currentUser.name,
       timestamp: Date.now(),
-      messageUrl: `${environment.lenkenBaseUrl}/requests/pending`,
-    })
+      messageUrl: `${environment.lenkenBaseUrl}/request-pool/pending`,
+    }
+    return this.notificationService.sendMessage([payload.id], payload)
       .then(() => {
         this.alertService.showMessage(`
       We have sent a notification to the

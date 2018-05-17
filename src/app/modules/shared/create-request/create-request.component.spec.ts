@@ -8,9 +8,11 @@ import { RequestService } from 'app/services/request.service';
 import { UserService } from 'app/services/user.service';
 import { HttpService as Http } from '../../../services/http.service';
 import { SkillService } from '../../../services/skill.service';
+import { NotificationService } from '../../../services/notifications.service';
 import { DropDownComponent } from 'app/modules/shared/drop-down/drop-down.component';
 import { SkillsDropdownComponent } from '../skills-dropdown/skills-dropdown.component';
 import { SkillServiceStub } from '../../../stubs/skill-stub.service';
+import { NotificationServiceStub } from '../../../stubs/notification-stub.service';
 import { CharacterCountDownComponent } from 'app/modules/shared/character-count-down/character-count-down.component';
 
 describe('CreateRequestComponent', () => {
@@ -36,6 +38,7 @@ describe('CreateRequestComponent', () => {
         UserService,
         AlertService,
         { provide: SkillService, useClass: SkillServiceStub },
+        { provide: NotificationService, useClass: NotificationServiceStub },
         RequestService,
       ],
     })

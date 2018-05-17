@@ -1,64 +1,222 @@
 <div class="notifications-modal" [@notificationsState]="state">
   <div class="modal-content">
-      <div class="notifications-header">
-          <i class="tiny material-icons close" id="notification-close-x" (click)="closeNotifications($event)">close</i>
-          <label class="notifications-title">Notifications</label>
-       </div>
+    <div class="notifications-header">
+      <i class="tiny material-icons close" id="notification-close-x" (click)="closeNotifications($event)">close</i>
+      <label class="notifications-title">Notifications</label>
+    </div>
 
     <!-- The main code starts here -->
-        <div *ngFor="let group of notificationGroups">
+    <div *ngFor="let group of notificationGroups">
       <div>
         <label class="notifications-day">{{group}}</label>
       </div>
       <div class="notifications-card-background" *ngFor="let notification of notifications[group]">
         <div [ngSwitch]="notification.type">
-                <div *ngSwitchCase="notificationTypes.MENTOR_REQUEST" class="notifications-card-background">
-                    <div class="card-header">
-                      <i class="tiny material-icons person">person</i>
-                      <label class="card-title">New Mentor Request</label>
-                      <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
-                    </div>
-                    <p class="card-body">{{notification.message.content}}         Respond to the request on your pending tab or by clicking <a [href]="notification.messageUrl">here</a>
-                    </p>
-                  </div>
-                  <div *ngSwitchCase="notificationTypes.HELP" class="notifications-card-background">
-                      <div class="card-header">
-                        <i class="tiny material-icons help">help_outline</i>
-                        <label class="card-title">Help</label>
-                        <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
-                      </div>
-                      <p class="card-body">Remember you can always add skills you're confident in & would like to mentor on your profile page
-                      </p>
-                    </div>
+          <div *ngSwitchCase="notificationTypes.MENTOR_REQUEST" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} Respond to the request on your pending tab or by clicking
+              <a [href]="notification.messageUrl">here</a>
+            </p>
+          </div>
 
-                    <div *ngSwitchCase="notificationTypes.NEW_SKILL" class="notifications-card-background">
-                        <div class="card-header">
-                          <i class="tiny material-icons skill">call_made</i>
-                          <label class="card-title"> New skill added!</label>
-                          <label class="card-time">03:17AM</label>
-                        </div>
-                      </div>
-            
-            <div *ngSwitchCase="notificationTypes.FEEDBACK_AND_RATINGS" class="notifications-card-background">
-                <div class="card-header">
-                  <i class="tiny material-icons feedback">receipt</i>
-                  <label class="card-title">Feedback & Ratings</label>
-                  <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
-                </div>
+          <div *ngSwitchCase="notificationTypes.MENTEE_REQUEST" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} Respond to the request on your pending tab or by clicking
+              <a [href]="notification.messageUrl">here</a>
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_LOGGED_SESSION" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} Click here to
+              <a [href]="notification.messageUrl">confirm</a> the session
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_LOGGED_SESSION" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} Click here to
+              <a [href]="notification.messageUrl">confirm</a> the session
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_CONFIRMS" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_CONFIRMS" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_REJECTS" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_REJECTS" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_REJECTS_MENTOR" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_REJECTS_MENTEE" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_ACCEPTS_MENTOR" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_ACCEPTS_MENTEE" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTEE_WITHDRAWS_INTEREST" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MENTOR_WITHDRAWS_INTEREST" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons person">person</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.MEMBER_REQUEST" class="notifications-card-background">
+            <div class="card-header">
+                <i class="tiny material-icons person">person</i>
+                <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}} Click
+                <a [href]="notification.messageUrl">here</a> to view the request.
+            </p>
         </div>
 
-        <div *ngSwitchCase="notificationTypes.SUPPORT" class="notifications-card-background">
+        <div *ngSwitchCase="notificationTypes.FILE_CHANGE" class="notifications-card-background">
+            <div class="card-header">
+                <i class="tiny material-icons person">person</i>
+                <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}</p>
+        </div>
+
+        <div *ngSwitchCase="notificationTypes.MENTOR_WITHDRAWS_REQUEST" class="notifications-card-background">
+            <div class="card-header">
+                <i class="tiny material-icons person">person</i>
+                <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}</p>
+        </div>
+
+        <div *ngSwitchCase="notificationTypes.MENTEE_WITHDRAWS_REQUEST" class="notifications-card-background">
+            <div class="card-header">
+                <i class="tiny material-icons person">person</i>
+                <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}</p>
+        </div>
+
+        <div *ngSwitchCase="notificationTypes.NEW_FILE" class="notifications-card-background">
+            <div class="card-header">
+                <i class="tiny material-icons person">person</i>
+                <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">{{notification.message.content}}</p>
+        </div>
+
+          <div *ngSwitchCase="notificationTypes.HELP" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons help">help_outline</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+            <p class="card-body">Remember you can always add skills you're confident in & would like to mentor on your profile page
+            </p>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.NEW_SKILL" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons skill">call_made</i>
+              <label class="card-time">03:17AM</label>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.FEEDBACK_AND_RATINGS" class="notifications-card-background">
+            <div class="card-header">
+              <i class="tiny material-icons feedback">receipt</i>
+              <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="notificationTypes.SUPPORT" class="notifications-card-background">
             <div class="card-header">
               <i class="tiny material-icons message">message</i>
-              <label class="card-title">Support</label>
               <label class="card-time">{{getNotificationDateTime(notification.timestamp)|date:'shortTime'}}</label>
             </div>
             <p class="card-body">Hi,from support!We are trying to verify the latest skill you added to your profile please be patient
             </p>
           </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <div class="overlay" id="notification-overlay" *ngIf="state" (click)="closeNotifications($event)"></div>

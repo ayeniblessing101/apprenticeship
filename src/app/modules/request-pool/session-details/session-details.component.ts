@@ -5,6 +5,10 @@ import * as moment from 'moment';
 import { UserService } from '../../../services/user.service';
 import { FileService } from '../../../services/files.service';
 import { AlertService } from '../../../services/alert.service';
+import { NotificationService } from 'app/services/notifications.service';
+import { environment } from '../../../../environments/environment';
+import { NotificationTypes } from 'app/enums/notification-types.enum';
+import { getSessionDuration } from '../../../helpers/session-duration.helper';
 
 @Component({
   selector: 'app-session-details',
@@ -32,13 +36,16 @@ export class SessionDetailsComponent implements OnInit {
   sessionDate: object;
   sessionIsEditable: boolean;
   buttonText: String;
+  currentUser: any;
 
   constructor(
     private userService: UserService,
     private fileService: FileService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
     this.userIsMentor = (this.currentUserId === this.request.mentor.id);
     this.userIsMentee = (this.currentUserId === this.request.mentee.id);
     this.sessionIsEditable = this.checkSessionIsEditable();
@@ -159,6 +166,7 @@ export class SessionDetailsComponent implements OnInit {
             this.fileService.deleteSessionFile(session.id, file.id)
               .toPromise()
               .then(() => this.removeDeletedFile.emit(file));
+            this.sendDeleteFileNotification(file.name);
           },
         });
   }
@@ -204,5 +212,27 @@ export class SessionDetailsComponent implements OnInit {
   private checkSessionIsEditable(): boolean {
     return ((this.session.mentor_logged && this.userIsMentor && !this.session.mentee_logged) ||
     (this.session.mentee_logged && this.userIsMentee && !this.session.mentor_logged));
+  }
+
+  /** Sends notification to the relevant recipient.
+   * @param message
+   * @param recipient
+   *
+   * @return {Object}
+   */
+  sendDeleteFileNotification(file) {
+    const sessionDuration = getSessionDuration(this.session);
+    const type = NotificationTypes.FILE_CHANGE;
+    const message = {
+      title: 'Deleted Session File',
+      content: `${this.currentUser.name} has deleted a file ${file} from your ${sessionDuration} session on ${this.session.date}"`,
+    }
+    const recipient = (this.currentUser.id === this.request.mentee.id) ? this.request.mentor.id : this.request.mentee.id;
+    return this.notificationService.sendMessage([recipient], {
+      message,
+      type,
+      sender: this.currentUser.name,
+      timestamp: Date.now(),
+    });
   }
 }
